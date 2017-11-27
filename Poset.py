@@ -1,31 +1,54 @@
 import graphviz as gv
 import numpy as np
+import os
 
 from collections import deque
-from itertools import combinations
-from os.path import join
+from itertools import combinations, compress
 
 DEFAULT_OUTPUT_DIR = "poset_output"
+DEFAULT_GRAPH_FILENAME = "poset_graph.gv"
 
 class Poset():
 
     def __init__(self, input_classes=None, output_dir=DEFAULT_OUTPUT_DIR):
+        """
+        input_classes: A list of lists or sets.
+        output_dir: A string specifying where the graph visualizations
+                    should be saved.
+        """
         if not input_classes:
-            classes = []
+            input_classes = []
 
         self.classes = [set(c) for c in input_classes]
         self.subset_matrix = None
         self.daughter_matrix = None
         self.output_dir = output_dir
-        self.sort_classes()
         self.calculate_subset_matrix()
         self.calculate_daughter_matrix()
 
-    def sort_classes(self):
+    def add_class(self, new_class):
         """
-        Sorts the input classes descending by length
+        Adds a new class to the poset and recalculates the subset and 
+        daughter matrices.
         """
-        self.classes.sort(key=len, reverse=True)
+        new_class = set(new_class)
+        
+        if new_class in self.classes:
+            return
+
+        n = self.subset_matrix.shape[0]
+        new_matrix = np.zeros((n + 1, n + 1), dtype='bool')
+        new_matrix[0:n, 0:n] = self.subset_matrix
+
+        for i, c in enumerate(self.classes):
+            if c.issubset(new_class):
+                new_matrix[n, i] = True
+            if new_class.issubset(c):
+                new_matrix[i, n] = True
+
+        self.subset_matrix = new_matrix
+        self.classes.append(new_class)
+        self.calculate_daughter_matrix()
 
     def calculate_subset_matrix(self):
         """
@@ -57,14 +80,33 @@ class Poset():
         m = self.subset_matrix
         self.daughter_matrix = m * ~np.dot(m, m)
 
-    def graph_poset(self, filename='poset_graph.gv', title=None):
+    def get_parents(self, c):
+        """
+        Gets the parents of the provided class
+        """
+        index = self.classes.index(c)
+        parents_col = self.daughter_matrix[:, index]
+        return list(compress(self.classes, parents_col))
+
+    def is_subset(self, c1, c2):
+        """
+        Returns True if c1 is a subset of c2, False otherwise
+        """
+        i = self.classes.index(c1)
+        j = self.classes.index(c2)
+        return self.subset_matrix[i, j]
+
+    def graph_poset(self, filename=DEFAULT_GRAPH_FILENAME, title=None):
         """
         Visualizes the parent/daughter relationship of the classes
         in the poset.
         """
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+
         graph = gv.Digraph(
             comment=str(title),
-            filename=join(self.output_dir, filename),
+            filename=os.path.join(self.output_dir, filename),
             format='ps'
         )
         for i, cl in enumerate(self.classes):
@@ -95,34 +137,36 @@ class Poset():
         Together, these facts make it possible to skip the intersetion
         operation for over half of all classes
         """
-        new_classes = self.classes.copy()
+        new_poset = Poset(self.classes)
 
-        class_pairs = combinations(new_classes, 2)
+        class_pairs = combinations(new_poset.classes, 2)
         class_pair_deque = deque(class_pairs)
 
         while class_pair_deque:
             c1, c2 = class_pair_deque.pop()
 
             # Check if one class is a subset of the other
-            if c1.issubset(c2) or c2.issubset(c1):
+            if (new_poset.is_subset(c1, c2) 
+                    or new_poset.is_subset(c2, c1)):
                 continue
 
             # Get the intersection
             intersection = c1.intersection(c2)
 
             # Check if the intersection is empty or already in our classes
-            if not intersection or intersection in new_classes:
+            if not intersection or intersection in new_poset.classes:
                 continue
 
             # We've found a new class!
-            for c in new_classes:
+            new_poset.add_class(intersection)
+            for c in new_poset.classes:
                 # If any classes aren't in a subset relationship with the new
                 # class, add them to the pairs we need to consider.
-                if not (c.issubset(intersection) or intersection.issubset(c)):
+                if not (new_poset.is_subset(c, intersection) 
+                        or new_poset.is_subset(intersection, c)):
                     class_pair_deque.appendleft((c, intersection))
-            new_classes.append(intersection)
 
-        return Poset(new_classes)
+        return new_poset
 
 if __name__ == "__main__":
 
@@ -156,6 +200,6 @@ if __name__ == "__main__":
     ]
 
     p = Poset(input_classes_vowels)
-    p.graph_poset(filename="no_intersection.gv")
+    p.graph_poset(filename="no_intersection_test.gv")
     p2 = p.get_intersectional_closure()
-    p2.graph_poset(filename="intersection.gv")
+    p2.graph_poset(filename="intersection_test.gv")
