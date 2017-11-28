@@ -1,0 +1,115 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{mathtools}
+\usepackage{amssymb}        % so we can use the 'pretty' empty set
+\usepackage{tipa}
+\usepackage{graphicx}           % purdy pitchers
+
+\title{An algorithm to assign features to a set of natural classes}
+\author{}
+\author{
+  Mayer, Connor Joseph \\
+  \texttt{connor.joseph.mayer@gmail.com}
+  \and
+  Daland, Robert \\
+  \texttt{r.daland@gmail.com}
+}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This squib describes a dynamic programming algorithm which assigns features to a set of natural classes. The input consists of a set of classes, each containing one or more segments; in other words, a subset of the powerset of a segmental alphabet $\Sigma$. If a class can be generated as the union of existing features ( = intersection of already-processed classes), those features are propagated to every segment in the class. Otherwise, a new feature/value is assigned. The algorithm comes in 4 flavors, which differ with respect to complementation and how negative values are assigned. We show that these variants yield \textit{privative specification}, \textit{contrastive underspecification}, \textit{contrastive specification}, and \textit{full specification}, respectively. The main text sets out necessary background, and illustrates each variant of the algorithm. The Appendix formally proves that each algorithm is sound.
+\end{abstract}
+
+\section{Introduction}
+merge what Connor wrote
+
+\section{Features, lattices, definition, and notation}
+
+Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$. 
+
+% definition of natural class system
+\vspace{\baselineskip} \noindent \textit{Definition}:
+        A \textit{natural class system} $\mathcal C$ is a set of classes over $\Sigma$, $\mathcal C = \{C_i\}_{i=1}^n$, which includes $\Sigma$ itself, and the empty set (i.e. $\varnothing , \Sigma \in \mathcal C$).
+
+% remarks on natural class system
+\vspace{\baselineskip} \noindent Every natural class system is a subset of the powerset of $\Sigma$ -- the set of all subsets of $\Sigma$. This kind of structure is the canonical example of a \textit{lattice} under the subset relation. That is, the subset relation $\subseteq$ forms a \textit{partial order} (meaning that not all pairs of sets in $\mathcal C$ are comparable), and for every pair $C_i, C_j \in \mathcal C$, there is a greatest common subset and a least common superset. An example is shown below -- a vowel harmony lattice (the empty set is not shown):
+
+% show an example of a natural class system: a vowel harmony lattice
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{vowelHarmony_unicode.png}
+\caption{Vowel harmony lattice}
+\label{fig:lattice}
+\end{figure}
+
+% definition of featurization
+\vspace{\baselineskip} \noindent \textit{Definition}:
+        A \textit{featurization} of an alphabet $\Sigma$, $\mathcal F(\Sigma)$ assigns a set of feature/value pairs to every segment $\Sigma$. Formally, a featurization consists of a set of features $\mathcal F(\Sigma) = \{f_j\}_{j=1}^k$, where each feature is a function $f_j \, : \, \Sigma \rightarrow \{+, -, 0\}$.
+
+\vspace{\baselineskip} \noindent As an example, a featurization of the vowel harmony lattice above is shown below:
+
+% table with featurization of vowel harmony lattice
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c||c|c|c|c|c|}
+    \hline
+        $\sigma$ & front & back & low & high & round \\ \hline
+        \textipa{i} & + & -- & -- & + & -- \\
+        \textipa{y} & + & -- & -- & + & + \\
+        \textipa{W} & -- & + & -- & + & -- \\
+        \textipa{u} & -- & + & -- & + & + \\
+        \textipa{E} & + & -- & -- & -- & -- \\
+        \textipa{\oe} & + & -- & -- & -- & + \\
+        \textipa{2} & -- & + & -- & -- & -- \\
+        \textipa{O} & -- & + & -- & -- & + \\
+        \textipa{a} & -- & + & + & -- & -- \\
+        \hline
+    \end{tabular}
+    \caption{Example of a (fully specified) featurization.}
+    \label{table:featurization}
+\end{table}
+
+\vspace{\baselineskip} \noindent We will call a featurization \textit{well-formed} if every pair of segments in $\Sigma$ is featurally distinct. It is known that every well-formed featurization gives rise to a natural class system. \footnote{It is always possible to make ill-formed featurizations become well-formed. For example, suppose that [ptk] are not given distinct place features. One way to make the featurization well-formed is to add their place features. Another way to make it well-formed is to replace instances of [ptk] with a meta-symbol [T] in $\Sigma$, yielding a new segmental alphabet $\Sigma ' = \Sigma \setminus \{p,t,k\} \cup \{T\}$.}
+
+\vspace{\baselineskip} \noindent \textit{Definition}:
+   Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system. The \textit{intersective closure} of $\mathcal C$, denoted $\mathcal C^\cap$, is the natural class system consisting of every class in $\mathcal C$, as well as any class that can be generated by the intersection of two or more classes in $\mathcal C$. Formally, 
+
+$$ \mathcal C^\cap = \{C \, | \, \exists (i_1, i_2, \ldots, i_n) \, [(\forall i_k \, C_{i_k} \in \mathcal C)  \land (C = \cap_{k=1}^n C_{i_k})] \} $$
+
+\vspace{\baselineskip} \noindent We will provide a dynamic programming algorithm which efficiently calculates the intersective closure of a natural class system, while simultaneously filling out a data structure which tracks the intersections. This algorithm lays the ground for the \textit{privative specification} variant of the featurization algorithm. The other variants of the featurization algorithm differ only in whether complements of classes are considered (and if so, complements with respect to the smallest containing class, or the entire alphabet).
+
+\section{A dynamic programming algorithm for computing intersectional closure}
+describe the algorithm
+
+\section{Privative specification}
+achieved by assigning a new feature [+f] only, to every segment in $X$
+
+\section{Contrastive underspecification}
+achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
+
+\section{Contrastive specification}
+achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $Y \setminus X$ (even if $Y \setminus X$ was not in the input)
+
+\section{Full specification}
+achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $\Sigma \setminus X$
+
+\appendix
+
+\section{Formal proof of the algorithm}
+
+\subsection{Privative underspecification}
+
+\subsection{Contrastive underspecification}
+
+\subsection{Contrastive specification}
+
+\subsection{Full specification}
+
+\end{document}  
