@@ -1,3 +1,4 @@
+from Poset import Poset
 from collections import defaultdict
 from itertools import chain, combinations
 
@@ -127,6 +128,98 @@ def check_intersections(test_class, input_classes, class_features,
 
     return union_features
 
+def get_features_from_classes_poset(input_classes, sounds):
+    # Initialize complete_classes to just be the set of all sounds in the
+    # language.
+    complete_classes = [sounds]
+
+    # Build an intersectionally closed poset from the input classes
+    # and take all the resulting classes
+    poset = Poset([sounds] + input_classes).get_intersectional_closure()
+    incomplete_classes = sorted(poset.classes, key=len, reverse=True)
+
+    # A dictionary to associate classes with features.
+    class_features = defaultdict(set)
+
+    # Integer labels for learned features
+    feature_num = 0
+
+    while incomplete_classes:
+        # Check how many parents the largest remaining class has
+        c = incomplete_classes.pop(0)
+        parents = poset.get_parents(c)
+
+        if not parents:
+            # This is the full set of sounds
+            class_features[tuple(sorted(c))] = set()
+
+        elif len(parents) == 1:
+            # Just one parent, which means it cannot be generated as
+            # the intersection of two or more larger classes, which
+            # means we need a new feature. Get the complement class
+            # wrt its parent and assign +/- feature values arbitrarily
+            c1 = parents[0] - c
+            c_feature = set([(feature_num, '+')])
+            c1_feature = set([(feature_num, '-')])
+            feature_num += 1
+
+            # Add the new complement class to the poset and recalculate
+            # intersectional closure
+            poset.add_class(c1)
+            poset = poset.get_intersectional_closure()
+
+            # Get the features of the superclass and combine them with new
+            # subclass features
+            superclass_features = class_features[
+                tuple(sorted(parents[0]))
+            ]
+            c_features = superclass_features.union(c_feature)
+            c1_features = superclass_features.union(c1_feature)
+
+            # Update features for each class and each segment within those classes.
+            class_features[tuple(sorted(c))].update(c_features)
+            class_features[tuple(sorted(c1))].update(c1_features)
+
+            # Go through each subclass of c and c1 and assign them the same features
+            for cl in incomplete_classes:
+                if poset.is_subset(cl, c):
+                    class_features[tuple(sorted(cl))].update(c_features)
+                if poset.is_subset(cl, c1):
+                    class_features[tuple(sorted(cl))].update(c1_features)
+
+            # Add c and c1 to classes we've finished with
+            complete_classes.append(c)
+            complete_classes.append(c1)
+
+            # Update the classes we still need to deal with to be the set of 
+            # classes in the new poset that we haven't already dealt with
+            incomplete_classes = list(filter(
+                lambda x: x not in complete_classes,
+                sorted(poset.classes, key=len, reverse=True)
+            ))
+
+        else:
+            # Class has more than one parent, so we can define its features
+            # as the intersection of their features. Get their features and
+            # assign them to the class
+            union_features = set.union(
+                *[class_features[tuple(sorted(x))] for x in parents]
+            )
+            class_features[tuple(sorted(c))].update(union_features)
+
+            # Assign this class's features to all its subclasses.
+            for cl in incomplete_classes:
+                if poset.is_subset(cl, c):
+                    class_features[tuple(sorted(cl))].update(union_features)
+            complete_classes.append(c)
+
+    # Print out the classes and their featural specifications.
+    for key, value in sorted(class_features.items(), key=lambda x: len(x[1])):
+        print("{}:\t{}".format(key, sorted(value)))
+
+    # Better have unique descriptions for each class!
+    assert(len(class_features) == len(set(map(tuple, class_features.values()))))
+
 def get_features_from_classes(input_classes, sounds):
     # Initialize complete_classes to just be the set of all sounds in the
     # language.
@@ -206,7 +299,14 @@ def get_features_from_classes(input_classes, sounds):
     assert(len(class_features) == len(set(map(tuple, class_features.values()))))
 
 if __name__ == "__main__":
-    print("Doing Hawaiian...")
-    get_features_from_classes(input_classes_hawaiian, all_sounds_hawaiian)
-    print("\nDoing vowels...")
-    get_features_from_classes(input_classes_vowels, all_sounds_vowels)
+    # print("Doing Hawaiian...")
+    # get_features_from_classes(input_classes_hawaiian, all_sounds_hawaiian)
+    
+    #print("Doing poset Hawaiian...")
+    #get_features_from_classes_poset(input_classes_hawaiian, all_sounds_hawaiian)
+
+    # print("\nDoing vowels...")
+    # get_features_from_classes(input_classes_vowels, all_sounds_vowels)
+
+    print("\nDoing poset vowels...")
+    get_features_from_classes_poset(input_classes_vowels, all_sounds_vowels)

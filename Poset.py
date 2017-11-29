@@ -32,7 +32,7 @@ class Poset():
         daughter matrices.
         """
         new_class = set(new_class)
-        
+
         if new_class in self.classes:
             return
 
@@ -49,6 +49,15 @@ class Poset():
         self.subset_matrix = new_matrix
         self.classes.append(new_class)
         self.calculate_daughter_matrix()
+
+    def get_closest_known_parents(self, target, known_classes):
+        target_index = self.classes.index(target)
+        parents = []
+        for i, c in enumerate(self.classes):
+            if i != target_index and self.subset_matrix[i, target_index]:
+                parents.append(c)
+        return list(filter(lambda x: x in known_classes, parents))
+
 
     def calculate_subset_matrix(self):
         """
@@ -94,7 +103,7 @@ class Poset():
         """
         i = self.classes.index(c1)
         j = self.classes.index(c2)
-        return self.subset_matrix[i, j]
+        return self.subset_matrix[j, i]
 
     def graph_poset(self, filename=DEFAULT_GRAPH_FILENAME, title=None):
         """
