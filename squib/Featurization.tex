@@ -5,6 +5,7 @@
 %\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps with pdflatex; use eps in DVI mode
 								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{amssymb}        % so we can use the 'pretty' empty set
 \usepackage{tipa}
@@ -31,16 +32,16 @@ This squib describes a dynamic programming algorithm which assigns features to a
 \section{Introduction}
 merge what Connor wrote
 
-\section{Features, lattices, definition, and notation}
+\section{Definitions and notation}
 
 Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$. 
 
-% definition of natural class system
-\vspace{\baselineskip} \noindent \textit{Definition}:
-        A \textit{natural class system} $\mathcal C$ is a set of classes over $\Sigma$, $\mathcal C = \{C_i\}_{i=1}^n$, which includes $\Sigma$ itself, and the empty set (i.e. $\varnothing , \Sigma \in \mathcal C$).
+\subsection{Definition and example of natural class system}
 
-% remarks on natural class system
-\vspace{\baselineskip} \noindent Every natural class system is a subset of the powerset of $\Sigma$ -- the set of all subsets of $\Sigma$. This kind of structure is the canonical example of a \textit{lattice} under the subset relation. That is, the subset relation $\subseteq$ forms a \textit{partial order} (meaning that not all pairs of sets in $\mathcal C$ are comparable), and for every pair $C_i, C_j \in \mathcal C$, there is a greatest common subset and a least common superset. An example is shown below -- a vowel harmony lattice (the empty set is not shown):
+% definition of natural class system
+A \textit{natural class system} $\mathcal C$ is a set of classes over $\Sigma$, $\mathcal C = \{C_i\}_{i=1}^N$, which includes $\Sigma$ itself, and the empty set (i.e. $\varnothing , \Sigma \in \mathcal C$).
+
+Readers who are familiar with the notion of \textit{lattice} will note that every natural class system forms a lattice under the subset relation. To illustrate, a vowel harmony lattice is shown below (the empty set is suppressed):
 
 % show an example of a natural class system: a vowel harmony lattice
 \begin{figure}[h]
@@ -49,11 +50,18 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 \label{fig:lattice}
 \end{figure}
 
-% definition of featurization
-\vspace{\baselineskip} \noindent \textit{Definition}:
-        A \textit{featurization} of an alphabet $\Sigma$, $\mathcal F(\Sigma)$ assigns a set of feature/value pairs to every segment $\Sigma$. Formally, a featurization consists of a set of features $\mathcal F(\Sigma) = \{f_j\}_{j=1}^k$, where each feature is a function $f_j \, : \, \Sigma \rightarrow \{+, -, 0\}$.
+\subsection{Definition and example of a feature system}
 
-\vspace{\baselineskip} \noindent As an example, a featurization of the vowel harmony lattice above is shown below:
+% definition of feature system
+A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
+    \item $\Sigma$ is a segmental alphabet, 
+    \item $\mathcal V$ is a set of values, and 
+    \item $\mathcal F = \{f_j : \Sigma \rightarrow \mathcal V\}_{j=1}^M$ is a set of feature functions mapping segments to feature values
+    \end{itemize}
+
+We say that a feature system has \textit{privative specification} if $\mathcal V = \{ +, 0 \}$, \textit{full specification} if $\mathcal V = \{ +, - \}$, and \textit{contrastive specification} if $\mathcal V = \{ +, -, 0 \}$. We do not consider other value sets here.
+        
+A (fully specified) feature system for the vowel harmony lattice shown in Fig.~\ref{fig:lattice} is shown below:
 
 % table with featurization of vowel harmony lattice
 \begin{table}[h]
@@ -76,17 +84,43 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
     \label{table:featurization}
 \end{table}
 
-\vspace{\baselineskip} \noindent We will call a featurization \textit{well-formed} if every pair of segments in $\Sigma$ is featurally distinct. It is known that every well-formed featurization gives rise to a natural class system. \footnote{It is always possible to make ill-formed featurizations become well-formed. For example, suppose that [ptk] are not given distinct place features. One way to make the featurization well-formed is to add their place features. Another way to make it well-formed is to replace instances of [ptk] with a meta-symbol [T] in $\Sigma$, yielding a new segmental alphabet $\Sigma ' = \Sigma \setminus \{p,t,k\} \cup \{T\}$.}
+\subsection{Featural descriptors}
 
-\vspace{\baselineskip} \noindent \textit{Definition}:
-   Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system. The \textit{intersective closure} of $\mathcal C$, denoted $\mathcal C^\cap$, is the natural class system consisting of every class in $\mathcal C$, as well as any class that can be generated by the intersection of two or more classes in $\mathcal C$. Formally, 
+\vspace{\baselineskip} \noindent Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. The following definitions will prove useful: \begin{itemize}
+    \item We will refer to the set of feature functions $\mathcal F = \{f_j\}_{j=1}^M$ as a \textit{featurization} (of $\Sigma$). 
+    \item A \textit{featural descriptor} $\mathbf{e}$ is a subset of $\mathcal (V \setminus \{0\}) \times \mathcal F$, in other words a set of feature/value pairs where the value cannot be $0$ \begin{itemize}
+        \item featural descriptors can be written in the form $[\alpha_k f_k]_{k \in K}$ for some index set $K$
+        \item an example is $[+ \text{front}, - \text{low}]$
+        \end{itemize}
+    \item The natural class described by a featural descriptor $\mathbf{e}$, written $\langle \mathbf{e} \rangle$, consists of every segment which has \textit{at least} the feature/value pairs in $\mathbf{e}$ \begin{itemize}
+        \item $\mathbf{e} = [\alpha_k f_k]_{k \in K} \leftrightarrow \langle \mathbf{e} \rangle = \{x \in \Sigma \, | \, \forall k \in K \, [ f_k(x) = \alpha_k ] \}$
+        \item for the feature system in Table~\ref{table:featurization}, the natural class described by $[+ \text{front}, - \text{low}]$ is \{ \textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe} \}
+        \end{itemize}
+    \item Let $\mathcal V^\mathcal F$ denote the set of all licit featural descriptors over $(\mathcal F, \Sigma, \mathcal V)$. Let $\langle \mathcal V^\mathcal F \rangle$ indicate the set of natural classes described by this set. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates $\langle \mathcal V^\mathcal F \rangle$.
+    \end {itemize}
+    
+Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the vowel feature system shown in Table~\ref{table:featurization}, $[+front, -front]$ and $[+high, +low]$ both pick out the empty set.
 
-$$ \mathcal C^\cap = \{C \, | \, \exists (i_1, i_2, \ldots, i_n) \, [(\forall i_k \, C_{i_k} \in \mathcal C)  \land (C = \cap_{k=1}^n C_{i_k})] \} $$
+\subsection{Properties of feature systems}
 
-\vspace{\baselineskip} \noindent We will provide a dynamic programming algorithm which efficiently calculates the intersective closure of a natural class system, while simultaneously filling out a data structure which tracks the intersections. This algorithm lays the ground for the \textit{privative specification} variant of the featurization algorithm. The other variants of the featurization algorithm differ only in whether complements of classes are considered (and if so, complements with respect to the smallest containing class, or the entire alphabet).
+\vspace{\baselineskip} \noindent Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system with featurization $\mathcal F = \{f_j\}_{j=1}^M$. \begin{itemize}
+    \item The \textit{feature vector} of a segment $x$ is the tuple $F(x) = (f_j(x))_{j=1}^k$.
+    \item Two segments $x, y$ are \textit{featurally distinct} if and only if $F(x) \neq F(y)$; in other words, if they do not match on at least feature.
+    \item The feature system is \textit{well-formed} if every pair of segments in $\Sigma$ is featurally distinct.\footnote{It is always possible to make ill-formed systems become well-formed. For example, suppose that [ptk] are not given distinct place features. One way to make the system well-formed is to add place features. Another way is to replace instances of [ptk] with a meta-symbol [T] in $\Sigma$, yielding a new segmental alphabet $\Sigma ' = \Sigma \setminus \{p,t,k\} \cup \{T\}$.}
+    \item Let $\mathcal C = \{C_i\}_{i=1}^N$ be a set of natural classes. A featurization is \textit{adequate} to distinguish $\mathcal C$ if and only if $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, in other words if it provides a way to pick out every class in $\mathcal C$.
+    \item A feature $f_j$ is \textit{redundant} if $\mathcal F' = \mathcal F \setminus \{ f_j \}$ is well-formed.
+    \item A featurization is \textit{efficient} if it contains no redundant features.
+    \item A featurization is \textit{minimal} (for the value set $\mathcal V$) if there is no well-formed featurization that contains a smaller number of feature functions than $\mathcal F$ does (mapping to the same value set).
+    \end{itemize}
+    
+\vspace{\baselineskip} \noindent It is straightforward to show that if $\mathcal F(\Sigma)$ is a well-formed featurization, then it generates a natural class system. Our goal in the remainder of this paper is the following: \begin{itemize}
+    \item Suppose that the learner has evidence (based on phonetic similarity, and/or phonological patterning) for a set of natural classes $\mathcal C = \{C_i\}_{i=1}^N$
+    \item Describe an algorithm which returns a well-formed feature system that is \textit{adequate} for $\mathcal C$, \textit{efficient}, and ideally \textit{minimal}.
+    \end{itemize}
 
 \section{A dynamic programming algorithm for computing intersectional closure}
-describe the algorithm
+
+Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system. The \textit{intersective closure} of $\mathcal C$, denoted $\mathcal C_\cap$, is the natural class system consisting of every class that can be generated by the intersection of finitely many classes in $\mathcal C$ (e.g. every class in $\mathcal C$, as well as any class that can be generated by the intersection of two or more classes in $\mathcal C$). Formally, 
 
 \section{Privative specification}
 achieved by assigning a new feature [+f] only, to every segment in $X$
