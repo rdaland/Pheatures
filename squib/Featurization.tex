@@ -35,8 +35,11 @@ merge what Connor wrote
 
 \section{Definitions and notation}
 
-% classes and natural class systems
-Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$.  A \textit{natural class system} $\mathcal C$ is a set of classes over $\Sigma$, $\mathcal C = \{C_i\}_{i=1}^N$, which includes $\Sigma$ itself, and the empty set (i.e. $\varnothing , \Sigma \in \mathcal C$). Readers who are familiar with the notion of \textit{lattice} will note that every natural class system forms a lattice under the subset relation. To illustrate, a vowel harmony lattice is shown below (the empty set is suppressed):
+Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$.  
+
+\subsection{Natural classes and natural class systems}
+
+A \textit{natural class system} $\mathcal C$ is a set of classes over $\Sigma$, $\mathcal C = \{C_i\}_{i=1}^N$, which includes $\Sigma$ itself. To illustrate, a vowel harmony lattice is shown in Fig~\ref{fig:lattice}, with downward arrows representing the superset/subset relation.\footnote{Technically, this is a not a lattice because it does not contain the empty set. This technical detail is not important for our purposes.}
 
 % show an example of a natural class system: a vowel harmony lattice
 \begin{figure}[h]
@@ -45,16 +48,16 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 \label{fig:lattice}
 \end{figure}
 
+\subsection{Feature systems and featurizations}
+
 % definition of feature system
-A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
+\vspace{\baselineskip} A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
     \item $\Sigma$ is a segmental alphabet, 
     \item $\mathcal V$ is a set of values, and 
-    \item $\mathcal F = \{f_j : \Sigma \rightarrow \mathcal V\}_{j=1}^M$ is a set of feature functions mapping segments to feature values
+    \item $\mathcal F$ is a \textit{featurization}: a set of features $\{f_j\}_{j=1}^M$, where each feature is a function $f: \Sigma \rightarrow \mathcal V$ mapping segments to feature values
     \end{itemize}
 
-We say that a feature system has \textit{privative specification} if $\mathcal V = \{ +, 0 \}$, \textit{full specification} if $\mathcal V = \{ +, - \}$, and \textit{contrastive specification} if $\mathcal V = \{ +, -, 0 \}$. We do not consider other value sets here.
-        
-A (fully specified) feature system for the vowel harmony lattice shown in Fig.~\ref{fig:lattice} is shown below:
+A feature system for the vowel harmony lattice shown in Fig.~\ref{fig:lattice} is shown below:
 
 % table with featurization of vowel harmony lattice
 \begin{table}[h]
@@ -73,39 +76,75 @@ A (fully specified) feature system for the vowel harmony lattice shown in Fig.~\
         \textipa{a} & -- & + & + & -- & -- \\
         \hline
     \end{tabular}
-    \caption{Example of a (fully specified) featurization.}
+    \caption{Example of a fully specified featurization.}
     \label{table:featurization}
 \end{table}
 
-\vspace{\baselineskip} \noindent Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. The following definitions will prove useful: \begin{itemize}
-    \item We will refer to the set of feature functions $\mathcal F = \{f_j\}_{j=1}^M$ as a \textit{featurization} (of $\Sigma$). 
-    \item A \textit{featural descriptor} $\mathbf{e}$ is a subset of $(\mathcal V \setminus \{0\}) \times \mathcal F$ \begin{itemize}
-        \item in other words, $\mathbf{e}$ is a set of feature/value pairs, where the value cannot be $0$
-        \item an example is $[+ \text{front}, - \text{low}]$
-        \end{itemize}
-    \item The natural class described by a featural descriptor $\mathbf{e}$, written $\langle \mathbf{e} \rangle$, consists of every segment which has \textit{at least} the feature/value pairs in $\mathbf{e}$ \begin{itemize}
-        \item featural descriptors can be written in the form $[\alpha_k f_k]_{k \in K}$ for some index set $K$
-        \item $\mathbf{e} = [\alpha_k f_k]_{k \in K}$ if and only if $\langle \mathbf{e} \rangle = \{x \in \Sigma \, | \, \forall k \in K \, [ f_k(x) = \alpha_k ] \}$
-        \item for the feature system in Table~\ref{table:featurization}, the natural class described by $[+ \text{front}, - \text{low}]$ is \{\textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe}\}
-        \end{itemize}
-    \item Let $\mathcal V^\mathcal F$ denote the set of all licit featural descriptors over $(\mathcal F, \Sigma, \mathcal V)$ \begin{itemize}
-        \item Formally, $\mathcal V^\mathcal F = \mathcal P((\mathcal V \setminus \{0\}) \times \mathcal F)$, where $\mathcal P(X)$ is the powerset of $X$
-        \item Define $\langle \mathcal V^\mathcal F \rangle = \{ \langle e \rangle \, | \, e \in \mathcal V^\mathcal F \}$
-        \item In other words, $\langle \mathcal V^\mathcal F \rangle$ is the set of all natural classes that can be generated by featural descriptors over $(\mathcal F, \Sigma, \mathcal V)$
-        \end{itemize}
-    \end {itemize}
-    
-Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the vowel feature system shown in Table~\ref{table:featurization}, the featural descriptor $[+\text{front}]$ picks out the same class as the featural descriptor $[+ \text{front}, - \text{low}]$ (the front vowels); and the featural descriptors $[+\text{front}, -\text{front}]$ and $[+\text{high}, +\text{low}]$ both pick out the empty set.
+\noindent In the next subsection we formalize featural descriptors, which relate classes and feature systems.
 
-\vspace{\baselineskip} \noindent Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system with featurization $\mathcal F = \{f_j\}_{j=1}^M$. \begin{itemize}
+\subsection{Featural descriptors}
+
+Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathcal V$ to the following possibilities: \begin{itemize}
+    \item \textit{privative specification}: $\mathcal V = \{ +, 0 \}$
+    \item \textit{full specification}: $\mathcal V = \{ +, - \}$
+    \item \textit{contrastive specification}: $\mathcal V = \{ +, -, 0 \}$
+    \end{itemize}
+
+\noindent A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs, where the values cannot be $0$. For example, $\mathbf{e} = [+ \text{front}, - \text{low}]$ is a featural descriptor.
+
+Formally, a featural descriptor is a subset of $(\mathcal V \setminus \{0\}) \times \mathcal F$. This means that the space of all licit featural descriptors is the powerset of this set. We use the notation $\mathcal V^\mathcal F$ to denote this space: $\mathcal V^\mathcal F = \{ \mathbf{e} \, | \, \mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F \}$. Moreover, every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = [\alpha_k F_k]_{k \in K}$, where $K$ is some index set $K$, each $\alpha_k$ is a value in $\mathcal V \setminus \{ 0 \}$, and each $F_k$ is a feature in $\mathcal F$. We use this form to relate featural descriptors and the classes they describe.
+
+A featural descriptor describes the class of segments which have at least the feature/value pairs it contains. We use the notation $\langle \mathbf{e} \rangle$ to indicate the natural class that is described by $\mathbf{e}$: \begin{itemize}
+    \item $\langle [\alpha_k F_k]_{k \in K} \rangle = \{x \in \Sigma \, | \, \forall k \in K \, [ F_k(x) = \alpha_k ] \}$
+    \end{itemize}
+
+\noindent Finally, we define $\langle \mathcal V^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, | \, \mathbf{e} \in \mathcal V^\mathcal F \}$. This is the set of natural classes over $\Sigma$ that can be described by the feature system $(\mathcal F, \Sigma, \mathcal V)$.
+
+Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system shown in Table~\ref{table:featurization}, the featural descriptor $[+\text{front}]$ picks out the same class as the featural descriptor $[+ \text{front}, - \text{low}]$ (the front vowels). Moreover, the featural descriptors $[+\text{front}, -\text{front}]$ and $[+\text{high}, +\text{low}]$ both pick out the empty set.
+
+\vspace{\baselineskip} It is straightforward to show that every feature system generates a natural class system. Our goal in the remainder of this paper is to go the opposite direction: starting with a natural class system $\mathcal C$ over an alphabet $\Sigma$, can we assign a `good' feature system $(\mathcal F, \Sigma, \mathcal V)$ that describes $\mathcal C$? Prior to doing this, it is necessary to define what is meant by a `good' feature system.
+
+\subsection{Criteria for feature systems}
+
+ Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system with features $\{f_j\}_{j=1}^M$. \begin{itemize}
     \item The \textit{feature vector} of a segment $x$ is the tuple $F(x) = (f_j(x))_{j=1}^M$.
     \item Two segments $x, y$ are \textit{featurally distinct} if and only if $F(x) \neq F(y)$; in other words, if they do not match on at least feature.
-    \item The feature system is \textit{well-formed} if every pair of segments in $\Sigma$ is featurally distinct.\footnote{It is always possible to make ill-formed systems become well-formed. For example, suppose that [ptk] are not given distinct place features. One way to make the system well-formed is to add place features. Another way is to replace instances of [ptk] with a meta-symbol [T] in $\Sigma$, yielding a new segmental alphabet $\Sigma ' = \Sigma \setminus \{p,t,k\} \cup \{T\}$.}
+    \item The feature system is \textit{well-formed} if every pair of segments in $\Sigma$ is featurally distinct.
     \item A feature $f_j$ is \textit{redundant} if $\mathcal F' = \mathcal F \setminus \{ f_j \}$ is well-formed.
     \item A featurization is \textit{efficient} if it contains no redundant features.
     \end{itemize}
 
-It is straightforward to show that if $(\mathcal F, \Sigma, \mathcal V)$ is a well-formed feature system, then it generates a natural class system.  Our goal in the remainder of this paper is to go the opposite direction: starting with a natural class system $\mathcal C$ over an alphabet $\Sigma$, can we assign an efficient, well-formed feature system $(\mathcal F, \Sigma, \mathcal V)$ that is rich enough to generate $\mathcal C$?
+Note that these requirements do not entail that every segment can be uniquely picked out by a featural descriptor. For example, consider the feature system in Table~\ref{table:privative}. The `sonorant' [R] can be uniquely picked out by the featural descriptor $[+son,+vcd]$, and the `voiced' segments [D, R] can be picked out by the featural descriptor $[+vcd]$, but there is no way to uniquely pick out the `voiceless' obstruent [T], or for that matter the voiced obstruent [D] without [R].
+
+% table with featurization of sonorants, voiced obstruents, and voiceless obstruents
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c||c|c|}
+    \hline
+        $\sigma$ & son & vcd \\ \hline
+        R & + & + \\
+        D & 0 & + \\
+        T & 0 & 0 \\
+        \hline
+    \end{tabular}
+    \caption{Example of a privatively specified featurization.}
+    \label{table:privative}
+\end{table}
+
+\noindent However, the feature system is still well-formed, because $F(\text{D}) = [0, +] \neq [0, 0] = F(\text{T})$ (and similarly for R). We call a feature system \textit{rich} if every segment can be uniquely picked out by some featural descriptor; we do not impose the requirement that a feature system be rich.
+
+On the other hand, we do wish for the feature system to be expressive enough to assign a licit featural  descriptor to every natural class in the input. Thus, for a set of natural classes $\mathcal C$ in the `input', we say that a feature system $(\mathcal F, \Sigma, \mathcal V)$ is \textit{adequate} if $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$.
+
+One might further wish that a solution contain no more features than needed. It turns out that the number of features needed to describe a natural class system depends on the value set. For example, the privative feature system shown in Table~\ref{table:privative} cannot uniquely pick out either of the `obstruents' [D] or [T] (or even both of them together, to the exclusion of the sonorant [R]). However, if the privative specification is made into a full specification by replacing the $0$ values with $-$ values, then the `same' features pick out the following classes: \begin{itemize}
+    \item $\langle [] \rangle =$ \{R, D, T\}
+    \item $\langle [+son] \rangle =$ \{R\}
+    \item $\langle [-son] \rangle =$ \{D, T\}
+    \item $\langle [+vcd] \rangle =$ \{R, D\}
+    \item $\langle [-vcd] \rangle =$ \{T\}
+    \item $\langle [-son,+vcd] \rangle =$ \{D\}
+    \item $\langle [+son,-son] \rangle = \varnothing$
+    \end{itemize}
+The privative specification earlier can only pick out \{R, D, T\} and \{R\}. Thus, whether a feature system contains the minimum number of features depends on the value set. We conjecture that the algorithms we describe later do in fact assign minimal features given their value sets, but we do not prove it here. For this reason, we only require an efficient (non-redundant) solution, not a minimal one.
 
 \section{Intersectional closure}
 
@@ -113,17 +152,22 @@ In this section we define the \textit{intersectional closure} of a natural class
 
 The \textit{intersectional closure} of $\mathcal C$, denoted $\mathcal C_\cap$, is the natural class system consisting of every class that can be generated by the intersection of finitely many classes in $\mathcal C$. In other words, $\mathcal C_\cap$ consists of every class in $\mathcal C$, as well as any class that can be generated by the intersection of two or more classes in $\mathcal C$.
 
+\vspace{\baselineskip} \noindent \textbf{Lemma}: The natural class described by the union of two featural descriptors is the intersection of the natural classes described by each featural descriptor.
+
+\textit{Proof}: Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set.
+Further, let $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, and $C_i = \langle \mathbf{e}_i \rangle$, $C_j = \langle \mathbf{e}_j \rangle$.
+We need to show that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle = C_i \cap C_j$.
+First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
+Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
+Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
+Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
+Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
+Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
+
 \vspace{\baselineskip} \noindent \textbf{Theorem}: Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $. In other words, if $(\mathcal F, \Sigma, \mathcal V)$ is rich enough to generate $\mathcal C$, it generates the intersectional closure.
 
 \textit{Proof}: Let $C_i$, $C_j$ be classes in $\mathcal C$, so that $C_i, C_j \in \langle \mathcal V^\mathcal F \rangle$.
-This means that there exist featural descriptors $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$ such that $\langle \mathbf{e}_i \rangle = C_i$ and $\langle \mathbf{e}_j \rangle = C_j$.
-Now $\mathbf{e}_i$ and $\mathbf{e}_j$ are set of feature/value pairs.
-\textit{Claim}: $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle = C_i \cap C_j$.
-Proof that $C_i \cap C_j \subset \langle \mathbf{e} \rangle$: If segment $x \in C_i \cap C_j$, then $x \in C_i$.
-By definition, $x$ must have the features in $\mathbf{e}_i$; similarly, since $x \in C_j$, $x$ must have the features in $\mathbf{e}_j$. Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$.
-Proof that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$. Let $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$. And $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$.
-This illustrates that the union operation on a pair of featural descriptors corresponds to the intersection operation on the corresponding pair natural classes.
-Since union and intersection operations are associative, the extension to any number of finite unions/intersections proceeds by induction (e.g. if $C_i, C_j, C_k \in \mathcal C$, $C_i \cap C_j \cap C_k = (C_i \cap C_j) \cap C_k$; $(C_i \cap C_j) \in C_\cap$ and $C_k \in C_{\cap}$, so $C_i \cap C_j \cap C_k \in \mathcal C_\cap$).
+This means that there exist featural descriptors $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$ such that $\langle \mathbf{e}_i \rangle = C_i$ and $\langle \mathbf{e}_j \rangle = C_j$. By the Lemma above, $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle = C_i \cap C_j$. This illustrates that the union operation on a pair of featural descriptors corresponds to the intersection operation on the corresponding pair natural classes. Since union and intersection operations are associative, the extension to any number of finite unions/intersections proceeds by induction (e.g. if $C_i, C_j, C_k \in \mathcal C$, $C_i \cap C_j \cap C_k = (C_i \cap C_j) \cap C_k$; $(C_i \cap C_j) \in C_\cap$ and $C_k \in C_{\cap}$, so $C_i \cap C_j \cap C_k \in \mathcal C_\cap$).
 
 \vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. We assume that the input is a natural class system $\mathcal C = \{C_i\}_{i=1}^N$, whose classes are sorted in decreasing order of cardinality. (This implies that $C_i \nsubseteq C_j$ whenever $j > i$, so there is no need to check the subset relation.)
 
