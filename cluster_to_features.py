@@ -2,311 +2,320 @@ from Poset import Poset
 from collections import defaultdict
 from itertools import chain, combinations
 
-# Input classes are the sunny sounds of Hawaiian.
-input_classes_hawaiian = [
-    # Consonants
-    set(['m', 'n', 'p', 'k', '7', 'h', 'w', 'l']),
-    # Sonorants
-    set(['m', 'n', 'w', 'l']),
-    # Approximants
-    set(['w', 'l']),
-    # Nasal stops
-    set(['m', 'n']),
-    # Obstruents
-    set(['p', 'k', '7', 'h']),
-    # Stops
-    set(['m', 'n', 'p', 'k', '7']),
-    # Oral stops 
-    set(['p', 'k', '7']),
-    # Glottals
-    set(['h', '7']),
-    # Bilabials
-    set(['w', 'p', 'm']),
-    # Coronals
-    set(['n', 'l']),
-    # Individual consonants
-    set(['m']),
-    set(['n']),
-    set(['p']),
-    set(['7']),
-    set(['h']),
-    set(['w']),
-    set(['l']),
-    set(['k']),
+PRIVATIVE = 0
+CONTRASTIVE_UNDERSPECIFICATION = 1
+CONTRASTIVE = 2
+FULL = 3
 
-    # Vowels
-    # High vowels
-    set(['i', 'u']),
-    # Mid vowels
-    set(['e', 'o']),
-    # Front vowels
-    set(['i', 'e']),
-    # Back vowels
-    set (['u', 'o', 'a']),
-    # Individual vowels
-    set(['i']),
-    set(['u']),
-    set(['e']),
-    set(['o']),
-    set(['a'])
+SPECIFICATIONS = [
+    PRIVATIVE, CONTRASTIVE_UNDERSPECIFICATION, CONTRASTIVE, FULL
 ]
 
-all_sounds_hawaiian = set(
-    ['m', 'n', 'p', 'k', '7', 'h', 'w', 'l', 'i', 'e', 'a', 'o', 'u']
-)
+DEFAULT_CSV_FILE = "features.csv"
 
-input_classes_vowels = [
-    # Test for round/unround vowel system, which needs a minimum intersection
-    # of 3 classes to avoid specifying spurious features.
-    # High vowels
-    set(['i', 'u', 'y', 'U']),
-    # Mid vowels
-    set(['e', 'E', 'o', 'O']),
-    # Front vowels
-    set(['i', 'e', 'E', 'y']),
-    # Back vowels
-    set (['u', 'o', 'a', 'O', 'U']),
-    # Round vowels
-    set(['y', 'E', 'u', 'o']),
-    # Unrounded vowels
-    set(['i', 'e', 'a', 'U', 'O']),
-    # # Individual vowels
-    set(['i']),
-    set(['u']),
-    set(['e']),
-    set(['o']),
-    set(['a']),
-    set(['O']),
-    set(['U']),
-    set(['y']),
-    set(['E'])
-]
+class Featurizer():
+    def __init__(self, input_classes, alphabet,
+                 specification=CONTRASTIVE_UNDERSPECIFICATION, verbose=False):
+        if specification not in SPECIFICATIONS:
+            raise("Invalid featural specification '{}'".format(specification))
 
-all_sounds_vowels = set(
-    ['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']
-)
+        self.input_classes = input_classes
+        self.alphabet = alphabet
+        self.specification = specification
+        self.class_features = defaultdict(set)
+        self.verbose = verbose
+        self.reset()
 
-def powerset_generator(classes, max_size=0, min_size=1):
-    # Generate power set from largest to smallest.
-    if max_size == 0:
-        max_size = len(classes) + 1
-    for subset in chain.from_iterable(
-            combinations(classes, r) 
-            for r in range (max_size, min_size, -1)):
-        yield subset
+    def reset(self):
+        self.class_features = defaultdict(set)
+        self.feature_num = 0
+        # Initialize complete_classes to just be the set of all sounds in the
+        # language.
+        self.complete_classes = [self.alphabet]
 
-def check_intersections(test_class, input_classes, class_features,
-                        stop_when_found=True):
-    # We obviously don't want to look at all possible intersections, since
-    # this is extremely expensive. Instead we start by looking at power sets
-    # up to size 2, and then continue to increase the maximum size until the
-    # resulting union of features no longer changes.
-
-    # Something to think about: does this actually work? If an increase of max
-    # number of sets of intersection doesn't change between n and n+1, does
-    # this guarantee it won't change for n+2 or greater?
-    max_powerset_size = 2
-    prev_union_features = None
-    union_features = None
-
-    while True:
-        prev_union_features = union_features
-        max_powerset_size += 1
-
-        for pset in powerset_generator(input_classes, max_powerset_size):
-                if test_class == set.intersection(*pset):
-                    found_intersection = True
-                    union_features = set.union(
-                        *[class_features[tuple(sorted(x))] for x in pset]
-                    )
-                    # Should we consider multiple possible featural
-                    # specifications for the same set?
-                    if stop_when_found:
-                        break
-        if prev_union_features == union_features:
-            break
-
-    return union_features
-
-def get_features_from_classes_poset(input_classes, sounds):
-    # Initialize complete_classes to just be the set of all sounds in the
-    # language.
-    complete_classes = [sounds]
-
-    # Build an intersectionally closed poset from the input classes
-    # and take all the resulting classes
-    poset = Poset([sounds] + input_classes).get_intersectional_closure()
-    incomplete_classes = sorted(poset.classes, key=len, reverse=True)
-
-    # A dictionary to associate classes with features.
-    class_features = defaultdict(set)
-
-    # Integer labels for learned features
-    feature_num = 0
-
-    while incomplete_classes:
-        # Check how many parents the largest remaining class has
-        c = incomplete_classes.pop(0)
-        parents = poset.get_parents(c)
-
-        if not parents:
-            # This is the full set of sounds
-            class_features[tuple(sorted(c))] = set()
-
-        elif len(parents) == 1:
-            # Just one parent, which means it cannot be generated as
-            # the intersection of two or more larger classes, which
-            # means we need a new feature. Get the complement class
-            # wrt its parent and assign +/- feature values arbitrarily
-            c1 = parents[0] - c
-            c_feature = set([(feature_num, '+')])
-            c1_feature = set([(feature_num, '-')])
-            feature_num += 1
-
-            # Add the new complement class to the poset and recalculate
-            # intersectional closure
-            poset.add_class(c1)
-            poset = poset.get_intersectional_closure()
-
-            # Get the features of the superclass and combine them with new
-            # subclass features
-            superclass_features = class_features[
-                tuple(sorted(parents[0]))
-            ]
-            c_features = superclass_features.union(c_feature)
-            c1_features = superclass_features.union(c1_feature)
-
-            # Update features for each class and each segment within those classes.
-            class_features[tuple(sorted(c))].update(c_features)
-            class_features[tuple(sorted(c1))].update(c1_features)
-
-            # Go through each subclass of c and c1 and assign them the same features
-            for cl in incomplete_classes:
-                if poset.is_subset(cl, c):
-                    class_features[tuple(sorted(cl))].update(c_features)
-                if poset.is_subset(cl, c1):
-                    class_features[tuple(sorted(cl))].update(c1_features)
-
-            # Add c and c1 to classes we've finished with
-            complete_classes.append(c)
-            complete_classes.append(c1)
-
-            # Update the classes we still need to deal with to be the set of 
-            # classes in the new poset that we haven't already dealt with
-            incomplete_classes = list(filter(
-                lambda x: x not in complete_classes,
-                sorted(poset.classes, key=len, reverse=True)
-            ))
-
-        else:
-            # Class has more than one parent, so we can define its features
-            # as the intersection of their features. Get their features and
-            # assign them to the class
-            union_features = set.union(
-                *[class_features[tuple(sorted(x))] for x in parents]
-            )
-            class_features[tuple(sorted(c))].update(union_features)
-
-            # Assign this class's features to all its subclasses.
-            for cl in incomplete_classes:
-                if poset.is_subset(cl, c):
-                    class_features[tuple(sorted(cl))].update(union_features)
-            complete_classes.append(c)
-
-    # Print out the classes and their featural specifications.
-    for key, value in sorted(class_features.items(), key=lambda x: len(x[1])):
-        print("{}:\t{}".format(key, sorted(value)))
-
-    # Better have unique descriptions for each class!
-    assert(len(class_features) == len(set(map(tuple, class_features.values()))))
-
-def get_features_from_classes(input_classes, sounds):
-    # Initialize complete_classes to just be the set of all sounds in the
-    # language.
-    complete_classes = [sounds]
-
-    # Sort input classes from largest to smallest
-    incomplete_classes = sorted(input_classes, key=lambda x: -len(x))
-
-    # A dictionary to associate classes with features.
-    class_features = defaultdict(set)
-
-    # Integer labels for learned features
-    feature_num = 0
-
-    for c in incomplete_classes:
-        if c in complete_classes:
-            # We've already accounted for this class
-            continue
-
-        # Is this class an intersection of two classes we've already
-        # accounted for? If it is, it can be defined by the union of
-        # their features, and we don't need to add a new feature.
-        union_features = check_intersections(c, complete_classes, class_features)
-        if union_features:
-            # We've found at least one intersection of classes that accounts
-            # for this class, so no need to add a new feature, keep going.
-            class_features[tuple(sorted(c))].update(union_features)
-            for cl in incomplete_classes:
-                if cl < c:
-                    class_features[tuple(sorted(cl))].update(union_features)
-            complete_classes.append(c)
-            continue
-
-        # Not an intersection of two existing classes, so we need a new 
-        # feature. Find the smallest cluster such that c is a subset of
-        smallest_containing_cluster = min(
-            [c for c in filter(lambda x: c.issubset(x), complete_classes)],
-            key=len
-        )
-
-        # Get the complement of c wrt this cluster
-        c1 = smallest_containing_cluster - c
-
-        # Arbitrariy associate +/- values of this feature with c and
-        # its complement wrt the containing class.
-        # TODO: What about privative features?
-        c_feature = set([(feature_num, '+')])
-        c1_feature = set([(feature_num, '-')])
-        feature_num += 1
-
-        # Get the features of the superclass 
-        superclass_features = class_features[
-            tuple(sorted(smallest_containing_cluster))
+        # Build an intersectionally closed poset from the input classes
+        # and take all the resulting classes minus the alphabet
+        self.poset = Poset([self.alphabet] + self.input_classes)
+        self.poset = self.poset.get_intersectional_closure()
+        self.incomplete_classes = [
+            c for c in sorted(self.poset.classes, key=len, reverse=True)
+            if c not in self.complete_classes
         ]
-        c_features = superclass_features.union(c_feature)
-        c1_features = superclass_features.union(c1_feature)
 
-        # Update features for each class and each segment within those classes.
-        class_features[tuple(sorted(c))].update(c_features)
-        for cl in incomplete_classes:
-            if cl < c:
-                class_features[tuple(sorted(cl))].update(c_features)
-        class_features[tuple(sorted(c1))].update(c1_features)
-        for cl in incomplete_classes:
-            if cl < c1:
-                class_features[tuple(sorted(cl))].update(c1_features)
+    def set_class_features(self, c, features):
+        self.class_features[tuple(sorted(c))].update(features)
 
-        # Mark both classes as accounted for.
-        complete_classes.append(c)
-        complete_classes.append(c1)
+    def get_class_features(self, c):
+        return self.class_features[tuple(sorted(c))]
 
-    # Print out the classes and their featural specifications.
-    for key, value in sorted(class_features.items(), key=lambda x: len(x[1])):
-        print("{}:\t{}".format(key, sorted(value)))
+    def percolate_features_down(self, c):
+        for cl in self.poset.classes:
+            if self.poset.is_subset(cl, c):
+                self.set_class_features(cl, self.get_class_features(c))
 
-    # Better have unique descriptions for each class!
-    assert(len(class_features) == len(set(map(tuple, class_features.values()))))
+    def assert_classes_unique(self):
+        assert(len(self.class_features)
+                == len(set(map(tuple, self.class_features.values()))))
+
+    def graph_poset(self):
+        self.poset.graph_poset()
+
+    def features_to_csv(self, filename):
+        with open(filename, 'w') as f:
+            print(',' + ','.join([
+                    str(i) for i in range(0, self.num_features)
+                ]),
+                file=f
+            )
+            for key, value in sorted(self.class_features.items(),
+                    key=lambda x: -len(x[0])):
+                d = dict(value)
+                line = []
+                line.append("{}".format(' '.join(key)))
+                for i in range(0, self.num_features):
+                    line.append(d.get(i, ''))
+                print(','.join(line), file=f)
+
+    def print_featurization(self):
+        # Print out the classes and their featural specifications.
+        for key, value in sorted(self.class_features.items(),
+                                 key=lambda x: -len(x[0])):
+            print("{}:\t{}".format(key, sorted(value)))
+        print()
+
+    def get_features_from_classes(self):
+        while self.incomplete_classes:
+            # Check how many parents the largest remaining class has
+            c = self.incomplete_classes.pop(0)
+            parents = self.poset.get_parents(c)
+
+            # The only case we need to consider explicitly is when a
+            # class has only one parent. This means it needs a new
+            # feature to ditinguish it from its complement with respect
+            # to that parent.
+            # Classes with more than one parent will have already received
+            # a full featural specification from their ancestors via
+            # downward feature percolation, and so we can just mark them
+            # as completed
+            if len(parents) == 1:
+                # Add the new feature assignment and mark this class as
+                # complete
+                c_features = set([(self.feature_num, '+')])
+                self.set_class_features(c, c_features)
+                self.complete_classes.append(c)
+
+                # In privative specification, we don't consider the complement
+                if self.specification != PRIVATIVE:
+                    if self.specification == FULL:
+                        # For full specification we take the complement wrt the
+                        # set of all sounds.
+                        c1 = self.alphabet - c
+                    else:
+                        # Otherwise take it wrt the parent set. 
+                        c1 = parents[0] - c
+
+                    # We only want to consider the complement for contrastive
+                    # underspecification if it's in the input set.
+                    if (self.specification != CONTRASTIVE_UNDERSPECIFICATION
+                            or c1 in self.incomplete_classes):
+                        # If the complement is not in the poset, add it and
+                        # recalculate the intersectional closure
+                        if c1 not in self.poset.classes:
+                            class_added = self.poset.add_class(c1)
+                            # TODO: Do we need to do this from scratch?
+                            self.poset = self.poset.get_intersectional_closure()
+
+                            # Check if the intersectional closure has generated
+                            # any new classes
+                            new_classes = [
+                                s for s in self.poset.classes
+                                if s not in self.complete_classes
+                                    + self.incomplete_classes
+                            ]
+                            # If it has, assign them the features of their
+                            # parents, since they won't have got these from
+                            # downward percolation. This also covers our newly
+                            # added class
+                            for new_class in new_classes:
+                                nc_parents = self.poset.get_parents(new_class)
+                                parent_features = set.union(*[
+                                        self.get_class_features(x)
+                                        for x in nc_parents
+                                    ]
+                                )
+                                self.set_class_features(
+                                    new_class, parent_features
+                                )
+
+                        # Assign the negative value of the new feature to the 
+                        # new class
+                        c1_feature = set([(self.feature_num, '-')])
+                        self.set_class_features(c1, c1_feature)
+
+                        self.complete_classes.append(c1)
+
+                        # Update incomplete classes. This does two things:
+                        # (1) removes the any complement classes we've dealt
+                        #     with
+                        # (2) adds any new intersectional classes we've
+                        #     produced
+                        self.incomplete_classes = list(filter(
+                            lambda x: x not in self.complete_classes,
+                            sorted(self.poset.classes, key=len, reverse=True)
+                        ))
+
+                        # Go through each subclass of the complement and assign 
+                        # it the same features
+                        self.percolate_features_down(c1)
+
+                self.feature_num += 1
+
+                # Go through each subclass of c and assign it the same features
+                self.percolate_features_down(c)
+            
+            self.complete_classes.append(c)
+
+            if self.verbose:
+                self.print_featurization()
+
+        # Better have unique descriptions for each class!
+        self.assert_classes_unique()
+
+        return self.feature_num, self.class_features
 
 if __name__ == "__main__":
-    # print("Doing Hawaiian...")
-    # get_features_from_classes(input_classes_hawaiian, all_sounds_hawaiian)
-    
-    #print("Doing poset Hawaiian...")
-    #get_features_from_classes_poset(input_classes_hawaiian, all_sounds_hawaiian)
+    specification = CONTRASTIVE
+    # A few sample inputs...
 
-    # print("\nDoing vowels...")
-    # get_features_from_classes(input_classes_vowels, all_sounds_vowels)
+    # Input classes are the sunny sounds of Hawaiian.
+    classes_hawaiian = [
+        # Consonants
+        set(['m', 'n', 'p', 'k', '7', 'h', 'w', 'l']),
+        # Sonorants
+        set(['m', 'n', 'w', 'l']),
+        # Approximants
+        set(['w', 'l']),
+        # Nasal stops
+        set(['m', 'n']),
+        # Obstruents
+        set(['p', 'k', '7', 'h']),
+        # Stops
+        set(['m', 'n', 'p', 'k', '7']),
+        # Oral stops 
+        set(['p', 'k', '7']),
+        # Glottals
+        set(['h', '7']),
+        # Bilabials
+        set(['w', 'p', 'm']),
+        # Coronals
+        set(['n', 'l']),
+        # Individual consonants
+        set(['m']),
+        set(['n']),
+        set(['p']),
+        set(['7']),
+        set(['h']),
+        set(['w']),
+        set(['l']),
+        set(['k']),
 
-    print("\nDoing poset vowels...")
-    get_features_from_classes_poset(input_classes_vowels, all_sounds_vowels)
+        # Vowels
+        # All vowels
+        set(['i', 'u', 'e', 'o', 'a']),
+        # High vowels
+        set(['i', 'u']),
+        # Mid vowels
+        set(['e', 'o']),
+        # Front vowels
+        set(['i', 'e']),
+        # Back vowels
+        set (['u', 'o', 'a']),
+        # Individual vowels
+        set(['i']),
+        set(['u']),
+        set(['e']),
+        set(['o']),
+        set(['a'])
+    ]
+
+    all_sounds_hawaiian = set(
+        ['m', 'n', 'p', 'k', '7', 'h', 'w', 'l', 'i', 'e', 'a', 'o', 'u']
+    )
+
+    print("Doing Hawaiian...")
+    featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    # An arbitrary vowel space with distinctive rounding, 3-way height,
+    # and front/back distinction
+
+    classes_vowels = [
+        # Test for round/unround vowel system, which needs a minimum intersection
+        # of 3 classes to avoid specifying spurious features.
+        # High vowels
+        set(['i', 'u', 'y', 'U']),
+        # Mid vowels
+        set(['e', 'E', 'o', 'O']),
+        # Front vowels
+        set(['i', 'e', 'E', 'y']),
+        # Back vowels
+        set (['u', 'o', 'a', 'O', 'U']),
+        # Round vowels
+        set(['y', 'E', 'u', 'o']),
+        # Unrounded vowels
+        set(['i', 'e', 'a', 'U', 'O']),
+        # # Individual vowels
+        set(['i']),
+        set(['u']),
+        set(['e']),
+        set(['o']),
+        set(['a']),
+        set(['O']),
+        set(['U']),
+        set(['y']),
+        set(['E'])
+    ]
+
+    all_sounds_vowels = set(
+        ['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']
+    )
+
+    print("Doing vowel space...")
+    featurizer = Featurizer(classes_vowels, all_sounds_vowels, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    # A poset where the full featurization learns fewer classes
+    # than the contrastive featuriation
+    all_sounds_test1 = set(['a', 'b', 'c', 'd', 'e'])
+    classes_test1 = [
+        set(['a', 'b', 'c', 'd']),
+        set(['a', 'b', 'c']),
+        set(['d', 'e']),
+        set(['a']),
+        set(['b']),
+        set(['c']),
+        set(['d']),
+        set(['e']),
+    ]
+
+    print("Doing test 1...")
+    featurizer = Featurizer(classes_test1, all_sounds_test1, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    # A poset that properly does not include the empty set
+    all_sounds_test2 = set(
+        ['R', 'D', 'T'],
+    )
+
+    classes_test2 = [
+        ['R', 'D'],
+        ['R'],
+    ]
+
+    print("Doing test 2...")
+    featurizer = Featurizer(classes_test2, all_sounds_test2, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()

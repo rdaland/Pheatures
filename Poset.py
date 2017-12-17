@@ -30,11 +30,13 @@ class Poset():
         """
         Adds a new class to the poset and recalculates the subset and 
         daughter matrices.
+
+        Returns False if class was already in the poset, True otherwise
         """
         new_class = set(new_class)
 
         if new_class in self.classes:
-            return
+            return False
 
         n = self.subset_matrix.shape[0]
         new_matrix = np.zeros((n + 1, n + 1), dtype='bool')
@@ -49,6 +51,8 @@ class Poset():
         self.subset_matrix = new_matrix
         self.classes.append(new_class)
         self.calculate_daughter_matrix()
+
+        return True
 
     def get_closest_known_parents(self, target, known_classes):
         target_index = self.classes.index(target)
