@@ -15,8 +15,8 @@
 \title{An algorithm to assign features to a set of natural classes}
 \author{}
 \author{
-  Mayer, Connor Joseph \\
-  \texttt{connor.joseph.mayer@gmail.com}
+  Mayer, Connor \\
+  \texttt{connormayer@ucla.edu}
   \and
   Daland, Robert \\
   \texttt{r.daland@gmail.com}
@@ -159,7 +159,7 @@ Next, consider the isomorphic featurization in which the $0$'s from Table ~\ref{
     \item $[+\text{son},-\text{son}] = \varnothing$
     \end{itemize}
 
-\noindent An important generalization emerges from comparing these featurizations: the more $0$'s in the featurization, the greater the number of distinct feature functions that will be required to cover the same natural class system. In one sense, privative specification is more complex, because it will normally involve more features. However, in another sense, it is simpler, because there are only $+$ values to handle. Therefore, we will treat privative specification first. Prior to this, we introduce the notion of intersectional closure -- the data structure that proves useful for efficiently assigning a privative feature system.
+\noindent An important generalization emerges from comparing these featurizations: the more $0$'s in the featurization, the greater the number of distinct feature functions that will be required to cover the same natural class system. In one sense, privative specification is more complex, because it will normally involve more features. However, in another sense, it is simpler, because there are only $+$ values to handle and because it will result in fewer natural classes. Therefore, we will treat privative specification first. Prior to this, we introduce the notion of intersectional closure -- the data structure that proves useful for efficiently assigning a privative feature system.
 
 \section{Intersectional closure}
 
@@ -234,14 +234,116 @@ $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 \section{Privative specification}
 achieved by assigning a new feature [+f] only, to every segment in $X$
 
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE Precompute $C' = C_\cap$ from $C$
+	\REQUIRE $\mathcal C'$ sorted by decreasing size ($|C'_i| \geq |C'_{i+1}| $ for every $i = 1 \ldots |C'|-1$)
+	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
+	\STATE
+	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $i \leftarrow 1$
+	\STATE
+	\WHILE{classQueue $\neq \varnothing$}
+	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
+	\STATE $f_i(x) = \begin{cases}
+		+ & \mbox{if } x \in c_k \\
+		0 & \mbox{otherwise}
+		\end{cases} $
+	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
+	\STATE $i \leftarrow i + 1$
+	\ENDWHILE
+\end{algorithmic}
+
+
 \section{Contrastive underspecification}
 achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
+
+
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE Precompute $C' = C_\cap$ from $C$
+	\REQUIRE $\mathcal C'$ sorted by decreasing size ($|C'_i| \geq |C'_{i+1}| $ for every $i = 1 \ldots |C'|-1$)
+	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
+	\STATE
+	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $i \leftarrow 1$
+	\STATE
+	\WHILE{classQueue $\neq \varnothing$}
+	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
+	\STATE parent $ = \{c_i \in C | P_{ik} = 1\}$
+	\STATE $c_k' \leftarrow \mbox{parent } \setminus c_k$
+	\IF{$c_k' \in C$}
+	\STATE $f_i(x) = \begin{cases}
+	+ & \mbox{if } x \in c_k \\
+	- & \mbox{if } x \in c_k' \\
+	0 & \mbox{otherwise}
+	\end{cases} $
+	\STATE classQueue $\leftarrow \{x \in \mbox{classQueue} | x \not= c_k' \}$
+	\ELSE
+	\STATE $f_i(x) = \begin{cases}
+	+ & \mbox{if } x \in c_k \\
+	0 & \mbox{otherwise}
+	\end{cases} $
+	\ENDIF
+	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
+	
+	\STATE $i \leftarrow i + 1$
+	\ENDWHILE
+\end{algorithmic}
 
 \section{Contrastive specification}
 achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $Y \setminus X$ (even if $Y \setminus X$ was not in the input)
 
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE Precompute $C' = C_\cap$ from $C$
+	\REQUIRE $\mathcal C'$ sorted by decreasing size ($|C'_i| \geq |C'_{i+1}| $ for every $i = 1 \ldots |C'|-1$)
+	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
+	\STATE
+	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $i \leftarrow 1$
+	\STATE
+	\WHILE{classQueue $\neq \varnothing$}
+	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
+	\STATE parent $ = \{c_i \in C | P_{ik} = 1\}$
+	\STATE $c_k' \leftarrow \mbox{parent } \setminus c_k$
+	\STATE $f_i(x) = \begin{cases}
+	+ & \mbox{if } x \in c_k \\
+	- & \mbox{if } x \in c_k' \\
+	0 & \mbox{otherwise}
+	\end{cases} $
+	\STATE $C' \leftarrow (C' \cup \{c'_k\})$
+	\STATE $\textsc{Recalculate}$ $ P $ from $C'$
+	\STATE classQueue $\leftarrow \{c_l \in \mbox{classQueue} | c_l \not= c_k' \ \land \sum_{j=1}^{|C'|}P_{jl} = 1 \}$
+	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
+	
+	\STATE $i \leftarrow i + 1$
+	\ENDWHILE
+\end{algorithmic}
+
 \section{Full specification}
 achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $\Sigma \setminus X$
+
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE Precompute $C' = C_\cap$ from $C$
+	\REQUIRE $\mathcal C'$ sorted by decreasing size ($|C'_i| \geq |C'_{i+1}| $ for every $i = 1 \ldots |C'|-1$)
+	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
+	\STATE
+	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $i \leftarrow 1$
+	\STATE
+	\WHILE{classQueue $\neq \varnothing$}
+	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
+	\STATE $c_k' \leftarrow \Sigma \setminus c_k$
+	\STATE $f_i(x) = \begin{cases}
+	+ & \mbox{if } x \in c_k \\
+	- & \mbox{if } x \in c_k' \\
+	\end{cases} $
+	\STATE $C' \leftarrow (C' \cup \{c'_k\})$
+	\STATE $\textsc{Recalculate}$ $ P $ from $C'$
+	\STATE classQueue $\leftarrow \{c_l \in \mbox{classQueue} | c_l \not= c_k' \ \land \sum_{j=1}^{|C'|}P_{jl} = 1 \}$
+	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
+	
+	\STATE $i \leftarrow i + 1$
+	\ENDWHILE
+\end{algorithmic}
 
 \appendix
 
