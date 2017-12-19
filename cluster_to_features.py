@@ -22,43 +22,45 @@ class Featurizer():
         self.input_classes = input_classes
         self.alphabet = alphabet
         self.specification = specification
-        self.class_features = defaultdict(set)
         self.verbose = verbose
         self.reset()
 
     def reset(self):
         self.class_features = defaultdict(set)
-        self.feature_num = 0
-        # Initialize complete_classes to just be the set of all sounds in the
-        # language.
-        self.complete_classes = [self.alphabet]
-
+        self.segment_features = defaultdict(set)
+        self.feature_num = 1
         # Build an intersectionally closed poset from the input classes
         # and take all the resulting classes minus the alphabet
         self.poset = Poset([self.alphabet] + self.input_classes)
         self.poset = self.poset.get_intersectional_closure()
         self.incomplete_classes = [
             c for c in sorted(self.poset.classes, key=len, reverse=True)
-            if c not in self.complete_classes
+            if len(self.poset.get_parents(c)) == 1
         ]
+
+    def set_segment_features(self, c, features):
+        for segment in c:
+            self.segment_features[segment].update(features)
 
     def set_class_features(self, c, features):
         self.class_features[tuple(sorted(c))].update(features)
 
     def get_class_features(self, c):
-        return self.class_features[tuple(sorted(c))]
+        return set.intersection(*[
+            self.segment_features.get(x, {}) for x in c
+        ])
 
-    def percolate_features_down(self, c):
-        for cl in self.poset.classes:
-            if self.poset.is_subset(cl, c):
-                self.set_class_features(cl, self.get_class_features(c))
+    def calculate_class_features(self):
+        for c in self.poset.classes:
+            features = self.get_class_features(c)
+            self.set_class_features(c, features)
+
+    def graph_poset(self):
+        self.poset.graph_poset()
 
     def assert_classes_unique(self):
         assert(len(self.class_features)
                 == len(set(map(tuple, self.class_features.values()))))
-
-    def graph_poset(self):
-        self.poset.graph_poset()
 
     def features_to_csv(self, filename):
         with open(filename, 'w') as f:
@@ -85,106 +87,55 @@ class Featurizer():
 
     def get_features_from_classes(self):
         while self.incomplete_classes:
-            # Check how many parents the largest remaining class has
             c = self.incomplete_classes.pop(0)
-            parents = self.poset.get_parents(c)
+            c_features = set([(self.feature_num, '+')])
+            self.set_segment_features(c, c_features)
 
-            # The only case we need to consider explicitly is when a
-            # class has only one parent. This means it needs a new
-            # feature to ditinguish it from its complement with respect
-            # to that parent.
-            # Classes with more than one parent will have already received
-            # a full featural specification from their ancestors via
-            # downward feature percolation, and so we can just mark them
-            # as completed
-            if len(parents) == 1:
-                # Add the new feature assignment and mark this class as
-                # complete
-                c_features = set([(self.feature_num, '+')])
-                self.set_class_features(c, c_features)
-                self.complete_classes.append(c)
+            # In privative specification, we don't consider the complement
+            if self.specification != PRIVATIVE:
+                if self.specification == FULL:
+                    # For full specification we take the complement wrt the
+                    # set of all sounds.
+                    c1 = self.alphabet - c
+                else:
+                    # Otherwise take it wrt the parent set. 
+                    parent = self.poset.get_parents(c)[0]
+                    c1 = parent - c
 
-                # In privative specification, we don't consider the complement
-                if self.specification != PRIVATIVE:
-                    if self.specification == FULL:
-                        # For full specification we take the complement wrt the
-                        # set of all sounds.
-                        c1 = self.alphabet - c
-                    else:
-                        # Otherwise take it wrt the parent set. 
-                        c1 = parents[0] - c
-
-                    # We only want to consider the complement for contrastive
-                    # underspecification if it's in the input set.
-                    if (self.specification != CONTRASTIVE_UNDERSPECIFICATION
-                            or c1 in self.incomplete_classes):
-                        # If the complement is not in the poset, add it and
-                        # recalculate the intersectional closure
-                        if c1 not in self.poset.classes:
-                            class_added = self.poset.add_class(c1)
-                            # TODO: Do we need to do this from scratch?
-                            self.poset = self.poset.get_intersectional_closure()
-
-                            # Check if the intersectional closure has generated
-                            # any new classes
-                            new_classes = [
-                                s for s in self.poset.classes
-                                if s not in self.complete_classes
-                                    + self.incomplete_classes
-                            ]
-                            # If it has, assign them the features of their
-                            # parents, since they won't have got these from
-                            # downward percolation. This also covers our newly
-                            # added class
-                            for new_class in new_classes:
-                                nc_parents = self.poset.get_parents(new_class)
-                                parent_features = set.union(*[
-                                        self.get_class_features(x)
-                                        for x in nc_parents
-                                    ]
-                                )
-                                self.set_class_features(
-                                    new_class, parent_features
-                                )
-
-                        # Assign the negative value of the new feature to the 
-                        # new class
-                        c1_feature = set([(self.feature_num, '-')])
-                        self.set_class_features(c1, c1_feature)
-
-                        self.complete_classes.append(c1)
-
-                        # Update incomplete classes. This does two things:
-                        # (1) removes the any complement classes we've dealt
-                        #     with
-                        # (2) adds any new intersectional classes we've
-                        #     produced
+                # We only want to consider the complement for contrastive
+                # underspecification if it's in the input set.
+                if (self.specification != CONTRASTIVE_UNDERSPECIFICATION
+                        or c1 in self.input_classes):
+                    # If the complement is not in the poset, add it and
+                    # recalculate the intersectional closure
+                    if self.poset.add_class(c1):
+                        # TODO: Do we need to do this from scratch?
+                        self.poset = self.poset.get_intersectional_closure()
                         self.incomplete_classes = list(filter(
-                            lambda x: x not in self.complete_classes,
-                            sorted(self.poset.classes, key=len, reverse=True)
+                            lambda x: len(self.poset.get_parents(x)) == 1,
+                            self.incomplete_classes
                         ))
 
-                        # Go through each subclass of the complement and assign 
-                        # it the same features
-                        self.percolate_features_down(c1)
+                    # Assign the negative value of the new feature to the 
+                    # new class
+                    c1_feature = set([(self.feature_num, '-')])
+                    self.set_segment_features(c1, c1_feature)
 
-                self.feature_num += 1
+                    self.incomplete_classes = list(filter(
+                        lambda x: x != c1,
+                        self.incomplete_classes
+                    ))
 
-                # Go through each subclass of c and assign it the same features
-                self.percolate_features_down(c)
-            
-            self.complete_classes.append(c)
+            self.feature_num += 1
 
             if self.verbose:
                 self.print_featurization()
 
-        # Better have unique descriptions for each class!
+        self.calculate_class_features()
         self.assert_classes_unique()
 
-        return self.feature_num, self.class_features
-
 if __name__ == "__main__":
-    specification = CONTRASTIVE
+    specification = PRIVATIVE
     # A few sample inputs...
 
     # Input classes are the sunny sounds of Hawaiian.
