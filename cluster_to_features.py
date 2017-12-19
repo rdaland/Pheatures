@@ -1,22 +1,20 @@
 from Poset import Poset
 from collections import defaultdict
+from enum import Enum
 from itertools import chain, combinations
-
-PRIVATIVE = 0
-CONTRASTIVE_UNDERSPECIFICATION = 1
-CONTRASTIVE = 2
-FULL = 3
-
-SPECIFICATIONS = [
-    PRIVATIVE, CONTRASTIVE_UNDERSPECIFICATION, CONTRASTIVE, FULL
-]
 
 DEFAULT_CSV_FILE = "features.csv"
 
+class Specification(Enum):
+    PRIVATIVE = 0
+    CONTRASTIVE_UNDER = 1
+    CONTRASTIVE = 2
+    FULL = 3
+
 class Featurizer():
     def __init__(self, input_classes, alphabet,
-                 specification=CONTRASTIVE_UNDERSPECIFICATION, verbose=False):
-        if specification not in SPECIFICATIONS:
+                 specification=Specification.CONTRASTIVE_UNDER, verbose=False):
+        if specification not in Specification:
             raise("Invalid featural specification '{}'".format(specification))
 
         self.input_classes = input_classes
@@ -47,7 +45,7 @@ class Featurizer():
 
     def get_class_features(self, c):
         return set.intersection(*[
-            self.segment_features.get(x, {}) for x in c
+            self.segment_features.get(x, set()) for x in c
         ])
 
     def calculate_class_features(self):
@@ -92,8 +90,8 @@ class Featurizer():
             self.set_segment_features(c, c_features)
 
             # In privative specification, we don't consider the complement
-            if self.specification != PRIVATIVE:
-                if self.specification == FULL:
+            if self.specification != Specification.PRIVATIVE:
+                if self.specification == Specification.FULL:
                     # For full specification we take the complement wrt the
                     # set of all sounds.
                     c1 = self.alphabet - c
@@ -104,7 +102,7 @@ class Featurizer():
 
                 # We only want to consider the complement for contrastive
                 # underspecification if it's in the input set.
-                if (self.specification != CONTRASTIVE_UNDERSPECIFICATION
+                if (self.specification != Specification.CONTRASTIVE_UNDER
                         or c1 in self.input_classes):
                     # If the complement is not in the poset, add it and
                     # recalculate the intersectional closure
@@ -135,7 +133,7 @@ class Featurizer():
         self.assert_classes_unique()
 
 if __name__ == "__main__":
-    specification = PRIVATIVE
+    specification = Specification.FULL
     # A few sample inputs...
 
     # Input classes are the sunny sounds of Hawaiian.
