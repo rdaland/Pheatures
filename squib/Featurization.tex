@@ -39,7 +39,7 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 
 \subsection{Natural classes and natural class systems}
 
-A \textit{natural class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of $\mathcal P(\Sigma)$ which includes $\Sigma$ itself. Formally, $\mathcal C = \{ C_i \}_{i=1}^N$, where each $C_i \subset \Sigma$. To illustrate, a natural class system for a set of vowels is shown in Fig~\ref{fig:lattice}; downward arrows indicate superset-/subset-hood.
+A \textit{natural class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of $\mathcal P(\Sigma)$ which includes $\Sigma$ itself. Formally, $\mathcal C = \{ C_i \}_{i=1}^N$, where each $C_i \subset \Sigma$. Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
 
 % show an example of a natural class system: a vowel harmony lattice
 % TODO: it would be great to modify this figure so the 'stray' singletons on the right are on the same 'tier' as the other singletons
@@ -48,6 +48,24 @@ A \textit{natural class system} $\mathcal C$ over an alphabet $\Sigma$ is any su
 \caption{Vowel harmony lattice}
 \label{fig:lattice}
 \end{figure}
+
+In this graph, each node corresponds to a class, and a (downward) arrow from class $C_i$ to class $C_j$ indicates that $C_j \subset C_i$. To be more precise, downward arrows indicate that there is no `intervening' class $C_k$. For example, the front vowels \{\textipa{OE}, \textipa{y}, \textipa{E}, \textipa{i}\} intervene between all vowels and \{\textipa{E}\}, so we do not include an arrow from the top node to the \{\textipa{E}\}, node. This relation will prove important for the algorithms we discuss later, and so we formalize it here: $C_i$ is a \textit{parent} of $C_j$ (and $C_j$ is a \textit{daughter} of $C_i$) if and only if \begin{itemize}
+    \item $C_j \subset C_i$, and
+    \item $\nexists C_k \in \mathcal C \, [C_j \subset C_k \subset C_i]$
+    \end{itemize}
+
+\vspace{\baselineskip} Any directed graph like Fig~\ref{fig:lattice} has an equivalent representation with a square matrix. Row $i$ is identified with class $C_i$, column $j$ with $C_j$; and the value in the $(i,j)$ cell indicates the relationship between $C_i$ and $C_j$. For binary relations like the subsethood and daughterhood, it is convenient to use the Boolean field: the set $\{T, \, F\}$ with operations $\cdot$ (logical \textsc{and}), $+$ (logical \textsc{or}), and additive inverse $-$ (logical \textsc{not}). The \textit{subset matrix} is defined thus:
+
+$$S_{ij} = \begin{cases}
+                T & \quad \text{if } C_j \subset C_i \\
+                F & \quad \text{otherwise}
+                \end{cases}$$
+
+\noindent The advantage of writing a relation in this way is that fundamental matrix operations correspond to various measures of interest. For example, when $S$ is defined as above, and $S^2$ is calculated from ordinary matrix multiplication, then $S^2$ indicates the subset-of-a-subset relation, which corresponds graphically to 'paths' of length 2 on a subset graph. In other words, $(S^2)_{ij} = T$ means there is a $C_k$ such that $S_{ik} = T \textsc{ and } S_{kj} = T$. If we further let \textsc{and} denote the element-wise multiplication operator, then the \textit{daughter matrix} can be computed from the subset matrix as follows: 
+
+$$D = S \textsc{ and } -S^2$$
+
+\noindent This matrix expressed the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$. (Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, $S = \sum_{n=1}^N D^n$. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.)
 
 \subsection{Feature systems and featurizations}
 
@@ -127,7 +145,7 @@ Let $\Sigma =$ \{R, D, T\}. Informally, the reader may think of [R] as a sonoran
 \noindent The set of natural classes it describes, and the simplest featural descriptor for each, are shown below: \begin{itemize}
   \item $[\,]$ -- \{R, D, T\}
   \item $[+\text{son}]$ -- \{R\}
-  \item $[+\text{vcd}]$ -- \{R,D\}
+  \item $[+\text{vcd}]$ -- \{R, D\}
   \end{itemize}
   
 \noindent Note that this featurization provides no featural descriptor that uniquely picks out the voiceless obstruent [T], no way to pick out the obstruents [T] and [D] to the exclusion of [R], and no way to pick out the voiced obstruent [D] without [R].
@@ -149,7 +167,7 @@ Next, consider the isomorphic featurization in which the $0$'s from Table ~\ref{
     \label{table:full}
 \end{table}
 
-\noindent The set of natural classes this featurization describes is much larger, because the number of (extensionally distinct) licit featural descriptors is larger: \begin{itemize}
+\noindent The set of natural classes this featurization describes is much larger, because the number of (extensionally distinct) featural descriptors is larger: \begin{itemize}
     \item $[\,] =$ \{R, D, T\}
     \item $[+\text{son}] =$ \{R\}
     \item $[-\text{son}] =$ \{D, T\}
@@ -170,7 +188,7 @@ In this section we define the \textit{intersectional closure} of a natural class
 \vspace{\baselineskip} \noindent \textbf{Lemma}: If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
 
 \textit{Proof}: The proof proceeds by showing that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$ and $ \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
-Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_i = \langle \mathbf{e}_i \rangle$.
+Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_j = \langle \mathbf{e}_j \rangle$.
 First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
 Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
 Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
@@ -180,51 +198,46 @@ Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ a
 
 \vspace{\baselineskip} \noindent \textbf{Theorem}: Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
 
-\textit{Proof}: Let $C$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{C\}_{i=1}^n$ such that $C_i \in \mathcal C \, \forall i$ and $C = \bigcap_i \, C_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every $C_i$ in $\mathcal C$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = C_i$. Thus, $C = \bigcap_i C_i = C_1 \cap C_2 \cap \ldots \cap C_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$. It follows by induction that $C = \langle \bigcup_i  \mathbf{e}_i \rangle$:
+\textit{Proof}: Let $C$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{C_i \in \mathcal C\}_{i=1}^n$ such that and $C = \bigcap_i \, C_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every $C_i$ in $\mathcal C$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = C_i$. Thus, $C = \bigcap_i C_i = C_1 \cap C_2 \cap \ldots \cap C_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$. It follows by induction that $C = \langle \bigcup_i  \mathbf{e}_i \rangle$:
 
 $C = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$
 
-$ = \langle \mathbf{e}_1 \cup \mathbf{e}_2 \rangle \cap \mathbf{e}_3 \cap \ldots \cap \langle \mathbf{e}_n \rangle$
+\quad $ = \langle \mathbf{e}_1 \cup \mathbf{e}_2 \rangle \cap \mathbf{e}_3 \cap \ldots \cap \langle \mathbf{e}_n \rangle$
 
-$ = \langle \mathbf{e}_1 \cup \mathbf{e}_2 \cup \mathbf{e}_3 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$
+\quad $ = \langle \mathbf{e}_1 \cup \mathbf{e}_2 \cup \mathbf{e}_3 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$
 
-$\ldots$
+\quad $\ldots$
 
-$= \langle \mathbf{e}_1 \cup \mathbf{e}_2 \cup \ldots \cup \mathbf{e}_n \rangle$
+\quad $= \langle \mathbf{e}_1 \cup \mathbf{e}_2 \cup \ldots \cup \mathbf{e}_n \rangle$
 
-$= \langle \bigcup_i  \mathbf{e}_i \rangle$
+\quad $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 
 \noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of natural classes in $\mathcal C$, then its features are the union of the features in each of those classes. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
 
 
-\vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. We assume that the input is a natural class system $\mathcal C = \{C_i\}_{i=1}^N$, whose classes are sorted in decreasing order of cardinality. (This implies that $C_i \nsubseteq C_j$ whenever $j > i$, so there is no need to check the subset relation.)
+\vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. We assume that the input is a natural class system $\mathcal C = \{C_i\}_{i=1}^N$.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
-    \REQUIRE $\mathcal C$ sorted by decreasing size ($|C_i| \geq |C_{i+1}| $ for every $i = 1 \ldots N-1$)
-    \REQUIRE subset matrix $S$ ($N \times N$): $S_{ij} = 1$ if $C_j \subset C_i$, $0$ otherwise
+    \ENSURE $\mathcal C_\cap$ is the intersectional closure of $\mathcal C$
+    \ENSURE $\mathcal I(i,j) = k$ whenever $C_i \cap C_j = C_k$ (for all $i, j, k$)
     \STATE
-    \STATE closure $\leftarrow \mathcal C$
-    \STATE pairQueue $\leftarrow \{ (i, j) \; | \; i < j \}$
-    \STATE intersections $\leftarrow \varnothing$
+    \STATE $\mathcal C_\cap \leftarrow \mathcal C$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{ordered list of classes}
+    \STATE $N \leftarrow | \mathcal C_\cap |$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{size of $\mathcal C_\cap$}
+    \STATE $\mathcal Q \leftarrow \{ (i, j) \, | \, 1 \leq i, j \leq N, i \neq j \}$ \quad \COMMENT{queue of natural class index pairs}
+    \STATE $\mathcal I \leftarrow \varnothing$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{hash table: $(i, j) \rightarrow k$ means $C_k = C_i \cap C_j$}
     \STATE
-    \WHILE{pairQueue $\neq \varnothing$}
-        \STATE $(i, j) \leftarrow$ \textsc{pop}(pairQueue)
-        \IF{$S_{ij} = 0$}
-            \STATE c $\leftarrow C_i \cap C_j$
-            \IF[found an existing intersection]{c $\in$ closure}
-                \STATE $k \leftarrow$ index such that $\text{closure}_k = c$
-                \STATE \textsc{push} $(i, j, k) \rightarrow$ intersections
-            \ELSE[found a new class!]
-                \STATE $N \leftarrow |\text{closure}|$
-                \STATE \textsc{append} $c$ to closure
-                \STATE \textsc{resize} $S \rightarrow (N+1) \times (N+1)$
+    \WHILE{$\mathcal Q \neq \varnothing$}
+        \STATE $(i, j) \leftarrow \textsc{pop}(\mathcal Q)$
+        \IF{ \NOT ($C_j \subset C_i$ \OR $C_i \subset C_j$)}
+            \STATE $C \leftarrow C_i \cap C_j$
+            \IF{$C \in \mathcal C_\cap$}
+                \STATE $\mathcal I(i, j) \leftarrow \textsc{index}(\mathcal C_\cap, \, C)$
+            \ELSE
+                \STATE $\textsc{append}(\mathcal C_\cap, \, C)$
+                \STATE $N \leftarrow N+1$
                 \FOR{$k=1$ to $N$}
-                    \IF[update subset matrix]{c $\subset C_k$}
-                        \STATE $S_{k,N+1} \rightarrow 1$
-                    \ENDIF
-                    \IF{$C_k \subset$ c} \STATE $S_{N+1,k} \rightarrow 1$ \ENDIF
-                    \STATE \textsc{push} $(k, N+1) \rightarrow$ pairQueue
-                    \STATE \textsc{push} $(N+1,k) \rightarrow$ pairQueue
+                    \STATE $\textsc{push} \quad (k, N) \rightarrow \mathcal Q$
+                    \STATE $\textsc{push} \quad(N, k) \rightarrow \mathcal Q$
                 \ENDFOR
             \ENDIF
         \ENDIF
@@ -232,7 +245,23 @@ $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 \end{algorithmic}
 
 \section{Privative specification}
-achieved by assigning a new feature [+f] only, to every segment in $X$
+
+
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+    \REQUIRE $\mathcal C$ is sorted in decreasing order of size ($\forall i, j \, [i < j \rightarrow |C_i| \geq |C_j|$)
+    \REQUIRE $\mathcal V = \{ +, 0 \}$
+    \ENSURE output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+    \STATE
+    \STATE $\mathcal Q, \, \mathcal I \leftarrow \textsc{IntersectionalClosure}(\mathcal C)$
+    \WHILE{$\mathcal Q \neq \varnothing$}
+        \STATE 
+    \ENDWHILE
+\end{algorithmic}
+
+\vspace{\baselineskip} The algorithm is considered sound if it returns a covering feature set for every valid input. 
+
+\textit{Proof}:
+
 
 \section{Contrastive underspecification}
 achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
