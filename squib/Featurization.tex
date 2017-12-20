@@ -11,8 +11,14 @@
 \usepackage{tipa}
 \usepackage{graphicx}           % purdy pitchers
 \usepackage{algorithmic}
+\usepackage{phonrule}
 
-\title{An algorithm to assign features to a set of natural classes}
+\usepackage{cite}
+\usepackage{apacite}
+
+\newtheorem{definition}{Definition}
+
+\title{An algorithm to assign features to a set of phonological classes}
 \author{}
 \author{
   Mayer, Connor \\
@@ -21,25 +27,35 @@
   Daland, Robert \\
   \texttt{r.daland@gmail.com}
 }
-%\date{}							% Activate to display a given date or no date
+\date{\vspace{-5ex}}							% Activate to display a given date or no date
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-This squib describes a dynamic programming algorithm which assigns features to a set of natural classes. The input consists of a set of classes, each containing one or more segments; in other words, a subset of the powerset of a segmental alphabet $\Sigma$. If a class can be generated as the union of existing features ( = intersection of already-processed classes), those features are propagated to every segment in the class. Otherwise, a new feature/value pair is assigned. The algorithm comes in 4 flavors, which differ with respect to complementation and how negative values are assigned. We show that these variants yield \textit{privative specification}, \textit{contrastive underspecification}, \textit{contrastive specification}, and \textit{full specification}, respectively. The main text sets out necessary background, and illustrates each variant of the algorithm. The Appendix formally proves that each algorithm is sound.
+This squib describes a dynamic programming algorithm which assigns features to a set of phonological classes. The input consists of a set of classes, each containing one or more segments; in other words, a subset of the powerset of a segmental alphabet $\Sigma$. If a class can be generated as the union of existing features ( = intersection of already-processed classes), those features are propagated to every segment in the class. Otherwise, a new feature/value pair is assigned. The algorithm comes in 4 flavors, which differ with respect to complementation and how negative values are assigned. We show that these variants yield \textit{privative specification}, \textit{contrastive underspecification}, \textit{contrastive specification}, and \textit{full specification}, respectively. The main text sets out necessary background, and illustrates each variant of the algorithm. The Appendix formally proves that each algorithm is sound.
 \end{abstract}
 
 \section{Introduction}
-merge what Connor wrote
+Distinctive features are the building blocks of phonological theory. Features represent phonetic qualities of speech sounds, and can be used in isolation or combination to describe individual sounds or classes of sounds \cite<e.g.,>{Saussure1959, JakobsonEtAl1952}. This captures the generalization that sounds with similar phonetic properties tend to pattern similarly in the phonologies of languages. For example, the feature \phonfeat{-voice} picks out all sounds without voicing, while the combination of features \phonfeat{-voice \\ -continuant} picks out, for example, the English voiceless stop series.
+
+Distinctive features have traditionally been described as \textit{innate}: that is, all the sounds in the world's languages can be described by the same finite set of features, and the task of the language learner is to decompose the sounds of the ambient language into their consituent features to build a phonological grammar \cite<e.g.,>{ChomskyHalle1968}. This implies that the phonological classes we see in natural languages should be definable by combinations of these innate features.
+
+Although feature theory has been extremely productive in phonology, there is evidence that shows many phonological classes cannot be described as a combination of phonetically-based features. For example, \citeA{Mielke2008} conducted a survey of almost 600 languages and showed that, at best, any modern feature system can categorize 71\% of attested sound classes. The remaining 29\% are \textit{phonetically disparate classes}, which require less theoretically-appealing descriptions combinations of features to be described, such as \textsc{XOR} feature classes (e.g., \phonfeat{-voice} or \phonfeat{-continuant} but not both).
+
+The preponderance of these phonetically disparate classes has led some researchers to propose that distinctive features are \textit{learned} and \textit{language-specific} \cite<e.g.,>{Blevins2004, Mielke2008, MacWhinneyOGrady2015, ArchangeliPulleyblank2015}: learners are able to group sounds in their languages into classes regardless of whether they have any phonetic commonality. The striking regularities that exist across languages are explained as by-products of general human cognitive capabilities, such as categorization, sensitivity to frequency, and the ability to generalize, as well as the properties of the human vocal tract and auditory system.
+
+This sets the stage for the goals of the current paper, which are somewhat modest. The basic question we address is the inverse of how features have typically been approached: rather than asking what classes a feature system defines, we instead focus on how a feature system can be learned from a set of predetermined classes. We begin by defining a formal notation for feature systems. We then describe the \textit{intersectional closure} of a set of classes, which must be generated by any featurization of that set. Using the intersectional closure as a tool for efficient calculation, we then describe a suite of algorithms for learning various types of featurizations for a set of input classes and prove their correctness, examining as we do the trade offs between number of classes and number of features that each featurization method makes.
+
+This paper makes several important contributions: first, it demonstrates a method for working backwards to feature systems underpinning learned classes of sounds and provides the code for use in future research. Second, it provides a detailed formalization of what a featurization of classes entails, allowing careful reasoning about the expressiveness of such featurizations. Finally, by comparing multiple types of featurization of a set of classes, it makes explicit predictions about what classes should be describable under each type, which may be useful for future experimental phonological research.
 
 \section{Definitions and notation}
 
-Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$. We will also use the notation $\mathcal P(X)$ to indicate the \textit{powerset} of $X$ -- the set of all subsets of $X$ (including the empty set $\varnothing$ and $X$ itself).
+Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$. We will also use the notation $\mathcal P(X)$ to indicate the \textit{powerset} of $X$ -- the set of all subsets of $X$, including the empty set $\varnothing$ and $X$ itself.
 
-\subsection{Natural classes and natural class systems}
+\subsection{Classes and class systems}
 
-A \textit{natural class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of $\mathcal P(\Sigma)$ which includes $\Sigma$ itself. Formally, $\mathcal C = \{ C_i \}_{i=1}^N$, where each $C_i \subset \Sigma$. Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
+A \textit{class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of $\mathcal P(\Sigma)$ which includes $\Sigma$ itself. Formally, $\mathcal C = \{ C_i \}_{i=1}^N$, where each $C_i \subset \Sigma$. Fig~\ref{fig:lattice} illustrates this definition with a class system over a set of vowels.
 
 % show an example of a natural class system: a vowel harmony lattice
 % TODO: it would be great to modify this figure so the 'stray' singletons on the right are on the same 'tier' as the other singletons
@@ -49,10 +65,13 @@ A \textit{natural class system} $\mathcal C$ over an alphabet $\Sigma$ is any su
 \label{fig:lattice}
 \end{figure}
 
-In this graph, each node corresponds to a class, and a (downward) arrow from class $C_i$ to class $C_j$ indicates that $C_j \subset C_i$. To be more precise, downward arrows indicate that there is no `intervening' class $C_k$. For example, the front vowels \{\textipa{OE}, \textipa{y}, \textipa{E}, \textipa{i}\} intervene between all vowels and \{\textipa{E}\}, so we do not include an arrow from the top node to the \{\textipa{E}\}, node. This relation will prove important for the algorithms we discuss later, and so we formalize it here: $C_i$ is a \textit{parent} of $C_j$ (and $C_j$ is a \textit{daughter} of $C_i$) if and only if \begin{itemize}
-    \item $C_j \subset C_i$, and
-    \item $\nexists C_k \in \mathcal C \, [C_j \subset C_k \subset C_i]$
-    \end{itemize}
+In this graph, each node corresponds to a class, and a downward arrow from class $C_i$ to class $C_j$ indicates that $C_j \subset C_i$. To be more precise, downward arrows indicate that there is no `intervening' class $C_k$. For example, the front vowels \{\textipa{OE}, \textipa{y}, \textipa{E}, \textipa{i}\} intervene between all vowels and \{\textipa{E}\}, so we do not include an arrow from the top node to the \{\textipa{E}\}, node. This relation will prove important for the algorithms we discuss later, and so we formalize it here: 
+
+\begin{definition}
+	$C_i$ is a \textit{parent} of $C_j$ (and $C_j$ is a \textit{daughter} of $C_i$) if and only if $C_j \subset C_i$, and $\nexists C_k \in \mathcal C \, [C_j \subset C_k \subset C_i]$.
+\end{definition}
+
+\subsubsection{Representing subset relations as matrices}
 
 \vspace{\baselineskip} Any directed graph like Fig~\ref{fig:lattice} has an equivalent representation with a square matrix. Row $i$ is identified with class $C_i$, column $j$ with $C_j$; and the value in the $(i,j)$ cell indicates the relationship between $C_i$ and $C_j$. For binary relations like the subsethood and daughterhood, it is convenient to use the Boolean field: the set $\{T, \, F\}$ with operations $\cdot$ (logical \textsc{and}), $+$ (logical \textsc{or}), and additive inverse $-$ (logical \textsc{not}). The \textit{subset matrix} is defined thus:
 
@@ -65,7 +84,7 @@ $$S_{ij} = \begin{cases}
 
 $$D = S \textsc{ and } -S^2$$
 
-\noindent This matrix expressed the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$. (Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, $S = \sum_{n=1}^N D^n$. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.)
+\noindent This matrix expressed the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The matrix $D$ is of central importance to the featurization algorithms described later.
 
 \subsection{Feature systems and featurizations}
 
@@ -111,7 +130,7 @@ Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathca
 
 A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$, $\mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F$. For example, $\mathbf{e} = [+ \text{front}, - \text{low}]$ is a featural descriptor.
 
-To relate featural descriptors and natural classes, note that every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = \{\alpha_k F_k\}_{k=1}^K$ (where each $\alpha_k$ is a value in $\mathcal V \setminus \{ 0 \}$, and each $F_k$ is some feature function $f_j \in \mathcal F$). Informally, we say that a featural descriptor describes the class of segments which have (at least) the feature/value pairs it contains. Formally, we write $\langle \mathbf{e} \rangle$ to indicate the natural class that corresponds to the featural descriptor $\mathbf{e}$:
+To relate featural descriptors and phonological classes, note that every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = \{\alpha_k F_k\}_{k=1}^K$, where each $\alpha_k$ is a value in $\mathcal V \setminus \{ 0 \}$, and each $F_k$ is some feature function $f_j \in \mathcal F$. Informally, we say that a featural descriptor describes the class of segments which have (at least) the feature/value pairs it contains. Formally, we write $\langle \mathbf{e} \rangle$ to indicate the natural class that corresponds to the featural descriptor $\mathbf{e}$:
 
 $$ \langle \, \{\alpha_k F_k\}_{k=1}^K \, \rangle = \{x \in \Sigma \, | \, F_k(x) = \alpha_k \text{ for every } k \} $$
 

@@ -54,15 +54,6 @@ class Poset():
 
         return True
 
-    def get_closest_known_parents(self, target, known_classes):
-        target_index = self.classes.index(target)
-        parents = []
-        for i, c in enumerate(self.classes):
-            if i != target_index and self.subset_matrix[i, target_index]:
-                parents.append(c)
-        return list(filter(lambda x: x in known_classes, parents))
-
-
     def calculate_subset_matrix(self):
         """
         Goes through every pair of sets in the inputs and determines whether
