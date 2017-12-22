@@ -55,7 +55,7 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 
 \subsection{Classes and class systems}
 
-A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet $\mathcal C = \{ C_i \subset \Sigma \}_{i=1}^N$). Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
+A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
 
 % show an example of a natural class system: a vowel harmony lattice
 % TODO: it would be great to modify this figure so the 'stray' singletons on the right are on the same 'tier' as the other singletons
@@ -67,7 +67,7 @@ A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet
 
 In this graph, each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. However, the figure does not include an arrow for every pair of classes that have a subset relationship. For example, the class \{\textipa{E}\} is a subset of all vowels, but there is not an arrow from the class of all vowels to \{\textipa{E}\}. This is because the class of front vowels \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} `intervenes' between \{\textipa{E}\} and the class of all vowels. We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class.
 
-Graphically, it is sufficient to indicate daughterhood/parenthood relationships in figures like \ref{fig:lattice}, since it entails all other subset/superset relationships. However, there is another reason we introduce this concept. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
+Graphically, it is sufficient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations (like {\textipa{E}\} $\subset$ all vowels) are entailed. However, we did not only introduce this concept for aesthetically pleasing graphs. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
     \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
     \end{itemize}
 
@@ -195,23 +195,24 @@ We write $\mathcal C_\cap$ to indicate the \textit{intersectional closure} of a 
 
 \subsection{Feature systems generate an intersectional closure}
 
-Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This is more formally stated in the following Lemma:
-
-\vspace{\baselineskip} \noindent \textbf{Lemma 1}: If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
-
-A formal proof is given in the Appendix. The idea can be illustrated very simply by reference to the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_1 =$ \phonfeat{+round}. Then \begin{itemize}
+Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This principle can be illustrated with the following example, using the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_1 =$ \phonfeat{+round}. Then \begin{itemize}
     \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
     \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
     \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
     \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\
     \end{itemize}
-This example carefully illustrates that the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. Lemma 1 proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
 
-\vspace{\baselineskip} \noindent \textbf{Theorem}: Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
+In other words, the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. Lemma 1 proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
 
-\textit{Proof}: Let $C$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{C_i \in \mathcal C\}_{i=1}^n$ such that and $C = \bigcap_i \, C_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every $C_i$ in $\mathcal C$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = C_i$. Thus, $C = \bigcap_i C_i = C_1 \cap C_2 \cap \ldots \cap C_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$. It follows by induction that $C = \langle \bigcup_i  \mathbf{e}_i \rangle$:
+\vspace{\baselineskip} \noindent \textbf{Lemma 1}: Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
 
-$C = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$
+\vspace{\baselineskip} \noindent A formal proof is included in the Appendix. The key utility of this Lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes.
+
+\vspace{\baselineskip} \noindent \textbf{Theorem 1}: Let $(\mathcal C, \Sigma)$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
+
+\textit{Proof}: Let $Y$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{X_i \in \mathcal C\}_{i \in I}$ (for some index set $I$, which we will omit hereafter) such that and $Y = \bigcap_i \, X_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every such $X_i$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = X_i$. Thus, $Y = \bigcap_i X_i = X_1 \cap X_2 \cap \ldots \cap X_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$. It follows by induction that $Y = \langle \bigcup_i \mathbf{e}_i \rangle$:
+
+$Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$
 
 \quad $ = \langle \mathbf{e}_1 \cup \mathbf{e}_2 \rangle \cap \mathbf{e}_3 \cap \ldots \cap \langle \mathbf{e}_n \rangle$
 
@@ -227,6 +228,8 @@ $C = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
 
 \subsection{Algorithm}
 
+The following algorithm yields the intersectional closure of a natural class system $(\mathcal C, \Sigma)$. A proof by induction is given in the Appendix.
+
 \noindent \begin{algorithmic}
     \ENSURE $\mathcal C_\cap$ is the intersectional closure of the input $\mathcal C$
     \STATE
@@ -234,70 +237,31 @@ $C = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
     \STATE $\mathcal Q \leftarrow \mathcal C$
     \STATE
     \WHILE{$\mathcal Q \neq \varnothing$}
-        \STATE $X \leftarrow \textsc{pop}(\mathcal Q)$
+        \STATE $X \leftarrow \textsc{dequeue}(\mathcal Q)$
         \IF{\NOT $X \in \mathcal C_\cap$}
-            \FOR{$Y \in \mathcal C_\cap$}
-                \STATE $\textsc{push } (X \cap Y) \rightarrow \mathcal Q$
-            \ENDFOR
             \STATE $\textsc{append}(\mathcal C_\cap, \, X)$
+            \FOR{$Y \in \mathcal C_\cap \setminus \{ X \}$}
+                \STATE $\textsc{enqueue}(\mathcal Q, X \cap Y)$
+            \ENDFOR
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
 
 \subsection{Parenthood in the intersectional closure}
 
+As we will see shortly, the advantage of explicitly computing the intersectional closure is that \textit{a new feature is required for all and only the classes which have a single parent} (in the intersectional closure). The core reason for this is that if a class has two parents, it must be their intersection. We prove this here.
 
+\vspace{\baselineskip} \noindent \textbf{Theorem 2}: Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. Then $\textsc{parents}(Y) = \{X_1, X_2\}$ implies $Y = X_1 \cap X_2$.
 
+\textit{Proof}: First, we show $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
 
+Next, we show that $X_1 \cap X_2 \subset Y$. Suppose not, i.e. $\exists x \in (X_1 \cap X_2) \setminus Y$. As we already showed, $Y \subset (X_1 \cap X_2)$, and $(X_1 \cap X_2) \in \mathcal C_\cap$. Of course $X_1 \cap X_2 \subset X_1$ follows from fundamental properties of sets, and $X_1 \in \mathcal C_\cap$ by hypothesis. These may be combined to yield $Y \subset (X_1 \cap X_2) \subset X_1$, so that $(X_1 \cap X_2)$ `intervenes' between $Y$ and $X_1$. But this implies that $Y$ cannot be a daughter of $X_1$, a contradiction. Thus, $X_1 \cap X_2 \subset Y$ and $Y \subset X_1 \cap X_2$, proving that $Y = X_1 \cap X_2$.
+	
+\vspace{\baselineskip} \noindent By very similar logic as in Theorem 2, it is straightforward to show that if a class in $\mathcal C_\cap$ has \textit{more} than 2 parents, then it must be the null set. It is similarly easy to show that $\Sigma$ is the only class in $\mathcal C_\cap$ with $0$ parents. Thus, every nonempty class in the intersectional closure of $\mathcal C$ besides $\Sigma$ has either 1 parent or 2, and in the latter case, it is the intersection of those two parents. We illustrate this point in the next subsection by by graphing the intersectional closure of the vowel system in Fig.~\ref{fig:lattice}.
 
+\subsection{Illustration of the intersectional closure}
 
-
-\vspace{\baselineskip} The advantage of precomputing the intersectional closure is that it renders fully explicit the subset relations between natural classes. This, in turn, has implications for the daughterhood relationship. To see this, define $\textsc{parents}(C, \mathcal C_\cap) = \{ \} $. As we show next, this has strong implications for the daughterhood relationship. Suppose that $\mathcal C$ is a natural class system over the alphabet $\Sigma$, and $\mathcal C_\cap$ is its intersectional closure, and let $\textsc{parents}(C) = \{ $: \begin{itemize}
-    \item $\Sigma$ has 0 parents, and is the only class in $\mathcal C_\cap$
-    \end{itemize}
-
-\vspace{\baselineskip} \noindent \textbf{Lemma}: If $\mathcal C$ is a natural class system over the alphabet $\Sigma$, $\Sigma$ is the only class with 0 parents. 
-
-\textit{Proof}: $\Sigma$ is the maximal subset of $\Sigma$ and therefore contains no parents. If a set $A$ has no parents, it is not a proper subset of any set in $\mathcal C_\cap$; but $\mathcal C_\cap$ only contains $\Sigma$ and proper subsets of $\Sigma$.
-
-\noindent \textit{Part 2}: If $A$ has two parents $B$ and $C$, then $A = B \cap C$.
-
-Let $x \in A$. By definition of parent, $A \subset B$ and $A \subset C$, which respectively imply that $x \in B$ and $x \in C$. This shows that $x \in B \cap C$, i.e. $A \subset B \cap C$. Now, suppose that $A \neq B \cap C$. By the preceding logic, $A \subset B \cap C \subset$, and the definition of subset entails that $B \cap C \subset B$. Then $A \subset B \cap C \subset B$, which is a contradiction -- the definition of daughter entails that no class `intervenes' between $A$ and $B$, but if $A \neq B \cap C$, then $B \cap C$ intervenes between $A$ and $B$. Thus, $A = B \cap C$.
-
-\noindent \textit{Part 3}: $A$ cannot have more than two parents.
-
-The reasoning is intimately related to that of Part 2. Suppose that $A$ is a daughter of three distinct classes $B$, $C$, and $D$. Then $A = B \cap C$, but also $A = B \cap D$, which implies that $C = D$, contra hypothesis. By similar reasoning (induction), $A$ cannot be the daughter of more than 3 classes. % what's up with the null set? something wrong with the logic here
-
-
-\vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. \section{Privative specification}
-
-\vspace{\baselineskip} \noindent \begin{algorithmic}
-	\REQUIRE $\mathcal V = \{ +, 0 \}$
-	\REQUIRE Precompute $C' <- \textsc{IntersectionalClosure}(C)$
-	\REQUIRE $\mathcal C'$ is sorted in decreasing order of size ($\forall i, j \, [i < j \rightarrow |C'_i| \geq |C'_j|$)
-	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
-	\ENSURE output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
-	\STATE
-	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
-	\STATE $i \leftarrow 1$
-	\STATE
-	\WHILE{classQueue $\neq \varnothing$}
-	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
-	\STATE $f_i(x) = \begin{cases}
-		+ & \mbox{if } x \in c_k \\
-		0 & \mbox{otherwise}
-		\end{cases} $
-	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
-	\STATE $i \leftarrow i + 1$
-	\ENDWHILE
-\end{algorithmic}
-
-\vspace{\baselineskip} The algorithm is considered sound if it returns a covering feature set for every valid input. 
-
-\textit{Proof}:
-
-
-
+TODO: add figure
 
 \section{Contrastive underspecification}
 achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
@@ -408,6 +372,12 @@ Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that 
 Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
 Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore $x \in C_i \cap C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
 Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
+
+\subsection{Proof of intersectional closure algorithm}
+
+We will show that the algorithm generates every class in the intersectional closure by induction. $\mathcal C_\cap$ is initialized to contain $\Sigma$. Moreover, $\mathcal Q$ is initialized to contain every class in $\mathcal C$. Each of these must be `transferred' to the intersectional closure because they do not belong to it already (dequeued from $\mathcal Q$, and appended to $\mathcal C_\cap$). This demonstrates that every intersection of 0 classes ($\Sigma$) and 1 class from $\mathcal C$ (namely, $\mathcal C$ itself) belongs to $\mathcal C_\cap$. Now, suppose that the algorithm has guaranteed that every intersection of $n$ classes from $\mathcal C$ is in $\mathcal C_\cap$. If there exists a $Y \in \mathcal C_\cap$ which can be written as the intersection of $n+1$ classes, i.e. $Y = X_1 \cap X_2 \cap \ldots \cap X_{n+1} = Y' \cap X_{n+1}$ where $Y' = X_1 \cap X_2 \cap \ldots \cap X_n$. Since every intersection of $n$ classes is in $\mathcal C_\cap$, $Y'$ must be in $\mathcal C_\cap$. Now, regardless of whether $X_{n+1}$ was transferred from $\mathcal Q$ to $\mathcal C_\cap$ before or after $Y'$ was, there was some point at which one was in $\mathcal Q$ and the other in $\mathcal C_\cap$. When the \textbf{for} loop dequeued the one in $\mathcal Q$, it added the intersection of this one with all others in $\mathcal C_\cap$ -- i.e. $Y' \cap X_{n+1}$. Either this class was already in $\mathcal C_\cap$, or else it was not; and in the latter case, it was transferred. Thus, all sets generated by the intersection of $n+1$ classes from $\mathcal C$ are in $\mathcal C_\cap$. This completes the proof.
+
+
 
 \subsubsection{Representing subset relations as matrices}
 
