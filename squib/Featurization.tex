@@ -51,11 +51,11 @@ This paper makes several important contributions: first, it demonstrates a metho
 
 \section{Definitions and notation}
 
-Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$. We will also use the notation $\mathcal P(X)$ to indicate the \textit{powerset} of $X$ -- the set of all subsets of $X$, including the empty set $\varnothing$ and $X$ itself.
+Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class} to mean a subset of $\Sigma$.
 
 \subsection{Classes and class systems}
 
-A \textit{class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of $\mathcal P(\Sigma)$ which includes $\Sigma$ itself. Formally, $\mathcal C = \{ C_i \}_{i=1}^N$, where each $C_i \subset \Sigma$. Fig~\ref{fig:lattice} illustrates this definition with a class system over a set of vowels.
+A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet $\mathcal C = \{ C_i \subset \Sigma \}_{i=1}^N$). Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
 
 % show an example of a natural class system: a vowel harmony lattice
 % TODO: it would be great to modify this figure so the 'stray' singletons on the right are on the same 'tier' as the other singletons
@@ -65,39 +65,24 @@ A \textit{class system} $\mathcal C$ over an alphabet $\Sigma$ is any subset of 
 \label{fig:lattice}
 \end{figure}
 
-In this graph, each node corresponds to a class, and a downward arrow from class $C_i$ to class $C_j$ indicates that $C_j \subset C_i$. To be more precise, downward arrows indicate that there is no `intervening' class $C_k$. For example, the front vowels \{\textipa{OE}, \textipa{y}, \textipa{E}, \textipa{i}\} intervene between all vowels and \{\textipa{E}\}, so we do not include an arrow from the top node to the \{\textipa{E}\}, node. This relation will prove important for the algorithms we discuss later, and so we formalize it here: 
+In this graph, each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. However, the figure does not include an arrow for every pair of classes that have a subset relationship. For example, the class \{\textipa{E}\} is a subset of all vowels, but there is not an arrow from the class of all vowels to \{\textipa{E}\}. This is because the class of front vowels \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} `intervenes' between \{\textipa{E}\} and the class of all vowels. We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class.
 
-\begin{definition}
-	$C_i$ is a \textit{parent} of $C_j$ (and $C_j$ is a \textit{daughter} of $C_i$) if and only if $C_j \subset C_i$, and $\nexists C_k \in \mathcal C \, [C_j \subset C_k \subset C_i]$.
-\end{definition}
+Graphically, it is sufficient to indicate daughterhood/parenthood relationships in figures like \ref{fig:lattice}, since it entails all other subset/superset relationships. However, there is another reason we introduce this concept. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
+    \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
+    \end{itemize}
 
-\subsubsection{Representing subset relations as matrices}
-
-\vspace{\baselineskip} Any directed graph like Fig~\ref{fig:lattice} has an equivalent representation with a square matrix. Row $i$ is identified with class $C_i$, column $j$ with $C_j$; and the value in the $(i,j)$ cell indicates the relationship between $C_i$ and $C_j$. For binary relations like the subsethood and daughterhood, it is convenient to use the Boolean field: the set $\{T, \, F\}$ with operations $\cdot$ (logical \textsc{and}), $+$ (logical \textsc{or}), and additive inverse $-$ (logical \textsc{not}). The \textit{subset matrix} is defined thus:
-
-$$S_{ij} = \begin{cases}
-                T & \quad \text{if } C_j \subset C_i \\
-                F & \quad \text{otherwise}
-                \end{cases}$$
-
-\noindent The advantage of writing a relation in this way is that fundamental matrix operations correspond to various measures of interest. For example, when $S$ is defined as above, and $S^2$ is calculated from ordinary matrix multiplication, then $S^2$ indicates the subset-of-a-subset relation, which corresponds graphically to 'paths' of length 2 on a subset graph. In other words, $(S^2)_{ij} = T$ means there is a $C_k$ such that $S_{ik} = T \textsc{ and } S_{kj} = T$. If we further let \textsc{and} denote the element-wise multiplication operator, then the \textit{daughter matrix} can be computed from the subset matrix as follows: 
-
-$$D = S \textsc{ and } -S^2$$
-
-\noindent This matrix expressed the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The matrix $D$ is of central importance to the featurization algorithms described later.
+\noindent We further define $\textsc{parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
 
 \subsection{Feature systems and featurizations}
 
-% definition of feature system
-\vspace{\baselineskip} A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
+A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
     \item $\Sigma$ is a segmental alphabet, 
     \item $\mathcal V$ is a set of values, and 
     \item $\mathcal F$ is a \textit{featurization}: a set of features $\{f_j\}_{j=1}^M$, where each feature is a function $f: \Sigma \rightarrow \mathcal V$ mapping segments to feature values
     \end{itemize}
 
-\noindent To illustrate, a feature system for the vowel harmony lattice shown in Fig.~\ref{fig:lattice} is shown below:
+\noindent To illustrate, a feature system for the vowel harmony lattice of Fig.~\ref{fig:lattice} is shown below:
 
-% table with featurization of vowel harmony lattice
 \begin{table}[h]
     \centering
     \begin{tabular} {|c||c|c|c|c|c|}
@@ -128,7 +113,7 @@ Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathca
     \item \textit{contrastive specification}: $\mathcal V = \{ +, -, 0 \}$
     \end{itemize}
 
-A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$, $\mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F$. For example, $\mathbf{e} = [+ \text{front}, - \text{low}]$ is a featural descriptor.
+A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$, $\mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F$. For example, $\mathbf{e} =$  \phonfeat{+front \\ -low} is a featural descriptor.
 
 To relate featural descriptors and phonological classes, note that every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = \{\alpha_k F_k\}_{k=1}^K$, where each $\alpha_k$ is a value in $\mathcal V \setminus \{ 0 \}$, and each $F_k$ is some feature function $f_j \in \mathcal F$. Informally, we say that a featural descriptor describes the class of segments which have (at least) the feature/value pairs it contains. Formally, we write $\langle \mathbf{e} \rangle$ to indicate the natural class that corresponds to the featural descriptor $\mathbf{e}$:
 
@@ -136,7 +121,7 @@ $$ \langle \, \{\alpha_k F_k\}_{k=1}^K \, \rangle = \{x \in \Sigma \, | \, F_k(x
 
 \vspace{\baselineskip} \noindent We use the notation $\mathcal V^\mathcal F$ to denote the powerset of $(\mathcal V \setminus \{0\}) \times \mathcal F$, i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, | \, \mathbf{e} \in \mathcal V^\mathcal F \}$, the set of all natural classes described by some featural descriptor in $\mathcal V^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the natural class system $\langle \mathcal V^\mathcal F \rangle$.
 
-Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor $[+\text{front}]$ picks out the same class as the featural descriptor $[+ \text{front}, - \text{low}]$ (namely, the front vowels). Moreover, the featural descriptors $[+\text{front}, -\text{front}]$ and $[+\text{high}, +\text{low}]$ both pick out the empty set.
+Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{+front} picks out the same class as the featural descriptor \phonfeat{+front \\ -low} (namely, the front vowels). Moreover, the featural descriptors \phonfeat{+front \\ -front} and \phonfeat{+high \\ +low} both pick out the empty set.
 
 \vspace{\baselineskip} We say that a feature system $(\mathcal F, \Sigma, \mathcal V)$ \textit{covers} a natural class system $\mathcal C$ if $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$; in other words if the feature system provides a distinct featural representation for every class in $\mathcal C$. In the remainder of this squib, we show how to construct a feature system that covers an arbitrary natural class system $\mathcal C$.
 
@@ -200,20 +185,27 @@ Next, consider the isomorphic featurization in which the $0$'s from Table ~\ref{
 
 \section{Intersectional closure}
 
-In this section we define the \textit{intersectional closure} of a natural class system $\mathcal C$. We prove that if a feature system is expressive enough to generate all the classes in $\mathcal C$, it generates the intersectional closure. Then we give a dynamic programming algorithm which efficiently computes the intersectional closure of a natural class system, as well as the intersection relation. It turns out that these structures are exactly what is needed to efficiently assign a feature system.
+In this section we define the \textit{intersectional closure} of a natural class system $\mathcal C$ as the set of classes that can be generated by intersecting $\Sigma$ with any set of classes in $\mathcal C$. We relate the intersectional closure to features by showing that if a feature system is expressive enough to generate all the classes in $\mathcal C$, it generates the intersectional closure. Then we give a dynamic programming algorithm which efficiently computes the intersectional closure. 
 
-\vspace{\baselineskip} The \textit{intersectional closure} of $\mathcal C$, denoted $\mathcal C_\cap$, is the natural class system consisting of every class that can be generated by the intersection of finitely many classes in $\mathcal C$. Formally, $\mathcal C_\cap = \{\, \bigcap {C' \in P}  \, | \, \exists P \in \mathcal P(\mathcal C) \}$ (where $\mathcal P(\mathcal C)$ is the powerset of $\mathcal C$). We show that if a feature system $(\mathcal F, \Sigma, \mathcal V)$ is rich enough to cover $\mathcal C$, it generates $\mathcal C_\cap$.
+\subsection{Definition}
 
-\vspace{\baselineskip} \noindent \textbf{Lemma}: If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
+A collection of sets $\mathcal C$ is \textit{intersectionally closed} if and only if $\forall (X, Y \in \mathcal C) \, [ X \cap Y \in \mathcal C]$.
 
-\textit{Proof}: The proof proceeds by showing that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$ and $ \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
-Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_j = \langle \mathbf{e}_j \rangle$.
-First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
-Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
-Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
-Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
-Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore $x \in C_i \cap C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
-Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
+We write $\mathcal C_\cap$ to indicate the \textit{intersectional closure} of a natural class system $(\mathcal C, \Sigma)$. This the smallest intersectionally closed collection which contains $\Sigma$ and every set in $\mathcal C$; in other words, the intersectional closure does not contain any classes except $\Sigma$ and those which can be generated by finite intersections of classes from $\mathcal C$.
+
+\subsection{Feature systems generate an intersectional closure}
+
+Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This is more formally stated in the following Lemma:
+
+\vspace{\baselineskip} \noindent \textbf{Lemma 1}: If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
+
+A formal proof is given in the Appendix. The idea can be illustrated very simply by reference to the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_1 =$ \phonfeat{+round}. Then \begin{itemize}
+    \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
+    \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
+    \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
+    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\
+    \end{itemize}
+This example carefully illustrates that the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. Lemma 1 proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
 
 \vspace{\baselineskip} \noindent \textbf{Theorem}: Let $\mathcal C = \{C_i\}_{i=1}^n$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
 
@@ -231,39 +223,53 @@ $C = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
 
 \quad $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 
-\noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of natural classes in $\mathcal C$, then its features are the union of the features in each of those classes. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
+\noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of natural classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
 
+\subsection{Algorithm}
 
-\vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. We assume that the input is a natural class system $\mathcal C = \{C_i\}_{i=1}^N$.
-
-\vspace{\baselineskip} \noindent \begin{algorithmic}
-    \ENSURE $\mathcal C_\cap$ is the intersectional closure of $\mathcal C$
-    \ENSURE $\mathcal I(i,j) = k$ whenever $C_i \cap C_j = C_k$ (for all $i, j, k$)
+\noindent \begin{algorithmic}
+    \ENSURE $\mathcal C_\cap$ is the intersectional closure of the input $\mathcal C$
     \STATE
-    \STATE $\mathcal C_\cap \leftarrow \mathcal C$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{ordered list of classes}
-    \STATE $N \leftarrow | \mathcal C_\cap |$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{size of $\mathcal C_\cap$}
-    \STATE $\mathcal Q \leftarrow \{ (i, j) \, | \, 1 \leq i, j \leq N, i \neq j \}$ \quad \COMMENT{queue of natural class index pairs}
-    \STATE $\mathcal I \leftarrow \varnothing$ \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \COMMENT{hash table: $(i, j) \rightarrow k$ means $C_k = C_i \cap C_j$}
+    \STATE $\mathcal C_\cap \leftarrow \{ \Sigma \} $
+    \STATE $\mathcal Q \leftarrow \mathcal C$
     \STATE
     \WHILE{$\mathcal Q \neq \varnothing$}
-        \STATE $(i, j) \leftarrow \textsc{pop}(\mathcal Q)$
-        \IF{ \NOT ($C_j \subset C_i$ \OR $C_i \subset C_j$)}
-            \STATE $C \leftarrow C_i \cap C_j$
-            \IF{$C \in \mathcal C_\cap$}
-                \STATE $\mathcal I(i, j) \leftarrow \textsc{index}(\mathcal C_\cap, \, C)$
-            \ELSE
-                \STATE $\textsc{append}(\mathcal C_\cap, \, C)$
-                \STATE $N \leftarrow N+1$
-                \FOR{$k=1$ to $N$}
-                    \STATE $\textsc{push} \quad (k, N) \rightarrow \mathcal Q$
-                    \STATE $\textsc{push} \quad(N, k) \rightarrow \mathcal Q$
-                \ENDFOR
-            \ENDIF
+        \STATE $X \leftarrow \textsc{pop}(\mathcal Q)$
+        \IF{\NOT $X \in \mathcal C_\cap$}
+            \FOR{$Y \in \mathcal C_\cap$}
+                \STATE $\textsc{push } (X \cap Y) \rightarrow \mathcal Q$
+            \ENDFOR
+            \STATE $\textsc{append}(\mathcal C_\cap, \, X)$
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
 
-\section{Privative specification}
+\subsection{Parenthood in the intersectional closure}
+
+
+
+
+
+
+
+\vspace{\baselineskip} The advantage of precomputing the intersectional closure is that it renders fully explicit the subset relations between natural classes. This, in turn, has implications for the daughterhood relationship. To see this, define $\textsc{parents}(C, \mathcal C_\cap) = \{ \} $. As we show next, this has strong implications for the daughterhood relationship. Suppose that $\mathcal C$ is a natural class system over the alphabet $\Sigma$, and $\mathcal C_\cap$ is its intersectional closure, and let $\textsc{parents}(C) = \{ $: \begin{itemize}
+    \item $\Sigma$ has 0 parents, and is the only class in $\mathcal C_\cap$
+    \end{itemize}
+
+\vspace{\baselineskip} \noindent \textbf{Lemma}: If $\mathcal C$ is a natural class system over the alphabet $\Sigma$, $\Sigma$ is the only class with 0 parents. 
+
+\textit{Proof}: $\Sigma$ is the maximal subset of $\Sigma$ and therefore contains no parents. If a set $A$ has no parents, it is not a proper subset of any set in $\mathcal C_\cap$; but $\mathcal C_\cap$ only contains $\Sigma$ and proper subsets of $\Sigma$.
+
+\noindent \textit{Part 2}: If $A$ has two parents $B$ and $C$, then $A = B \cap C$.
+
+Let $x \in A$. By definition of parent, $A \subset B$ and $A \subset C$, which respectively imply that $x \in B$ and $x \in C$. This shows that $x \in B \cap C$, i.e. $A \subset B \cap C$. Now, suppose that $A \neq B \cap C$. By the preceding logic, $A \subset B \cap C \subset$, and the definition of subset entails that $B \cap C \subset B$. Then $A \subset B \cap C \subset B$, which is a contradiction -- the definition of daughter entails that no class `intervenes' between $A$ and $B$, but if $A \neq B \cap C$, then $B \cap C$ intervenes between $A$ and $B$. Thus, $A = B \cap C$.
+
+\noindent \textit{Part 3}: $A$ cannot have more than two parents.
+
+The reasoning is intimately related to that of Part 2. Suppose that $A$ is a daughter of three distinct classes $B$, $C$, and $D$. Then $A = B \cap C$, but also $A = B \cap D$, which implies that $C = D$, contra hypothesis. By similar reasoning (induction), $A$ cannot be the daughter of more than 3 classes. % what's up with the null set? something wrong with the logic here
+
+
+\vspace{\baselineskip} Next, we give an algorithm which computes the intersectional closure, a modified variant of Dijkstra's shortest-paths algorithm. As we will show later, the computational benefit of precomputing the intersectional closure is that it efficiently computes the intersection relation, which reduces the computational complexity of the featurization algorithm. \section{Privative specification}
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
 	\REQUIRE $\mathcal V = \{ +, 0 \}$
@@ -392,14 +398,30 @@ achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to ev
 
 \appendix
 
-\section{Formal proof of the algorithm}
+\subsection{Proof of Lemma 1}
 
-\subsection{Privative underspecification}
+The proof proceeds by showing that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$ and $ \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
+Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_j = \langle \mathbf{e}_j \rangle$.
+First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
+Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
+Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
+Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
+Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore $x \in C_i \cap C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
+Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
 
-\subsection{Contrastive underspecification}
+\subsubsection{Representing subset relations as matrices}
 
-\subsection{Contrastive specification}
+\vspace{\baselineskip} Any directed graph like Fig~\ref{fig:lattice} has an equivalent representation with a square matrix. Row $i$ is identified with class $C_i$, column $j$ with $C_j$; and the value in the $(i,j)$ cell indicates the relationship between $C_i$ and $C_j$. For binary relations like the subsethood and daughterhood, it is convenient to use the Boolean field: the set $\{T, \, F\}$ with operations $\cdot$ (logical \textsc{and}), $+$ (logical \textsc{or}), and additive inverse $-$ (logical \textsc{not}). The \textit{subset matrix} is defined thus:
 
-\subsection{Full specification}
+$$S_{ij} = \begin{cases}
+                T & \quad \text{if } C_j \subset C_i \\
+                F & \quad \text{otherwise}
+                \end{cases}$$
+
+\noindent The advantage of writing a relation in this way is that fundamental matrix operations correspond to various measures of interest. For example, when $S$ is defined as above, and $S^2$ is calculated from ordinary matrix multiplication, then $S^2$ indicates the subset-of-a-subset relation, which corresponds graphically to `paths' of length 2 on a subset graph. In other words, $(S^2)_{ij} = T$ means there is a $C_k$ such that $S_{ik} = T \textsc{ and } S_{kj} = T$. If we further let \textsc{and} denote the element-wise multiplication operator, then the \textit{daughter matrix} can be computed from the subset matrix as follows: 
+
+$$D = S \textsc{ and } -S^2$$
+
+\noindent This matrix expresses the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The daughterhood relation is of central importance to the featurization algorithms described later.
 
 \end{document}  
