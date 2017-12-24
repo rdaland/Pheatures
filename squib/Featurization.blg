@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Featurization.aux
+The style file: apacite.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: mybib.bib.bib
+apacite.bst [2013/07/21 v6.03 APA bibliography style]
+You've used 7 entries,
+            6951 wiz_defined-function locations,
+            1315 strings with 11562 characters,
+and the built_in function-call counts, 10896 in all, are:
+= -- 1347
+> -- 96
+< -- 430
++ -- 418
+- -- 14
+* -- 629
+:= -- 1906
+add.period$ -- 28
+call.type$ -- 7
+change.case$ -- 119
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 289
+empty$ -- 519
+format.name$ -- 155
+if$ -- 2189
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 0
+newline$ -- 173
+num.names$ -- 57
+pop$ -- 302
+preamble$ -- 1
+purify$ -- 28
+quote$ -- 0
+skip$ -- 700
+stack$ -- 0
+substring$ -- 459
+swap$ -- 163
+text.length$ -- 14
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 560
+warning$ -- 0
+while$ -- 50
+width$ -- 0
+write$ -- 207

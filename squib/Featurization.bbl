@@ -1,0 +1,180 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+ArchangeliPulleyblank2015}
+\APACinsertmetastar {%
+ArchangeliPulleyblank2015}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\BCBT {}\ \BBA {} Pulleyblank, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Phonology without universal grammar} {Phonology without
+  universal grammar}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Frontiers in Psychology}{6}{}{1229}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Blevins%
+}{%
+Blevins%
+}{%
+{\protect \APACyear {2004}}%
+}]{%
+Blevins2004}
+\APACinsertmetastar {%
+Blevins2004}%
+\begin{APACrefauthors}%
+Blevins, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2004}.
+\newblock
+\APACrefbtitle {Evolutionary phonology: {T}he emergence of sound patterns}
+  {Evolutionary phonology: {T}he emergence of sound patterns}.
+\newblock
+\APACaddressPublisher{Cambridge}{Cambridge University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chomsky%
+\ \BBA {} Halle%
+}{%
+Chomsky%
+\ \BBA {} Halle%
+}{%
+{\protect \APACyear {1968}}%
+}]{%
+ChomskyHalle1968}
+\APACinsertmetastar {%
+ChomskyHalle1968}%
+\begin{APACrefauthors}%
+Chomsky, N.%
+\BCBT {}\ \BBA {} Halle, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1968}.
+\newblock
+\APACrefbtitle {The sound pattern of {E}nglish} {The sound pattern of
+  {E}nglish}.
+\newblock
+\APACaddressPublisher{New York}{Harper \& Row}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+de Saussure%
+}{%
+de Saussure%
+}{%
+{\protect \APACyear {1959}}%
+}]{%
+Saussure1959}
+\APACinsertmetastar {%
+Saussure1959}%
+\begin{APACrefauthors}%
+de Saussure, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1959}.
+\newblock
+\APACrefbtitle {Course in general linguistics} {Course in general linguistics}.
+\newblock
+\APACaddressPublisher{New York}{Philosophical Library}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Jakobson%
+, Gunnar%
+, Fant%
+\BCBL {}\ \BBA {} Halle%
+}{%
+Jakobson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1952}}%
+}]{%
+JakobsonEtAl1952}
+\APACinsertmetastar {%
+JakobsonEtAl1952}%
+\begin{APACrefauthors}%
+Jakobson, R.%
+, Gunnar, C.%
+, Fant, M.%
+\BCBL {}\ \BBA {} Halle, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1952}.
+\newblock
+\APACrefbtitle {Preliminaries to speech analysis: The distinctive features and
+  their correlates} {Preliminaries to speech analysis: The distinctive features
+  and their correlates}.
+\newblock
+\APACaddressPublisher{Cambridge, MA}{MIT Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+MacWhinney%
+\ \BBA {} O'Grady%
+}{%
+MacWhinney%
+\ \BBA {} O'Grady%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+MacWhinneyOGrady2015}
+\APACinsertmetastar {%
+MacWhinneyOGrady2015}%
+\begin{APACrefauthors}%
+MacWhinney, B.%
+\BCBT {}\ \BBA {} O'Grady, W.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYear{2015}.
+\newblock
+\APACrefbtitle {The handbook of language emergence} {The handbook of language
+  emergence}.
+\newblock
+\APACaddressPublisher{Chichester}{John Wiley \& Sons}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mielke%
+}{%
+Mielke%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+Mielke2008}
+\APACinsertmetastar {%
+Mielke2008}%
+\begin{APACrefauthors}%
+Mielke, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2008}.
+\newblock
+\APACrefbtitle {The emergence of distinctive features} {The emergence of
+  distinctive features}.
+\newblock
+\APACaddressPublisher{Oxford}{Oxford University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

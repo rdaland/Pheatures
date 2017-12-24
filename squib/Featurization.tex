@@ -58,7 +58,6 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels.
 
 % show an example of a natural class system: a vowel harmony lattice
-% TODO: it would be great to modify this figure so the 'stray' singletons on the right are on the same 'tier' as the other singletons
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{vowelHarmony_unicode.png}
 \caption{Vowel harmony lattice}
@@ -67,7 +66,7 @@ A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet
 
 In this graph, each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. However, the figure does not include an arrow for every pair of classes that have a subset relationship. For example, the class \{\textipa{E}\} is a subset of all vowels, but there is not an arrow from the class of all vowels to \{\textipa{E}\}. This is because the class of front vowels \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} `intervenes' between \{\textipa{E}\} and the class of all vowels. We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class.
 
-Graphically, it is sufficient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations (like \{\textipa{E}\} $\subset$ all vowels) are entailed. However, we did not only introduce this concept for aesthetically pleasing graphs. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
+Graphically, it is sufficient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations are entailed. However, the parenthood relation is not only useful for graphing. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
     \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
     \end{itemize}
 
@@ -193,7 +192,7 @@ We write $\mathcal C_\cap$ to indicate the \textit{intersectional closure} of a 
 
 \subsection{Feature systems generate an intersectional closure}
 
-Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This principle can be illustrated with the following example, using the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_1 =$ \phonfeat{+round}. Then \begin{itemize}
+Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This principle can be illustrated with the following example, using the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_2 =$ \phonfeat{+round}. Then \begin{itemize}
     \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
     \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
     \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
@@ -249,17 +248,73 @@ The following algorithm yields the intersectional closure of a natural class sys
 
 As we will see shortly, the advantage of explicitly computing the intersectional closure is that \textit{a new feature is required for all and only the classes which have a single parent} (in the intersectional closure). The core reason for this is that if a class has two parents, it must be their intersection. We prove this here.
 
-\vspace{\baselineskip} \noindent \textbf{Theorem 2}: Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. Then $\textsc{Parents}(Y) = \{X_1, X_2\}$ implies $Y = X_1 \cap X_2$.
+\vspace{\baselineskip} \noindent \textbf{Theorem 2}: Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. If $X_1, X_2 \in \textsc{parents}(Y)$, then $Y = X_1 \cap X_2$.
 
-\textit{Proof}: First, we show $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
 
-Next, we show that $X_1 \cap X_2 \subset Y$. Suppose not, i.e. $\exists x \in (X_1 \cap X_2) \setminus Y$. As we already showed, $Y \subset (X_1 \cap X_2)$, and $(X_1 \cap X_2) \in \mathcal C_\cap$. Of course $X_1 \cap X_2 \subset X_1$ follows from fundamental properties of sets, and $X_1 \in \mathcal C_\cap$ by hypothesis. These may be combined to yield $Y \subset (X_1 \cap X_2) \subset X_1$, so that $(X_1 \cap X_2)$ `intervenes' between $Y$ and $X_1$. But this implies that $Y$ cannot be a daughter of $X_1$, a contradiction. Thus, $X_1 \cap X_2 \subset Y$ and $Y \subset X_1 \cap X_2$, proving that $Y = X_1 \cap X_2$.
+\textit{Proof}: First, observe that $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
+
+Now suppose that $X_1 \cap X_2 \neq Y$. The preceding logic showed that either the two are equal, or $Y$ is a proper subset of  $X_1 \cap X_2$. But the latter case creates a contradiction. By definition, $(X_1 \cap X_2)$ must be in the intersectional closure, and $X_1 \cap X_2 \subset X_1$ follows from fundamental properties of sets. Then $X_1 \cap X_2$ intervenes between $Y$ and $X_1$, contradicting the hypothesis that $Y$ is a daughter of $X_1$. Thus, $Y = X_1 \cap X_2$.
 	
-\vspace{\baselineskip} \noindent By very similar logic as in Theorem 2, it is straightforward to show that if a class in $\mathcal C_\cap$ has \textit{more} than 2 parents, then it must be the null set. It is similarly easy to show that $\Sigma$ is the only class in $\mathcal C_\cap$ with $0$ parents. Thus, every nonempty class in the intersectional closure of $\mathcal C$ besides $\Sigma$ has either 1 parent or 2, and in the latter case, it is the intersection of those two parents. We illustrate this point in the next subsection by by graphing the intersectional closure of the vowel system in Fig.~\ref{fig:lattice}.
+\vspace{\baselineskip} Note that Theorem 2 does not logically exclude the possibility that a class may have more than two parents. Rather, it guarantees that in such cases, the intersection is the same regardless of how many parents are considered. One case in which this can happen is the null set: if $x, y, z$ are three distinct elements from $\Sigma$, then $\{ x \} \cap \{ y \} = \varnothing = \{ y \} \cap \{ z \}$. A more interesting case arises in the intersectional closure of the vowel system in Fig.~\ref{fig:lattice}, shown in Fig.~\ref{fig:closure}. 
 
-\subsection{Illustration of the intersectional closure}
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{vowelHarmony_closure.png}
+\caption{Intersectional closure of the vowel system shown earlier}
+\label{fig:closure}
+\end{figure}
 
-TODO: add figure
+In this case, the largest daughters of $\Sigma$ are the \phonfeat{+front} vowels, the \phonfeat{+high} vowels, and the \phonfeat{+round} vowels. The pairwise intersections of these classes give rise to the \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, and \phonfeat{+round \\ +front} classes. The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), which accordingly has 3 parents. In the next section, we give an algorithm which generates a privative feature system $(\mathcal F, \Sigma, \{+, 0\})$ that covers the intersectional closure $\mathcal C_\cap$, given a natural class system $(\mathcal C, \Sigma)$.
+
+ \section{Privative specification}
+
+The following algorithm yields a privative specification by assigning a different feature \phonfeat{+f} to the segments in each class with a single parent.
+ 
+\noindent \begin{algorithmic}
+    \REQUIRE $\mathcal C_\cap$ is the intersectional closure of a natural class system $(\mathcal C, \Sigma)$
+    \ENSURE $\mathcal F$ is a featurization over $\mathcal V = \{ +, 0 \}$ which covers $\mathcal C$
+    \STATE
+    \STATE $\mathcal Q \leftarrow \mathcal C_\cap$
+    \STATE $\mathcal F \leftarrow \varnothing$
+    \STATE
+    \WHILE{$\mathcal Q \neq \varnothing$}
+        \STATE $X \leftarrow \textsc{pop}(\mathcal Q)$
+        \IF{$|\textsc{parents}(X)| = 1$}
+            \STATE define $f : \Sigma \rightarrow \mathcal V$ by $f(\sigma) = \begin{cases}
+                + & \mbox{if } \sigma \in X \\
+                0 & \mbox{otherwise}
+                \end{cases} $
+            \STATE $\textsc{append}(\mathcal F, f)$
+        \ENDIF
+    \ENDWHILE
+\end{algorithmic}
+
+\vspace{\baselineskip} \noindent \textit{Proof of soundness for the privative specification algorithm}. A featurization algorithm is \textit{sound} if for every natural class system $(\mathcal C, \Sigma)$, it returns a feature system which covers $\mathcal C$. To see that the privative specification algorithm is sound, note that every class in $\mathcal C_\cap$ enters the queue $\mathcal Q$. For an arbitrary class $X$ in the queue, there are 3 cases. If $X$ has 0 parents, then it is $\Sigma$, and is covered by the empty featural descriptor. If $X$ has exactly 1 parent, then the segments in $X$ get the features of that parent (which uniquely pick out the parent class), plus a new feature $f$ which distinguishes the segments in $X$ from $X$'s parent. If $X$ has more than 1 parent, then Theorem 2 shows, via the Featural Intersection Lemma, that the union of features of $X$'s parents uniquely pick out all and only the segments in $X$. Thus, each class which exits the queue has a set of features assigned to its segments which pick out that class uniquely. This completes the proof.
+
+In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative specification algorithm to the intersectional closure (shown in Fig.~\ref{fig:closure}). We employ several conventions to jointly optimize readability and informativity. 
+First, classes which have a single parent are visually highlighted using a thick, red ellipse. These represent the classes that cannot be featurized simply by the union of their parents' features. Second, the arrow which leads to each such class is annotated with the feature/value that is used to distinguish it. This represents the `point' at which each feature is assigned. Note that since the algorithm assigns feature/value pairs to \textit{segments}, every daughter of the class which got a new feature also gets that feature. The set of features that is shared by all members of a class, i.e. which uniquely picks out that class and not any other, is represented under the node. The complete featurization assigned to each segment is thus represented by inspecting the singleton sets in the bottom row. For readability, we use feature names that are familiar from phonological theory when the feature picks out more than segment in isolation. And when the feature only picks out one segment, we name the feature after the segment. (But this is purely for readability of the figure. The algorithm knows nothing of phonological substance -- as far as it is concerned, each feature might as well be called $f_j$, with different $j$'s. 
+
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{vowelHarmony_privative.png}
+\caption{Intersectional closure of the vowel system shown earlier}
+\label{fig:privative}
+\end{figure}
+
+We close this section with some observations on the properties of the privative specification algorithm and the featurization it yields. 
+
+\subsection{Properties of privative specification}
+
+\vspace{\baselineskip} One point to observe is that the privative specification algorithm is \textit{maximally conservative}. What we mean by this is that the resulting feature system generates the smallest natural class system that covers $\mathcal C$. As Theorem 1 showed, any featurization which covers $\mathcal C$ will cover $\mathcal C_\cap$. This means that any classes which are the intersection of input classes, but which were not themselves in the input, will be `accessible' to the output feature system. Thus, the algorithm will in general make it possible to refer to classes not in the input. But the privative specification algorithm will not make it possible to refer to any other classes, besides those necessary ones. For example, if the input contains a \phonfeat{+front} class and a \phonfeat{+round} class, it must generate a \phonfeat{+front \\ +round} class, but it will not `create' a \phonfeat{-round} class.
+
+This might be the desired behavior. But other properties might be desired instead. For instance, one might have theoretical grounds for wishing to allow $-$ values. One might also wish to have an \textit{economical} feature system -- one which minimizes the number of features needed to cover $\mathcal C$. It is easy to show that one can sometimes achieve a more economical  feature system by `adding' classes to the system. For example, consider the vowel system that we have been using throughout, but partitioned by height, i.e. let $\mathcal C$ contain the following classes: \begin{itemize}
+    \item high vowels -- \{\textipa{i}, \textipa{y}, \textipa{W}, \textipa{u}\}
+    \item mid vowels -- \{\textipa{E}, \textipa{\oe}, \textipa{O}, \textipa{o}\}
+    \item low vowels -- \{\textipa{a}\}
+    \end{itemize}
+The algorithm will assign a separate height feature for each of these classes (since each of them has the single parent $\Sigma$), yielding a featurization with 3 features. However, the same set of classes can be covered by two features: \begin{itemize}
+    \item \phonfeat{+nonlow} -- \{\textipa{i}, \textipa{y}, \textipa{W}, \textipa{u}, \textipa{E}, \textipa{\oe}, \textipa{O}, \textipa{o}\}
+    \item \phonfeat{+nonhigh} -- \{\textipa{E}, \textipa{\oe}, \textipa{O}, \textipa{o}, \textipa{a}\}
+    \end{itemize}
+This example is presented to make two points. First, the relationship between classes in the input and the specification algorithm is not monotone: the number of features is determined by the number of classes in the intersectional closure with single parents, and this depends sensitively on the structure of the input $\mathcal C$. Second, `adding' classes can in some cases yield a more economical feature system. In the following sections, we explore variants of the privative specification algorithm which replace some or all $0$ values with $-$ values.
 
 \section{Privative specification}
 achieved by assigning a new feature [+f] to every segment in $X$
