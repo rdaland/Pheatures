@@ -160,7 +160,7 @@ class Featurizer():
 
 if __name__ == "__main__":
     # Choose a featurization type
-    specification = Specification.PRIVATIVE
+    specification = Specification.CONTRASTIVE
 
     # A few sample inputs...
     # Input classes are the sunny sounds of Hawaiian.
@@ -218,10 +218,10 @@ if __name__ == "__main__":
         ['m', 'n', 'p', 'k', '7', 'h', 'w', 'l', 'i', 'e', 'a', 'o', 'u']
     )
 
-    # print("Doing Hawaiian...")
-    # featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
+    print("Doing Hawaiian...")
+    featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
 
     # An arbitrary vowel space with distinctive rounding, 3-way height,
     # and front/back distinction
