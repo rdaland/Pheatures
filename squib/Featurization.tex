@@ -316,28 +316,6 @@ The algorithm will assign a separate height feature for each of these classes (s
     \end{itemize}
 This example is presented to make two points. First, the relationship between classes in the input and the specification algorithm is not monotone: the number of features is determined by the number of classes in the intersectional closure with single parents, and this depends sensitively on the structure of the input $\mathcal C$. Second, `adding' classes can in some cases yield a more economical feature system. In the following sections, we explore variants of the privative specification algorithm which replace some or all $0$ values with $-$ values.
 
-\section{Privative specification}
-achieved by assigning a new feature [+f] to every segment in $X$
-
-\vspace{\baselineskip} \noindent \begin{algorithmic}
-	\REQUIRE $\mathcal V = \{ +, 0 \}$
-	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
-	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
-	\STATE
-	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{Parents}(c)\Vert = 1 \}$
-	\STATE $i \leftarrow 1$
-	\STATE
-	\WHILE{$\mathcal Q \neq \varnothing$}
-	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
-	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c \\
-	0 & \mbox{otherwise}
-	\end{cases} $
-	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
-	\STATE $i \leftarrow i + 1$
-	\ENDWHILE
-\end{algorithmic}
-
 \section{Contrastive underspecification}
 achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
 
