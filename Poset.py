@@ -21,7 +21,9 @@ class Poset():
             input_classes = []
 
         self.alphabet = set(alphabet)
-        self.classes = [set(c) for c in input_classes] + [self.alphabet]
+        self.classes = [set(c) for c in input_classes]
+        if self.alphabet not in self.classes:
+            self.classes.append(self.alphabet)
         self.subset_matrix = None
         self.daughter_matrix = None
         self.output_dir = output_dir
@@ -135,12 +137,12 @@ class Poset():
         """
         closure_classes = [self.alphabet]
         class_deque = deque(self.classes)
-\
+
         while class_deque:
             c = class_deque.pop()
-            if not c in closure_classes:
+            if c not in closure_classes:
                 for cc in closure_classes:
-                    class_deque.push(c.intersection(cc))
+                    class_deque.append(c.intersection(cc))
                 closure_classes.append(c)
 
         new_poset = Poset(self.alphabet, closure_classes)
@@ -149,11 +151,12 @@ class Poset():
 
 if __name__ == "__main__":
 
+    # All segments
+    alphabet = set(['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O'])
+
     input_classes_vowels = [
         # Test for round/unround vowel system, which needs a minimum intersection
         # of 3 classes to avoid specifying spurious features.
-        # All segments
-        set(['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']),
         # High vowels
         set(['i', 'u', 'y', 'U']),
         # Mid vowels
@@ -178,7 +181,7 @@ if __name__ == "__main__":
         set(['E'])
     ]
 
-    p = Poset(input_classes_vowels)
+    p = Poset(alphabet, input_classes_vowels)
     p.graph_poset(filename="no_intersection_test.gv")
     p2 = p.get_intersectional_closure()
     p2.graph_poset(filename="intersection_test.gv")

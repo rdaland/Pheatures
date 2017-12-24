@@ -50,8 +50,10 @@ class Featurizer():
 
     def calculate_class_features(self):
         for c in self.poset.classes:
-            features = self.get_class_features(c)
-            self.set_class_features(c, features)
+            # Don't attempt to featurize the empty set
+            if c:
+                features = self.get_class_features(c)
+                self.set_class_features(c, features)
 
     def graph_poset(self):
         self.poset.graph_poset()
@@ -216,10 +218,10 @@ if __name__ == "__main__":
         ['m', 'n', 'p', 'k', '7', 'h', 'w', 'l', 'i', 'e', 'a', 'o', 'u']
     )
 
-    print("Doing Hawaiian...")
-    featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
+    # print("Doing Hawaiian...")
+    # featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
 
     # An arbitrary vowel space with distinctive rounding, 3-way height,
     # and front/back distinction
