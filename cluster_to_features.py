@@ -28,11 +28,11 @@ class Featurizer():
         self.segment_features = defaultdict(set)
         self.feature_num = 1
         # Build an intersectionally closed poset from the input classes
-        # and take all the resulting classes minus the alphabet
-        self.poset = Poset([self.alphabet] + self.input_classes)
+        self.poset = Poset(self.alphabet, self.input_classes)
         self.poset = self.poset.get_intersectional_closure()
+        # Get all classes with only one parent
         self.incomplete_classes = [
-            c for c in sorted(self.poset.classes, key=len, reverse=True)
+            c for c in self.poset.classes
             if len(self.poset.get_parents(c)) == 1
         ]
 
@@ -56,9 +56,28 @@ class Featurizer():
     def graph_poset(self):
         self.poset.graph_poset()
 
-    def assert_classes_unique(self):
-        assert(len(self.class_features)
-                == len(set(map(tuple, self.class_features.values()))))
+    def get_segments_for_feature(self, feature):
+        segments = set()
+        for segment, features in self.segment_features.items():
+            if feature in features:
+                segments.update(segment)
+        return segments
+
+    def assert_valid_featurization(self):
+        for c, features in self.class_features.items():
+            if not features:
+                predicted_class = self.alphabet
+            else:
+                feature_segments = []
+                for feature in features:
+                    segments = self.get_segments_for_feature(feature)
+                    feature_segments.append(segments)
+                predicted_class = set.intersection(*feature_segments)
+            if predicted_class != set(c):
+                raise Exception(
+                    "Invalid featurization: feature set {} associated with class {},"
+                    "but produces class {}".format(features, set(c), predicted_class)
+                )
 
     def features_to_csv(self, filename):
         with open(filename, 'w') as f:
@@ -82,6 +101,12 @@ class Featurizer():
                                  key=lambda x: -len(x[0])):
             print("{}:\t{}".format(key, sorted(value)))
         print()
+
+    def print_segment_features(self):
+        for key, value in sorted(self.segment_features.items(),
+                                 key=lambda x: -len(x[0])):
+            print("{}:\t{}".format(key, sorted(value)))
+        print() 
 
     def get_features_from_classes(self):
         while self.incomplete_classes:
@@ -107,7 +132,6 @@ class Featurizer():
                     # If the complement is not in the poset, add it and
                     # recalculate the intersectional closure
                     if self.poset.add_class(c1):
-                        # TODO: Do we need to do this from scratch?
                         self.poset = self.poset.get_intersectional_closure()
                         self.incomplete_classes = list(filter(
                             lambda x: len(self.poset.get_parents(x)) == 1,
@@ -127,15 +151,16 @@ class Featurizer():
             self.feature_num += 1
 
             if self.verbose:
-                self.print_featurization()
+                self.print_segment_features()
 
         self.calculate_class_features()
-        self.assert_classes_unique()
+        self.assert_valid_featurization()
 
 if __name__ == "__main__":
-    specification = Specification.FULL
-    # A few sample inputs...
+    # Choose a featurization type
+    specification = Specification.PRIVATIVE
 
+    # A few sample inputs...
     # Input classes are the sunny sounds of Hawaiian.
     classes_hawaiian = [
         # Consonants

@@ -67,11 +67,11 @@ A \textit{(natural) class system} $(\mathcal C, \Sigma)$ consists of an alphabet
 
 In this graph, each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. However, the figure does not include an arrow for every pair of classes that have a subset relationship. For example, the class \{\textipa{E}\} is a subset of all vowels, but there is not an arrow from the class of all vowels to \{\textipa{E}\}. This is because the class of front vowels \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} `intervenes' between \{\textipa{E}\} and the class of all vowels. We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class.
 
-Graphically, it is sufficient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations (like {\textipa{E}\} $\subset$ all vowels) are entailed. However, we did not only introduce this concept for aesthetically pleasing graphs. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
+Graphically, it is sufficient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations (like \{\textipa{E}\} $\subset$ all vowels) are entailed. However, we did not only introduce this concept for aesthetically pleasing graphs. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
     \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
     \end{itemize}
 
-\noindent We further define $\textsc{parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
+\noindent We further define $\textsc{Parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
 
 \subsection{Feature systems and featurizations}
 
@@ -81,7 +81,7 @@ A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \b
     \item $\mathcal F$ is a \textit{featurization}: a set of features $\{f_j\}_{j=1}^M$, where each feature is a function $f: \Sigma \rightarrow \mathcal V$ mapping segments to feature values
     \end{itemize}
 
-\noindent To illustrate, a feature system for the vowel harmony lattice of Fig.~\ref{fig:lattice} is shown below:
+\noindent To illustrate, a feature system for the vowel harmony lattice of Fig.~\ref{fig:lattice} is shown below in Table~\ref{table:featurization}. In the next subsection we formalize featural descriptors, which relate classes and feature systems.
 
 \begin{table}[h]
     \centering
@@ -103,8 +103,6 @@ A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \b
     \label{table:featurization}
 \end{table}
 
-\noindent In the next subsection we formalize featural descriptors, which relate classes and feature systems.
-
 \subsection{Featural descriptors}
 
 Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathcal V$ to the following possibilities: \begin{itemize}
@@ -113,13 +111,13 @@ Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathca
     \item \textit{contrastive specification}: $\mathcal V = \{ +, -, 0 \}$
     \end{itemize}
 
-A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$, $\mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F$. For example, $\mathbf{e} =$  \phonfeat{+front \\ -low} is a featural descriptor.
+A \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$, i.e. $\mathbf{e} \subset (\mathcal V \setminus \{0\}) \times \mathcal F$. For example, $\mathbf{e} =$  \phonfeat{+front \\ -low} is a featural descriptor.
 
 To relate featural descriptors and phonological classes, note that every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = \{\alpha_k F_k\}_{k=1}^K$, where each $\alpha_k$ is a value in $\mathcal V \setminus \{ 0 \}$, and each $F_k$ is some feature function $f_j \in \mathcal F$. Informally, we say that a featural descriptor describes the class of segments which have (at least) the feature/value pairs it contains. Formally, we write $\langle \mathbf{e} \rangle$ to indicate the natural class that corresponds to the featural descriptor $\mathbf{e}$:
 
-$$ \langle \, \{\alpha_k F_k\}_{k=1}^K \, \rangle = \{x \in \Sigma \, | \, F_k(x) = \alpha_k \text{ for every } k \} $$
+$$ \langle \, \{\alpha_k F_k\}_{k=1}^K \, \rangle = \{x \in \Sigma \, \mid \, F_k(x) = \alpha_k \text{ for every } k \} $$
 
-\vspace{\baselineskip} \noindent We use the notation $\mathcal V^\mathcal F$ to denote the powerset of $(\mathcal V \setminus \{0\}) \times \mathcal F$, i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, | \, \mathbf{e} \in \mathcal V^\mathcal F \}$, the set of all natural classes described by some featural descriptor in $\mathcal V^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the natural class system $\langle \mathcal V^\mathcal F \rangle$.
+\vspace{\baselineskip} \noindent We use the notation $\mathcal V^\mathcal F$ to denote the powerset of $(\mathcal V \setminus \{0\}) \times \mathcal F$, i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, \mid \, \mathbf{e} \in \mathcal V^\mathcal F \}$, the set of all natural classes described by some featural descriptor in $\mathcal V^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the natural class system $\langle \mathcal V^\mathcal F \rangle$.
 
 Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{+front} picks out the same class as the featural descriptor \phonfeat{+front \\ -low} (namely, the front vowels). Moreover, the featural descriptors \phonfeat{+front \\ -front} and \phonfeat{+high \\ +low} both pick out the empty set.
 
@@ -199,7 +197,7 @@ Now we explain why any feature system that covers $\mathcal C$ must cover $\math
     \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
     \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
     \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
-    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\
+    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
     \end{itemize}
 
 In other words, the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. Lemma 1 proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
@@ -210,7 +208,7 @@ In other words, the set of vowels that are both front and round is the intersect
 
 \vspace{\baselineskip} \noindent \textbf{Theorem 1}: Let $(\mathcal C, \Sigma)$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
 
-\textit{Proof}: Let $Y$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{X_i \in \mathcal C\}_{i \in I}$ (for some index set $I$, which we will omit hereafter) such that and $Y = \bigcap_i \, X_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every such $X_i$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = X_i$. Thus, $Y = \bigcap_i X_i = X_1 \cap X_2 \cap \ldots \cap X_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$. It follows by induction that $Y = \langle \bigcup_i \mathbf{e}_i \rangle$:
+\textit{Proof}: Let $Y$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{X_i \in \mathcal C\}_{i \in I}$ (for some index set $I$, which we will omit hereafter) such that and $Y = \bigcap_i \, X_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every such $X_i$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = X_i$. Thus, $Y = \bigcap_i X_i = X_1 \cap X_2 \cap \ldots \cap X_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$. It follows by induction using Lemma 1 that $Y = \langle \bigcup_i \mathbf{e}_i \rangle$:
 
 $Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$
 
@@ -226,7 +224,7 @@ $Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
 
 \noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of natural classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
 
-\subsection{Algorithm}
+\subsection{An algorithm for calculating the intersectional closure}
 
 The following algorithm yields the intersectional closure of a natural class system $(\mathcal C, \Sigma)$. A proof by induction is given in the Appendix.
 
@@ -239,10 +237,10 @@ The following algorithm yields the intersectional closure of a natural class sys
     \WHILE{$\mathcal Q \neq \varnothing$}
         \STATE $X \leftarrow \textsc{dequeue}(\mathcal Q)$
         \IF{\NOT $X \in \mathcal C_\cap$}
-            \STATE $\textsc{append}(\mathcal C_\cap, \, X)$
-            \FOR{$Y \in \mathcal C_\cap \setminus \{ X \}$}
+            \FOR{$Y \in \mathcal C_\cap$}
                 \STATE $\textsc{enqueue}(\mathcal Q, X \cap Y)$
             \ENDFOR
+            \STATE $\textsc{append}(\mathcal C_\cap, \, X)$
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
@@ -251,7 +249,7 @@ The following algorithm yields the intersectional closure of a natural class sys
 
 As we will see shortly, the advantage of explicitly computing the intersectional closure is that \textit{a new feature is required for all and only the classes which have a single parent} (in the intersectional closure). The core reason for this is that if a class has two parents, it must be their intersection. We prove this here.
 
-\vspace{\baselineskip} \noindent \textbf{Theorem 2}: Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. Then $\textsc{parents}(Y) = \{X_1, X_2\}$ implies $Y = X_1 \cap X_2$.
+\vspace{\baselineskip} \noindent \textbf{Theorem 2}: Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. Then $\textsc{Parents}(Y) = \{X_1, X_2\}$ implies $Y = X_1 \cap X_2$.
 
 \textit{Proof}: First, we show $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
 
@@ -263,33 +261,53 @@ Next, we show that $X_1 \cap X_2 \subset Y$. Suppose not, i.e. $\exists x \in (X
 
 TODO: add figure
 
+\section{Privative specification}
+achieved by assigning a new feature [+f] to every segment in $X$
+
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE $\mathcal V = \{ +, 0 \}$
+	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
+	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	\STATE
+	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{Parents}(c)\Vert = 1 \}$
+	\STATE $i \leftarrow 1$
+	\STATE
+	\WHILE{$\mathcal Q \neq \varnothing$}
+	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
+	\STATE $f_i(x) = \begin{cases}
+	+ & \mbox{if } x \in c \\
+	0 & \mbox{otherwise}
+	\end{cases} $
+	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
+	\STATE $i \leftarrow i + 1$
+	\ENDWHILE
+\end{algorithmic}
+
 \section{Contrastive underspecification}
 achieved by assigning a new feature [+f] to every segment in $X$, and if $Y \setminus X$ (the complement of $X$ with respect to $Y$) is in the input, then [-f] is assigned to every segment in $Y \setminus X$
 
-
 \vspace{\baselineskip} \noindent \begin{algorithmic}
 	\REQUIRE $\mathcal V = \{ +, -, 0 \}$
-	\REQUIRE Precompute $C' <- \textsc{IntersectionalClosure}(C)$
-	\REQUIRE $\mathcal C'$ is sorted in decreasing order of size ($\forall i, j \, [i < j \rightarrow |C'_i| \geq |C'_j|$)
-	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
-	\ENSURE output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
-	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
+	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	\STATE
+	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{Parents}(c)\Vert = 1 \}$
 	\STATE $i \leftarrow 1$
 	\STATE
-	\WHILE{classQueue $\neq \varnothing$}
-	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
-	\STATE parent $ = \{c_i \in C | P_{ik} = 1\}$
-	\STATE $c_k' \leftarrow \mbox{parent } \setminus c_k$
-	\IF{$c_k' \in C$}
+	\WHILE{$\mathcal Q \neq \varnothing$}
+	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
+	\STATE $p \leftarrow \textsc{Parents}(c)$
+	\STATE $c' \leftarrow p \setminus c$
+	\IF{$c' \in C$}
 	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c_k \\
-	- & \mbox{if } x \in c_k' \\
+	+ & \mbox{if } x \in c \\
+	- & \mbox{if } x \in c' \\
 	0 & \mbox{otherwise}
 	\end{cases} $
-	\STATE classQueue $\leftarrow \{x \in \mbox{classQueue} | x \not= c_k' \}$
+	\STATE $\mathcal Q \leftarrow \{x \in \mathcal Q \mid x \not= c' \}$
 	\ELSE
 	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c_k \\
+	+ & \mbox{if } x \in c \\
 	0 & \mbox{otherwise}
 	\end{cases} $
 	\ENDIF
@@ -304,27 +322,24 @@ achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to ev
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
 	\REQUIRE $\mathcal V = \{ +, -, 0 \}$
-	\REQUIRE Precompute $C' <- \textsc{IntersectionalClosure}(C)$
-	\REQUIRE $\mathcal C'$ is sorted in decreasing order of size ($\forall i, j \, [i < j \rightarrow |C'_i| \geq |C'_j|$)
-	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
-	\ENSURE output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
+	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	
 	\STATE
-	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{parents}(c)\Vert = 1 \}$
 	\STATE $i \leftarrow 1$
 	\STATE
-	\WHILE{classQueue $\neq \varnothing$}
-	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
-	\STATE parent $ = \{c_i \in C | P_{ik} = 1\}$
-	\STATE $c_k' \leftarrow \mbox{parent } \setminus c_k$
+	\WHILE{$\mathcal Q \neq \varnothing$}
+	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
+	\STATE $p \leftarrow \textsc{Parents}(c)$
+	\STATE $c' \leftarrow p \setminus c$
 	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c_k \\
-	- & \mbox{if } x \in c_k' \\
+	+ & \mbox{if } x \in c \\
+	- & \mbox{if } x \in c' \\
 	0 & \mbox{otherwise}
 	\end{cases} $
-	\STATE $C' \leftarrow (C' \cup \{c'_k\})$
-	\STATE $\textsc{Recalculate}$ $ P $ from $C'$
-	\STATE classQueue $\leftarrow \{c_l \in \mbox{classQueue} | c_l \not= c_k' \ \land \sum_{j=1}^{|C'|}P_{jl} = 1 \}$
-	\STATE \textsc{Sort}(classQueue)
+	\STATE $C_\cap \leftarrow \textsc{IntersectionalClosure}(C_\cap \cup \{c'\})$
+	\STATE $\mathcal Q \leftarrow \{c_l \in \mathcal Q \mid c_l \not= c' \ \land \Vert \textsc{Parents}(c_l) \Vert = 1 \}$
 	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
 	
 	\STATE $i \leftarrow i + 1$
@@ -335,25 +350,24 @@ achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to ev
 achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $\Sigma \setminus X$
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
-	\REQUIRE $\mathcal V = \{ +, - \}$
-	\REQUIRE Precompute $C' <- \textsc{IntersectionalClosure}(C)$
-	\REQUIRE $\mathcal C'$ is sorted in decreasing order of size ($\forall i, j \, [i < j \rightarrow |C'_i| \geq |C'_j|$)
-	\REQUIRE parent matrix $P$ ($|C'| \times |C'|$): $P_{ij} = 1$ if $C'_j \subset C'_i \land \neg \exists k [C'_j \subset C'_k \subset C'_i]$ , $0$ otherwise
-	\ENSURE output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	\REQUIRE $\mathcal V = \{ +, -, 0 \}$
+	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
+	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
+	
 	\STATE
-	\STATE classQueue $\leftarrow \{c_k \in C' | \sum_{j=1}^{|C'|}P_{jk} = 1 \}$
+	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{Parents}(c)\Vert = 1 \}$
 	\STATE $i \leftarrow 1$
 	\STATE
-	\WHILE{classQueue $\neq \varnothing$}
-	\STATE $c_k \leftarrow$ \textsc{Pop}(classQueue)
-	\STATE $c_k' \leftarrow \Sigma \setminus c_k$
+	\WHILE{$\mathcal Q \neq \varnothing$}
+	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
+	\STATE $c' \leftarrow \Sigma \setminus c$
 	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c_k \\
-	- & \mbox{if } x \in c_k' \\
+	+ & \mbox{if } x \in c \\
+	- & \mbox{if } x \in c' \\
+	0 & \mbox{otherwise}
 	\end{cases} $
-	\STATE $C' \leftarrow (C' \cup \{c'_k\})$
-	\STATE $\textsc{Recalculate}$ $ P $ from $C'$
-	\STATE classQueue $\leftarrow \{c_l \in \mbox{classQueue} | c_l \not= c_k' \ \land \sum_{j=1}^{|C'|}P_{jl} = 1 \}$
+	\STATE $C_\cap \leftarrow \textsc{IntersectionalClosure}(C_\cap \cup \{c'\})$
+	\STATE $\mathcal Q \leftarrow \{c_l \in \mathcal Q \mid c_l \not= c' \ \land \Vert \textsc{Parents}(c_l) \Vert = 1 \}$
 	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
 	
 	\STATE $i \leftarrow i + 1$
@@ -392,6 +406,9 @@ $$S_{ij} = \begin{cases}
 
 $$D = S \textsc{ and } -S^2$$
 
-\noindent This matrix expresses the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The daughterhood relation is of central importance to the featurization algorithms described later.
+\noindent This matrix expresses the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The daughterhood relation is of central importance to the featurization algorithms described in this paper.
 
-\end{document}  
+\bibliography{mybib.bib}
+\bibliographystyle{apacite}
+
+\end{document}

@@ -10,7 +10,8 @@ DEFAULT_GRAPH_FILENAME = "poset_graph.gv"
 
 class Poset():
 
-    def __init__(self, input_classes=None, output_dir=DEFAULT_OUTPUT_DIR):
+    def __init__(self, alphabet, input_classes=None,
+                 output_dir=DEFAULT_OUTPUT_DIR):
         """
         input_classes: A list of lists or sets.
         output_dir: A string specifying where the graph visualizations
@@ -19,7 +20,8 @@ class Poset():
         if not input_classes:
             input_classes = []
 
-        self.classes = [set(c) for c in input_classes]
+        self.alphabet = set(alphabet)
+        self.classes = [set(c) for c in input_classes] + [self.alphabet]
         self.subset_matrix = None
         self.daughter_matrix = None
         self.output_dir = output_dir
@@ -130,45 +132,18 @@ class Poset():
             1.  All classes in self are also in p
             2.  The intersections of all subsets of the sets in self
                 are also in p
-
-        The calculation is done using a modified version of Dijkstra's
-        shortest paths algorithm. We start with a queue of *pairs* of
-        classes, and reduce the total number of cases that must be 
-        considered by capitalizing on two facts (^ is intersection,
-        < is subset):
-            1.  x ^ y = x ^ y (so only one order needs to be considered)
-            2.  if x < y, then x ^ y = y
-        Together, these facts make it possible to skip the intersetion
-        operation for over half of all classes
         """
-        new_poset = Poset(self.classes)
+        closure_classes = [self.alphabet]
+        class_deque = deque(self.classes)
+\
+        while class_deque:
+            c = class_deque.pop()
+            if not c in closure_classes:
+                for cc in closure_classes:
+                    class_deque.push(c.intersection(cc))
+                closure_classes.append(c)
 
-        class_pairs = combinations(new_poset.classes, 2)
-        class_pair_deque = deque(class_pairs)
-
-        while class_pair_deque:
-            c1, c2 = class_pair_deque.pop()
-
-            # Check if one class is a subset of the other
-            if (new_poset.is_subset(c1, c2) 
-                    or new_poset.is_subset(c2, c1)):
-                continue
-
-            # Get the intersection
-            intersection = c1.intersection(c2)
-
-            # Check if the intersection is empty or already in our classes
-            if not intersection or intersection in new_poset.classes:
-                continue
-
-            # We've found a new class!
-            new_poset.add_class(intersection)
-            for c in new_poset.classes:
-                # If any classes aren't in a subset relationship with the new
-                # class, add them to the pairs we need to consider.
-                if not (new_poset.is_subset(c, intersection) 
-                        or new_poset.is_subset(intersection, c)):
-                    class_pair_deque.appendleft((c, intersection))
+        new_poset = Poset(self.alphabet, closure_classes)
 
         return new_poset
 
