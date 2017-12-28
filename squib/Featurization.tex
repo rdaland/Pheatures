@@ -301,7 +301,7 @@ A featurization algorithm is \textit{sound} if for every natural class system $(
 
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{vowelHarmony_privative.png}
-\caption{Intersectional closure of the vowel system shown earlier}
+\caption{Yield of the privative specification algorithm}
 \label{fig:privative}
 \end{figure}
 
@@ -420,7 +420,11 @@ Contrastive specification is very similar to contrastive underspecification. The
 
 \vspace{\baselineskip} This algorithm is illustrated with the same vowel system that we have been using throughout, i.e. where $C$ includes the front vowels, the high vowels, the round vowels, and all singletons.
 
-TODO: generate the figure that corresponds to the privative algo figure
+\begin{figure}[h]
+\includegraphics[width=0.9\textwidth]{vowelHarmony_contrastive.png}
+\caption{Class system and featurization yielded by contrastive specification}
+\label{fig:contrastive}
+\end{figure}
 
 \noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. Zero values are assigned to daughters-of-daughters. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. That variant yields full specification.
 
