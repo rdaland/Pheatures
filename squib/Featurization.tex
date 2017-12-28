@@ -548,6 +548,23 @@ A final consideration associated with feature theory is that the features be lea
 
 \subsection{Feature learning}
 
+% Connor must write most of this section
+
+% my general thought is a kind of Bayesian thing which includes analysis-by-synthesis and synthesis-by-analysis
+
+% phonetics -- this is a prior
+%	meaning, the prior likelihood of a feature system is evaluated by the goodness of fit between the set of classes it generates, and isolable phonetic dimensions of the elements in question
+%	for example, generating a sonorant class should be decently favored by the prior, because Matt Parker's sonority measure is supposed to achieve a decent separation of sonorants and obstruents -- but only decently, since there is like no articulatory consistency in sonorants besides being voiced
+
+% distributional -- this would be the likelihood function
+%	a feature system is good to the extent that it proposes classes which match those in the input (according to KL divergence or what have you)
+%	the basic reason that Bayesianism is good here is that it automagically punishes you for being too expressive -- weight that you put on a highly expressive system is wasted, unless you actually need those extra classes
+
+% roughly speaking, you provide an objective function
+% your update is, you get the likelihood function to give you some more classes and you check whether adding them actually improves the objective
+% note that I'm hand-wavey af here. for example, if we're not modeling phonological alternations, we've already cut ourselves off from the most informative thing regarding what classes are in the input
+% hmm.. maybe we should have the alternations as the pre-input, or the likelihood, or something
+
 TODO: [5] some kind of Bayesian thing like what Connor was working on originally -- phonetics and distributional learning propose, grammar disposes?
 
 
