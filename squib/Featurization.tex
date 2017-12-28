@@ -60,17 +60,17 @@ A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ 
 % show an example of a natural class system: a vowel harmony lattice
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{vowelHarmony_unicode.png}
-\caption{Vowel harmony lattice}
+\caption{An example vowel system, used throughout this paper}
 \label{fig:lattice}
 \end{figure}
 
 In this graph, each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. However, the figure does not include an arrow for every pair of classes that have a subset relationship. For example, the class \{\textipa{E}\} is a subset of all vowels, but there is not an arrow from the class of all vowels to \{\textipa{E}\}. This is because the class of front vowels \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} `intervenes' between \{\textipa{E}\} and the class of all vowels. We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class.
 
-Graphically, it is convenient to indicate parent-daughter relations in figures like \ref{fig:lattice}, since other superset-subset relations are entailed. However, the parenthood relation is not only useful for graphing. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
+Graphically, it is convenient to indicate only parent-daughter relations in figures, since other superset-subset relations are entailed. However, the parenthood relation is not only useful for graphing. As we show later, the parenthood relation is essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
     \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
     \end{itemize}
 
-\noindent We further define $\textsc{Parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
+\noindent We further define $\textsc{parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
 
 \subsection{Feature systems and featurizations}
 
@@ -80,7 +80,7 @@ A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \b
     \item $\mathcal F$ is a \textit{featurization}: a set of features $\{f_j\}_{j=1}^M$, where each feature is a function $f: \Sigma \rightarrow \mathcal V$ mapping segments to feature values
     \end{itemize}
 
-\noindent To illustrate, a feature system for the vowel harmony lattice of Fig.~\ref{fig:lattice} is shown below in Table~\ref{table:featurization}. In the next subsection we formalize featural descriptors, which relate classes and feature systems.
+\noindent To illustrate, a feature system for the vowel system of Fig.~\ref{fig:lattice} is shown below in Table~\ref{table:featurization} (the empty set is omitted in this and all similar figures). In the next subsection we formalize featural descriptors, which relate classes and feature systems.
 
 \begin{table}[h]
     \centering
@@ -118,7 +118,7 @@ $$ \langle \, \{\alpha_k F_k\}_{k=1}^K \, \rangle = \{x \in \Sigma \, \mid \, F_
 
 \vspace{\baselineskip} \noindent We use the notation $\mathcal V^\mathcal F$ to denote the powerset of $(\mathcal V \setminus \{0\}) \times \mathcal F$, i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, \mid \, \mathbf{e} \in \mathcal V^\mathcal F \}$, the set of all natural classes described by some featural descriptor in $\mathcal V^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the natural class system $\langle \mathcal V^\mathcal F \rangle$.
 
-Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{+front} picks out the same class as the featural descriptor \phonfeat{+front \\ -low} (namely, the front vowels). Moreover, the featural descriptors \phonfeat{+front \\ -front} and \phonfeat{+high \\ +low} both pick out the empty set.
+Note that while every featural descriptor in $\mathcal V^\mathcal F$ picks out a class in $\langle \mathcal V^\mathcal F \rangle$, the two are not generally in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{+front} picks out the same class as the featural descriptor \phonfeat{+front \\ -low} (namely, the front vowels). Moreover, the featural descriptors \phonfeat{+front \\ -front} and \phonfeat{+high \\ +low} both pick out the empty set.
 
 \vspace{\baselineskip} We say that a feature system $(\mathcal F, \Sigma, \mathcal V)$ \textit{covers} a natural class system $\mathcal C$ if $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$; in other words if the feature system provides a distinct featural representation for every class in $\mathcal C$. In the remainder of this squib, we show how to construct a feature system that covers an arbitrary natural class system $\mathcal C$.
 
@@ -126,7 +126,7 @@ We begin with a worked-out example illustrating the difference between privative
 
 \subsection{Example}
 
-Let $\Sigma =$ \{R, D, T\}. Informally, the reader may think of [R] as a sonorant, [D] as a voiced obstruent, and [T] as a voiceless obstruent; accordingly we use the feature names $son$ and $vcd$. In this section, we illustrate the consequences of privative versus full specification, using featurizations that are isomorphic (that is, they match on the $+$ values, and differ only as to whether the non-$+$ values are $0$ or $-$). We begin with Table ~\ref{table:privative}.
+Let $\Sigma =$ \{R, D, T\}. Informally, the reader may think of [R] as a sonorant, [D] as a voiced obstruent, and [T] as a voiceless obstruent; accordingly we use the feature names $son$ and $vcd$. In this section, we illustrate the consequences of privative versus full specification, using featurizations which match on the `$+$' values, and differ only as to whether the other values are `$0$' or `$-$'). We begin with Table ~\ref{table:privative}.
 
 % table with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
@@ -151,7 +151,7 @@ Let $\Sigma =$ \{R, D, T\}. Informally, the reader may think of [R] as a sonoran
   
 \noindent Note that this featurization provides no featural descriptor that uniquely picks out the voiceless obstruent [T], no way to pick out the obstruents [T] and [D] to the exclusion of [R], and no way to pick out the voiced obstruent [D] without [R].
 
-Next, consider the isomorphic featurization in which the $0$'s from Table ~\ref{table:privative} are replaced with $-$'s:
+Next, consider the featurization in which the `$0$'s from Table ~\ref{table:privative} are replaced with `$-$'s:
 
 % table with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
@@ -178,7 +178,7 @@ Next, consider the isomorphic featurization in which the $0$'s from Table ~\ref{
     \item $[+\text{son},-\text{son}] = \varnothing$
     \end{itemize}
 
-\noindent An important generalization emerges from comparing these featurizations: the more $0$'s in the featurization, the greater the number of distinct feature functions that will be required to cover the same natural class system. In one sense, privative specification is more complex, because it will normally involve more features. However, in another sense, it is simpler, because there are only $+$ values to handle and because it will result in fewer natural classes. Therefore, we will treat privative specification first. Prior to this, we introduce the notion of intersectional closure -- the data structure that proves useful for efficiently assigning a privative feature system.
+\noindent An important generalization emerges from comparing these featurizations: the more `$0$'s in the featurization, the greater the number of distinct feature functions that will be required to cover the same natural class system. In one sense, privative specification is more complex, because it will normally involve more features. However, in another sense, it is simpler, because there are only `$+$' values to handle and because it will result in fewer natural classes. Therefore, we will treat privative specification first. Prior to this, we introduce the notion of intersectional closure -- the data structure that proves useful for efficiently assigning a privative feature system.
 
 \section{Intersectional closure}
 
@@ -199,19 +199,33 @@ Now we explain why any feature system that covers $\mathcal C$ must cover $\math
     \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
     \end{itemize}
 
-In other words, the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
+In other words, the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. The Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors (and the classes they describe).
 
 \vspace{\baselineskip} \noindent \textbf{Featural Intersection Lemma}
 
 Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. If $\mathbf{e}_i, \mathbf{e}_j \in \mathcal V^\mathcal F$, then $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle =  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$.
 
-\vspace{\baselineskip} \noindent A formal proof is included in the Appendix. The key utility of this Lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes.
+\vspace{\baselineskip} \noindent \textit{Proof}:
+
+The proof proceeds by showing that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$ and $ \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
+Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_j = \langle \mathbf{e}_j \rangle$.
+First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
+Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
+Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
+Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
+Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore $x \in C_i \cap C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
+Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
+This completes the proof.
+
+\vspace{\baselineskip} \noindent The key utility of this Lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes.
 
 \vspace{\baselineskip} \noindent \textbf{Intersectional Closure Covering Theorem}
 
 Let $(\mathcal C, \Sigma)$ be a natural class system and $(\mathcal F, \Sigma, \mathcal V)$ a feature set. If $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle$, then $\mathcal C_\cap \subset\langle \mathcal V^\mathcal F \rangle $.
 
-\textit{Proof}: Let $Y$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{X_i \in \mathcal C\}_{i \in I}$ (for some index set $I$, which we will omit hereafter) such that and $Y = \bigcap_i \, X_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every such $X_i$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = X_i$. Thus, $Y = \bigcap_i X_i = X_1 \cap X_2 \cap \ldots \cap X_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$. It follows by induction using Featural Intersection Lemma that $Y = \langle \bigcup_i \mathbf{e}_i \rangle$:
+\vspace{\baselineskip} \noindent \textit{Proof}:
+
+Let $Y$ be an arbitrary class in $\mathcal C_\cap$. By definition of $\mathcal C_\cap$, there exist $\{X_i \in \mathcal C\}_{i \in I}$ (for some index set $I$, hereafter omitted) such that and $Y = \bigcap_i \, X_i$. The hypothesis that $\mathcal C \subset \langle \mathcal V^\mathcal F \rangle $ implies that for every such $X_i$, there exists a featural descriptor $\mathbf{e}_i$ such that $\langle \mathbf{e}_i \rangle = X_i$. Thus, $Y = \bigcap_i X_i = X_1 \cap X_2 \cap \ldots \cap X_n$ can also be written $C = \bigcap_i \, \langle \mathbf{e}_i \rangle = \langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle \cap \ldots \cap \langle \mathbf{e}_n \rangle$. It follows by induction using Featural Intersection Lemma that $Y = \langle \bigcup_i \mathbf{e}_i \rangle$:
 
 $Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots \cap  \langle \mathbf{e}_n \rangle$
 
@@ -248,6 +262,15 @@ The following algorithm yields the intersectional closure of a natural class sys
     \ENDWHILE
 \end{algorithmic}
 
+\vspace{\baselineskip} \noindent \textit{Proof of soundness}:
+
+The proof goes by induction. First, we show that every class which can be generated by the intersection of $0$ classes ($\Sigma$) or 1 class from $\mathcal C$ (i.e. $\mathcal C$ itself) belongs to $\mathcal C_\cap$. Next, we prove the induction step: if every class that can be generated by the intersection of $n$ classes from $\mathcal C$ is in $\mathcal C_\cap$, then every class that can be generated by the intersection of $n+1$ classes from $\mathcal C$ is in $\mathcal C_\cap$.
+
+Observe that $\mathcal C_\cap$ is initialized to contain $\Sigma$. Moreover, $\mathcal Q$ is initialized to contain every class in $\mathcal C$. Each of these must be `transferred' to the intersectional closure because they do not belong to it already (dequeued from $\mathcal Q$, and appended to $\mathcal C_\cap$). This demonstrates that every intersection of 0 classes ($\Sigma$) and 1 class from $\mathcal C$ (namely, $\mathcal C$ itself) belongs to $\mathcal C_\cap$.
+
+Now, suppose that the algorithm has guaranteed that every intersection of $n$ classes from $\mathcal C$ is in $\mathcal C_\cap$. If there exists a $Y \in \mathcal C_\cap$ which can be written as the intersection of $n+1$ classes, i.e. $Y = X_1 \cap X_2 \cap \ldots \cap X_{n+1} = Y' \cap X_{n+1}$ where $Y' = X_1 \cap X_2 \cap \ldots \cap X_n$. Since every intersection of $n$ classes is in $\mathcal C_\cap$, $Y'$ must be in $\mathcal C_\cap$. Now, regardless of whether $X_{n+1}$ was transferred from $\mathcal Q$ to $\mathcal C_\cap$ before or after $Y'$ was, there was some point at which one was in $\mathcal Q$ and the other in $\mathcal C_\cap$. When the \textbf{for} loop dequeued the one in $\mathcal Q$, it added the intersection of this one with all others in $\mathcal C_\cap$ -- i.e. $Y' \cap X_{n+1}$. Either this class was already in $\mathcal C_\cap$, or else it was not; and in the latter case, it was transferred. Thus, all sets generated by the intersection of $n+1$ classes from $\mathcal C$ are in $\mathcal C_\cap$. This completes the proof.
+
+
 \subsection{Parenthood in the intersectional closure}
 
 As we will see shortly, the advantage of explicitly computing the intersectional closure is that \textit{a new feature is required for all and only the classes which have a single parent} (in the intersectional closure). The core reason for this is that if a class has two parents, it must be their intersection. We prove this here.
@@ -256,7 +279,9 @@ As we will see shortly, the advantage of explicitly computing the intersectional
 
 Let $(\mathcal C, \Sigma)$ be a natural class system and $Y \in \mathcal C_\cap$. If $X_1, X_2 \in \textsc{parents}(Y)$, then $Y = X_1 \cap X_2$.
 
-\vspace{\baselineskip} \noindent \textit{Proof}: First, observe that $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
+\vspace{\baselineskip} \noindent \textit{Proof}:
+
+First, observe that $Y \subset X_1 \cap X_2$. This follows trivially from the definition of parenthood: $X_1$ is a parent of $Y$ implies $Y \subset X_1$, $X_2$ is a parent of $Y$ implies $Y \subset X_2$, and so every element in $Y$ is in both $X_1$ and $X_2$.
 
 Now suppose that $X_1 \cap X_2 \neq Y$. The preceding logic showed that either the two are equal, or $Y$ is a proper subset of  $X_1 \cap X_2$. But the latter case creates a contradiction. By definition, $(X_1 \cap X_2)$ must be in the intersectional closure, and $X_1 \cap X_2 \subset X_1$ follows from fundamental properties of sets. Then $X_1 \cap X_2$ intervenes between $Y$ and $X_1$, contradicting the hypothesis that $Y$ is a daughter of $X_1$. Thus, $Y = X_1 \cap X_2$.
 	
@@ -268,7 +293,7 @@ Now suppose that $X_1 \cap X_2 \neq Y$. The preceding logic showed that either t
 \label{fig:closure}
 \end{figure}
 
-In this case, the largest daughters of $\Sigma$ are the \phonfeat{+front} vowels, the \phonfeat{+high} vowels, and the \phonfeat{+round} vowels. The pairwise intersections of these classes give rise to the \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, and \phonfeat{+round \\ +front} classes. The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), which accordingly has 3 parents. In the next section, we give an algorithm which generates a privative feature system $(\mathcal F, \Sigma, \{+, 0\})$ that covers the intersectional closure $\mathcal C_\cap$, given a natural class system $(\mathcal C, \Sigma)$.
+In this case, the largest daughters of $\Sigma$ are the \phonfeat{+front} vowels, the \phonfeat{+high} vowels, and the \phonfeat{+round} vowels. The pairwise intersections of these classes give rise to the \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, and \phonfeat{+round \\ +front} classes. The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), and the intersection of all 3 is also \{\textipa{y}\}. Thus, this set has 3 parents, but the segments it contains are determined simply by having more than 1 parent. In the next section, we give an algorithm which generates a privative feature system that covers the intersectional closure $\mathcal C_\cap$, given the `input' of a class system $(\mathcal C, \Sigma)$.
 
  \section{Privative specification}
 
@@ -295,9 +320,9 @@ The following algorithm yields a privative specification by assigning a differen
 
 \vspace{\baselineskip} \noindent \textit{Proof of soundness for the privative specification algorithm}
 
-A featurization algorithm is \textit{sound} if for every natural class system $(\mathcal C, \Sigma)$, it returns a feature system which covers $\mathcal C$. To see that the privative specification algorithm is sound, note that every class in $\mathcal C_\cap$ enters the queue $\mathcal Q$. For an arbitrary class $X$ in the queue, there are 3 cases. If $X$ has 0 parents, then it is $\Sigma$, and is covered by the empty featural descriptor. If $X$ has exactly 1 parent, then the segments in $X$ get the features of that parent (which uniquely pick out the parent class), plus a new feature $f$ which distinguishes the segments in $X$ from $X$'s parent. If $X$ has more than 1 parent, then Single Parenthood Theorem shows, via the Featural Intersection Lemma, that the union of features of $X$'s parents uniquely pick out all and only the segments in $X$. Thus, each class which exits the queue has a set of features assigned to its segments which pick out that class uniquely. This completes the proof.
+A featurization algorithm is \textit{sound} if for every class system $(\mathcal C, \Sigma)$, it returns a feature system which covers $\mathcal C$. To see that the privative specification algorithm is sound, note that every class in $\mathcal C_\cap$ enters the queue $\mathcal Q$. For an arbitrary class $X$ in the queue, there are 3 cases. If $X$ has 0 parents, then it is $\Sigma$, and is covered by the empty featural descriptor. If $X$ has exactly 1 parent, then the segments in $X$ get the features of that parent (which uniquely pick out the parent class), plus a new feature $f$ which distinguishes the segments in $X$ from $X$'s parent. If $X$ has more than 1 parent, then Single Parenthood Theorem shows, via the Featural Intersection Lemma, that the union of features of $X$'s parents uniquely pick out all and only the segments in $X$. Thus, each class which exits the queue has a set of features assigned to its segments which pick out that class uniquely. This completes the proof.
 
-\vspace{\baselineskip} In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative specification algorithm to the intersectional closure of Fig.~\ref{fig:closure}. We employ several conventions to jointly optimize readability and informativity. First, classes which have a single parent are visually highlighted using a thick, red ellipse. These represent the classes that cannot be featurized simply by the union of their parents' features. Second, the arrow which leads to each such class is annotated with the feature/value that is used to distinguish it. This represents the `point' at which each feature is assigned. Note that since the algorithm assigns feature/value pairs to \textit{segments}, every daughter of the class which got a new feature also gets that feature. The set of features that is shared by all members of a class, i.e. which uniquely picks out that class and not any other, is represented under the node. The complete featurization assigned to each segment is thus represented by inspecting the singleton sets in the bottom row. For readability, we use feature names that are familiar from phonological theory when the feature picks out more than segment in isolation. And when the feature only picks out one segment, we name the feature after the segment. (But this is purely for readability of the figure. The algorithm knows nothing of phonological substance.)
+\vspace{\baselineskip} In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative specification algorithm to the intersectional closure of Fig.~\ref{fig:closure}. We employ several conventions to jointly optimize readability and informativity. First, classes which have a single parent are visually highlighted using a thick, red ellipse. These represent the classes that cannot be featurized simply by the union of their parents' features. Second, the arrow which leads to each such class is annotated with the feature/value that is used to distinguish it. This represents the `point' at which each feature is assigned. Note that since the algorithm assigns feature/value pairs to \textit{segments}, every daughter of the class which got a new feature also gets that feature. The set of features that is shared by all members of a class, i.e. which uniquely picks out that class and not any other, is represented under the node. The complete featurization assigned to each segment is thus represented by inspecting the singleton sets in the bottom row. For readability, we use feature names that are familiar from phonological theory when the feature picks out more than segment in isolation (but note that the algorithm knows nothing of phonetic substance -- as far as the algorithm is concerned, they are just arbitrary symbols). When the feature only picks out one segment, we name the feature after the segment.
 
 \begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{vowelHarmony_privative.png}
@@ -322,15 +347,15 @@ This might be the desired behavior. But other properties might be desired instea
     \end{itemize}
 Crucially, this featurization covers the original class system shown in Fig.~\ref{fig:lattice}. In other words, it uses less features while generating a richer class system.
 
-This example is presented to make two points. First, the relationship between classes in the input and the specification algorithm is not monotone. In general, adding features to a system will make more classes accessible -- but in this example, a smaller number of features covers a larger class system. Thus, the minimal number of features needed to cover $\mathcal C$ is not predictable from a `simple' property, such as the total number of classes in $\mathcal C$. To be more precise, the privative specification algorithm returns a featurization in which the number of features is equal to the number of classes in the input with a single parent; this could be thought of as an upper bound. The second point this example makes is that adding the `right' classes to the input is what enabled a more economical feature system. In the remainder of this paper, we explore variants of the privative specification algorithm which consider the complements of the input class (either with respect to the parent, or with respect to $\Sigma$) and assign `$-$' values instead of (or in addition to) `$0$' values.
+This example is presented to make two points. First, the relationship between classes in the input and the specification algorithm is not monotone. In general, adding features to a system will make more classes accessible -- but in this example, a smaller number of features covers a larger class system. Thus, the minimal number of features needed to cover $\mathcal C$ is not predictable from a `simple' property, such as the total number of classes in $\mathcal C$. To be more precise, the proof of soundness of the privative specification algorithm gives an upper bound on the features needed to cover a class system (namely, the number of classes in the intersectional closure with a single parent). We return to the issue of feature economy and expressiveness in the Discussion section. In the meantime, we turn to the second point this example makes -- adding the `right' classes to the input is what enabled a more economical feature system. In the next sections, we explore variants of the privative specification algorithm which consider complement classes and assign `$-$' values instead of (or in addition to) `$0$' values. 
 
 \section{Contrastive underspecification}
 
-One of the best cases for non-privative specifications arise from complement classes, such as round vs. nonround vowels, or voiced vs. voiceless obstruents. In a language with rounding harmony, like Turkish, one would need to write one harmony rule for the \phonfeat{+round} feature, and a formally identical rule for the \phonfeat{+nonround} feature. By allowing features to take on opposing values, one formally recognizes the sameness of rounding with respect to the harmony process.
+One of the best cases for non-privative specifications arise from complement classes, such as round vs. nonround vowels, or voiced vs. voiceless obstruents. In a language with rounding harmony, like Turkish, one would need to write one harmony rule for the \phonfeat{+round} feature, and an otherwise identical rule for the \phonfeat{+nonround} feature. By allowing features to take on opposing values, one formally recognizes the sameness of rounding with respect to the harmony process.
 
-In canonical cases like rounding harmony and voicing assimilation, the binary feature is only relevant for certain segments. For example, in the case of rounding harmony, it is normally useful to characterize only vowels as \phonfeat{+round} or \phonfeat{-round}; in some languages, one might wish to only characterize non-low (or high) vowels only. In these cases, the contrasting feature values denote complementary classes -- but complements with respect to what?
+In canonical cases like rounding harmony and voicing assimilation, the binary feature is only relevant for certain segments. For example, in the case of rounding harmony, it is normally useful to assign the \phonfeat{+round} and \phonfeat{-round} values only to vowels. In some languages, one might wish to only assign these values to just non-low vowels, or just front vowels. In all such cases, the contrasting feature values denote complementary classes -- but complements with respect to \textit{what}?
 
-The central insight developed in this paper is that a new feature needs to be assigned just in case a class has a single parent. This suggests that the relevant domain for complementation is with respect to the parent. And that is the change we introduce for contrastive underspecification: a `$-$' value is assigned when the complement of the class being processed (with respect to its parent) is in the input. We use the notation $\overline{X}$ to indicate the complement of $X$ (with respect to a single parent). A formal specification of the algorithm follows.
+The central insight developed in this paper is that a new feature needs to be assigned just in case a class has a single parent. This suggests that the relevant domain for complementation is with respect to the parent. And that is the distinction between privative specification and contrastive underspecification: a `$-$' value is assigned when the complement of the class being processed (with respect to its parent) is in the input.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
     \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
@@ -359,7 +384,7 @@ The central insight developed in this paper is that a new feature needs to be as
     \ENDWHILE
 \end{algorithmic}
 
-\vspace{\baselineskip} \noindent The soundness of this algorithm follows from the soundness of the privative specification algorithm. That is because the contrastive underspecification algorithm yields a feature system which generates the same class system as privative specification. The only difference between the two is that if the input contains complement sets, then contrastive underspecification will use a single feature with `$+$' and `$-$' values, where privative specification will have two features with just `$+$' values.
+\vspace{\baselineskip} \noindent The soundness of this algorithm follows from the soundness of the privative specification algorithm. That is because the contrastive underspecification algorithm yields a feature system which generates the same class system as privative specification does. The only difference between the two is that if the input contains complement sets, then contrastive underspecification will use a single feature with `$+$' and `$-$' values, where privative specification will have two features with just `$+$' values.
 
 \vspace{\baselineskip} We illustrate this algorithm on the 3-segment system \{R, T, D\} discussed before. Suppose that the input consists of the following: \begin{itemize}
     \item \textit{obstruents} -- \{D, T\}
@@ -368,7 +393,7 @@ The central insight developed in this paper is that a new feature needs to be as
     \item \textit{voiceless obstruents} -- \{T\}
     \end{itemize}
 
-Then contrastive underspecification will yield the following featurization (or one which is equivalent to it, but with inverse signs):
+\noindent Then contrastive underspecification will yield the following featurization (or one which is equivalent to it, but with inverse signs):
 
 % table with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
@@ -385,12 +410,11 @@ Then contrastive underspecification will yield the following featurization (or o
     \label{table:underspecification}
 \end{table}
 
-The term contrastive underspecification is meant to capture that features can be contrastive, but segments can be forced to be underspecified with respect to a feature by omitting the relevant complement class from the input. For example, in Table~\ref{table:underspecification} the segment $R$ is not specified for voicing; but it would have been if the input had included the class \{R, D\}. In the next section, we consider a variant of the algorithm which adds the complement class, even if it wasn't present in the input. We call this variant contrastive specification.
+The term contrastive underspecification is meant to capture that features can be binary or privative; segments will be underspecified with respect to a feature if the relevant complement class is not included in the input. For example, in Table~\ref{table:underspecification} the segment $R$ is not specified for voicing -- but it would have been if the input had included the class \{R, D\}. In the next section, we consider a variant of the algorithm which adds the complement class, even if it wasn't present in the input. We call this variant contrastive specification.
     
-
 \section{Contrastive specification}
 
-Contrastive specification is very similar to contrastive underspecification. The key difference is that contrastive specification adds classes to the covering. Every complement gets a `$-$' feature, including those which were not in the input. Because of this, it is necessary to update the intersectional closure. This can be done dynamically, by running the same intersectional closure algorithm as above, except starting with the pre-existing closure, and a queue consisting of the 
+Contrastive specification is very similar to contrastive underspecification. The key difference is that contrastive specification adds classes to the covering. Every complement gets a `$-$' feature, including those which were not in the input. Because of this, the intersectional closure actually changes throughout the computation. It can be updated dynamically, by running the intersectional closure algorithm, except starting with the pre-existing closure, and a queue consisting of the novel complement class.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
     \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
@@ -411,7 +435,7 @@ Contrastive specification is very similar to contrastive underspecification. The
                     \end{cases}$
             \STATE $\textsc{append}(\mathcal F, f_X)$
             \STATE
-            \STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q = \{\overline{X}\})$
+            \STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q' = \{\overline{X}\})$
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
@@ -426,71 +450,41 @@ Contrastive specification is very similar to contrastive underspecification. The
 \label{fig:contrastive}
 \end{figure}
 
-\noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. Zero values are assigned to daughters-of-daughters. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. That variant yields full specification.
+\noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. Zero values are assigned to daughters-of-daughters. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. Indeed, that is the final variant we discuss -- full specification.
 
 \section{Full specification}
 
-
-achieved by assigning a new feature [+f] to every segment in $X$, and [-f] to every segment in $\Sigma \setminus X$
+Full specification differs from contrastive specification in that complementation is calculated with respect to the whole alphabet, rather than the parent class. Therefore, it is algorithmically almost the same as contrastive specification.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
-	\REQUIRE $\mathcal V = \{ +, -, 0 \}$
-	\REQUIRE Precompute $C_\cap \leftarrow \textsc{IntersectionalClosure}(C)$
-	\ENSURE Output featurization $\mathcal F = \{ f_j \}_{j=1}^M$ such that $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$
-	
-	\STATE
-	\STATE $\mathcal Q \leftarrow \{c \in C_\cap \mid \Vert\textsc{Parents}(c)\Vert = 1 \}$
-	\STATE $i \leftarrow 1$
-	\STATE
-	\WHILE{$\mathcal Q \neq \varnothing$}
-	\STATE $c \leftarrow \textsc{Dequeue}(\mathcal Q)$
-	\STATE $c' \leftarrow \Sigma \setminus c$
-	\STATE $f_i(x) = \begin{cases}
-	+ & \mbox{if } x \in c \\
-	- & \mbox{if } x \in c' \\
-	0 & \mbox{otherwise}
-	\end{cases} $
-	\STATE $C_\cap \leftarrow \textsc{IntersectionalClosure}(C_\cap \cup \{c'\})$
-	\STATE $\mathcal Q \leftarrow \{c_l \in \mathcal Q \mid c_l \not= c' \ \land \Vert \textsc{Parents}(c_l) \Vert = 1 \}$
-	\STATE $\mathcal F \leftarrow \mathcal F \cup f_i$
-	
-	\STATE $i \leftarrow i + 1$
-	\ENDWHILE
+    \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
+    \ENSURE $\mathcal F$ is a featurization over $\mathcal V = \{ +, - \}$ which covers $\mathcal C$
+    \STATE
+    \STATE $\mathcal Q \leftarrow \mathcal C_\cap$
+    \STATE $\mathcal F \leftarrow \varnothing$
+    \STATE
+    \WHILE{$\mathcal Q \neq \varnothing$}
+        \STATE $X \leftarrow \textsc{dequeue}(\mathcal Q)$
+        \IF{$| \textsc{parents}(X) | = 1$}
+            \STATE define $f_X : \Sigma \rightarrow \mathcal V$ by $f_X (\sigma) = \begin{cases}
+                    + & \text{if } \sigma \in X \\
+                    - & \text{otherwise}
+                    \end{cases}$
+            \STATE $\textsc{append}(\mathcal F, f_X)$
+            \STATE
+            \STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q' = \{\Sigma \setminus X\})$
+        \ENDIF
+    \ENDWHILE
 \end{algorithmic}
 
-\appendix
+\vspace{\baselineskip} \noindent The full specification algorithm is sound for the same reason that the contrastive specification algorithm is -- it considers a superset of classes that the privative specification algorithm does, and thus it covers the input.
 
-\subsection{Proof of Featural Intersection Lemma}
+\vspace{\baselineskip} The key way in which full specification differs from contrastive specification is that no privative specification can occur whatsoever. For example, if a single feature \phonfeat{+nasal} is used to pick out nasal segments, then the feature system will also generate the class \phonfeat{-nasal} consisting of all non-nasal segments. According to our understanding of nasal typology, this is probably not the desired behavior for the nasal feature. Fortunately, it can be avoided by ensuring that the nasals are generated by pre-existing features rather than needing their own feature. For example, if \phonfeat{-continuant} picks out the nasals and oral stops, while \phonfeat{+sonorant} picks out vowels, glides, liquids, and nasals, then the nasal class is picked out by \phonfeat{-continuant \\ +sonorant}. Therefore, the set of all non-nasals is not generated as a complement class (although, the set of continuant nonsonorants is, as well as the set of continuant sonorants and the set of noncontinuant nonsonorants).
 
-The proof proceeds by showing that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset  \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle$ and $ \langle \mathbf{e}_i \rangle \cap \langle \mathbf{e}_j \rangle \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
-Let $C_i = \langle \mathbf{e}_i \rangle$ and $C_j = \langle \mathbf{e}_j \rangle$.
-First, suppose $x \in C_i \cap C_j$. Then $x \in C_i$. By definition, $x$ must have the features in $\mathbf{e}_i$.
-Similarly, $x \in C_j$, and therefore must have the features in $\mathbf{e}_j$.
-Thus, $x$ has the features in $\mathbf{e}_i \cup \mathbf{e}_j$. This shows that $C_i \cap C_j \subset \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$.
-Now, suppose $x \in \langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$. Then $x$ has all the features of $\mathbf{e}_i$, and so $x \in C_i$.
-Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore $x \in C_i \cap C_j$. This shows that $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle \subset C_i \cap C_j$.
-Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
+\section{Discussion}
 
-\subsection{Proof of intersectional closure algorithm}
+\section{Conclusions}
 
-We will show that the algorithm generates every class in the intersectional closure by induction. $\mathcal C_\cap$ is initialized to contain $\Sigma$. Moreover, $\mathcal Q$ is initialized to contain every class in $\mathcal C$. Each of these must be `transferred' to the intersectional closure because they do not belong to it already (dequeued from $\mathcal Q$, and appended to $\mathcal C_\cap$). This demonstrates that every intersection of 0 classes ($\Sigma$) and 1 class from $\mathcal C$ (namely, $\mathcal C$ itself) belongs to $\mathcal C_\cap$. Now, suppose that the algorithm has guaranteed that every intersection of $n$ classes from $\mathcal C$ is in $\mathcal C_\cap$. If there exists a $Y \in \mathcal C_\cap$ which can be written as the intersection of $n+1$ classes, i.e. $Y = X_1 \cap X_2 \cap \ldots \cap X_{n+1} = Y' \cap X_{n+1}$ where $Y' = X_1 \cap X_2 \cap \ldots \cap X_n$. Since every intersection of $n$ classes is in $\mathcal C_\cap$, $Y'$ must be in $\mathcal C_\cap$. Now, regardless of whether $X_{n+1}$ was transferred from $\mathcal Q$ to $\mathcal C_\cap$ before or after $Y'$ was, there was some point at which one was in $\mathcal Q$ and the other in $\mathcal C_\cap$. When the \textbf{for} loop dequeued the one in $\mathcal Q$, it added the intersection of this one with all others in $\mathcal C_\cap$ -- i.e. $Y' \cap X_{n+1}$. Either this class was already in $\mathcal C_\cap$, or else it was not; and in the latter case, it was transferred. Thus, all sets generated by the intersection of $n+1$ classes from $\mathcal C$ are in $\mathcal C_\cap$. This completes the proof.
-
-
-
-\subsubsection{Representing subset relations as matrices}
-
-\vspace{\baselineskip} Any directed graph like Fig~\ref{fig:lattice} has an equivalent representation with a square matrix. Row $i$ is identified with class $C_i$, column $j$ with $C_j$; and the value in the $(i,j)$ cell indicates the relationship between $C_i$ and $C_j$. For binary relations like the subsethood and daughterhood, it is convenient to use the Boolean field: the set $\{T, \, F\}$ with operations $\cdot$ (logical \textsc{and}), $+$ (logical \textsc{or}), and additive inverse $-$ (logical \textsc{not}). The \textit{subset matrix} is defined thus:
-
-$$S_{ij} = \begin{cases}
-                T & \quad \text{if } C_j \subset C_i \\
-                F & \quad \text{otherwise}
-                \end{cases}$$
-
-\noindent The advantage of writing a relation in this way is that fundamental matrix operations correspond to various measures of interest. For example, when $S$ is defined as above, and $S^2$ is calculated from ordinary matrix multiplication, then $S^2$ indicates the subset-of-a-subset relation, which corresponds graphically to `paths' of length 2 on a subset graph. In other words, $(S^2)_{ij} = T$ means there is a $C_k$ such that $S_{ik} = T \textsc{ and } S_{kj} = T$. If we further let \textsc{and} denote the element-wise multiplication operator, then the \textit{daughter matrix} can be computed from the subset matrix as follows: 
-
-$$D = S \textsc{ and } -S^2$$
-
-\noindent This matrix expresses the daughterhood relation: $D_{ij} = T$ means $C_j$ is a daughter of $C_i$.\footnote{Similarly, the subset matrix can be expressed as the sum of all powers of the daughter matrix, \mbox{$S = \sum_{n=1}^N D^n$}. For this problem, we generally expect to compute $D$ from $S$, rather than \textit{vice versa}.} The daughterhood relation is of central importance to the featurization algorithms described in this paper.
 
 \bibliography{mybib.bib}
 \bibliographystyle{apacite}
