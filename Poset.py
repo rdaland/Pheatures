@@ -24,13 +24,16 @@ class Poset():
         self.classes = [set(c) for c in input_classes]
         if self.alphabet not in self.classes:
             self.classes.append(self.alphabet)
+        self.output_dir = output_dir
+        self.calculate_matrices()
+
+    def calculate_matrices(self):
         self.subset_matrix = None
         self.daughter_matrix = None
-        self.output_dir = output_dir
         self.calculate_subset_matrix()
         self.calculate_daughter_matrix()
 
-    def add_class(self, new_class):
+    def add_class(self, new_class, update_closure=False):
         """
         Adds a new class to the poset and recalculates the subset and 
         daughter matrices.
@@ -42,19 +45,27 @@ class Poset():
         if new_class in self.classes:
             return False
 
-        n = self.subset_matrix.shape[0]
-        new_matrix = np.zeros((n + 1, n + 1), dtype='bool')
-        new_matrix[0:n, 0:n] = self.subset_matrix
+        if update_closure:
+            # Update intersectional closure
+            self.get_intersectional_closure(
+                existing_closure=self.classes,
+                new_classes=[new_class]
+            )
+        else:
+            # Just add class and update matrices
+            n = self.subset_matrix.shape[0]
+            new_matrix = np.zeros((n + 1, n + 1), dtype='bool')
+            new_matrix[0:n, 0:n] = self.subset_matrix
 
-        for i, c in enumerate(self.classes):
-            if c.issubset(new_class):
-                new_matrix[n, i] = True
-            if new_class.issubset(c):
-                new_matrix[i, n] = True
+            for i, c in enumerate(self.classes):
+                if c.issubset(new_class):
+                    new_matrix[n, i] = True
+                if new_class.issubset(c):
+                    new_matrix[i, n] = True
 
-        self.subset_matrix = new_matrix
-        self.classes.append(new_class)
-        self.calculate_daughter_matrix()
+            self.subset_matrix = new_matrix
+            self.classes.append(new_class)
+            self.calculate_daughter_matrix()
 
         return True
 
@@ -96,6 +107,14 @@ class Poset():
         parents_col = self.daughter_matrix[:, index]
         return list(compress(self.classes, parents_col))
 
+    def get_children(self, c):
+        """
+        Gets the children of the provided class
+        """
+        index = self.classes.index(c)
+        children_col = self.daughter_matrix[index, :]
+        return list(compress(self.classes, children_col))
+
     def is_subset(self, c1, c2):
         """
         Returns True if c1 is a subset of c2, False otherwise
@@ -128,26 +147,26 @@ class Poset():
 
         graph.render()
 
-    def get_intersectional_closure(self):
+    def get_intersectional_closure(self, existing_closure=None,
+                                   new_classes=None):
         """
         Returns a new Poset object p with the following properties:
             1.  All classes in self are also in p
             2.  The intersections of all subsets of the sets in self
                 are also in p
         """
-        closure_classes = [self.alphabet]
-        class_deque = deque(self.classes)
+        closure_classes = existing_closure or [self.alphabet]
+        class_deque = deque(new_classes) if new_classes else deque(self.classes)
 
         while class_deque:
-            c = class_deque.pop()
+            c = class_deque.popleft()
             if c not in closure_classes:
                 for cc in closure_classes:
                     class_deque.append(c.intersection(cc))
                 closure_classes.append(c)
 
-        new_poset = Poset(self.alphabet, closure_classes)
-
-        return new_poset
+        self.classes = closure_classes
+        self.calculate_matrices()
 
 if __name__ == "__main__":
 
@@ -183,5 +202,5 @@ if __name__ == "__main__":
 
     p = Poset(alphabet, input_classes_vowels)
     p.graph_poset(filename="no_intersection_test.gv")
-    p2 = p.get_intersectional_closure()
-    p2.graph_poset(filename="intersection_test.gv")
+    p.get_intersectional_closure()
+    p.graph_poset(filename="intersection_test.gv")

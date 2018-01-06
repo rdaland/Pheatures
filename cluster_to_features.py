@@ -1,5 +1,5 @@
 from Poset import Poset
-from collections import defaultdict
+from collections import defaultdict, deque
 from enum import Enum
 from itertools import chain, combinations
 
@@ -29,12 +29,15 @@ class Featurizer():
         self.feature_num = 1
         # Build an intersectionally closed poset from the input classes
         self.poset = Poset(self.alphabet, self.input_classes)
-        self.poset = self.poset.get_intersectional_closure()
-        # Get all classes with only one parent
-        self.incomplete_classes = [
-            c for c in self.poset.classes
-            if len(self.poset.get_parents(c)) == 1
-        ]
+        self.poset.get_intersectional_closure()
+
+        # Build the list of classes we need to consider
+        # if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
+        #     self.incomplete_classes = sorted(
+        #         self.poset.classes, key=len, reverse=True
+        #     )
+        # else:
+        #     self.incomplete_classes = self.poset.classes.copy()
 
     def set_segment_features(self, c, features):
         for segment in c:
@@ -111,52 +114,144 @@ class Featurizer():
         print() 
 
     def get_features_from_classes(self):
-        while self.incomplete_classes:
-            c = self.incomplete_classes.pop(0)
-            c_features = set([(self.feature_num, '+')])
-            self.set_segment_features(c, c_features)
+        if self.specification == Specification.CONTRASTIVE:
+            self.get_features_from_classes_bfs2()
+        else:
+            self.get_features_from_classes_unordered()
 
-            # In privative specification, we don't consider the complement
-            if self.specification != Specification.PRIVATIVE:
-                if self.specification == Specification.FULL:
-                    # For full specification we take the complement wrt the
-                    # set of all sounds.
-                    c1 = self.alphabet - c
-                else:
-                    # Otherwise take it wrt the parent set. 
-                    parent = self.poset.get_parents(c)[0]
-                    c1 = parent - c
-
-                # We only want to consider the complement for contrastive
-                # underspecification if it's in the input set.
-                if (self.specification != Specification.CONTRASTIVE_UNDER
-                        or c1 in self.input_classes):
-                    # If the complement is not in the poset, add it and
-                    # recalculate the intersectional closure
-                    if self.poset.add_class(c1):
-                        self.poset = self.poset.get_intersectional_closure()
-                        self.incomplete_classes = list(filter(
-                            lambda x: len(self.poset.get_parents(x)) == 1,
-                            self.incomplete_classes
-                        ))
-
-                    # Assign the negative value of the new feature to the 
-                    # new class
-                    c1_feature = set([(self.feature_num, '-')])
-                    self.set_segment_features(c1, c1_feature)
-
-                    self.incomplete_classes = list(filter(
-                        lambda x: x != c1,
-                        self.incomplete_classes
-                    ))
-
-            self.feature_num += 1
-
-            if self.verbose:
-                self.print_segment_features()
-
+        self.poset.graph_poset('test')
         self.calculate_class_features()
         self.assert_valid_featurization()
+
+    def get_features_from_classes_bfs2(self):
+        # Deque holds tuples of the class, and the class that added it
+        bfs_queue = [(self.alphabet, None)]
+        processed_classes = []
+        while bfs_queue:
+            c, c_adder = bfs_queue.pop(0)
+
+            children = zip(
+                sorted(
+                    self.poset.get_children(c),
+                    key=len,
+                    reverse=True
+                ),
+                c
+            )
+            bfs_queue.extend(children)
+
+            parents = self.poset.get_parents(c)
+
+            if len(parents) == 1 and c not in processed_classes:
+                parent = parents[0]
+
+                c_features = set([(self.feature_num, '+')])
+                self.set_segment_features(c, c_features)
+
+                c1 = parent - c
+                self.poset.add_class(c1, update_closure=True)
+                c1_feature = set([(self.feature_num, '-')])
+                self.set_segment_features(c1, c1_feature)
+
+                removed_indexes = []
+                for i, other_c in enumerate(bfs_queue):
+                    if other_c[1] == c_adder and self.poset.is_subset(other_c[0], c1):
+                        removed_indexes.append(i)
+                bfs_queue = [
+                    x for i, x in enumerate(bfs_queue)
+                    if i not in removed_indexes
+                ]
+
+                self.feature_num += 1
+                processed_classes.append(c1)
+
+            processed_classes.append(c)
+
+    def get_features_from_classes_bfs(self):
+        bfs_deque = deque([self.alphabet])
+        processed_classes = []
+
+        while bfs_deque:
+            current_node = bfs_deque.popleft()
+            # if current_node == {"a", "^"}:
+            #     import pdb; pdb.set_trace()
+            children = sorted(
+                self.poset.get_children(current_node),
+                key=len,
+                reverse=True
+            )
+            updated_children = []
+            while children:
+                child = children.pop(0)
+                if len(self.poset.get_parents(child)) == 1 and child not in processed_classes:
+                    child_features = set([(self.feature_num, '+')])
+                    self.set_segment_features(child, child_features)
+
+                    complement = current_node - child
+                    self.poset.add_class(complement, update_closure=True)
+                    complement_feature = set([(self.feature_num, '-')])
+                    self.set_segment_features(complement, complement_feature)
+
+                    removed_indexes = []
+                    for i, other_child in enumerate(children):
+                        if (self.poset.is_subset(other_child, complement)
+                                or other_child == complement):
+                            removed_indexes.append(i)
+                    children = [
+                        x for i, x in enumerate(children)
+                        if i not in removed_indexes
+                    ]
+
+                    updated_children.append(complement)
+                    processed_classes.append(complement)
+                    self.feature_num += 1
+
+                updated_children.append(child)
+                processed_classes.append(child)
+            bfs_deque.extend(updated_children)
+
+    def get_features_from_classes_unordered(self):
+        incomplete_classes = self.poset.classes.copy()
+
+        while incomplete_classes:
+            c = incomplete_classes.pop(0)
+            if len(self.poset.get_parents(c)) == 1:
+                c_features = set([(self.feature_num, '+')])
+                self.set_segment_features(c, c_features)
+
+                # In privative specification, we don't consider the complement
+                if self.specification != Specification.PRIVATIVE:
+                    if self.specification == Specification.FULL:
+                        # For full specification we take the complement wrt the
+                        # set of all sounds.
+                        c1 = self.alphabet - c
+                    else:
+                        # Otherwise take it wrt the parent set. 
+                        parent = self.poset.get_parents(c)[0]
+                        c1 = parent - c
+
+                    # We only want to consider the complement for contrastive
+                    # underspecification if it's in the input set.
+                    if (self.specification != Specification.CONTRASTIVE_UNDER
+                            or c1 in self.input_classes):
+                        # If the complement is not in the poset, add it and
+                        # recalculate the intersectional closure
+                        self.poset.add_class(c1, update_closure=True)
+
+                        # Assign the negative value of the new feature to the 
+                        # new class
+                        c1_feature = set([(self.feature_num, '-')])
+                        self.set_segment_features(c1, c1_feature)
+
+                        incomplete_classes = list(filter(
+                            lambda x: x != c1,
+                            incomplete_classes
+                        ))
+
+                self.feature_num += 1
+
+                if self.verbose:
+                    self.print_segment_features()
 
 if __name__ == "__main__":
     # Choose a featurization type
@@ -286,12 +381,65 @@ if __name__ == "__main__":
         ['R', 'D', 'T'],
     )
 
+    # classes_test2 = [
+    #     ['R', 'D'],
+    #     ['R'],
+    # ]
     classes_test2 = [
-        ['R', 'D'],
         ['R'],
+        ['R', 'D'],
+        ['D', 'T'],
+        ['T'],
+        ['D']
     ]
 
     print("Doing test 2...")
     featurizer = Featurizer(classes_test2, all_sounds_test2, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    all_paper_vowels = set([
+        'i', 'y', 'U', 'u', 'e', 'E', '^', 'O', 'a'
+    ])
+    classes_paper_vowels = [
+        set(['E', 'y', 'e', 'i']),
+        set(['E', 'O', 'u', 'y']),
+        set(['u', 'y', 'i', 'U']),
+        *[set([v]) for v in all_paper_vowels]
+    ]
+
+    print("Doing paper vowels...")
+    featurizer = Featurizer(classes_paper_vowels, all_paper_vowels, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    bad_class_all = set([
+        'a', 'b', 'c', 'd', 'e', 'f'
+    ])
+    bad_classes = [
+        ['a', 'b'],
+        ['a', 'c', 'e', 'f'],
+        ['c', 'e', 'f'],
+    ]
+
+    print("Doing bad vowels...")
+    featurizer = Featurizer(bad_classes, bad_class_all, specification)
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+
+    bad_class_all_2 = set([
+        'a', 'b', 'c', 'd', 'e', 'f'
+    ])
+    bad_classes_2 = [
+        ['a', 'b'],
+        ['a', 'c', 'e', 'f'],
+        ['c', 'e', 'f'],
+        ['b', 'd'],
+        ['c', 'd', 'e', 'f'],
+        ['a']
+    ]
+
+    print("Doing other bad vowels...")
+    featurizer = Featurizer(bad_classes_2, bad_class_all_2, specification)
     featurizer.get_features_from_classes()
     featurizer.print_featurization()
