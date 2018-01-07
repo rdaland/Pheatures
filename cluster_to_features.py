@@ -283,54 +283,54 @@ class Featurizer():
 
 if __name__ == "__main__":
     # Choose a featurization type
-    specification = Specification.FULL
+    specification = Specification.CONTRASTIVE
 
-    # A few sample inputs...
-    # Input classes are the sunny sounds of Hawaiian.
-    # This is an example of reading class input from a file.
-    featurizer = Featurizer.from_file('sample_inputs/hawaiian.txt', specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
-    featurizer.graph_poset()
+    # # A few sample inputs...
+    # # Input classes are the sunny sounds of Hawaiian.
+    # # This is an example of reading class input from a file.
+    # featurizer = Featurizer.from_file('sample_inputs/hawaiian.txt', specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
+    # featurizer.graph_poset()
 
-    # An arbitrary vowel space with distinctive rounding, 3-way height,
-    # and front/back distinction
+    # # An arbitrary vowel space with distinctive rounding, 3-way height,
+    # # and front/back distinction
 
-    classes_vowels = [
-        # Test for round/unround vowel system, which needs a minimum intersection
-        # of 3 classes to avoid specifying spurious features.
-        # High vowels
-        set(['i', 'u', 'y', 'U']),
-        # Mid vowels
-        set(['e', 'E', 'o', 'O']),
-        # Front vowels
-        set(['i', 'e', 'E', 'y']),
-        # Back vowels
-        set (['u', 'o', 'a', 'O', 'U']),
-        # Round vowels
-        set(['y', 'E', 'u', 'o']),
-        # Unrounded vowels
-        set(['i', 'e', 'a', 'U', 'O']),
-        # # Individual vowels
-        set(['i']),
-        set(['u']),
-        set(['e']),
-        set(['o']),
-        set(['a']),
-        set(['O']),
-        set(['U']),
-        set(['y']),
-        set(['E'])
-    ]
+    # classes_vowels = [
+    #     # Test for round/unround vowel system, which needs a minimum intersection
+    #     # of 3 classes to avoid specifying spurious features.
+    #     # High vowels
+    #     set(['i', 'u', 'y', 'U']),
+    #     # Mid vowels
+    #     set(['e', 'E', 'o', 'O']),
+    #     # Front vowels
+    #     set(['i', 'e', 'E', 'y']),
+    #     # Back vowels
+    #     set (['u', 'o', 'a', 'O', 'U']),
+    #     # Round vowels
+    #     set(['y', 'E', 'u', 'o']),
+    #     # Unrounded vowels
+    #     set(['i', 'e', 'a', 'U', 'O']),
+    #     # # Individual vowels
+    #     set(['i']),
+    #     set(['u']),
+    #     set(['e']),
+    #     set(['o']),
+    #     set(['a']),
+    #     set(['O']),
+    #     set(['U']),
+    #     set(['y']),
+    #     set(['E'])
+    # ]
 
-    all_sounds_vowels = set(
-        ['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']
-    )
+    # all_sounds_vowels = set(
+    #     ['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']
+    # )
 
-    print("Doing vowel space...")
-    featurizer = Featurizer(classes_vowels, all_sounds_vowels, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
+    # print("Doing vowel space...")
+    # featurizer = Featurizer(classes_vowels, all_sounds_vowels, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
 
     # A poset where the full featurization learns fewer classes
     # than the contrastive featuriation
@@ -339,11 +339,6 @@ if __name__ == "__main__":
         set(['a', 'b', 'c', 'd']),
         set(['a', 'b', 'c']),
         set(['d', 'e']),
-        set(['a']),
-        set(['b']),
-        set(['c']),
-        set(['d']),
-        set(['e']),
     ]
 
     print("Doing test 1...")
@@ -351,71 +346,71 @@ if __name__ == "__main__":
     featurizer.get_features_from_classes()
     featurizer.print_featurization()
 
-    # A poset that properly does not include the empty set
-    all_sounds_test2 = set(
-        ['R', 'D', 'T'],
-    )
+    # # A poset that properly does not include the empty set
+    # all_sounds_test2 = set(
+    #     ['R', 'D', 'T'],
+    # )
 
+    # # classes_test2 = [
+    # #     ['R', 'D'],
+    # #     ['R'],
+    # # ]
     # classes_test2 = [
-    #     ['R', 'D'],
     #     ['R'],
+    #     ['R', 'D'],
+    #     ['D', 'T'],
+    #     ['T'],
+    #     ['D']
     # ]
-    classes_test2 = [
-        ['R'],
-        ['R', 'D'],
-        ['D', 'T'],
-        ['T'],
-        ['D']
-    ]
 
-    print("Doing test 2...")
-    featurizer = Featurizer(classes_test2, all_sounds_test2, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
+    # print("Doing test 2...")
+    # featurizer = Featurizer(classes_test2, all_sounds_test2, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
 
-    all_paper_vowels = set([
-        'i', 'y', 'U', 'u', 'e', 'E', '^', 'O', 'a'
-    ])
-    classes_paper_vowels = [
-        set(['E', 'y', 'e', 'i']),
-        set(['E', 'O', 'u', 'y']),
-        set(['u', 'y', 'i', 'U']),
-        *[set([v]) for v in all_paper_vowels]
-    ]
+    # all_paper_vowels = set([
+    #     'i', 'y', 'U', 'u', 'e', 'E', '^', 'O', 'a'
+    # ])
+    # classes_paper_vowels = [
+    #     set(['E', 'y', 'e', 'i']),
+    #     set(['E', 'O', 'u', 'y']),
+    #     set(['u', 'y', 'i', 'U']),
+    #     *[set([v]) for v in all_paper_vowels]
+    # ]
 
-    print("Doing paper vowels...")
-    featurizer = Featurizer(classes_paper_vowels, all_paper_vowels, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
+    # print("Doing paper vowels...")
+    # featurizer = Featurizer(classes_paper_vowels, all_paper_vowels, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
 
-    bad_class_all = set([
-        'a', 'b', 'c', 'd', 'e', 'f'
-    ])
-    bad_classes = [
-        ['a', 'b'],
-        ['a', 'c', 'e', 'f'],
-        ['c', 'e', 'f'],
-    ]
+    # bad_class_all = set([
+    #     'a', 'b', 'c', 'd', 'e', 'f'
+    # ])
+    # bad_classes = [
+    #     ['a', 'b'],
+    #     ['a', 'c', 'e', 'f'],
+    #     ['c', 'e', 'f'],
+    # ]
 
-    print("Doing bad vowels...")
-    featurizer = Featurizer(bad_classes, bad_class_all, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
+    # print("Doing bad vowels...")
+    # featurizer = Featurizer(bad_classes, bad_class_all, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
 
-    bad_class_all_2 = set([
-        'a', 'b', 'c', 'd', 'e', 'f'
-    ])
-    bad_classes_2 = [
-        ['a', 'b'],
-        ['a', 'c', 'e', 'f'],
-        ['c', 'e', 'f'],
-        ['b', 'd'],
-        ['c', 'd', 'e', 'f'],
-        ['a']
-    ]
+    # bad_class_all_2 = set([
+    #     'a', 'b', 'c', 'd', 'e', 'f'
+    # ])
+    # bad_classes_2 = [
+    #     ['a', 'b'],
+    #     ['a', 'c', 'e', 'f'],
+    #     ['c', 'e', 'f'],
+    #     ['b', 'd'],
+    #     ['c', 'd', 'e', 'f'],
+    #     ['a']
+    # ]
 
-    print("Doing other bad vowels...")
-    featurizer = Featurizer(bad_classes_2, bad_class_all_2, specification)
-    featurizer.get_features_from_classes()
-    featurizer.print_featurization()
-    featurizer.graph_poset()
+    # print("Doing other bad vowels...")
+    # featurizer = Featurizer(bad_classes_2, bad_class_all_2, specification)
+    # featurizer.get_features_from_classes()
+    # featurizer.print_featurization()
+    # featurizer.graph_poset()
