@@ -4,6 +4,7 @@ from enum import Enum
 from itertools import chain, combinations
 
 DEFAULT_CSV_FILE = "features.csv"
+DEFAULT_GRAPH_FILENAME = "poset_graph.gv"
 
 class Specification(Enum):
     PRIVATIVE = 0
@@ -14,6 +15,16 @@ class Specification(Enum):
 class Featurizer():
     def __init__(self, input_classes, alphabet,
                  specification=Specification.CONTRASTIVE_UNDER, verbose=False):
+        # Default class constructor that must be given an alphabet and a set
+        # of input classes.
+        # 
+        # Input:
+        #   input_classes: A list of sets of segments
+        #   alphabet: A set of all segments used in input_classes
+        #   specification: The Specification indicating the type of
+        #                  featurization to do
+        #   verbose: A bool indicating whether to print extra information
+        #            during the featurization
         if specification not in Specification:
             raise("Invalid featural specification '{}'".format(specification))
 
@@ -23,61 +34,114 @@ class Featurizer():
         self.verbose = verbose
         self.reset()
 
+    @classmethod
+    def from_file(cls, filename, specification=Specification.CONTRASTIVE_UNDER):
+        # An alternative constructor that creates a Featurizer object based on
+        # the contents of a file. The file should have the following format
+        #
+        # <alphabet>
+        # <input class 1>
+        # ...
+        # <input class n>
+        #
+        # <alphabet> and <input class i> are segments separated by spaces.
+        # Segments do not need to be single characters.
+        #
+        # Input:
+        #   filename: A string specifying where to find the input file.
+        #   specification: The type of featurization to do
+        with open(filename, 'r') as f:
+            alphabet = set(next(f).rstrip().split(' '))
+            classes = []
+            for line in f:
+                c = set(line.rstrip().split(' '))
+                if c:
+                    classes.append(c)
+        return Featurizer(classes, alphabet, specification)
+
     def reset(self):
+        # Resets the featurization and poset to the state they were in before
+        # any featurization algorithm was run. If you want to rerun different
+        # featurization algorithms on the same instance, you'll need to call
+        # this first.
         self.class_features = defaultdict(set)
         self.segment_features = defaultdict(set)
         self.feature_num = 1
+
         # Build an intersectionally closed poset from the input classes
         self.poset = Poset(self.alphabet, self.input_classes)
         self.poset.get_intersectional_closure()
 
-        # Build the list of classes we need to consider
-        # if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
-        #     self.incomplete_classes = sorted(
-        #         self.poset.classes, key=len, reverse=True
-        #     )
-        # else:
-        #     self.incomplete_classes = self.poset.classes.copy()
-
-    def set_segment_features(self, c, features):
+    def set_segment_features(self, c, feature):
+        # Adds a feature/value pair to the featural description of every
+        # segment in a class.
+        #
+        # Input:
+        #   c: A set of strings
+        #   feature: A tuple of the form (<feature number>, <value>)
         for segment in c:
-            self.segment_features[segment].update(features)
+            self.segment_features[segment].update(feature)
 
     def set_class_features(self, c, features):
+        # Adds a feature/value pair to the featural description of a class
+        #
+        # Input:
+        #   c: A set of strings
+        #   features
         self.class_features[tuple(sorted(c))].update(features)
 
     def get_class_features(self, c):
+        # Gets the features required to specify a class
+        # Input:
+        #   c: A set of strings
+        # Returns:
+        #   A set of feature/value pairs that uniquely pick out c
         return set.intersection(*[
             self.segment_features.get(x, set()) for x in c
         ])
 
     def calculate_class_features(self):
+        # Calculate the featural description for each class in the poset
         for c in self.poset.classes:
-            # Don't attempt to featurize the empty set
-            if c:
-                features = self.get_class_features(c)
-                self.set_class_features(c, features)
+            features = self.get_class_features(c)
+            self.set_class_features(c, features)
 
-    def graph_poset(self):
-        self.poset.graph_poset()
+    def graph_poset(self, filename=DEFAULT_GRAPH_FILENAME, title=None):
+        # Graphs the class poset
+        #
+        # Input:
+        #   filename: A string indicating where to save the file
+        #   title: A string providing an optional title for the graph
+        self.poset.graph_poset(filename, title)
 
     def get_segments_for_feature(self, feature):
+        # Gets the segments picked out by a feature
+        # Input:
+        #   feature: A tuple of the form (<feature_number>, <value>)
+        # Returns:
+        #   A set of segments
         segments = set()
         for segment, features in self.segment_features.items():
             if feature in features:
-                segments.update(segment)
+                segments.add(segment)
         return segments
 
+    def get_class_for_features(self, features):
+        # Given a set of feature/value pairs, return the class they pick out
+        # Input:
+        #   features: A list of tuples of the form (<feature_number>, <value>)
+        # Returns:
+        #   A set representing the class specified by features
+        feature_segments = [self.alphabet]
+        for feature in features:
+            segments = self.get_segments_for_feature(feature)
+            feature_segments.append(segments)
+        return set.intersection(*feature_segments)
+
     def assert_valid_featurization(self):
+        # Checks that the calculcated features pick out the expected classes
         for c, features in self.class_features.items():
-            if not features:
-                predicted_class = self.alphabet
-            else:
-                feature_segments = []
-                for feature in features:
-                    segments = self.get_segments_for_feature(feature)
-                    feature_segments.append(segments)
-                predicted_class = set.intersection(*feature_segments)
+            predicted_class = self.get_class_for_features(features)
             if predicted_class != set(c):
                 raise Exception(
                     "Invalid featurization: feature set {} associated with class {},"
@@ -85,6 +149,10 @@ class Featurizer():
                 )
 
     def features_to_csv(self, filename):
+        # Creates a CSV with classes as rows and corresponding feautral
+        # descriptors as columns
+        # Input:
+        #   filename: A string specifying where to save the file
         with open(filename, 'w') as f:
             print(',' + ','.join([
                     str(i) for i in range(0, self.num_features)
@@ -108,90 +176,43 @@ class Featurizer():
         print()
 
     def print_segment_features(self):
+        # Print out the segments and their featural specifications
         for key, value in sorted(self.segment_features.items(),
                                  key=lambda x: -len(x[0])):
             print("{}:\t{}".format(key, sorted(value)))
         print() 
 
-    def get_features_from_classes(self):
-        if self.specification == Specification.CONTRASTIVE:
-            self.get_features_from_classes_bfs2()
-        else:
-            self.get_features_from_classes_unordered()
-
-        self.poset.graph_poset('test')
-        self.calculate_class_features()
-        self.assert_valid_featurization()
-
-    def get_features_from_classes_bfs2(self):
-        # Deque holds tuples of the class, and the class that added it
-        bfs_queue = [(self.alphabet, None)]
-        processed_classes = []
-        while bfs_queue:
-            c, c_adder = bfs_queue.pop(0)
-
-            children = zip(
-                sorted(
-                    self.poset.get_children(c),
-                    key=len,
-                    reverse=True
-                ),
-                c
-            )
-            bfs_queue.extend(children)
-
-            parents = self.poset.get_parents(c)
-
-            if len(parents) == 1 and c not in processed_classes:
-                parent = parents[0]
-
-                c_features = set([(self.feature_num, '+')])
-                self.set_segment_features(c, c_features)
-
-                c1 = parent - c
-                self.poset.add_class(c1, update_closure=True)
-                c1_feature = set([(self.feature_num, '-')])
-                self.set_segment_features(c1, c1_feature)
-
-                removed_indexes = []
-                for i, other_c in enumerate(bfs_queue):
-                    if other_c[1] == c_adder and self.poset.is_subset(other_c[0], c1):
-                        removed_indexes.append(i)
-                bfs_queue = [
-                    x for i, x in enumerate(bfs_queue)
-                    if i not in removed_indexes
-                ]
-
-                self.feature_num += 1
-                processed_classes.append(c1)
-
-            processed_classes.append(c)
-
-    def get_features_from_classes_bfs(self):
+    def add_complement_classes(self):
+        # For the contrastive and full specifications, pre-calculate the full
+        # set of complement classes that will be added before doing the
+        # featurization.
         bfs_deque = deque([self.alphabet])
         processed_classes = []
 
         while bfs_deque:
             current_node = bfs_deque.popleft()
-            # if current_node == {"a", "^"}:
-            #     import pdb; pdb.set_trace()
             children = sorted(
                 self.poset.get_children(current_node),
                 key=len,
                 reverse=True
             )
             updated_children = []
+
             while children:
                 child = children.pop(0)
-                if len(self.poset.get_parents(child)) == 1 and child not in processed_classes:
-                    child_features = set([(self.feature_num, '+')])
-                    self.set_segment_features(child, child_features)
+                if (len(self.poset.get_parents(child)) == 1
+                        and child not in processed_classes):
+                    if self.specification == Specification.FULL:
+                        complement = self.alphabet - child
+                    elif self.specification == Specification.CONTRASTIVE:
+                        complement = current_node - child
+                    else:
+                        raise(
+                            "Complement classes cannot be calculated for "
+                            "specification type {}".format(self.specification)
+                        )
 
-                    complement = current_node - child
                     self.poset.add_class(complement, update_closure=True)
-                    complement_feature = set([(self.feature_num, '-')])
-                    self.set_segment_features(complement, complement_feature)
-
                     removed_indexes = []
                     for i, other_child in enumerate(children):
                         if (self.poset.is_subset(other_child, complement)
@@ -204,20 +225,21 @@ class Featurizer():
 
                     updated_children.append(complement)
                     processed_classes.append(complement)
-                    self.feature_num += 1
 
                 updated_children.append(child)
                 processed_classes.append(child)
+
             bfs_deque.extend(updated_children)
 
-    def get_features_from_classes_unordered(self):
+    def featurize_classes(self):
+        # Featurize the currently calculated poset
         incomplete_classes = self.poset.classes.copy()
 
         while incomplete_classes:
             c = incomplete_classes.pop(0)
             if len(self.poset.get_parents(c)) == 1:
-                c_features = set([(self.feature_num, '+')])
-                self.set_segment_features(c, c_features)
+                c_feature = set([(self.feature_num, '+')])
+                self.set_segment_features(c, c_feature)
 
                 # In privative specification, we don't consider the complement
                 if self.specification != Specification.PRIVATIVE:
@@ -234,10 +256,6 @@ class Featurizer():
                     # underspecification if it's in the input set.
                     if (self.specification != Specification.CONTRASTIVE_UNDER
                             or c1 in self.input_classes):
-                        # If the complement is not in the poset, add it and
-                        # recalculate the intersectional closure
-                        self.poset.add_class(c1, update_closure=True)
-
                         # Assign the negative value of the new feature to the 
                         # new class
                         c1_feature = set([(self.feature_num, '-')])
@@ -253,70 +271,27 @@ class Featurizer():
                 if self.verbose:
                     self.print_segment_features()
 
+        self.calculate_class_features()
+        self.assert_valid_featurization()
+
+    def get_features_from_classes(self):
+        # Calculate the complements added by the featurization if any, and then
+        # featurize the poset
+        if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
+            self.add_complement_classes()
+        self.featurize_classes()
+
 if __name__ == "__main__":
     # Choose a featurization type
-    specification = Specification.CONTRASTIVE
+    specification = Specification.FULL
 
     # A few sample inputs...
     # Input classes are the sunny sounds of Hawaiian.
-    classes_hawaiian = [
-        # Consonants
-        set(['m', 'n', 'p', 'k', '7', 'h', 'w', 'l']),
-        # Sonorants
-        set(['m', 'n', 'w', 'l']),
-        # Approximants
-        set(['w', 'l']),
-        # Nasal stops
-        set(['m', 'n']),
-        # Obstruents
-        set(['p', 'k', '7', 'h']),
-        # Stops
-        set(['m', 'n', 'p', 'k', '7']),
-        # Oral stops 
-        set(['p', 'k', '7']),
-        # Glottals
-        set(['h', '7']),
-        # Bilabials
-        set(['w', 'p', 'm']),
-        # Coronals
-        set(['n', 'l']),
-        # Individual consonants
-        set(['m']),
-        set(['n']),
-        set(['p']),
-        set(['7']),
-        set(['h']),
-        set(['w']),
-        set(['l']),
-        set(['k']),
-
-        # Vowels
-        # All vowels
-        set(['i', 'u', 'e', 'o', 'a']),
-        # High vowels
-        set(['i', 'u']),
-        # Mid vowels
-        set(['e', 'o']),
-        # Front vowels
-        set(['i', 'e']),
-        # Back vowels
-        set (['u', 'o', 'a']),
-        # Individual vowels
-        set(['i']),
-        set(['u']),
-        set(['e']),
-        set(['o']),
-        set(['a'])
-    ]
-
-    all_sounds_hawaiian = set(
-        ['m', 'n', 'p', 'k', '7', 'h', 'w', 'l', 'i', 'e', 'a', 'o', 'u']
-    )
-
-    print("Doing Hawaiian...")
-    featurizer = Featurizer(classes_hawaiian, all_sounds_hawaiian, specification)
+    # This is an example of reading class input from a file.
+    featurizer = Featurizer.from_file('sample_inputs/hawaiian.txt', specification)
     featurizer.get_features_from_classes()
     featurizer.print_featurization()
+    featurizer.graph_poset()
 
     # An arbitrary vowel space with distinctive rounding, 3-way height,
     # and front/back distinction
@@ -443,3 +418,4 @@ if __name__ == "__main__":
     featurizer = Featurizer(bad_classes_2, bad_class_all_2, specification)
     featurizer.get_features_from_classes()
     featurizer.print_featurization()
+    featurizer.graph_poset()

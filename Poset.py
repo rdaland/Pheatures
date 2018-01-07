@@ -6,7 +6,6 @@ from collections import deque
 from itertools import combinations, compress
 
 DEFAULT_OUTPUT_DIR = "poset_output"
-DEFAULT_GRAPH_FILENAME = "poset_graph.gv"
 
 class Poset():
 
@@ -123,7 +122,7 @@ class Poset():
         j = self.classes.index(c2)
         return self.subset_matrix[j, i]
 
-    def graph_poset(self, filename=DEFAULT_GRAPH_FILENAME, title=None):
+    def graph_poset(self, filename, title=None):
         """
         Visualizes the parent/daughter relationship of the classes
         in the poset.
@@ -162,7 +161,10 @@ class Poset():
             c = class_deque.popleft()
             if c not in closure_classes:
                 for cc in closure_classes:
-                    class_deque.append(c.intersection(cc))
+                    intersection = c.intersection(cc)
+                    # Don't include the empty set
+                    if intersection:
+                        class_deque.append(c.intersection(cc))
                 closure_classes.append(c)
 
         self.classes = closure_classes
@@ -201,6 +203,6 @@ if __name__ == "__main__":
     ]
 
     p = Poset(alphabet, input_classes_vowels)
-    p.graph_poset(filename="no_intersection_test.gv")
+    p.graph_poset("no_intersection_test.gv")
     p.get_intersectional_closure()
-    p.graph_poset(filename="intersection_test.gv")
+    p.graph_poset("intersection_test.gv")
