@@ -185,12 +185,15 @@ class Featurizer():
     def add_complement_classes(self):
         # For the contrastive and full specifications, pre-calculate the full
         # set of complement classes that will be added before doing the
-        # featurization.
+        # featurization. This is done using a breadth-first search of the poset
+        # Start with the alphabet
         bfs_deque = deque([self.alphabet])
         processed_classes = []
 
         while bfs_deque:
             current_node = bfs_deque.popleft()
+            # Get the current node's children and sort them from largest to
+            # smallest. This is necessary for a minimal featural specification
             children = sorted(
                 self.poset.get_children(current_node),
                 key=len,
@@ -198,10 +201,15 @@ class Featurizer():
             )
             updated_children = []
 
+            # Go through the children of the current node to decide what to 
+            # append to the queue
             while children:
                 child = children.pop(0)
                 if (len(self.poset.get_parents(child)) == 1
                         and child not in processed_classes):
+                    # If we haven't already processed a child and it only has
+                    # a single parent, define a complement class wrt the
+                    # current class (contrastive) or the alphabet (full)
                     if self.specification == Specification.FULL:
                         complement = self.alphabet - child
                     elif self.specification == Specification.CONTRASTIVE:
@@ -212,7 +220,12 @@ class Featurizer():
                             "specification type {}".format(self.specification)
                         )
 
+                    # Add this new class to the poset
                     self.poset.add_class(complement, update_closure=True)
+
+                    # If this new class intervenes between the current node
+                    # and any of its children, we want to add the new class
+                    # to the queue insted of the children to maintain BFS
                     removed_indexes = []
                     for i, other_child in enumerate(children):
                         if (self.poset.is_subset(other_child, complement)
@@ -237,6 +250,8 @@ class Featurizer():
 
         while incomplete_classes:
             c = incomplete_classes.pop(0)
+            # We only need to do something if the current class has exactly
+            # one parent
             if len(self.poset.get_parents(c)) == 1:
                 c_feature = set([(self.feature_num, '+')])
                 self.set_segment_features(c, c_feature)
@@ -285,132 +300,56 @@ if __name__ == "__main__":
     # Choose a featurization type
     specification = Specification.CONTRASTIVE
 
-    # # A few sample inputs...
-    # # Input classes are the sunny sounds of Hawaiian.
-    # # This is an example of reading class input from a file.
-    # featurizer = Featurizer.from_file('sample_inputs/hawaiian.txt', specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
-    # featurizer.graph_poset()
+    # A few sample inputs...
+    # Input classes are the sunny sounds of Hawaiian.
+    # This is an example of reading class input from a file.
+    print("Doing Hawaiian...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/hawaiian.txt', specification
+    )
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
+    featurizer.graph_poset()
 
-    # # An arbitrary vowel space with distinctive rounding, 3-way height,
-    # # and front/back distinction
-
-    # classes_vowels = [
-    #     # Test for round/unround vowel system, which needs a minimum intersection
-    #     # of 3 classes to avoid specifying spurious features.
-    #     # High vowels
-    #     set(['i', 'u', 'y', 'U']),
-    #     # Mid vowels
-    #     set(['e', 'E', 'o', 'O']),
-    #     # Front vowels
-    #     set(['i', 'e', 'E', 'y']),
-    #     # Back vowels
-    #     set (['u', 'o', 'a', 'O', 'U']),
-    #     # Round vowels
-    #     set(['y', 'E', 'u', 'o']),
-    #     # Unrounded vowels
-    #     set(['i', 'e', 'a', 'U', 'O']),
-    #     # # Individual vowels
-    #     set(['i']),
-    #     set(['u']),
-    #     set(['e']),
-    #     set(['o']),
-    #     set(['a']),
-    #     set(['O']),
-    #     set(['U']),
-    #     set(['y']),
-    #     set(['E'])
-    # ]
-
-    # all_sounds_vowels = set(
-    #     ['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O']
-    # )
-
-    # print("Doing vowel space...")
-    # featurizer = Featurizer(classes_vowels, all_sounds_vowels, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
-
-    # A poset where the full featurization learns fewer classes
-    # than the contrastive featuriation
-    all_sounds_test1 = set(['a', 'b', 'c', 'd', 'e'])
-    classes_test1 = [
-        set(['a', 'b', 'c', 'd']),
-        set(['a', 'b', 'c']),
-        set(['d', 'e']),
-    ]
-
-    print("Doing test 1...")
-    featurizer = Featurizer(classes_test1, all_sounds_test1, specification)
+    # An arbitrary vowel space with distinctive rounding, 3-way height,
+    # and front/back distinction
+    print("Doing vowel space...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/vowel_system.txt', specification
+    )
     featurizer.get_features_from_classes()
     featurizer.print_featurization()
 
-    # # A poset that properly does not include the empty set
-    # all_sounds_test2 = set(
-    #     ['R', 'D', 'T'],
-    # )
+    # A poset where the full featurization learns fewer classes
+    # than the contrastive featuriation
+    print("Doing full/contrastive diff 1...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/full_contrastive_diff.txt', specification
+    )
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
 
-    # # classes_test2 = [
-    # #     ['R', 'D'],
-    # #     ['R'],
-    # # ]
-    # classes_test2 = [
-    #     ['R'],
-    #     ['R', 'D'],
-    #     ['D', 'T'],
-    #     ['T'],
-    #     ['D']
-    # ]
+    # A poset that properly does not include the empty set
+    print("Doing paper example 1...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/paper_example_1.txt', specification
+    )
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
 
-    # print("Doing test 2...")
-    # featurizer = Featurizer(classes_test2, all_sounds_test2, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
+    # Vowel system from paper
+    print("Doing paper vowels...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/paper_vowels.txt', specification
+    )
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
 
-    # all_paper_vowels = set([
-    #     'i', 'y', 'U', 'u', 'e', 'E', '^', 'O', 'a'
-    # ])
-    # classes_paper_vowels = [
-    #     set(['E', 'y', 'e', 'i']),
-    #     set(['E', 'O', 'u', 'y']),
-    #     set(['u', 'y', 'i', 'U']),
-    #     *[set([v]) for v in all_paper_vowels]
-    # ]
-
-    # print("Doing paper vowels...")
-    # featurizer = Featurizer(classes_paper_vowels, all_paper_vowels, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
-
-    # bad_class_all = set([
-    #     'a', 'b', 'c', 'd', 'e', 'f'
-    # ])
-    # bad_classes = [
-    #     ['a', 'b'],
-    #     ['a', 'c', 'e', 'f'],
-    #     ['c', 'e', 'f'],
-    # ]
-
-    # print("Doing bad vowels...")
-    # featurizer = Featurizer(bad_classes, bad_class_all, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
-
-    # bad_class_all_2 = set([
-    #     'a', 'b', 'c', 'd', 'e', 'f'
-    # ])
-    # bad_classes_2 = [
-    #     ['a', 'b'],
-    #     ['a', 'c', 'e', 'f'],
-    #     ['c', 'e', 'f'],
-    #     ['b', 'd'],
-    #     ['c', 'd', 'e', 'f'],
-    #     ['a']
-    # ]
-
-    # print("Doing other bad vowels...")
-    # featurizer = Featurizer(bad_classes_2, bad_class_all_2, specification)
-    # featurizer.get_features_from_classes()
-    # featurizer.print_featurization()
-    # featurizer.graph_poset()
+    # Class set that requires BFS to work properly with contrastive and
+    # full specifications
+    print("Doing problematic classes for non-BFS algorithm...")
+    featurizer = Featurizer.from_file(
+        'sample_inputs/bfs_requirement.txt', specification
+    )
+    featurizer.get_features_from_classes()
+    featurizer.print_featurization()
