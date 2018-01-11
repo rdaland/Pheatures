@@ -5,7 +5,12 @@ import os
 from collections import deque
 from itertools import combinations, compress
 
+# file constants
 DEFAULT_OUTPUT_DIR = "poset_output"
+
+# graphing constants
+ORIG_CLASS_NODE_SHAPE = "box"
+MULTI_PARENT_LINK_STYLE = "dotted" 
 
 class Poset():
 
@@ -20,6 +25,9 @@ class Poset():
             input_classes = []
 
         self.alphabet = set(alphabet)
+        self.input_classes = [set(c) for c in input_classes]
+        # input_classes = *original* input classes
+        # classes = all classes (after intersectional closure)
         self.classes = [set(c) for c in input_classes]
         if self.alphabet not in self.classes:
             self.classes.append(self.alphabet)
@@ -126,6 +134,8 @@ class Poset():
         """
         Visualizes the parent/daughter relationship of the classes
         in the poset.
+        
+        DEPRECATED -- SOON TO BE REPLACED BY graph_poset2()
         """
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
@@ -145,6 +155,41 @@ class Poset():
                     graph.edge(str(i), str(j))
 
         graph.render()
+
+    def graph_poset2(self, filename, kw_args=None):
+        '''
+        Creates and writes to a DOT file which represents the
+        parent/daughter relationships between classes in the poset 
+        '''
+        
+        linebuf = []
+        linebuf.append('// None')
+        linebuf.append('digraph {')
+
+        # get nodes
+        for i, cl in enumerate(self.classes):
+            attributes = {'label': '"' + ', '.join(cl) + '"'}
+            if cl in self.input_classes:
+                attributes['shape'] = ORIG_CLASS_NODE_SHAPE
+            attrStr = ','.join(['{0}={1}'.format(attr, val) for attr, val in attributes.items()])
+            linebuf.append('\t{0} [{1}]'.format(i,attrStr))
+        
+        # get links
+        for i in range(len(self.classes)):
+            for j in range(len(self.classes)):
+                if self.daughter_matrix[i,j]:
+                    attributes = {}
+                    if len(self.get_parents(self.classes[j])) > 1:
+                        attributes['style'] = MULTI_PARENT_LINK_STYLE
+                    attrStr = ','.join(['{0}={1}'.format(attr, val) for attr, val in attributes.items()])
+                    linebuf.append('\t{0} -> {1} [{2}]'.format(i, j, attrStr))
+                    
+        linebuf.append('}')
+        
+        with open(filename, 'w') as fout:
+            for line in linebuf:
+                fout.write(line)
+                fout.write('\n')
 
     def get_intersectional_closure(self, existing_closure=None,
                                    new_classes=None):
