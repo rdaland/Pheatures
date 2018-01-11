@@ -15,16 +15,18 @@ class Specification(Enum):
 class Featurizer():
     def __init__(self, input_classes, alphabet,
                  specification=Specification.CONTRASTIVE_UNDER, verbose=False):
-        # Default class constructor that must be given an alphabet and a set
-        # of input classes.
-        # 
-        # Input:
-        #   input_classes: A list of sets of segments
-        #   alphabet: A set of all segments used in input_classes
-        #   specification: The Specification indicating the type of
-        #                  featurization to do
-        #   verbose: A bool indicating whether to print extra information
-        #            during the featurization
+        '''
+            Default class constructor that must be given an alphabet and a set
+            of input classes.
+            
+            Input:
+                input_classes: A list of sets of segments
+                alphabet: A set of all segments used in input_classes
+                specification: The Specification indicating the type of
+                    featurization to do
+                verbose: A bool indicating whether to print extra information
+                    during the featurization
+        '''
         if specification not in Specification:
             raise("Invalid featural specification '{}'".format(specification))
 
@@ -36,20 +38,22 @@ class Featurizer():
 
     @classmethod
     def from_file(cls, filename, specification=Specification.CONTRASTIVE_UNDER):
-        # An alternative constructor that creates a Featurizer object based on
-        # the contents of a file. The file should have the following format
-        #
-        # <alphabet>
-        # <input class 1>
-        # ...
-        # <input class n>
-        #
-        # <alphabet> and <input class i> are segments separated by spaces.
-        # Segments do not need to be single characters.
-        #
-        # Input:
-        #   filename: A string specifying where to find the input file.
-        #   specification: The type of featurization to do
+        '''
+            An alternative constructor that creates a Featurizer object based on
+            the contents of a file. The file should have the following format
+
+            <alphabet>
+            <input class 1>
+            ...
+            <input class n>
+            
+            <alphabet> and <input class i> are segments separated by spaces.
+            Segments do not need to be single characters.
+            
+            Input:
+                filename: A string specifying where to find the input file.
+                specification: The type of featurization to do
+        '''
         with open(filename, 'r') as f:
             alphabet = set(next(f).rstrip().split(' '))
             classes = []
@@ -60,10 +64,12 @@ class Featurizer():
         return Featurizer(classes, alphabet, specification)
 
     def reset(self):
-        # Resets the featurization and poset to the state they were in before
-        # any featurization algorithm was run. If you want to rerun different
-        # featurization algorithms on the same instance, you'll need to call
-        # this first.
+        '''
+            Resets the featurization and poset to the state they were in before
+            any featurization algorithm was run. If you want to rerun different
+            featurization algorithms on the same instance, you'll need to call
+            this first.
+        '''
         self.class_features = defaultdict(set)
         self.segment_features = defaultdict(set)
         self.feature_num = 1
@@ -73,53 +79,86 @@ class Featurizer():
         self.poset.get_intersectional_closure()
 
     def set_segment_features(self, c, feature):
-        # Adds a feature/value pair to the featural description of every
-        # segment in a class.
-        #
-        # Input:
-        #   c: A set of strings
-        #   feature: A tuple of the form (<feature number>, <value>)
+        '''
+            Adds a feature/value pair to the featural description of every
+            segment in a class.
+        
+            Input:
+                c: A set of strings
+                feature: A tuple of the form (<feature number>, <value>)
+        '''
         for segment in c:
             self.segment_features[segment].update(feature)
 
     def set_class_features(self, c, features):
-        # Adds a feature/value pair to the featural description of a class
-        #
-        # Input:
-        #   c: A set of strings
-        #   features
+        '''
+            Adds a feature/value pair to the featural description of a class
+        
+            Input:
+                c: A set of strings
+                features
+        '''
         self.class_features[tuple(sorted(c))].update(features)
 
     def get_class_features(self, c):
-        # Gets the features required to specify a class
-        # Input:
-        #   c: A set of strings
-        # Returns:
-        #   A set of feature/value pairs that uniquely pick out c
+        '''
+            Gets the features required to specify a class
+            
+            Input:
+                c: A set of strings
+                
+            Returns:
+                A set of feature/value pairs that uniquely pick out c
+        '''
         return set.intersection(*[
             self.segment_features.get(x, set()) for x in c
         ])
 
     def calculate_class_features(self):
-        # Calculate the featural description for each class in the poset
+        'Calculate the featural description for each class in the poset'
         for c in self.poset.classes:
             features = self.get_class_features(c)
             self.set_class_features(c, features)
 
     def graph_poset(self, filename=DEFAULT_GRAPH_FILENAME, title=None):
-        # Graphs the class poset
-        #
-        # Input:
-        #   filename: A string indicating where to save the file
-        #   title: A string providing an optional title for the graph
+        '''
+            Graphs the class poset
+            
+            Input:
+                filename: A string indicating where to save the file
+                title: A string providing an optional title for the graph
+        '''
         self.poset.graph_poset(filename, title)
+    
+    def graph_poset_2(self, filename=DEFAULT_GRAPH_FILENAME, kw_args=None):
+        '''
+            creates a DOT file which describes a graph of the parent/daughter
+            relationships in the current intersection closure
+            
+            Note: you still must compile the DOT file to a graph using
+            GraphViz or some other tool
+            
+            Note: recommended command-line call
+            $ dot -Tsvg -O your_DOT_filename.gv
+            
+            Input:
+                filename: the file to write to (preferred extension: .gv)
+                kw_args: currently ignored
+                    (intended to let user control graph style)
+        '''
+        pass
+    
 
     def get_segments_for_feature(self, feature):
-        # Gets the segments picked out by a feature
-        # Input:
-        #   feature: A tuple of the form (<feature_number>, <value>)
-        # Returns:
-        #   A set of segments
+        '''
+            Gets the segments picked out by a feature
+            
+            Input:
+                feature: A tuple of the form (<feature_number>, <value>)
+                
+            Returns:
+                A set of segments
+        '''
         segments = set()
         for segment, features in self.segment_features.items():
             if feature in features:
@@ -127,11 +166,15 @@ class Featurizer():
         return segments
 
     def get_class_for_features(self, features):
-        # Given a set of feature/value pairs, return the class they pick out
-        # Input:
-        #   features: A list of tuples of the form (<feature_number>, <value>)
-        # Returns:
-        #   A set representing the class specified by features
+        '''
+            Given a set of feature/value pairs, return the class they pick out
+            
+            Input:
+                features: A list of tuples of the form (<feature_number>, <value>)
+                
+            Returns:
+                A set representing the class specified by features
+        '''
         feature_segments = [self.alphabet]
         for feature in features:
             segments = self.get_segments_for_feature(feature)
@@ -139,7 +182,7 @@ class Featurizer():
         return set.intersection(*feature_segments)
 
     def assert_valid_featurization(self):
-        # Checks that the calculcated features pick out the expected classes
+        'Checks that the calculcated features pick out the expected classes'
         for c, features in self.class_features.items():
             predicted_class = self.get_class_for_features(features)
             if predicted_class != set(c):
@@ -149,10 +192,13 @@ class Featurizer():
                 )
 
     def features_to_csv(self, filename):
-        # Creates a CSV with classes as rows and corresponding feautral
-        # descriptors as columns
-        # Input:
-        #   filename: A string specifying where to save the file
+        '''
+            Creates a CSV with classes as rows and corresponding feautral
+            descriptors as columns
+            
+            Input:
+                filename: A string specifying where to save the file
+        '''
         with open(filename, 'w') as f:
             print(',' + ','.join([
                     str(i) for i in range(0, self.num_features)
@@ -169,24 +215,26 @@ class Featurizer():
                 print(','.join(line), file=f)
 
     def print_featurization(self):
-        # Print out the classes and their featural specifications.
+        'Print out the classes and their featural specifications.'
         for key, value in sorted(self.class_features.items(),
                                  key=lambda x: -len(x[0])):
             print("{}:\t{}".format(key, sorted(value)))
         print()
 
     def print_segment_features(self):
-        # Print out the segments and their featural specifications
+        'Print out the segments and their featural specifications'
         for key, value in sorted(self.segment_features.items(),
                                  key=lambda x: -len(x[0])):
             print("{}:\t{}".format(key, sorted(value)))
         print() 
 
     def add_complement_classes(self):
-        # For the contrastive and full specifications, pre-calculate the full
-        # set of complement classes that will be added before doing the
-        # featurization. This is done using a breadth-first search of the poset
-        # Start with the alphabet
+        '''
+            For the contrastive and full specifications, pre-calculate the full
+            set of complement classes that will be added before doing the
+            featurization. This is done using a breadth-first search of the poset
+            Start with the alphabet
+        '''
         bfs_deque = deque([self.alphabet])
         processed_classes = []
 
@@ -245,7 +293,7 @@ class Featurizer():
             bfs_deque.extend(updated_children)
 
     def featurize_classes(self):
-        # Featurize the currently calculated poset
+        'Featurize the currently calculated poset'
         incomplete_classes = self.poset.classes.copy()
 
         while incomplete_classes:
@@ -290,8 +338,10 @@ class Featurizer():
         self.assert_valid_featurization()
 
     def get_features_from_classes(self):
-        # Calculate the complements added by the featurization if any, and then
-        # featurize the poset
+        '''
+            Calculate the complements added by the featurization if any, and then
+            featurize the poset
+        '''
         if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
             self.add_complement_classes()
         self.featurize_classes()
