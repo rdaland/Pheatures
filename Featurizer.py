@@ -136,7 +136,7 @@ class Featurizer():
                 filename: the file to write to (preferred extension: .gv)
                 kw_args: currently ignored (purpose: control graph style)
             '''
-        self.poset.graph_poset(filename, title)
+        self.poset.graph_poset(filename, kw_args)
 
     def graph_feats(self, filename=DEFAULT_FEATS_FILENAME, kw_args=None):
         '''
@@ -354,7 +354,7 @@ class Featurizer():
 
 if __name__ == "__main__":
     # Choose a featurization type
-    specification = Specification.CONTRASTIVE
+    specification = Specification.FULL
 
     # A few sample inputs...
     # Input classes are the sunny sounds of Hawaiian.
@@ -364,8 +364,8 @@ if __name__ == "__main__":
         'sample_inputs/hawaiian.txt', specification
     )
     featurizer.get_features_from_classes()
-    featurizer.print_featurization()
     featurizer.graph_poset()
+    featurizer.print_featurization()
 
     # An arbitrary vowel space with distinctive rounding, 3-way height,
     # and front/back distinction
