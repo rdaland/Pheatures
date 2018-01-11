@@ -67,7 +67,7 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 
 \subsection{Classes and class systems}
 
-A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Fig~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels  (the empty set is omitted in this and all similar figures).
+A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Fig.~\ref{fig:lattice} illustrates this definition with a natural class system over a set of vowels  (the empty set is omitted in this and all similar figures).
 
 % show an example of a natural class system: a vowel harmony lattice
 \begin{figure}[h]
@@ -369,7 +369,7 @@ One of the best cases for non-privative specifications arise from complement cla
 
 In canonical cases like rounding harmony and voicing assimilation, the binary feature is only relevant for certain segments. For example, in the case of rounding harmony, it is normally useful to assign the \phonfeat{+round} and \phonfeat{-round} values only to vowels. In some languages, one might wish to only assign these values to just non-low vowels, or just front vowels. In all such cases, the contrasting feature values denote complementary classes -- but complements with respect to \textit{what}?
 
-The central insight developed in this paper is that a new feature needs to be assigned just in case a class has a single parent. This suggests that the relevant domain for complementation is with respect to the parent. And that is the distinction between privative specification and contrastive underspecification: a `$-$' value is assigned when the complement of the class being processed with respect to its parent is in the input.
+The central insight developed in this paper is that a new feature needs to be assigned just in case a class has a single parent. This suggests that the relevant domain for complementation is with respect to the parent. This is the distinction between privative specification and contrastive underspecification: a `$-$' value is assigned when the complement of the class being processed with respect to its parent is in the input.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
     \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
@@ -428,14 +428,17 @@ The term \textit{contrastive underspecification} is meant to capture that featur
     
 \section{Contrastive specification}
 
-Contrastive specification is very similar to contrastive underspecification. The key difference is that contrastive specification adds classes to the covering. Every complement gets a `$-$' feature, including those which were not in the input. Because of this, the intersectional closure actually changes throughout the computation. It can be updated dynamically, by running the intersectional closure algorithm, except starting with the pre-existing closure, and a queue consisting of the novel complement class. An additional important difference between this featurization and the previous two is that the ordering in which classes in $\mathcal{C_\cap}$ are processed is now crucial: in order to avoid adding spurious features, $\mathcal{C_\cap}$ must be processed using breadth-first search (i.e., each class' sisters are processed before its children). This ensures that no spurious features are added.
+Contrastive specification is very similar to contrastive underspecification. The key difference is that contrastive specification adds classes to the covering. Every complement gets a `$-$' feature, including those which were not in the input. Because of this, the intersectional closure actually changes throughout the computation. It can be updated dynamically, by running the intersectional closure algorithm, except starting with the pre-existing closure, and a queue consisting of the novel complement class. An additional important difference between this featurization and the previous two is that the ordering in which classes in $\mathcal{C_\cap}$ are processed is now crucial: in order to avoid adding spurious features, $\mathcal{C_\cap}$ must be processed using breadth-first search (i.e. each class' sisters are processed before its children). This ensures that no spurious features are added.
+
+The algorithm proceeds in two steps: first, the complement classes are calculated during a breadth-first traversal of $\mathcal{C_\cap}$ and added. This separation of tasks is not strictly necessary, but simplifies things somewhat.
+
+The algorithm for adding complement classes ($\textsc{AddComplementsContrastive}$) and a proof of its correctness are included in Appendix A. The algorithm for featurizing the resulting classes is shown below.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
     \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
     \ENSURE $\mathcal F$ is a featurization over $\mathcal V = \{ +, -, 0 \}$ which covers $\mathcal C$
     \STATE
-    \STATE $\mathcal Q \leftarrow \mathcal C_\cap$
-    \STATE $\textsc{SortLargeToSmall}(\mathcal{Q})$
+    \STATE $\mathcal Q \leftarrow \textsc{AddComplementsContrastive}(\mathcal{C_\cap})$
     \STATE $\mathcal F \leftarrow \varnothing$
     \STATE
     \WHILE{$\mathcal Q \neq \varnothing$}
@@ -449,23 +452,10 @@ Contrastive specification is very similar to contrastive underspecification. The
                     0 & \text{otherwise}
                     \end{cases}$
             \STATE $\textsc{append}(\mathcal F, f_X)$
-            \STATE
-            \STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q' = \{\overline{X}\})$
+            \STATE $\textsc{remove}(\mathcal{Q}, \overline{X})$
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
-
-%TODO: Put in proof that BFS works here. Sketch:
-% Assume class Z adds complement wrt to parent Y, Z', that is parent of X. Thus X must be descedent of Y (either daughter or further).
-
-%if X is not daughter of Y, then Z' will be added before X is processed, so no problem.
-
-%If X is daughter of Y, then what?
-%- if X union Z is not empty, then Z' cannot be a parent of X.
-%- if X was already processed, then X' would have been added, and because X union Z is empty, X' would be Z's parent, meaning Z is not the child of Y. Contradiction.
-
-% Adding nodes in BFS ordered from largest to smallest results in fewer features, can demonstrate. Why?
-% This is maybe a testable empirical question?
 
 \vspace{\baselineskip} \noindent This algorithm is sound because it considers all the classes that the privative specification algorithm does, plus others. Thus, it necessarily covers $\mathcal C$. 
 
@@ -477,29 +467,29 @@ Contrastive specification is very similar to contrastive underspecification. The
 \label{fig:contrastive}
 \end{figure}
 
-\noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. Zero values are assigned to daughters-of-daughters. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. Indeed, that is the final variant we discuss -- full specification.
+\noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. When a new feature is added, non-zero values are added only to classes that are successors of the parent of the class that generates the new feature. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. Indeed, that is the final variant we discuss -- full specification.
 
 \section{Full specification}
 
-Full specification differs from contrastive specification in that complementation is calculated with respect to the whole alphabet, rather than the parent class. Therefore, it is algorithmically almost the same as contrastive specification.
+Full specification differs from contrastive specification in that complementation is calculated with respect to the whole alphabet, rather than the parent class. Therefore, it is algorithmically almost the same as contrastive specification. As with contrastive specification, the complement classes are added first, and then features are determined. This is described in Appendix A.
 
 \vspace{\baselineskip} \noindent \begin{algorithmic}
     \REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
     \ENSURE $\mathcal F$ is a featurization over $\mathcal V = \{ +, - \}$ which covers $\mathcal C$
     \STATE
-    \STATE $\mathcal Q \leftarrow \mathcal C_\cap$
+    \STATE $\mathcal Q \leftarrow \textsc{AddComplementsFull}(\mathcal{C_\cap})$
     \STATE $\mathcal F \leftarrow \varnothing$
     \STATE
     \WHILE{$\mathcal Q \neq \varnothing$}
         \STATE $X \leftarrow \textsc{dequeue}(\mathcal Q)$
         \IF{$| \textsc{parents}(X) | = 1$}
+	        \STATE $\overline{X} \leftarrow \Sigma \setminus X$
             \STATE define $f_X : \Sigma \rightarrow \mathcal V$ by $f_X (\sigma) = \begin{cases}
                     + & \text{if } \sigma \in X \\
                     - & \text{otherwise}
                     \end{cases}$
             \STATE $\textsc{append}(\mathcal F, f_X)$
-            \STATE
-            \STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q' = \{\Sigma \setminus X\})$
+            \STATE $\textsc{remove}(\mathcal{Q}, \overline{X})$
         \ENDIF
     \ENDWHILE
 \end{algorithmic}
@@ -510,7 +500,7 @@ Full specification differs from contrastive specification in that complementatio
 
 \section{Discussion}
 
-In this paper, we have given a number of algorithms which assign a featurization to a set of classes, such that every class in the input can be picked out by a featural description. We gave several variants of the algorithm, differing in how conservative they are with respect to the input. The most conservative algorithm assigns a privative specification, i.e. feature functions which only pick out positively specified elements. Contrastive underspecification is achieved with the same algorithm, except that a negative specification is assigned just in case the complement of a class (with respect to the parent class) is in the input. Contrastive specification is similar, except that a negative specification is assigned even if the complement (with respect to the parent) was not in the input. Full specification is similar to contrastive specification, except the complement is taken with respect to the entire segmental alphabet. In this section, we discuss some outstanding issues, such as feature economy, how the current work bears on feature theory, and application toward a richer theory of feature learning.
+In this paper, we have given a number of algorithms which assign a featurization to a set of classes, such that every class in the input can be picked out by a featural description. We gave several variants of the algorithm, differing in how conservative they are with respect to the input. The most conservative algorithm assigns a privative specification, i.e. feature functions which only pick out positively specified elements. Contrastive underspecification is achieved with the same algorithm, except that a negative specification is assigned just in case the complement of a class (with respect to the parent class) is in the input. Contrastive specification is similar, except that a negative specification is assigned even if the complement (with respect to the parent) was not in the input. Full specification is similar to contrastive specification, except the complement is taken with respect to the entire segmental alphabet. In this section, we discuss some outstanding issues, such as feature economy, how the current work bears on feature theory, and applications toward a richer theory of feature learning.
 
 \subsection{Feature economy and expressivity}
 
@@ -582,6 +572,77 @@ A final consideration associated with feature theory is that the features be lea
 
 TODO: [5] some kind of Bayesian thing like what Connor was working on originally -- phonetics and distributional learning propose, grammar disposes?
 
+\appendix
+
+\section{The breadth-first algorithm for adding complement classes}
+
+The contrastive and full featurization algorithms add classes to $\mathcal{C_\cap}$ during their execution. In order to avoid specifying spurious features, the order in which classes are considered is crucial: specifically, $\mathcal{C_\cap}$ must be traversed in breadth-first order, and the children of each node must be traversed from largest to smallest. This section provides an example of why this is the case, describes the algorithm, and provides a proof of its correctness. Contrastive specification will be used as an example, followed by a generalization to full specification.
+
+% TODO: Rewrite this section once we have new examples
+Consider the intersectional closure shown in Fig.~\ref{fig:closure}. Suppose we process the class \{\textipa{O}\} before either of the classes \{\textipa{oe}, y, \textipa{E}, i\} or \{u, y, i, \textipa{U}\}. This would add a new complement class \{\textipa{oe}, u, y\} since \{\textipa{O}\} has a single parent. However, as can be seen in Fig.~\ref{fig:contrastive}, this complement is actually unnecessary because once the complements of the two larger classes specified above are calculated, \{\textipa{O}\} will have two parents and can be picked out by the union of their features rather than requiring a new feature. This new feature effectively duplicates the work that existing features can already do.
+
+Notice that this is only important for classes that have a single parent in the intersectional closure of the input, because the algorithm is only sensitive to the distinction between one and more than one parent. If a class with more than one parent has an additional parent added after it is processed, there is no change to the resulting poset or featurization aside from having a new feature/value pair associated with the segments of that class.
+
+By processing classes that are higher in the poset (in the sense of having fewer edges between them and $\Sigma$) before processing lower ones, we can guarantee that when any class with a single parent in the input is processed, all of its parents that will be added by the contrastive algorithm will already be in the poset, and hence no unnecessary complements/features will be added. The algorithm that does this is a modified version of the standard breadth-first search (BFS) algorithm, which traverses a graph by considering all the sisters of any node before moving to its children. This algorithm differs from standard BFS algorithms because it modifies the graph as it moves through it: when a class's children are to be added to the queue, the algorithm looks at whether it is the only parent of each child. If so, it adds the complement of that child with respect to itself as one of its children. It then looks at whether its other children are subsets of this new class, and, if so, removes them from the list of children to be added.
+
+\vspace{\baselineskip} \noindent \begin{algorithmic}
+	\REQUIRE $\mathcal C_\cap$ is the intersectional closure of input class system $(\mathcal C, \Sigma)$
+	\STATE
+	\STATE $\mathcal Q \leftarrow \{\Sigma\}$
+	\STATE $\mathcal D \leftarrow \varnothing$
+	\STATE
+	\WHILE{$\mathcal Q \neq \varnothing$}
+	\STATE $X \leftarrow \textsc{dequeue}(\mathcal Q)$
+	\STATE $C \leftarrow \textsc{SortLargeToSmall}(\textsc{children}(X))$
+	\STATE $C' \leftarrow \varnothing$
+	\WHILE{$C \neq \varnothing$}
+	\STATE $c \leftarrow \textsc{dequeue}(C)$
+	\IF{$| \textsc{parents}(c) | = 1 \land c \not \in D$}
+	\STATE $\overline{c} \leftarrow X \setminus c$
+	\STATE $\mathcal C_\cap \leftarrow \textsc{IntersectionalClosure}(\mathcal C_\cap, \mathcal Q' = \{\overline{c}\})$
+	\FOR{$c' \in C$}
+	\IF{$c' \subset \overline{c}$}
+		\STATE $\textsc{remove}(C, c')$
+	\ENDIF
+	\STATE $\textsc{append}(C', \overline{c})$
+	\STATE $\textsc{append}(D, \overline{c})$
+	\ENDFOR
+	\STATE $\textsc{append}(C', c)$
+	\STATE $\textsc{append}(D, c)$
+	\ENDIF
+	\ENDWHILE
+	\STATE $\textsc{enqueue}(\mathcal{Q}, C')$
+	\ENDWHILE
+\end{algorithmic}
+
+The algorithm above guarantees that at the time the number of parents of $c$ is checked, all of the parents that would be added by the algorithm will already be present if $c$ only had a single parent in the input.
+
+\vspace{\baselineskip} \noindent \textit{Proof}: 
+Consider two classes $X$ and $Y$, each with a single parent, and assume without loss of generality that $Y$ is processed after $X$. Suppose that when $Y$ is processed, $\overline{Y}$, the complement of $Y$ with respect to its parent $Z$ that is added at this point, becomes a parent of $X$.
+
+If $\overline{Y}$ is a parent of $X$, then $X$ must either be a daughter or a descendant of $Z$. If $X$ is a descendant of $Z$ but not a daughter, then by definition of the algorithm $X$ cannot have already been processed: the node currently being processed is $Y$, $Y$ is a daughter of $Z$, and all daughters of $Z$ are processed before any further descendants of $Z$. This results in a contradiction, and thus $X$ must be a daughter of $Z$.
+
+$X \cap Y = \varnothing$, or $\overline{Y}$ would not be a parent of $X$. If $X$ has already been processed, it must be the case that $\overline{X} = Z \setminus X$ has already been added to the poset since $Z$ is the only parent of $X$. Because $X \cap Y = \varnothing$, it must be the case that $Y \subset \overline{X}$. But then $Y \subset \overline{X} \subset Z$, which means $Y$ cannot be a daughter of $Z$. This results in a contradiction and completes the proof.
+
+TODO: Talk about processing children in sorted order and give example of where this makes a difference.
+
+The algorithm for adding complement classes in full specification is virtually identical to the one presented above, except that we take the complement with respect to the alphabet and not the parent class (i.e., $\overline{c} \leftarrow \Sigma \setminus c$). 
+
+TODO: The proof for the full version is actually a little tricky, and doesn't really follow nicely from the proof of the contrastive version above. There might be something linking the two I'm missing. It may also be the case that this isn't true!
+
+What we want to prove is that if a class $X$ with a single parent has been processed already (and hence a new complement $X$ wrt $\Sigma$ added), no later class $Y$ will add a new complement that becomes an additional parent of $X$.
+
+Some observations, assuming $X$ has already been processed and $\overline{Y}$ ends up being a parent of $X$ as above. Assume that $X_p$ is the single parent of $X$ prior to this and $Y_p$ is the single parent of $Y$:
+\begin{itemize}
+	\item $X \cap Y = \varnothing$ or $\overline{Y}$ wouldn't be a parent of $X$.
+	\item $\overline{X}$ will have already been added and it MUST be the case that $Y_p \subseteq \overline{X}$. If this weren't the case, both $\overline{X}$ and $Y_p$ would be parents of $Y$, and $\overline{Y}$ wouldn't be added. This doesn't preclude $\overline{X}$ from being the parent of $Y$. 
+	\item It follows that $X \cap Y_p = \varnothing$, or $\overline{X}$ wouldn't be a superset of $Y_p$. 
+	\item It must be the case that $X_p \cap \overline{Y} = X$, by the definition of parenthood earlier in the paper.
+	\item By the same token, $X_p \not \subset \overline{Y}$ and $\overline{Y} \not \subset X_p$, or the number of parents $X$ has wouldn't change.
+	\item I think it follows from this that $X_p \cap Y \neq \varnothing$, or $\overline{Y}$ would be a superset/subset of $X_p$.
+\end{itemize}
+
+I've been trying to produce a proof by contradiction using these facts, but nothing has been forthcoming. It's possible that this is just not true, but I'm also having a hard time creating a counter-example. Leaving this on the back burner for now.
 
 \bibliography{mybib.bib}
 \bibliographystyle{apacite}
