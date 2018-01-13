@@ -1,7 +1,8 @@
+import argparse
+
 from Poset import Poset
 from collections import defaultdict, deque
 from enum import Enum
-from itertools import chain, combinations
 
 DEFAULT_CSV_FILE = "features.csv"
 DEFAULT_POSET_FILENAME = "poset_graph.gv"

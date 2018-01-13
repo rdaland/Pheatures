@@ -1,10 +1,11 @@
-USE_NUMPY = False
-
 import graphviz as gv
 import os
 
 from collections import deque
-from itertools import combinations, compress
+from itertools import compress
+
+# See the comment in the SimpleBoolArray class
+USE_NUMPY = False
 
 # file constants
 DEFAULT_OUTPUT_DIR = "poset_output"
@@ -22,7 +23,8 @@ class SimpleBoolArray():
 
     This is SIGNIFICANTLY slower than the numpy implementation. If performance
     is important to you, you can set the USE_NUMPY variable at the top of
-    this file to True to use a numpy implementation instead.
+    this file to True to use a numpy implementation instead, which will of 
+    course require having numpy installed.
     """
     def __init__(self, shape, data):
         self.shape = shape
@@ -315,40 +317,3 @@ class Poset():
 
         self.classes = closure_classes
         self.calculate_matrices()
-
-if __name__ == "__main__":
-    import pdb; pdb.set_trace()
-    # All segments
-    alphabet = set(['i', 'y', 'e', 'E', 'a', 'u', 'U', 'o', 'O'])
-
-    input_classes_vowels = [
-        # Test for round/unround vowel system, which needs a minimum
-        # intersection of 3 classes to avoid specifying spurious features.
-        # High vowels
-        set(['i', 'u', 'y', 'U']),
-        # Mid vowels
-        set(['e', 'E', 'o', 'O']),
-        # Front vowels
-        set(['i', 'e', 'E', 'y']),
-        # Back vowels
-        set (['u', 'o', 'a', 'O', 'U']),
-        # Round vowels
-        set(['y', 'E', 'u', 'o']),
-        # Unrounded vowels
-        set(['i', 'e', 'a', 'U', 'O']),
-        # # Individual vowels
-        set(['i']),
-        set(['u']),
-        set(['e']),
-        set(['o']),
-        set(['a']),
-        set(['O']),
-        set(['U']),
-        set(['y']),
-        set(['E'])
-    ]
-
-    p = Poset(alphabet, input_classes_vowels)
-    p.graph_poset("no_intersection_test.gv")
-    p.get_intersectional_closure()
-    p.graph_poset("intersection_test.gv")
