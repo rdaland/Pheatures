@@ -1,45 +1,50 @@
 from Poset import *
-from cluster_to_features import *
+from Featurizer import *
 
-## uyghur1: 'a' is a back, non-round vowel
-## uyghur2: 'a' is a non-back, non-round vowel
-## uyghur3: 'a' is a back, round vowel
-## uyghur4: 'a' is a non-back, round vowel
+sigma = set(['V', 'G', 'L', 'N', 'T'])
+son = set(['V', 'G', 'L', 'N'])
+aprx = set(['V', 'G', 'L'])
+ncont = set(['N', 'T'])
+syl = set(['V'])
+glid = set(['G'])
+liq = set(['L'])
+nas = set(['N'])
+vcls = set(['T'])
 
-all_vowels = set(['i', 'y', 'e', '@', 'u', 'o', 'a'])
-front_vowels = set(['i', 'y', 'e', '@'])
-back_vowels = set(['u', 'o', 'a'])
-round_vowels = set(['y', '@', 'u', 'o'])
-high_vowels = set(['i', 'y', 'u'])
-frnt_unrnd_vowels = set(['i', 'e'])
-nonlow_vowels = set(['i', 'y', 'e', '@', 'u', 'o'])
+classes = [sigma, son, aprx, ncont,
+           syl, glid, liq, nas, vcls]
 
-classes_uyghur = [all_vowels,
-                   front_vowels,
-                   back_vowels,
-                   round_vowels,
-                   high_vowels,
-                   frnt_unrnd_vowels,
-                   nonlow_vowels,
-                   set(['i']), set(['y']),  set(['u']),
-                   set(['e']), set(['@']), set(['o']),
-                                            set(['a'])
-                   ]
-
+'''
 for spec in Specification:
-    captionStr = 'Doing Uyghur: '+str(spec)
+    captionStr = 'Doing manner: '+str(spec)
     spacer = len(captionStr)+6
     print()
     print('*'*spacer)
     print('** {0} **'.format(captionStr))
     print('*'*spacer)
     
-    uyghur_feats = Featurizer(input_classes = classes_uyghur,
-                              alphabet = all_vowels,
-                              specification = spec)
-    uyghur_feats.get_features_from_classes()
-    uyghur_feats.print_featurization()
+    feats = Featurizer(input_classes = classes,
+                       alphabet = sigma,
+                       specification = spec)
+    feats.get_features_from_classes()
+    feats.print_featurization()
 
     print()
+'''
+
+feats = Featurizer(input_classes = classes,
+                   alphabet = sigma,
+                   specification = Specification.CONTRASTIVE_UNDER)
+feats.get_features_from_classes()
+feats.print_featurization()
+feats.poset.graph_poset2('manner_underspec.gv')
+
+
+
+
+
+
+
+
 
 
