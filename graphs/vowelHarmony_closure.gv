@@ -1,0 +1,42 @@
+// None
+digraph {
+	0 [label="œ, ɔ, u, y, a, ɛ, i, ɯ, ʌ"]
+	1 [label="œ, y, ɛ, i"]
+	2 [label="u, y, i, ɯ"]
+	3 [label="œ, ɔ, u, y"]
+	4 [label="y, i"]
+	5 [label="œ, y"]
+	6 [label="u, y"]
+	7 [label=y]
+	8 [label=ɛ]
+	9 [label=ɯ]
+	10 [label=œ]
+	11 [label=i]
+	12 [label=u]
+	13 [label=ɔ]
+	14 [label=a]
+	15 [label=ʌ]
+	0 -> 1
+	0 -> 2
+	0 -> 3
+	1 -> 4 [style=dotted]
+	2 -> 4 [style=dotted]
+	1 -> 5 [style=dotted]
+	3 -> 5 [style=dotted]
+	2 -> 6 [style=dotted]
+	3 -> 6 [style=dotted]
+	4 -> 7 [style=dotted]
+	5 -> 7 [style=dotted]
+	6 -> 7 [style=dotted]
+	1 -> 8
+	2 -> 9
+	5 -> 10
+	4 -> 11 [style=dotted]
+	6 -> 12 [style=dotted]
+	3 -> 13
+	0 -> 14
+	0 -> 15
+	{rank=same; 1, 2, 3}
+	{rank=same; 4, 5, 6}
+	{rank=same; 7, 8, 9, 10, 11, 12, 13, 14, 15}
+}

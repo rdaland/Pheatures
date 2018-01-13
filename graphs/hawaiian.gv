@@ -1,0 +1,113 @@
+digraph {
+	node[shape=record]
+	sigma [label="{<segs> a, i, u, l, r, m, n, ŋ, p, t, k, b, d, g|<feats> \n}"]
+
+	consonants [label="{<segs> l, r, m, n, ŋ, p, t, k, b, d, g|<feats> +cons}"]
+	sigma:feats -> consonants:segs [label="+cons"]
+
+	vowels [label="{<segs> a, i, u|<feats> +son\n-cons}"]
+	sigma:feats -> vowels:segs [label="-cons"]
+	sonorants:feats -> vowels:segs [style=dashed; color=green]
+
+	sonorants [label="{<segs> a, i, u, l, r, m, n, ŋ|<feats> +son}"]
+	sigma:feats -> sonorants:segs [label="+son"]
+
+	obstruents [label="{<segs> p, t, k, b, d, g|<feats> -son\n-cons}"]
+	sigma:feats -> obstruents:segs [label="-son"]
+	consonants:feats -> obstruents:segs [style=dashed; color=green]
+
+	sonCons [label="{<segs> l, r, m, n, ŋ|<feats> +son\n+cons}"]
+	consonants:feats -> sonCons:segs
+	sonorants:feats -> sonCons:segs
+
+	nasals [label="{<segs> m, n, ŋ|<feats> +son\n+cons\n+nas}"]
+	sonCons:feats -> nasals:segs [label="+nas"]
+
+	liquids [label="{<segs> l, r|<feats> +son\n+cons\n-nas\n+COR}"]
+	sonCons:feats -> liquids:segs [label="-nas"]
+	corSon:feats -> liquids:segs [style=dashed; color=green]
+
+
+	labials [label="{<segs> m, p, b|<feats> +cons\n+LAB}"]
+	consonants:feats -> labials:segs [label="+LAB"]
+
+	coronals [label="{<segs> n, l, r, t, d|<feats> +cons\n+COR}"]
+	consonants:feats -> coronals:segs [label="+COR"]
+
+	dorsals [label="{<segs> ŋ, k ,g|<feats> +cons\n+DOR}"]
+	consonants:feats -> dorsals:segs [label="+DOR"]
+
+
+	voiced [label="{<segs> b, d, g|<feats> -son\n-cons\n+vcd}"]
+	obstruents:feats -> voiced:segs [label="+vcd"]
+
+	voiceless [label="{<segs> p, t, k|<feats> -son\n-cons\n-vcd}"]
+	obstruents:feats -> voiceless:segs [label="-vcd"]
+
+	corSon [label="{<segs> n, l, r|<feats> +son\n+cons\n+COR}"]
+	coronals:feats -> corSon:segs
+	sonCons:feats -> corSon:segs
+
+	labObstr [label="{<segs> p, b|<feats> -son\n-cons\n+LAB}"]
+	labials:feats -> labObstr
+	obstruents:feats -> labObstr
+
+	corObstr [label="{<segs> t, d|<feats> -son\n-cons\n+COR}"]
+	coronals:feats -> corObstr
+	obstruents:feats -> corObstr
+
+	dorObstr [label="{<segs> k, g|<feats> -son\n-cons\n+DOR}"]
+	dorsals:feats -> dorObstr
+	obstruents:feats -> dorObstr
+
+
+
+	l [label="{<segs> l|<feats> +son\n+cons\n-nas\n+lat}"]
+	liquids:feats -> l:segs [label="+lat"]
+
+	r [label="{<segs> r|<feats> +son\n+cons\n-nas\n-lat}"]
+	liquids:feats -> r:segs [label="-lat"]
+
+	m [label="{<segs> m|<feats> +son\n+cons\n+nas\n+LAB}"]
+	labials:feats -> m:segs
+	nasals:feats -> m:segs
+
+	n [label="{<segs> n|<feats> +son\n+cons\n+nas\n+COR}"]
+	corSon:feats -> n:segs
+	nasals:feats -> n:segs
+
+	N [label="{<segs> ŋ|<feats> +son\n+cons\n+nas\n+DOR}"]
+	dorsals:feats -> N:segs
+	nasals:feats -> N:segs
+
+	b [label="{<segs> b|<feats> -son\n+cons\n+vcd\n+LAB}"]
+	labObstr:feats -> b:segs
+	voiced:feats -> b:segs
+
+	p [label="{<segs> p|<feats> -son\n+cons\n-vcd\n+LAB}"]
+	labObstr:feats -> p:segs
+	voiceless:feats -> p:segs
+
+	d [label="{<segs> d|<feats> -son\n+cons\n+vcd\n+COR}"]
+	corObstr:feats -> d:segs
+	voiced:feats -> d:segs
+
+	t [label="{<segs> t|<feats> -son\n+cons\n-vcd\n+COR}"]
+	corObstr:feats -> t:segs
+	voiceless:feats -> t:segs
+
+	g [label="{<segs> g|<feats> -son\n+cons\n+vcd\n+DOR}"]
+	dorObstr:feats -> g:segs
+	voiced:feats -> g:segs
+
+	k [label="{<segs> k|<feats> -son\n+cons\n+vcd\n+DOR}"]
+	dorObstr:feats -> k:segs
+	voiceless:feats -> k:segs
+
+	// {rank=same; consonants, vowels}
+	// {rank=same; sonorants, obstruents}
+	{rank=same; labials, coronals, dorsals}
+	// {rank=same; nasals, liquids}
+	{rank=same; l, r, m, n, N, p, t, k, b, d, g}
+
+}
