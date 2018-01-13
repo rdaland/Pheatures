@@ -4,9 +4,11 @@ from Poset import Poset
 from collections import defaultdict, deque
 from enum import Enum
 
+# file constants
 DEFAULT_CSV_FILE = "features.csv"
 DEFAULT_POSET_FILENAME = "poset_graph.gv"
 DEFAULT_FEATS_FILENAME = "feats_graph.gv"
+DEFAULT_OUTPUT_DIR = "graphs"
 
 class Specification(Enum):
     PRIVATIVE = 0

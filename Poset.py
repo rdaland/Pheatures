@@ -8,7 +8,7 @@ from itertools import compress
 USE_NUMPY = False
 
 # file constants
-DEFAULT_OUTPUT_DIR = "poset_output"
+DEFAULT_OUTPUT_DIR = "graphs"
 
 # graphing constants
 ORIG_CLASS_NODE_SHAPE = "box"
