@@ -227,33 +227,7 @@ class Poset():
         j = self.classes.index(c2)
         return self.subset_matrix[j, i]
 
-    def graph_poset(self, filename, title=None):
-        """
-        Visualizes the parent/daughter relationship of the classes
-        in the poset.
-        
-        DEPRECATED -- SOON TO BE REPLACED BY graph_poset2()
-        """
-        if not os.path.exists(self.output_dir):
-            os.makedirs(self.output_dir)
-
-        graph = gv.Digraph(
-            comment=str(title),
-            filename=os.path.join(self.output_dir, filename),
-            format='ps'
-        )
-        for i, cl in enumerate(self.classes):
-            graph.node(str(i), ', '.join(cl))
-
-        shape = self.daughter_matrix.shape
-        for i in range(shape[0]):
-            for j in range(shape[1]):
-                if self.daughter_matrix[i, j]:
-                    graph.edge(str(i), str(j))
-
-        graph.render()
-
-    def graph_poset2(self, filename, kw_args=None):
+    def graph_poset(self, filename, kw_args=None):
         '''
         Creates and writes to a DOT file which represents the
         parent/daughter relationships between classes in the poset 
