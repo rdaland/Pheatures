@@ -87,3 +87,7 @@ class SimpleBoolArray():
             new_data.append(row)
         return SimpleBoolArray(self.shape, new_data)
 
+    def __str__(self):
+        shape_str = 'Matrix{0}'.format(self.shape)
+        dat_str = '\n\t'.join(str(row) for row in self.data)
+        return('{0}[\n\t{1}]'.format(shape_str,dat_str))
