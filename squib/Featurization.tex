@@ -40,21 +40,23 @@ This paper describes a collection of dynamic programming algorithms which assign
 
 Features are the substantive building blocks of phonological theory. They represent phonetic qualities of speech sounds, and can be used in isolation or combination to describe individual sounds or classes of sounds \cite<e.g.,>{Saussure1959, JakobsonEtAl1952}.
 
-The goals of feature theory are to capture the following generalizations: \begin{enumerate}
-  \item segments that are made alike tend to behave alike \begin{enumerate}
-        \item both within and across languages \end{enumerate}
-  \item sound change tends to preserve phonetic qualities even when the host segment is altered or destroyed \end{enumerate}
+The goals of feature theory are to capture the following generalizations: \begin{itemize}
+  \item segments that are made alike tend to behave alike \begin{itemize}
+        \item both within and across languages \end{itemize}
+  \item sound change tends to preserve phonetic qualities \begin{itemize}
+        \item even when the host segment is altered or destroyed \end{itemize}
+  \end{itemize}
 For example, the English voiceless stops \{p, t, \textipa{\t{tS}}, k\} are all produced with a complete, long-lag closure of the oral cavity, and exactly these segments undergo the process of foot-initial aspiration. The feature notation \phonfeat{-continuant \\ -voiced} exposes these shared phonetic properties to the phonological grammar, and the processes which might reference them. More generally, the set of obstruents within each language tend to undergo similar voicing processes (regressive voicing assimilation within obstruent clusters, word-final devoicing, intervocalic and/or postnasal voicing, etc...). An instance of feature preservation was the fall of the yers in Old Church Slavonic. The front yer (a short, unstressed, high front vowel) deleted in most prosodic positions. However, the preceding consonant became palatalized, thereby preserving the high and front articulations, even while the vowel segment was deleted. \cite{TODO}.
 
 Classic texts \cite<e.g.,>{ChomskyHalle1968} have assumed phonological features are \textit{universal}: all the sounds in the world's languages can be described by the same finite set of features. According to this view, speakers inherently produce and perceive speech in terms of these features, because they are the substantive `atoms' of which segments and higher prosodic constituents are composed. Children represent speech in terms of these atoms, which is why phonological processes operate on the classes they define. Feature theory is manifestly successful in explaining why many common phonological processes involve segments that share relevant phonetic properties.
 
 However, it is also clear that many phonological processes target sets of segments that cannot be singled out by a set of phonetic properties. A canonical example is the \textit{ruki} rule of Sanskrit, in which an underlying /s/ becomes retroflexed when it occurs later in a word than any of \{r, u, k, i\} \cite{TODO}. While it has been proposed that the \textit{ruki} process originated from the distinctive (though not uniform) effects of these segments on the second and third formant of neighboring segments \cite{TODO}, it is widely agreed that no conventional feature system can pick out all four of these segments to the exclusion of others \cite{TODO}. The existence of a single, idiosyncratic rule like this is not grounds for theoretical concern. However, it seems that \textit{phonetically disparate classes} like \{r, u, k, i\} are much more common than would be expected under a universal feature system. \citeA{Mielke2008} conducted a survey of phonological processes in almost 600 languages. Of the classes which underwent or conditioned a phonological process, 71\% could be expressed as a combination of simple features by the `best' feature system he considered. To express the remaining 29\%, additional theoretical mechanisms --  such as building classes through an \textsc{OR} operation -- would be needed. These seriously compromise the explanatory power that made feature theory appealing in the first place. 
 
-The ubiquity of phonetically disparate classes has led some researchers to propose that distinctive features are \textit{learned} and \textit{language-specific} \cite<e.g.,>{Blevins2004, Mielke2008, MacWhinneyOGrady2015, ArchangeliPulleyblank2015}: learners are able to group sounds in their languages into classes regardless of whether they have any phonetic commonality. The striking regularities that exist across languages are explained as by-products of general human cognitive capabilities, such as categorization, sensitivity to frequency, and the ability to generalize, as well as the properties of the human vocal tract and auditory system.
+The ubiquity of phonetically disparate classes has led some researchers to propose that distinctive features are \textit{learned} and \textit{language-specific} \cite<e.g.,>{Blevins2004, Mielke2008, MacWhinneyOGrady2015, ArchangeliPulleyblank2015}: learners are able to group sounds in their languages into classes, even if they have no phonetic commonality. The striking regularities that exist across languages are explained as by-products of general human cognitive capabilities, such as categorization, sensitivity to frequency, and the ability to generalize, as well as the properties of the human vocal tract and auditory system.
 
-This sets the stage for the goals of the current paper. While some previous research has focused on what classes a given feature system defines, we instead focus on how a feature system can be learned from a set of given classes. We begin by defining a formal notation for feature systems. We then describe the \textit{intersectional closure} of a set of classes, which must be generated by any featurization of that set. Using the intersectional closure as a tool for efficient calculation, we then describe a suite of algorithms for learning various types of featurizations for a set of input classes and prove their soundness. Finally, we analyze some tradeoffs between the featurization algorithms, and discuss implications for feature theory and feature learning.
+Instead of asking what classes a given feature system defines, we  focus on how a feature system can be learned from a set of given classes. We begin by formalizing our notation for feature systems. We then describe the \textit{intersectional closure} of a set of classes, which must be generated by any featurization of that set. Using the intersectional closure as a tool for efficient calculation, we describe a suite of algorithms for learning various types of featurizations for a set of input classes and prove their soundness. Finally, we analyze some tradeoffs between the featurization algorithms, and discuss implications for feature theory and feature learning.
 
-This paper makes several important contributions. First, it demonstrates a method for working backwards to feature systems underpinning learned classes of sounds. Second, it provides the code for use in future research\footnote{https://github.com/rdaland/Pheatures/}. Third, it provides a detailed formalization of what a featurization of classes entails. This allows careful reasoning about the expressiveness of such featurizations. Finally, by comparing multiple types of featurization of a set of classes, it makes explicit predictions about what classes should be describable under each type. This may be useful for future research, e.g. an artificial grammar learning experiment in which speakers are taught a nasal concord pattern and tested for generalization to non-nasal concord.
+This paper makes several contributions. First, it demonstrates a method for working backwards to feature systems underpinning learned classes of sounds. Second, it provides the code\footnote{https://github.com/rdaland/Pheatures/} for use in future research. Third, it provides a detailed formalization of several featurizations algorithms. This allows careful reasoning about the expressiveness of such featurizations. Finally, by comparing multiple types algorithms, this work makes explicit predictions about what classes should be describable under each type. For example, full specification predicts non-nasal concord is predicted under full specification  to be just as easy to  if  full specification This may be useful for future research, e.g. an artificial grammar learning experiment in which speakers are taught a nasal concord pattern and tested for generalization to non-nasal concord.
 
 \section{Definitions and notation}
 
@@ -62,33 +64,41 @@ Let $\Sigma$ denote an alphabet of segments. We will use the term \textit{class}
 
 \subsection{Classes and class systems}
 
-A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Here is an example of a class system (the labels and segments are meant to evoke a manner hierarchy): \begin{enumerate}
+A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ and a set of classes $\mathcal C$ over that alphabet. Over the course of this paper, we will introduce 3 different class systems, which will serve as recurring examples. Here is the first; the class and segment labels are meant to evoke a manner hierarchy:
+
+\vspace{\baselineskip} \noindent \textbf{Example}: Manner hierarchy class system \begin{itemize}
   \item \textit{alphabet} -- \{V, G, L, N, T\}
   \item \textit{sonorants} -- \{V, G, L, N\}
   \item \textit{noncontinuants} -- \{N, T\}
   \item \textit{continuants} -- \{V, G, L\}
   \item \textit{singletons} -- \{V\}, \{G\}, \{L\}, \{N\}, \{T\}
-  \end{enumerate}
+  \end{itemize}
+
+\noindent Fig.~\ref{fig:manner_input} illustrates this class system. Each node corresponds to a class. Downward arrows indicate a \textit{parent/child} relationship.
 
 % show an example of a class system: a manner hierarchy
 \begin{figure}[h]
-\includegraphics[width=0.9\textwidth]{manner_poset_privative.png}
-\caption{A class system, used throughout this paper}
-\label{fig:manner_input}
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{A manner hierarchy class system (recurring example).}
+  \label{fig:manner_input}
 \end{figure}
 
-Fig.~\ref{fig:manner_input} illustrates this class system. Each node corresponds to a class, and a downward arrow from class $X$ to class $Y$ indicates that $Y \subset X$. Note, however, that not all subset/superset relations are indicated with an arrow. For example, \{V, G, L\} is a subset of the alphabet, but there is not an arrow from the alphabet directly to \{V, G, L\}. Instead, there is a path from the alphabet, through the `intervening' class \{V, G, L, N\}, to \{V, G, L\}. The existence of such a path implies that \{V, G, L\} $\subset$ \{V, G, L, N, T\} (because the subset relation is transitive). We will use the terms \textit{parent/daughter} to refer to cases in which a subset/superset relation holds and there is no intervening class. For this reason, it is graphically convenient to represent only parent/daughter relationships in plots like Fig.~\ref{fig:manner_input}.
+\vspace{\baselineskip} \noindent The parent/child relationship is of central importance to this work, so we formalize it carefully here.
 
-However, the utility of the parent/daughter relation extends beyond visualization. As we show later, the parent/daughter relation turns out to be essential for the featurization algorithm. Thus, we formalize the definition here: \begin{itemize}
-    \item $X$ is a \textit{parent} of $Y$ (with respect to $\mathcal C$) if and only if $Y \subset X$, and $\nexists W \in \mathcal C \, [Y \subset W \subset X]$
+\vspace{\baselineskip} \noindent \textbf{Definition}: Let $(\mathcal C, \Sigma)$ be a class system. $X \in \mathcal C$ is a \textit{parent} of $Y \in \mathcal C$ (and $Y$ is a \textit{child} of $X$) if and only if \begin{itemize}
+    \item $Y \subset X$, and
+    \item there exists no $Z \in \mathcal C$ such that $Y \subset Z \subset X$
     \end{itemize}
-\noindent We further define $\textsc{parents}(Y, \mathcal C)$ as the set of all parents of $Y$ (with respect to $\mathcal C$). 
+In other words, $X$ is a parent of $Y$ if a subset/superset relation holds, and there is no `intervening' class. 
 
-There are a couple of additional noteworthy aspects of Fig.~\ref{fig:manner_input}. First, the empty set is technically a daughter of the singletons (since it is a subset of everything) but it does not appear in the graph. This is because the empty set is a phonologically irrelevant class: it cannot partition the alphabet into segments which undergo a process and those which do not; and to say that it is equivalent to the source or target of a process is equivalent to saying that the process does not happen at all.\footnote{Some confusion may arise with regard to SPE-style rules, where the null set symbol is used to indicate epenthesis and deletion rules. However, in this case the null set symbol does not actually represent the null set, but a null string.} Second, the class \{N\} has two dotted arrows which extend to it, rather than a single solid line like the other classes. The dotted lines signify that \{N\} is the intersection of its parents: \{V, G, L, N\} $\cap$ \{N, T\} = \{N\}. As we will prove later, this entails that \{N\} can be expressed as the union of features which express \{V, G, L, N\} and \{N, T\} individually. Therefore, it doesn't need a new feature. The central insight of this paper is to show that the opposite is true as well: a class needs a new feature just in case it can't be expressed as the union of features of its parents. This turns out to mean that a class needs a new feature if it has a single parent. However, this statement is true not for the input, but for a derived structure we call the intersectional closure. To express these insights, it is necessary to carefully formalize the notion of feature system.
+In Fig.~\ref{fig:manner_input}, there is a `path' from the alphabet through the sonorants to the continuants. This means the sonorants are a child of the alphabet, and the continuants are a child of the sonorants. The existence of this path implies the continuants are a subset of the alphabet,\footnote{Formally, the subset/superset relation is the \textit{transitive closure} of the parent/child relation, and the parent/child relation is the \textit{transitive reduction} of the subset/superset relation.} but crucially, the continuants are not a child of the alphabet (because the sonorants intervene). It is convenient to depict parent/child relationships (rather than subset/superset) to avoid crowding the graph. But this relation is also important for the featurization algorithms we describe later. We additionally define $\textsc{parents}(Y)$ as the set of classes which are parents of $Y$.
+
+There are some additional aspects of Fig.~\ref{fig:manner_input} which merit comment. First, the empty set is technically a daughter of the singletons (since it is a subset of everything) but it does not appear in the graph. This is because the empty set is a phonologically irrelevant class: it cannot partition the alphabet into segments which undergo a process and those which do not; and to say that it is equivalent to the source or target of a process is equivalent to saying that the process does not happen at all.\footnote{Some confusion may arise with regard to SPE-style rules. In SPE, the null set symbol is used to indicate the source/target of epenthesis/deletion rules. Thus, in SPE the null set symbol is used to denote an \underline{empty string}. In the present work, the null set symbol is used to denote the null set.} Second, the class \{N\} has two dotted arrows which extend to it, rather than a single solid line like the other classes. The dotted lines signify that \{N\} is the intersection of its parents: \{V, G, L, N\} $\cap$ \{N, T\} = \{N\}. As we will prove later, this entails that \{N\} can be expressed as the union of features which express \{V, G, L, N\} and \{N, T\} individually. Therefore, it doesn't need a new feature. We prove later that the opposite is true as well: a class needs a new feature just in case it can't be expressed as the union of features of its parents. This turns out to mean that a class needs a new feature if it has a single parent. However, this statement is not guaranteed to be true for the input class system $\mathcal C$; instead, it holds for a derived class system $\mathcal C_\cap$ we call the intersectional closure. Some careful formalization is necessary to derive these insights.
 
 \subsection{Feature systems and featurizations}
 
-A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
+\textbf{Definition}: A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \begin{itemize}
     \item $\Sigma$ is a segmental alphabet, 
     \item $\mathcal V$ is a set of values, and 
     \item $\mathcal F$ is a \textit{featurization}: a set of features $\{f_j\}_{j=1}^M$, where each feature is a function $f: \Sigma \rightarrow \mathcal V$ mapping segments to feature values
@@ -100,12 +110,12 @@ A \textit{feature system} is a tuple $(\mathcal F, \Sigma, \mathcal V)$ where \b
     \centering
     \begin{tabular} {|c||c|c|c|c|}
     \hline
-        $\sigma$ & syl & cons & apprx & son \\ \hline
-        V & + & -- & + & + \\
-        G & -- & -- & + & + \\
-        L & -- & + & + & + \\
-        N & -- & + & -- & + \\
-        T & -- & + & -- & -- \\
+        $\sigma$ & syl & voc & apprx & son \\ \hline
+        V & + & + & + & + \\
+        G & -- & + & + & + \\
+        L & -- & -- & + & + \\
+        N & -- & -- & -- & + \\
+        T & -- & -- & -- & -- \\
         \hline
     \end{tabular}
     \caption{Example of a feature system.}
@@ -120,21 +130,21 @@ Let $(\mathcal F, \Sigma, \mathcal V)$ be a feature system. We restrict $\mathca
     \item \textit{contrastive specification}: $\mathcal V = \{ +, -, 0 \}$
     \end{itemize}
 
-We will use the notation $\mathcal V_0$ for the set $(\mathcal V \setminus \{0\})$, i.e. the set of non-zero values. This is because zero values are a formal mechanism to achieve underspecification, and the theoretical driver for underspecification is the idea that underspecified features are phonologically inactive (i.e. cannot define classes). Then, a \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$: i.e. $\mathbf{e} \subset \mathcal V_0 \times \mathcal F$. For example, $\mathbf{e} =$  \phonfeat{+front \\ -low} is a featural descriptor.
+\noindent We will use the notation $\mathcal V_0$ for the set $(\mathcal V \setminus \{0\})$, i.e. the set of non-zero values. This is because zero values are a formal mechanism to achieve underspecification, and the theoretical driver for underspecification is the idea that underspecified features are phonologically inactive (i.e. cannot define classes). Then, a \textit{featural descriptor} $\mathbf{e}$ is a set of feature/value pairs where the values cannot be $0$: i.e. $\mathbf{e} \subset \mathcal V_0 \times \mathcal F$. For example, $\mathbf{e} =$  \phonfeat{+front \\ -low} is a featural descriptor. This is an intensional description of a class; that is, a description of a class in terms of its properties. The extension of a featural descriptor is the set of segments which match (at least) the feature/value pairs in the descriptor. We use angle brackets to indicate this:
 
-To relate featural descriptors and phonological classes, note that every featural descriptor $\mathbf{e}$ can be expressed in the form $\mathbf{e} = \{\alpha_k F_k\}_{k=1}^K$, where each $\alpha_k$ is a value in $\mathcal V_0$, and each $F_k$ is some feature function $f_j \in \mathcal F$. Informally, we say that a featural descriptor describes the class of segments which have (at least) the feature/value pairs it contains. Formally, we write $\langle \mathbf{e} \rangle$ to indicate the class that corresponds to the featural descriptor $\mathbf{e}$:
+$$ \big \langle \mathbf{e} \big \rangle = \{x \in \Sigma \, \mid \, \forall (\alpha_k, f_k) \in \mathbf{e} \text{,  } [ f_k(x) = \alpha_k ] \} $$
 
-$$ \Bigg \langle \, \{\alpha_k F_k\}_{k=1}^K \, \Bigg \rangle = \{x \in \Sigma \, \mid \, F_k(x) = \alpha_k \text{ for every } k \} $$
+\vspace{\baselineskip} \noindent We use the notation $\mathcal V_0^\mathcal F$ to denote the powerset of $\mathcal V_0 \times \mathcal F$, i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V_0^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, \mid \, \mathbf{e} \in \mathcal V_0^\mathcal F \}$, the set of all classes described by some featural descriptor in $\mathcal V_0^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the class system $\langle \mathcal V_0^\mathcal F \rangle$.
 
-\vspace{\baselineskip} \noindent We use the notation $\mathcal V_0^\mathcal F$ to denote the powerset of $\mathcal V_0 \times \mathcal F$: i.e. the set of all licit featural descriptors. Lastly, we define $\langle \mathcal V_0^\mathcal F \rangle = \{ \langle \mathbf{e} \rangle \, \mid \, \mathbf{e} \in \mathcal V_0^\mathcal F \}$, the set of all classes described by some featural descriptor in $\mathcal V_0^\mathcal F$. We say that the feature system $(\mathcal F, \Sigma, \mathcal V)$ generates the class system $\langle \mathcal V_0^\mathcal F \rangle$.
+Note that while every featural descriptor in $\mathcal V_0^\mathcal F$ picks out a class in $\langle \mathcal V_0^\mathcal F \rangle$, the two are not generally in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{+voc} picks out the same class as the featural descriptor \phonfeat{+voc \\ +son}, namely \{V, G\}. Moreover, the featural descriptors \phonfeat{+syl \\ --syl} and \phonfeat{+syl \\ --son} both pick out the empty set.
 
-Note that while every featural descriptor in $\mathcal V_0^\mathcal F$ picks out a class in $\langle \mathcal V_0^\mathcal F \rangle$, the two are not generally in 1-1 correspondence. This is because the same class can often be described by multiple featural descriptors. For example, under the the feature system of Table~\ref{table:featurization}, the featural descriptor \phonfeat{--cons} picks out the same class as the featural descriptor \phonfeat{--cons \\ +son}, namely \{V, G\}. Moreover, the featural descriptors \phonfeat{+syl \\ --syl} and \phonfeat{+syl \\ --son} both pick out the empty set.
+\vspace{\baselineskip} We say that a feature system $(\mathcal F, \Sigma, \mathcal V)$ \textit{covers} a class system $(\mathcal C, \Sigma)$ if $\mathcal C \subset \langle \mathcal V_0^\mathcal F \rangle$; in other words if the feature system provides a distinct featural representation for every class in $\mathcal C$. In the next subsection, we work an example to illustrate the importance of the value set in featurization.
 
-\vspace{\baselineskip} We say that a feature system $(\mathcal F, \Sigma, \mathcal V)$ \textit{covers} a class system $(\mathcal C, \Sigma)$ if $\mathcal C \subset \langle \mathcal V_0^\mathcal F \rangle$; in other words if the feature system provides a distinct featural representation for every class in $\mathcal C$. The primary goal of this paper is to describe an algorithm for constructing a feature system that covers an arbitrary class system. Prior to this, we work an example with an extremely simple segmental alphabet. More precisely, we illustrate the importance of the value set by computing the class system generated by two different featurizations which agree on the `+' values.
+\subsection{Example: Sonorants and obstruent voicing}
 
-\subsection{Example}
+In this subsection we introduce a simple, 3-segment class system to illustrate the notation, as well as the difference between privative and full specifiation.
 
-Let $\Sigma =$ \{R, D, T\} and $\mathcal{C} = $ \{\{R, D\},\{R\}\}. These letters are meant to be reminiscent of manner/voicing classes: \{R\} -- \textit{sonorant}, \{D\} -- voiced obstruent, \{T\} -- voiceless obstruent. Accordingly we use the feature names $vcd$ and $son$ (although note that as far as the algorithms we discuss here are concerned, segments are atomic symbols; phonetic substance is not considered). In this section, we illustrate the consequences of privative versus full specification, using featurizations which match on the `$+$' values, and differ only as to whether the other values are `$0$' or `$-$'. We begin with Table~\ref{table:privative}.
+Let $\Sigma =$ \{R, D, T\} and $\mathcal{C} = $ \{\{R, D\},\{R\}\}, where $R$ is meant to evoke a sonorant, $D$ a voiced obstruent, and $T$ a voiceless obstruent. Accordingly we use the feature names $vcd$ and $son$. However, note that these descriptive labels are purely for the reader's convenience -- the algorithms we describe later have access to the subset/superset relations on $\mathcal C$, but no notion of phonetic substance or built-in features. We begin with the privative featurization in Table~\ref{table:privative}.
 
 % table with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
@@ -152,14 +162,14 @@ Let $\Sigma =$ \{R, D, T\} and $\mathcal{C} = $ \{\{R, D\},\{R\}\}. These letter
 \end{table}
 
 \noindent The set of classes it describes, and the simplest featural descriptor for each, are shown below: \begin{itemize}
-  \item $[\,]$ -- \{R, D, T\}
-  \item $[+\text{son}]$ -- \{R\}
-  \item $[+\text{vcd}]$ -- \{R, D\}
+  \item $\langle \, [\,] \, \rangle = $ \{R, D, T\}
+  \item $\langle \, [+\text{son}] \, \rangle$ = \{R\}
+  \item $\langle \, [+\text{vcd}] \, \rangle$ = \{R, D\}
   \end{itemize}
   
-\noindent Note that because featural descriptors cannot have values of `0', this featurization provides no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, and no way to pick out the voiced obstruent \{D\} without \{R\}.
+\noindent Note that because featural descriptors cannot have values of `0', this featurization is inexpressive. It provides (i) no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, (ii) no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, and (iii) no way to pick out the voiced obstruent \{D\} without \{R\}.
 
-Next, consider the featurization in which the `$0$'s from Table~\ref{table:privative} are replaced with `$-$'s:
+Next, consider the featurization in which the `$0$'s from Table~\ref{table:privative} are replaced with `$-$'s (full specification):
 
 % table with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
@@ -176,40 +186,82 @@ Next, consider the featurization in which the `$0$'s from Table~\ref{table:priva
     \label{table:full}
 \end{table}
 
-\noindent The set of classes this featurization describes is much larger, because the number of (extensionally distinct) featural descriptors is larger: \begin{itemize}
-    \item $[\,] =$ \{R, D, T\}
-    \item $[+\text{son}] =$ \{R\}
-    \item $[-\text{son}] =$ \{D, T\}
-    \item $[+\text{vcd}] =$ \{R, D\}
-    \item $[-\text{vcd}] =$ \{T\}
-    \item $[-\text{son},+\text{vcd}] =$ \{D\}
-    \item $[+\text{son},-\text{vcd}] = \varnothing$
+\noindent The set of classes this featurization describes is much larger: \begin{itemize}
+    \item $\langle \, [\,] \, \rangle =$ \{R, D, T\}
+    \item $\langle \, [+\text{son}] \, \rangle =$ \{R\}
+    \item $\langle \, [-\text{son}] \, \rangle =$ \{D, T\}
+    \item $\langle \, [+\text{vcd}] \, \rangle =$ \{R, D\}
+    \item $\langle \, [-\text{vcd}]  \, \rangle=$ \{T\}
+    \item $\langle \, [-\text{son},+\text{vcd}] \, \rangle =$ \{D\}
+    \item $\langle \, [+\text{son},-\text{vcd}] \, \rangle = \varnothing$
     \end{itemize}
 
-\noindent An important generalization emerges from comparing these featurizations: the more `$0$'s in the featurization, the fewer classes a feature system will be able to describe. Covering the same class system will generally require more distinct feature functions, the greater the number of `$0$' values the featurization contains. For example, the class system $\mathcal{C} =$ \{\{D,T\}, \{R,D\}, \{T\}, \{D\}, \{R\}\}) requires four privative feature functions, but can be covered by two full specification feature functions (namely, the two shown in \ref{table:full}).
+\vspace{\baselineskip} \noindent The full specification covers not just $\mathcal C$, but includes several additional classes. This is because the ability for featural descriptors to refer to `--' values provides a greater number of ways to `slice and dice' the alphabet. Generally, featurizations which assign more `$0$' values will require more distinct feature functions to cover the same class system.
 
-In the next section, we introduce the notion of intersectional closure. This data structure will prove essential for efficiently assigning feature systems.
+\vspace{\baselineskip} In the next section, we introduce the notion of intersectional closure. This data structure will prove essential for efficiently assigning feature systems.
 
 \section{Intersectional closure}
 
 In this section we define the \textit{intersectional closure} of a class system $\mathcal{C}$ as the set of classes that can be generated by intersecting $\Sigma$ with any set of classes in $\mathcal{C}$. We relate the intersectional closure to features by showing that if a feature system is expressive enough to generate all the classes in $\mathcal{C}$, it generates the intersectional closure. Then we give a dynamic programming algorithm which efficiently computes the intersectional closure. 
 
-\subsection{Definition}
+\subsection{Definitions}
 
-A collection of sets $\mathcal C$ is \textit{intersectionally closed} if and only if $\forall (X, Y \in \mathcal C) \, [ X \cap Y \in \mathcal C]$.
+\textbf{Definition}: A collection of sets $\mathcal C$ is \textit{intersectionally closed} if and only if for all $X \in \mathcal C$ and $Y \in \mathcal C$, $X \cap Y \in \mathcal C$.
 
-We write $\mathcal C_\cap$ to indicate the \textit{intersectional closure} of a class system $(\mathcal C, \Sigma)$. This is the smallest intersectionally closed collection which contains $\Sigma$ and every set in $\mathcal C$. In other words, the intersectional closure does not contain any classes except $\Sigma$ and those which can be generated by finite intersections of classes from $\mathcal C$.
+\vspace{\baselineskip} \noindent The \textit{intersectional closure} of a class system $(\mathcal C, \Sigma)$, written $\mathcal C_\cap$, is the smallest intersectionally closed class system which contains $\mathcal C$ and $\Sigma$.
+
+\vspace{\baselineskip} \noindent \textbf{Definition}: $\mathcal C_\cap = \{ \, \big( \bigcap_{X_i \in P} X_i \big) \, \mid \, P \in \mathcal P(\mathcal C \cup \{ \Sigma \}) \}$ where $\mathcal P(\cdot)$ is the powerset operator. 
+
+\vspace{\baselineskip} \noindent In other words, the intersectional closure contains every class which can be generated by finite intersections of classes from $\mathcal C$, and $\Sigma$, and no other classes besides these.
+
+To illustrate this concept, we introduce a final example, the vowel inventory in Table~\ref{table:vowel_inventory}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c|c|c|c|}
+    \hline
+                 &            front                   & mid           & back         \\ \hline
+         high & \textipa{i} \textipa{y}      &                  & \textipa{u} \\
+         mid  & \textipa{E} \textipa{\oe} &                  & \textipa{o} \\
+         low  &                                       & \textipa{a} &                  \\ \hline
+    \end{tabular}
+    \caption{Vowel inventory}
+    \label{table:vowel_inventory}
+\end{table}
+
+\vspace{\baselineskip} \noindent Let $(\mathcal C, \Sigma)$ consist of the following classes: \begin{itemize}
+  \item \textit{alphabet} -- \{\textipa{i}, \textipa{y}, \textipa{u}, \textipa{E}, \textipa{\oe}, \textipa{o}\, \textipa{a}\} 
+  \item \textit{high} -- \{\textipa{i}, \textipa{y}, \textipa{u}\}
+  \item \textit{front} -- \{\textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe}\}
+  \item \textit{round} -- \{\textipa{y}, \textipa{u}, \textipa{\oe}, \textipa{o}\}
+  \item \textit{singletons} -- \{\textipa{i}\}, \{\textipa{y}\}, \{\textipa{u}\}, \{\textipa{E}\}, \{\textipa{\oe}\}, \{\textipa{o}\}, \{\textipa{a}\}
+  \end{itemize}
+
+\vspace{\baselineskip} \noindent $\mathcal C$ is depicted in Fig.~\ref{fig:vowel_inventory}; the intersectional closure $\mathcal C_\cap$ is depicted in Fig.~\ref{fig:vowel_inventory_closure}. The difference between the two is highlighted by using red lines for the `extra' classes.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{A vowel inventory.}
+  \label{fig:vowel_inventory}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Intersectional closure of the vowel inventory.}
+  \label{fig:vowel_inventory_closure}
+\end{figure}
+
+The key difference is that the intersectional closure contains 2-segment classes which are the intersection of larger classes. For example, the \textit{high, front} class \{\textipa{i}, \textipa{y}\} is the intersection of the \textit{high} class and the \textit{front} class:
+
+$$ \text{\{\textipa{i}, \textipa{y}\}} = \text{\{\textipa{i}, \textipa{y}, \textipa{u}\}} \cap \text{\{\textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe}\}} $$
+
+\vspace{\baselineskip} \noindent Note that the high, front, round class \{\textipa{y}\} has dotted lines because it is the intersection of the high/front, front/round, and high/round classes. In the next subsection, we prove that featurizations must cover intersectional closures, i.e. if a featurization is expressive enough to cover $\mathcal C$, it covers $\mathcal C_\cap$.
 
 \subsection{Feature systems generate an intersectional closure}
 
-Now we explain why any feature system that covers $\mathcal C$ must cover $\mathcal C_\cap$. The explanation rides on the dual relationship between featural descriptors and the classes they describe: the class described by the union of two featural descriptors is the intersection of the classes described by each of the descriptors alone. This principle can be illustrated with the following example, using the vowel system in Fig.~\ref{fig:lattice}. Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_2 =$ \phonfeat{+round}. Then \begin{itemize}
-    \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
-    \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
-    \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
-    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
-    \end{itemize}
-
-In other words, the set of vowels that are both front and round is the intersection of the set of vowels that are front and the set of vowels that are round. The Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors and the classes they describe.
+There is a dual relationship between featural descriptors and the classes they describe: intersection of classes corresponds to union of featural descriptors. We formalize this property with the following lemma.
 
 \vspace{\baselineskip} \noindent \textbf{Featural Intersection Lemma}
 
@@ -227,7 +279,34 @@ Similarly, $x$ has all the features of $\mathbf{e}_j$, so $x \in C_j$. Therefore
 Since both $C_i \cap C_j$ and $\langle \mathbf{e}_i \cup \mathbf{e}_j \rangle$ are subsets of each other, they are equal.
 This completes the proof.
 
-\vspace{\baselineskip} \noindent The key utility of this Lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes.
+\vspace{\baselineskip} We illustrate this lemma with reference to the vowel inventory system introduced above. For concreteness, let us adopt the following featurization:
+
+% table with featurization of sonorants, voiced obstruents, and voiceless obstruents
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c||c|c|c|c|}
+    \hline
+        $\sigma$      & nonlow & front & round & high \\ \hline
+        \textipa{i}      & +          & +      & --        & +      \\
+        \textipa{E}    & +          & +      & --        & --      \\
+        \textipa{\oe} & +          & +      & +         & --      \\
+        \textipa{y}    & +          & +      & +         & +       \\
+        \textipa{u}    & +          & --      & +         & +      \\
+        \textipa{o}    & +          & --      & +         & --      \\
+        \textipa{a}    & --          &         &            &         \\ \hline
+    \end{tabular}
+    \caption{Constrastive underspecification for the vowel inventory.}
+    \label{table:vowel_inventory_underspec}
+\end{table}
+
+Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_2 =$ \phonfeat{+round}. Then we have: \begin{itemize}
+    \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
+    \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
+    \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
+    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
+    \end{itemize}
+
+For this example, the Featural Intersection Lemma cashes out as follows: `the set of vowels that are both front and round' is the intersection of `the set of vowels that are front' and `the set of vowels that are round'. The Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors and the classes they describe. An important consequence of this lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes. Because the intersectional closure is defined as the intersection of arbitrarily many classes in an input $\mathcal C$, the Featural Intersection Lemma ends up entailing that if a featurization covers $\mathcal C$, it must cover the intersectional closure.
 
 \vspace{\baselineskip} \noindent \textbf{Intersectional Closure Covering Theorem}
 
@@ -249,7 +328,69 @@ $Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
 
 \quad $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 
-\noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
+\vspace{\baselineskip} \noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
+
+In the next section, we introduce an additional example to illustrate the role of complementation in feature systems.
+
+\subsection{Example: Vowel inventory}
+
+Consider the vowel inventory shown in Table~\ref{table:vowelInventory}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c|c|c|c|}
+    \hline
+                 &            front                   & mid           & back         \\ \hline
+         high & \textipa{i} \textipa{y}      &                  & \textipa{u} \\
+         mid  & \textipa{E} \textipa{\oe} &                  & \textipa{o} \\
+         low  &                                       & \textipa{a} &                  \\ \hline
+    \end{tabular}
+    \caption{Vowel inventory}
+    \label{table:vowelInventory}
+\end{table}
+
+Let us suppose that some set of alternations (e.g. harmony processes) identify the following classes: \begin{itemize}
+  \item \textit{high} -- \{ \textipa{i}, \textipa{y}, \textipa{u} \}
+  \item \textit{front} -- \{ \textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe} \}
+  \item \textit{round} -- \{ \textipa{y}, \textipa{\oe}, \textipa{u}, \textipa{o} \}
+  \end{itemize}
+
+\vspace{\baselineskip} \noindent For illustration, we will assume that $\mathcal C$ consists of these classes as well the alphabet and all singleton classes.\footnote{In the examples we present here, every segment belongs to a corresponding singleton class. This is not a necessary condition for the theorems we present. It is conceivable, for example, that a researcher might wish to have stops at multiple places, but not distinguish them for the purposes of featurization.} The intersectional closure $\mathcal C_\cap$ contains $\mathcal C$ as well as all combinations of intersections: \begin{itemize}
+  \item \textit{high} and \textit{front} -- \{ \textipa{i}, \textipa{y} \}
+  \item \textit{high} and \textit{round} -- \{ \textipa{y}, \textipa{u} \}
+  \item \textit{front} and \textit{round} -- \{ \textipa{y}, \textipa{\oe} \}
+  \item \textit{high} and \textit{front} and \textit{round} -- \{ \textipa{y} \}
+  \end{itemize}
+(We have included \{ \textipa{y} \} to illustrate that it is not just pairwise intersections. Of course, this set is already included in $\mathcal C_\cap$ because it is a singleton.) The parent/daughter relationships of the intersectional closure are illustrated in Fig.~\ref{fig:vowelInventory}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Vowel inventory (recurring example).}
+  \label{fig:vowelInventory}
+\end{figure}
+
+NOW DESCRIBE CONTRASTIVE UNDERSPECIFICATION. NOW GIVE A FEATURIZTION.
+
+NOW DESCRIBE CONTRASTIVE SPECIFICATION. NOW GIVE A FEATURIZATION.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular} {|c||c|c|c|c|}
+    \hline
+        $\sigma$ & randfeat \\ \hline
+        \textipa{\oe} & + \\
+        \textipa{y} & -- \\
+        \textipa{E} & -- \\
+        \textipa{i} & + \\
+        \textipa{o} & +\\
+        \textipa{u} & + \\
+        \textipa{a} & -- \\
+        \hline
+    \end{tabular}
+    \caption{Vowel inventory}
+    \label{table:vowelInventory}
+\end{table}
 
 \subsection{An algorithm for calculating the intersectional closure}
 
@@ -298,9 +439,10 @@ Now suppose that $X_1 \cap X_2 \neq Y$. The preceding logic showed that either t
 \vspace{\baselineskip} Note that the Single Parenthood Theorem does not logically exclude the possibility that a class may have more than two parents. Rather, it guarantees that in such cases, the intersection is the same regardless of how many parents are considered. One case in which this can happen is the null set: if $x, y, z$ are three distinct elements from $\Sigma$, then $\{ x \} \cap \{ y \} = \varnothing = \{ y \} \cap \{ z \}$. A more interesting case arises in the intersectional closure of the vowel system in Fig.~\ref{fig:lattice}, shown in Fig.~\ref{fig:closure}. 
 
 \begin{figure}[h]
-\includegraphics[width=0.9\textwidth]{vowelHarmony_closure.png}
-\caption{Intersectional closure of the vowel system shown earlier}
-\label{fig:closure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Intersectional closure of the vowel system shown earlier.}
+  \label{fig:closure}
 \end{figure}
 
 In this case, the largest daughters of $\Sigma$ are the \phonfeat{+front} vowels, the \phonfeat{+high} vowels, and the \phonfeat{+round} vowels. The pairwise intersections of these classes give rise to the \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, and \phonfeat{+round \\ +front} classes. The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), and the intersection of all 3 is also \{\textipa{y}\}. Thus, this set has 3 parents, but the segments it contains are determined simply by having more than 1 parent.
@@ -337,9 +479,10 @@ A featurization algorithm is \textit{sound} if for every class system $(\mathcal
 \vspace{\baselineskip} In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative specification algorithm to the intersectional closure of Fig.~\ref{fig:closure}. We employ several conventions to jointly optimize readability and informativity. First, classes which have a single parent are visually highlighted using a thick, red border. These represent the classes that cannot be featurized simply by the union of their parents' features. Second, the arrow which leads to each such class is annotated with the feature/value pair that is used to distinguish it. This represents the `point' at which each feature is assigned. Note that since the algorithm assigns feature/value pairs to \textit{segments}, every daughter of the class which got a new feature also gets that feature. The set of features that is shared by all members of a class, i.e. which uniquely picks out that class and not any other, is represented under the node. The complete featurization assigned to each segment is thus represented by inspecting the singleton sets in the bottom row. For readability, we use feature names that are familiar from phonological theory when the feature picks out more than segment in isolation (but note that the algorithm knows nothing of phonetic substance -- as far as it is concerned, they are just arbitrary symbols). When the feature only picks out one segment, we name the feature after the segment.
 
 \begin{figure}[h]
-\includegraphics[width=0.9\textwidth]{vowelHarmony_privative.png}
-\caption{Yield of the privative specification algorithm}
-\label{fig:privative}
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Yield of the privative specification algorithm.}
+  \label{fig:privative}
 \end{figure}
 
 We close this section with some observations on the properties of the privative specification algorithm and the featurization it yields. 
@@ -460,9 +603,10 @@ The algorithm for adding complement classes ($\textsc{AddComplementsContrastive}
 \vspace{\baselineskip} This algorithm is illustrated with the same vowel system that we have been using throughout, i.e. where $C$ includes the front vowels, the high vowels, the round vowels, and all singletons.
 
 \begin{figure}[h]
-\includegraphics[width=0.9\textwidth]{vowelHarmony_contrastive.png}
-\caption{Class system and featurization yielded by contrastive specification}
-\label{fig:contrastive}
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Class system and featurization yielded by contrastive specification.}
+  \label{fig:contrastive}
 \end{figure}
 
 \noindent Note that the feature system yielded by contrastive specification is much more expressive than the one yielded by privative specification. However, it is still not maximally expressive, since it still contains `$0$' values. When a new feature is added, non-zero values are added only to classes that are descendants of the parent of the class that generates the new feature. For example, suppose that stridents are daughters of coronals, and coronals are daughters of $\Sigma$. Then contrastive specification will create a \phonfeat{-coronal} class (all noncoronals) and a \phonfeat{-strident} class; the latter class will include all coronal nonstridents (but will not include, e.g. labials). Thus, while the \textit{coronal} feature assigns a `$+$' or `$-$' value to every segment, the \textit{strident} feature assigns a `$0$' value to noncoronals. If it is desired to eliminate all `$0$' values, one can do complementation with respect to $\Sigma$ rather than the single parent. Indeed, that is the final variant we discuss -- full specification.
@@ -546,7 +690,12 @@ We briefly discuss the conditions necessary for assigning each type of feature u
     \end{itemize}
 The class system that results from running the contrastive underspecification algorithm on this input is shown in Fig.~\ref{fig:under}. The features \phonfeat{cons} and \phonfeat{son} are binary because each one partitions $\Sigma$. The features \phonfeat{LAB}, \phonfeat{COR}, \phonfeat{DOR}, \phonfeat{nas} and \phonfeat{liquid} are privative, because their complement (with respect to every ancestor) is not included in the input. The remaining features \phonfeat{vcd} and \phonfeat{lat} are ternary, because their complements (with respect to the parent, which is not $\Sigma$) are included in the input.
 
-TODO: make that fig!
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \caption{Big alphabet.}
+  \label{fig:big_alphabet}
+\end{figure}
 
 We leave it as an exercise to the reader to investigate what happens to the `voicing' feature if the input includes the class of all phonetically voiced segments (i.e. $\Sigma \setminus \text{\{p, t, k\}}$).
 
