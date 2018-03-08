@@ -167,7 +167,7 @@ Let $\Sigma =$ \{R, D, T\} and $\mathcal{C} = $ \{\{R, D\},\{R\}\}, where $R$ is
   \item $\langle \, [+\text{vcd}] \, \rangle$ = \{R, D\}
   \end{itemize}
   
-\noindent Note that because featural descriptors cannot have values of `0', this featurization is inexpressive. It provides (i) no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, (ii) no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, and (iii) no way to pick out the voiced obstruent \{D\} without \{R\}.
+\noindent Note that this featurization provides (i) no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, (ii) no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, and (iii) no way to pick out the voiced obstruent \{D\} without \{R\}.
 
 Next, consider the featurization in which the `$0$'s from Table~\ref{table:privative} are replaced with `$-$'s (full specification):
 
@@ -186,7 +186,7 @@ Next, consider the featurization in which the `$0$'s from Table~\ref{table:priva
     \label{table:full}
 \end{table}
 
-\noindent The set of classes this featurization describes is much larger: \begin{itemize}
+\noindent This featurization is more expressive than the last one: \begin{itemize}
     \item $\langle \, [\,] \, \rangle =$ \{R, D, T\}
     \item $\langle \, [+\text{son}] \, \rangle =$ \{R\}
     \item $\langle \, [-\text{son}] \, \rangle =$ \{D, T\}
@@ -196,7 +196,7 @@ Next, consider the featurization in which the `$0$'s from Table~\ref{table:priva
     \item $\langle \, [+\text{son},-\text{vcd}] \, \rangle = \varnothing$
     \end{itemize}
 
-\vspace{\baselineskip} \noindent The full specification covers not just $\mathcal C$, but includes several additional classes. This is because the ability for featural descriptors to refer to `--' values provides a greater number of ways to `slice and dice' the alphabet. Generally, featurizations which assign more `$0$' values will require more distinct feature functions to cover the same class system.
+\vspace{\baselineskip} \noindent While the privative featurization just covers $\mathcal C \cup \{\Sigma\}$, the full specification featurization includes several additional classes. The ability for featural descriptors to refer to `--' values provides a greater number of ways to `slice and dice' the alphabet. It follows that featurizations which assign more `$0$' values generally require more distinct feature functions to cover the same class system.
 
 \vspace{\baselineskip} In the next section, we introduce the notion of intersectional closure. This data structure will prove essential for efficiently assigning feature systems.
 
@@ -237,7 +237,7 @@ To illustrate this concept, we introduce a final example, the vowel inventory in
   \item \textit{singletons} -- \{\textipa{i}\}, \{\textipa{y}\}, \{\textipa{u}\}, \{\textipa{E}\}, \{\textipa{\oe}\}, \{\textipa{o}\}, \{\textipa{a}\}
   \end{itemize}
 
-\vspace{\baselineskip} \noindent $\mathcal C$ is depicted in Fig.~\ref{fig:vowel_inventory}; the intersectional closure $\mathcal C_\cap$ is depicted in Fig.~\ref{fig:vowel_inventory_closure}. The difference between the two is highlighted by using red lines for the `extra' classes.
+\vspace{\baselineskip} \noindent $\mathcal C$ is depicted in Fig.~\ref{fig:vowel_inventory}; the intersectional closure $\mathcal C_\cap$ is depicted in Fig.~\ref{fig:vowel_inventory_closure}. The difference between the two is highlighted by using red boxes for the `extra' classes.
 
 \begin{figure}[h]
   \centering
@@ -287,26 +287,30 @@ This completes the proof.
     \begin{tabular} {|c||c|c|c|c|}
     \hline
         $\sigma$      & nonlow & front & round & high \\ \hline
-        \textipa{i}      & +          & +      & --        & +      \\
-        \textipa{E}    & +          & +      & --        & --      \\
+        \textipa{i}      & +          & +      & 0        & +      \\
+        \textipa{E}    & +          & +      & 0         & --      \\
         \textipa{\oe} & +          & +      & +         & --      \\
         \textipa{y}    & +          & +      & +         & +       \\
         \textipa{u}    & +          & --      & +         & +      \\
         \textipa{o}    & +          & --      & +         & --      \\
-        \textipa{a}    & --          &         &            &         \\ \hline
+        \textipa{a}    & --          & 0      & 0         & 0       \\ \hline
     \end{tabular}
-    \caption{Constrastive underspecification for the vowel inventory.}
+    \caption{Constrastive underspecification for the vowel inventory. Blank cells indicate }
     \label{table:vowel_inventory_underspec}
 \end{table}
 
-Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_2 =$ \phonfeat{+round}. Then we have: \begin{itemize}
-    \item $\langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
-    \item $\langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
-    \item $\langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
-    \item $\langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
+\vspace{\baselineskip} \noindent Let $\mathbf{e}_1 =$ \phonfeat{+front} and $\mathbf{e}_2 =$ \phonfeat{+round}. Then we have: \begin{itemize}
+    \item $\langle \mathbf{e}_1 \rangle = \langle$\phonfeat{+front}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\}
+    \item $\langle \mathbf{e}_2 \rangle = \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\}
+    \end{itemize}
+\noindent For these values, the Featural Intersection Lemma cashes out as follows: `the set of vowels that are both front and round' is the intersection of `the set of vowels that are front' and `the set of vowels that are round': \begin{itemize}
+    \item $\langle \mathbf{e}_1 \rangle \cap \langle \mathbf{e}_2 \rangle =  \langle$\phonfeat{+front}$\rangle \cap \langle$\phonfeat{+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}, \textipa{E}, \textipa{i}\} $\cap$ \{\textipa{\oe}, \textipa{o}, \textipa{y}, \textipa{u}\} = \{\textipa{\oe}, \textipa{y}\}
+    \item $\langle \mathbf{e}_1 \cup \mathbf{e}_2 \rangle = \langle$\phonfeat{+front,+round}$\rangle =$ \{\textipa{\oe}, \textipa{y}\}
     \end{itemize}
 
-For this example, the Featural Intersection Lemma cashes out as follows: `the set of vowels that are both front and round' is the intersection of `the set of vowels that are front' and `the set of vowels that are round'. The Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors and the classes they describe. An important consequence of this lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes. Because the intersectional closure is defined as the intersection of arbitrarily many classes in an input $\mathcal C$, the Featural Intersection Lemma ends up entailing that if a featurization covers $\mathcal C$, it must cover the intersectional closure.
+\noindent The Featural Intersection Lemma proves that this kind of relationship holds for any pair of featural descriptors and the classes they describe.
+
+An important consequence of this lemma is that it can be applied inductively, to relate the union of multiple featural descriptors with the intersection of multiple classes. Because the intersectional closure is defined as the intersection of arbitrarily many classes in an input $\mathcal C$, the Featural Intersection Lemma ends up entailing that if a featurization covers $\mathcal C$, it must cover the intersectional closure.
 
 \vspace{\baselineskip} \noindent \textbf{Intersectional Closure Covering Theorem}
 
@@ -328,73 +332,13 @@ $Y = \langle \mathbf{e}_1 \rangle \cap  \langle \mathbf{e}_2 \rangle \cap \ldots
 
 \quad $= \langle \bigcup_i  \mathbf{e}_i \rangle$
 
-\vspace{\baselineskip} \noindent The preceding chain of logic demonstrates that if a class can be expressed as the intersection of classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
+\vspace{\baselineskip} \noindent The preceding chain of logic demonstrates the following fact: if a class can be expressed as the intersection of classes in $\mathcal C$, then its features are the union of the features in each of those classes. The intersectional closure is defined as all possible intersections of classes in $\mathcal C$. Thus, if $(\mathcal F, \Sigma, \mathcal V)$ covers $\mathcal C$, it covers the intersectional closure. This completes the proof.
 
-In the next section, we introduce an additional example to illustrate the role of complementation in feature systems.
-
-\subsection{Example: Vowel inventory}
-
-Consider the vowel inventory shown in Table~\ref{table:vowelInventory}.
-
-\begin{table}[h]
-    \centering
-    \begin{tabular} {|c|c|c|c|}
-    \hline
-                 &            front                   & mid           & back         \\ \hline
-         high & \textipa{i} \textipa{y}      &                  & \textipa{u} \\
-         mid  & \textipa{E} \textipa{\oe} &                  & \textipa{o} \\
-         low  &                                       & \textipa{a} &                  \\ \hline
-    \end{tabular}
-    \caption{Vowel inventory}
-    \label{table:vowelInventory}
-\end{table}
-
-Let us suppose that some set of alternations (e.g. harmony processes) identify the following classes: \begin{itemize}
-  \item \textit{high} -- \{ \textipa{i}, \textipa{y}, \textipa{u} \}
-  \item \textit{front} -- \{ \textipa{i}, \textipa{y}, \textipa{E}, \textipa{\oe} \}
-  \item \textit{round} -- \{ \textipa{y}, \textipa{\oe}, \textipa{u}, \textipa{o} \}
-  \end{itemize}
-
-\vspace{\baselineskip} \noindent For illustration, we will assume that $\mathcal C$ consists of these classes as well the alphabet and all singleton classes.\footnote{In the examples we present here, every segment belongs to a corresponding singleton class. This is not a necessary condition for the theorems we present. It is conceivable, for example, that a researcher might wish to have stops at multiple places, but not distinguish them for the purposes of featurization.} The intersectional closure $\mathcal C_\cap$ contains $\mathcal C$ as well as all combinations of intersections: \begin{itemize}
-  \item \textit{high} and \textit{front} -- \{ \textipa{i}, \textipa{y} \}
-  \item \textit{high} and \textit{round} -- \{ \textipa{y}, \textipa{u} \}
-  \item \textit{front} and \textit{round} -- \{ \textipa{y}, \textipa{\oe} \}
-  \item \textit{high} and \textit{front} and \textit{round} -- \{ \textipa{y} \}
-  \end{itemize}
-(We have included \{ \textipa{y} \} to illustrate that it is not just pairwise intersections. Of course, this set is already included in $\mathcal C_\cap$ because it is a singleton.) The parent/daughter relationships of the intersectional closure are illustrated in Fig.~\ref{fig:vowelInventory}.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
-  \caption{Vowel inventory (recurring example).}
-  \label{fig:vowelInventory}
-\end{figure}
-
-NOW DESCRIBE CONTRASTIVE UNDERSPECIFICATION. NOW GIVE A FEATURIZTION.
-
-NOW DESCRIBE CONTRASTIVE SPECIFICATION. NOW GIVE A FEATURIZATION.
-
-\begin{table}[h]
-    \centering
-    \begin{tabular} {|c||c|c|c|c|}
-    \hline
-        $\sigma$ & randfeat \\ \hline
-        \textipa{\oe} & + \\
-        \textipa{y} & -- \\
-        \textipa{E} & -- \\
-        \textipa{i} & + \\
-        \textipa{o} & +\\
-        \textipa{u} & + \\
-        \textipa{a} & -- \\
-        \hline
-    \end{tabular}
-    \caption{Vowel inventory}
-    \label{table:vowelInventory}
-\end{table}
+Having illustrated the formal notation for features and the notion of intersectional closure, we turn now to a dynamic programming algorithm for efficiently calculating the intersectional closure.
 
 \subsection{An algorithm for calculating the intersectional closure}
 
-The following algorithm yields the intersectional closure of a class system $(\mathcal C, \Sigma)$.
+The following algorithm yields the intersectional closure of a class system $(\mathcal C, \Sigma)$. It bears a close resemblance to Dijkstra's shortest-paths algorithm; a proof of soundness is given in the Appendix.
 
 \noindent \begin{algorithmic}
     \ENSURE $\mathcal C_\cap$ is the intersectional closure of the input $\mathcal C$
@@ -413,6 +357,7 @@ The following algorithm yields the intersectional closure of a class system $(\m
     \ENDWHILE
 \end{algorithmic}
 
+%% TODO: move this proof of soundness to the Appendix
 \vspace{\baselineskip} \noindent \textit{Proof of soundness}:
 
 The proof goes by induction. First, we show that every class which can be generated by the intersection of $0$ classes ($\Sigma$) or 1 class from $\mathcal C$ (i.e. $\mathcal C$ itself) belongs to $\mathcal C_\cap$. Next, we prove the induction step: if every class that can be generated by the intersection of $n$ classes from $\mathcal C$ is in $\mathcal C_\cap$, then every class that can be generated by the intersection of $n+1$ classes from $\mathcal C$ is in $\mathcal C_\cap$.
@@ -436,16 +381,7 @@ First, observe that $Y \subset X_1 \cap X_2$. This follows trivially from the de
 
 Now suppose that $X_1 \cap X_2 \neq Y$. The preceding logic showed that either the two are equal, or $Y$ is a proper subset of $X_1 \cap X_2$. But the latter case creates a contradiction. By definition, $(X_1 \cap X_2)$ must be in the intersectional closure, and $X_1 \cap X_2 \subset X_1$ follows from fundamental properties of sets. Then $X_1 \cap X_2$ intervenes between $Y$ and $X_1$, contradicting the hypothesis that $Y$ is a daughter of $X_1$. Thus, $Y = X_1 \cap X_2$.
 	
-\vspace{\baselineskip} Note that the Single Parenthood Theorem does not logically exclude the possibility that a class may have more than two parents. Rather, it guarantees that in such cases, the intersection is the same regardless of how many parents are considered. One case in which this can happen is the null set: if $x, y, z$ are three distinct elements from $\Sigma$, then $\{ x \} \cap \{ y \} = \varnothing = \{ y \} \cap \{ z \}$. A more interesting case arises in the intersectional closure of the vowel system in Fig.~\ref{fig:lattice}, shown in Fig.~\ref{fig:closure}. 
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
-  \caption{Intersectional closure of the vowel system shown earlier.}
-  \label{fig:closure}
-\end{figure}
-
-In this case, the largest daughters of $\Sigma$ are the \phonfeat{+front} vowels, the \phonfeat{+high} vowels, and the \phonfeat{+round} vowels. The pairwise intersections of these classes give rise to the \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, and \phonfeat{+round \\ +front} classes. The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), and the intersection of all 3 is also \{\textipa{y}\}. Thus, this set has 3 parents, but the segments it contains are determined simply by having more than 1 parent.
+\vspace{\baselineskip} Note that the Single Parenthood Theorem does not logically exclude the possibility that a class may have more than two parents. Rather, it guarantees that in such cases, the intersection is the same regardless of how many parents are considered. One case in which this can happen is the null set: if $x, y, z$ are three distinct elements from $\Sigma$, then $\{ x \} \cap \{ y \} = \varnothing = \{ y \} \cap \{ z \}$. A more interesting case arose already in Fig.~\ref{fig:vowel_inventory_closure}, the intersectional closure of the vowel inventory. There, the three features \textit{front}, \textit{high}, and \textit{round} give rise to three distinct 2-feature classes (featural descriptors: \phonfeat{+front \\ +high}, \phonfeat{+high \\ +round}, \phonfeat{+round \\ +front}). The intersection of any pair of these is \{\textipa{y}\} (the high, front, round vowel), and the intersection of all 3 is also \{\textipa{y}\}. Thus, this set has 3 parents, but the segments it contains are uniquely determined by any pair of parents.
 
 In the next section, we give an algorithm which generates a privative feature system that covers the intersectional closure $\mathcal C_\cap$, given the input of a class system $(\mathcal C, \Sigma)$.
 
