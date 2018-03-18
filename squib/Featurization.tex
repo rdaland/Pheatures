@@ -36,6 +36,14 @@
 This paper describes a collection of dynamic programming algorithms which assign features to a set of phonological classes. The input consists of a set of classes, each containing one or more segments. If a class can be generated as the union of existing features (i.e. as the intersection of already-processed classes), those features are propagated to every segment in the class. A new feature/value pair must be assigned otherwise, and we show that this occurs just in case the class has a single parent in the intersectional closure of the input. The algorithm comes in four flavors, which differ with respect to complementation and how negative values are assigned. We show that these variants yield \textit{privative specification}, \textit{contrastive underspecification}, \textit{contrastive specification}, and \textit{full specification}, respectively. 
 \end{abstract}
 
+% LIST OF FIGURES
+%	Fig. 1 (done) -- A manner hierarchy class system
+%	Fig. 2 (done) -- A vowel inventory
+%	Fig. 3 (done) -- Intersectional closure of a vowel inventory
+%	Fig. 4 (done) -- Yield of the privative specification algorithm (to Fig. 3)
+%	Fig. 5 (done) -- Class system and featurization yielded by contrastive specification
+%	Fig. 6 TODO -- Big alphabet (contrastive underspecification with privative, binary, and ternary features)
+
 \section{Introduction}
 
 Features are the substantive building blocks of phonological theory. They represent phonetic qualities of speech sounds, and can be used in isolation or combination to describe individual sounds or classes of sounds \cite<e.g.,>{Saussure1959, JakobsonEtAl1952}.
@@ -81,7 +89,7 @@ A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ 
 % show an example of a class system: a manner hierarchy
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \includegraphics[width=0.5\textwidth]{manner_poset_privative.png}
   \caption{A manner hierarchy class system (recurring example).}
   \label{fig:manner_input}
 \end{figure}
@@ -243,14 +251,14 @@ To illustrate this concept, we introduce a final example, the vowel inventory in
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \includegraphics[width=0.8\textwidth]{vowel_inventory_base.png}
   \caption{A vowel inventory.}
   \label{fig:vowel_inventory}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \includegraphics[width=0.8\textwidth]{vowel_inventory_closure.png}
   \caption{Intersectional closure of the vowel inventory.}
   \label{fig:vowel_inventory_closure}
 \end{figure}
@@ -410,7 +418,7 @@ A featurization algorithm is \textit{sound} if for every class system $(\mathcal
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \includegraphics[width=0.9\textwidth]{vowel_inventory_privative.png}
   \caption{Yield of the privative specification algorithm.}
   \label{fig:privative}
 \end{figure}
@@ -528,9 +536,9 @@ Contrastive specification is very similar to contrastive underspecification. The
 
 \vspace{\baselineskip} Fig.~\ref{fig:contrastive} illustrates the contrastive specification algorithm using the manner hierarchy.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.5\textwidth]{placeholder.png}
+  \includegraphics[width=\textwidth]{vowel_inventory_contrastive.png}
   \caption{Class system and featurization yielded by contrastive specification.}
   \label{fig:contrastive}
 \end{figure}
@@ -614,7 +622,7 @@ Here are the conditions under which the constrastive underspecification algorith
     \item \textit{lateral} -- \{l\}
     \item \textit{rhotic} -- \{r\}
     \end{itemize}
-The class system that results from running the contrastive underspecification algorithm on this input is shown in Fig.~\ref{fig:under}. The features \phonfeat{cons} and \phonfeat{son} are binary because each one partitions $\Sigma$. The features \phonfeat{LAB}, \phonfeat{COR}, \phonfeat{DOR}, \phonfeat{nas} and \phonfeat{liquid} are privative, because their complement (with respect to every ancestor) is not included in the input. The remaining features \phonfeat{vcd} and \phonfeat{lat} are ternary, because their complements (with respect to the parent, which is not $\Sigma$) are included in the input.
+The class system that results from running the contrastive underspecification algorithm on this input is shown in Fig.~\ref{fig:big_alphabet}. The features \phonfeat{cons} and \phonfeat{son} are binary because each one partitions $\Sigma$. The features \phonfeat{LAB}, \phonfeat{COR}, \phonfeat{DOR}, \phonfeat{nas} and \phonfeat{liquid} are privative, because their complement (with respect to every ancestor) is not included in the input. The remaining features \phonfeat{vcd} and \phonfeat{lat} are ternary, because their complements (with respect to the parent, which is not $\Sigma$) are included in the input.
 
 \begin{figure}[h]
   \centering
