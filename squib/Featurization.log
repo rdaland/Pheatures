@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.16)  5 JAN 2018 12:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.16)  1 JUL 2018 15:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -218,29 +218,472 @@ Package: apacite 2013/07/21 v6.03 APA citation
 \bibitemsep=\skip55
 \biblabelsep=\skip56
 )
-\c@definition=\count111
+(/usr/share/texlive/texmf-dist/tex/latex/regexpatch/regexpatch.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2017/07/19 L3 programming layer (loader) 
 
-(./Featurization.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2017/07/19 L3 programming layer (code)
+\c_max_int=\count111
+\l_tmpa_int=\count112
+\l_tmpb_int=\count113
+\g_tmpa_int=\count114
+\g_tmpb_int=\count115
+\g__intarray_font_int=\count116
+\g__prg_map_int=\count117
+\c_log_iow=\count118
+\l_iow_line_count_int=\count119
+\l__iow_line_target_int=\count120
+\l__iow_one_indent_int=\count121
+\l__iow_indent_int=\count122
+\c_zero_dim=\dimen131
+\c_max_dim=\dimen132
+\l_tmpa_dim=\dimen133
+\l_tmpb_dim=\dimen134
+\g_tmpa_dim=\dimen135
+\g_tmpb_dim=\dimen136
+\c_zero_skip=\skip57
+\c_max_skip=\skip58
+\l_tmpa_skip=\skip59
+\l_tmpb_skip=\skip60
+\g_tmpa_skip=\skip61
+\g_tmpb_skip=\skip62
+\c_zero_muskip=\muskip11
+\c_max_muskip=\muskip12
+\l_tmpa_muskip=\muskip13
+\l_tmpb_muskip=\muskip14
+\g_tmpa_muskip=\muskip15
+\g_tmpb_muskip=\muskip16
+\l_keys_choice_int=\count123
+\c__fp_leading_shift_int=\count124
+\c__fp_middle_shift_int=\count125
+\c__fp_trailing_shift_int=\count126
+\c__fp_big_leading_shift_int=\count127
+\c__fp_big_middle_shift_int=\count128
+\c__fp_big_trailing_shift_int=\count129
+\c__fp_Bigg_leading_shift_int=\count130
+\c__fp_Bigg_middle_shift_int=\count131
+\c__fp_Bigg_trailing_shift_int=\count132
+\c__fp_rand_size_int=\count133
+\c__fp_rand_four_int=\count134
+\c__fp_rand_eight_int=\count135
+\l__sort_length_int=\count136
+\l__sort_min_int=\count137
+\l__sort_top_int=\count138
+\l__sort_max_int=\count139
+\l__sort_true_max_int=\count140
+\l__sort_block_int=\count141
+\l__sort_begin_int=\count142
+\l__sort_end_int=\count143
+\l__sort_A_int=\count144
+\l__sort_B_int=\count145
+\l__sort_C_int=\count146
+\l__tl_build_start_index_int=\count147
+\l__tl_build_index_int=\count148
+\l__tl_analysis_normal_int=\count149
+\l__tl_analysis_index_int=\count150
+\l__tl_analysis_nesting_int=\count151
+\l__tl_analysis_type_int=\count152
+\l__regex_internal_a_int=\count153
+\l__regex_internal_b_int=\count154
+\l__regex_internal_c_int=\count155
+\l__regex_balance_int=\count156
+\l__regex_group_level_int=\count157
+\l__regex_mode_int=\count158
+\c__regex_cs_in_class_mode_int=\count159
+\c__regex_cs_mode_int=\count160
+\l__regex_catcodes_int=\count161
+\l__regex_default_catcodes_int=\count162
+\c__regex_catcode_D_int=\count163
+\c__regex_catcode_S_int=\count164
+\c__regex_catcode_L_int=\count165
+\c__regex_catcode_O_int=\count166
+\c__regex_catcode_A_int=\count167
+\c__regex_all_catcodes_int=\count168
+\l__regex_show_lines_int=\count169
+\l__regex_min_state_int=\count170
+\l__regex_max_state_int=\count171
+\l__regex_left_state_int=\count172
+\l__regex_right_state_int=\count173
+\l__regex_capturing_group_int=\count174
+\l__regex_min_pos_int=\count175
+\l__regex_max_pos_int=\count176
+\l__regex_curr_pos_int=\count177
+\l__regex_start_pos_int=\count178
+\l__regex_success_pos_int=\count179
+\l__regex_curr_char_int=\count180
+\l__regex_curr_catcode_int=\count181
+\l__regex_last_char_int=\count182
+\l__regex_case_changed_char_int=\count183
+\l__regex_curr_state_int=\count184
+\l__regex_step_int=\count185
+\l__regex_min_active_int=\count186
+\l__regex_max_active_int=\count187
+\l__regex_replacement_csnames_int=\count188
+\l__regex_match_count_int=\count189
+\l__regex_min_submatch_int=\count190
+\l__regex_submatch_int=\count191
+\l__regex_zeroth_submatch_int=\count192
+\g__debug_trace_regex_int=\count193
+\c_empty_box=\box28
+\l_tmpa_box=\box29
+\l_tmpb_box=\box30
+\g_tmpa_box=\box31
+\g_tmpb_box=\box32
+\l__box_top_dim=\dimen137
+\l__box_bottom_dim=\dimen138
+\l__box_left_dim=\dimen139
+\l__box_right_dim=\dimen140
+\l__box_top_new_dim=\dimen141
+\l__box_bottom_new_dim=\dimen142
+\l__box_left_new_dim=\dimen143
+\l__box_right_new_dim=\dimen144
+\l__box_internal_box=\box33
+\l__coffin_internal_box=\box34
+\l__coffin_internal_dim=\dimen145
+\l__coffin_offset_x_dim=\dimen146
+\l__coffin_offset_y_dim=\dimen147
+\l__coffin_x_dim=\dimen148
+\l__coffin_y_dim=\dimen149
+\l__coffin_x_prime_dim=\dimen150
+\l__coffin_y_prime_dim=\dimen151
+\c_empty_coffin=\box35
+\l__coffin_aligned_coffin=\box36
+\l__coffin_aligned_internal_coffin=\box37
+\l_tmpa_coffin=\box38
+\l_tmpb_coffin=\box39
+\l__coffin_display_coffin=\box40
+\l__coffin_display_coord_coffin=\box41
+\l__coffin_display_pole_coffin=\box42
+\l__coffin_display_offset_dim=\dimen152
+\l__coffin_display_x_dim=\dimen153
+\l__coffin_display_y_dim=\dimen154
+\l__coffin_bounding_shift_dim=\dimen155
+\l__coffin_left_corner_dim=\dimen156
+\l__coffin_right_corner_dim=\dimen157
+\l__coffin_bottom_corner_dim=\dimen158
+\l__coffin_top_corner_dim=\dimen159
+\l__coffin_scaled_total_height_dim=\dimen160
+\l__coffin_scaled_width_dim=\dimen161
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
+File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
+\l__driver_color_stack_int=\count194
+\l__driver_tmp_box=\box43
+))
+Package: regexpatch 2016/05/15 v0.2b Extending etoolbox patching commands
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2017/07/19 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count195
+\g__xparse_grabber_int=\count196
+\l__xparse_m_args_int=\count197
+\l__xparse_mandatory_args_int=\count198
+\l__xparse_v_nesting_int=\count199
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3regex.sty
+Package: l3regex 2017/03/18 Obsolete L3 package 
+
+*****************************************************************
+** 
+** Package l3regex is obsolete and has been removed!
+** 
+** Its functionality is now only provided as part of the expl3 package.
+** 
+** The old packages will be removed entirely at the end of 2018.
+** 
+** Therefore, please replace '\usepackage{l3regex}'
+** with '\usepackage{expl3}' in your documents as soon as possible.
+** 
+*******************************************************************
+
+Package l3regex Warning: This package is obsolete --- use 'expl3' instead on in
+put line 42.
+
+)
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowcmd with sig. 's+m' on line 374.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretocmd with sig. '+m+m+m+m' on line 376.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptocmd with sig. '+m+m+m+m' on line 378.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchcmd with sig. 's+m+m+m+m+m' on line 384.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchcmd with sig. 's+m+m+m+m+m' on line 390.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowbibmacro with sig. 's+m' on line 403.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretobibmacro with sig. '+m+m+m+m' on line 408.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptobibmacro with sig. '+m+m+m+m' on line 413.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchbibmacro with sig. 's+m+m+m+m+m' on line 425.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchbibmacro with sig. 's+m+m+m+m+m' on line 437.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowbibdriver with sig. 's+m' on line 450.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretobibdriver with sig. '+m+m+m+m' on line 452.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptobibdriver with sig. '+m+m+m+m' on line 454.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchbibdriver with sig. 's+m+m+m+m+m' on line 460.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchbibdriver with sig. 's+m+m+m+m+m' on line 466.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowfieldformat with sig. 'sO{*}+m' on line 479.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretofieldformat with sig. 'sO{*}+m+m+m+m' on line 491.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptofieldformat with sig. 'sO{*}+m+m+m+m' on line 503.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchfieldformat with sig. 'sO{*}+m+m+m+m+m' on line 515.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchfieldformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 527.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshownameformat with sig. 'sO{*}+m' on line 541.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretonameformat with sig. 'sO{*}+m+m+m+m' on line 553.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptonameformat with sig. 'sO{*}+m+m+m+m' on line 565.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchnameformat with sig. 'sO{*}+m+m+m+m+m' on line 577.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchnameformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 589.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowlistformat with sig. 'sO{*}+m' on line 603.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretolistformat with sig. 'sO{*}+m+m+m+m' on line 615.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptolistformat with sig. 'sO{*}+m+m+m+m' on line 627.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchlistformat with sig. 'sO{*}+m+m+m+m+m' on line 639.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchlistformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 651.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowindexfieldformat with sig. 'sO{*}+m' on line 665.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretoindexfieldformat with sig. 'sO{*}+m+m+m+m' on line
+. 677.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptoindexfieldformat with sig. 'sO{*}+m+m+m+m' on line
+. 689.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchindexfieldformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 701.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchindexfieldformat with sig. 'sO{*}+m+m+m+m+m' on
+. line 713.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowindexnameformat with sig. 'sO{*}+m' on line 727.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretoindexnameformat with sig. 'sO{*}+m+m+m+m' on line
+. 739.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptoindexnameformat with sig. 'sO{*}+m+m+m+m' on line
+. 751.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchindexnameformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 763.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchindexnameformat with sig. 'sO{*}+m+m+m+m+m' on
+. line 775.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xshowindexlistformat with sig. 'sO{*}+m' on line 789.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpretoindexlistformat with sig. 'sO{*}+m+m+m+m' on line
+. 801.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xapptoindexlistformat with sig. 'sO{*}+m+m+m+m' on line
+. 813.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchindexlistformat with sig. 'sO{*}+m+m+m+m+m' on line
+. 825.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \regexpatchindexlistformat with sig. 'sO{*}+m+m+m+m+m' on
+. line 837.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \checkpatchable with sig. '+m' on line 844.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchoptarg with sig. '+m+m' on line 873.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \tracingxpatches with sig. 'O{1}' on line 879.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \xpatchparametertext with sig. '+m+m+m+m+m' on line 892.
+.................................................
+)
+\c@definition=\count266
+ (./Featurization.aux)
 \openout1 = `Featurization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 32.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 38.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 38.
  (/usr/share/texmf/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    ... okay on input line 38.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -278,16 +721,16 @@ LaTeX Font Info:    ... okay on input line 32.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count112
-\scratchdimen=\dimen131
-\scratchbox=\box28
-\nofMPsegments=\count113
-\nofMParguments=\count114
+\scratchcounter=\count267
+\scratchdimen=\dimen162
+\scratchbox=\box44
+\nofMPsegments=\count268
+\nofMParguments=\count269
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count115
-\MPscratchDim=\dimen132
-\MPnumerator=\count116
-\makeMPintoPDFobject=\count117
+\MPscratchCnt=\count270
+\MPscratchDim=\dimen163
+\MPnumerator=\count271
+\makeMPintoPDFobject=\count272
 \everyMPtoPDFconversion=\toks22
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -341,112 +784,155 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@maskedRefs=\count118
+\c@maskedRefs=\count273
 
 (/usr/share/texlive/texmf-dist/tex/latex/apacite/english.apc
 File: english.apc 2013/07/21 v6.03 apacite language file
 LaTeX Info: Redefining \BPBI on input line 129.
 LaTeX Info: Redefining \BHBI on input line 130.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 52.
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 59.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 52.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+ [1
 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+<manner_poset_privative.png, id=26, 351.3125pt x 326.21875pt>
+File: manner_poset_privative.png Graphic file (type png)
+<use manner_poset_privative.png>
+Package pdftex.def Info: manner_poset_privative.png  used on input line 96. on 
+input line 96.
+Package pdftex.def Info: Requested size: 215.0023pt x 199.65019pt on input line
+ 96.
 
-LaTeX Warning: Citation `TODO' undefined on input line 52.
-
-[2]
-<vowelHarmony_unicode.png, id=20, 640.64343pt x 188.95593pt>
-File: vowelHarmony_unicode.png Graphic file (type png)
-<use vowelHarmony_unicode.png>
-Package pdftex.def Info: vowelHarmony_unicode.png  used on input line 74. on in
-put line 74.
-Package pdftex.def Info: Requested size: 387.00153pt x 114.14713pt on input lin
-e 74.
- [3 <./vowelHarmony_unicode.png>] [4]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5] [6] [7] [8] [9]
-<vowelHarmony_closure.png, id=50, 640.64343pt x 261.22594pt>
-File: vowelHarmony_closure.png Graphic file (type png)
-<use vowelHarmony_closure.png>
-Package pdftex.def Info: vowelHarmony_closure.png  used on input line 305. on i
-nput line 305.
-Package pdftex.def Info: Requested size: 387.00153pt x 157.805pt on input line 
-305.
- [10 <./vowelHarmony_closure.png>] [11]
-<vowelHarmony_privative.png, id=58, 650.43pt x 419.31656pt>
-File: vowelHarmony_privative.png Graphic file (type png)
-<use vowelHarmony_privative.png>
-Package pdftex.def Info: vowelHarmony_privative.png  used on input line 342. on
- input line 342.
+[4] [5 <./manner_poset_privative.png>] [6]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7] [8] [9]
+<vowel_inventory_base.png, id=52, 660.4675pt x 288.07625pt>
+File: vowel_inventory_base.png Graphic file (type png)
+<use vowel_inventory_base.png>
+Package pdftex.def Info: vowel_inventory_base.png  used on input line 260. on i
+nput line 260.
+Package pdftex.def Info: Requested size: 344.005pt x 150.05106pt on input line 
+260.
+<vowel_inventory_closure.png, id=54, 658.46pt x 391.4625pt>
+File: vowel_inventory_closure.png Graphic file (type png)
+<use vowel_inventory_closure.png>
+Package pdftex.def Info: vowel_inventory_closure.png  used on input line 267. o
+n input line 267.
+Package pdftex.def Info: Requested size: 344.005pt x 204.51738pt on input line 
+267.
+ [10 <./vowel_inventory_base.png> <./vowel_inventory_closure.png>]
+[11] [12] [13] [14]
+<vowel_inventory_privative.png, id=74, 650.43pt x 419.31656pt>
+File: vowel_inventory_privative.png Graphic file (type png)
+<use vowel_inventory_privative.png>
+Package pdftex.def Info: vowel_inventory_privative.png  used on input line 429.
+ on input line 429.
 Package pdftex.def Info: Requested size: 387.00153pt x 249.49324pt on input lin
-e 342.
- [12 <./vowelHarmony_privative.png>] [13] [14] [15] [16]
-<vowelHarmony_contrastive.png, id=76, 867.99281pt x 559.33969pt>
-File: vowelHarmony_contrastive.png Graphic file (type png)
-<use vowelHarmony_contrastive.png>
-Package pdftex.def Info: vowelHarmony_contrastive.png  used on input line 472. 
-on input line 472.
-Package pdftex.def Info: Requested size: 387.00153pt x 249.38759pt on input lin
-e 472.
+e 429.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17] [18 <./vowelHarmony_contrastive.png>] [19] [20] [21]
+[15] [16 <./vowel_inventory_privative.png>] [17] [18] [19]
+<vowel_inventory_contrastive.png, id=92, 658.46pt x 713.66624pt>
+File: vowel_inventory_contrastive.png Graphic file (type png)
+<use vowel_inventory_contrastive.png>
+Package pdftex.def Info: vowel_inventory_contrastive.png  used on input line 55
+0. on input line 550.
+Package pdftex.def Info: Requested size: 430.00462pt x 466.06638pt on input lin
+e 550.
 
-LaTeX Warning: Reference `fig:under' on page 22 undefined on input line 553.
 
-(./Featurization.bbl [22]) [23] (./Featurization.aux)
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20] [21 <./vowel_inventory_contrastive.png>] [22] [23] [24]
+<biggun.png, id=109, 547.04375pt x 668.4975pt>
+File: biggun.png Graphic file (type png)
+<use biggun.png>
+Package pdftex.def Info: biggun.png  used on input line 640. on input line 640.
+
+Package pdftex.def Info: Requested size: 430.00462pt x 525.47552pt on input lin
+e 640.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[25]
+
+LaTeX Warning: Citation `TODO' undefined on input line 653.
+
+
+LaTeX Warning: Citation `Paker2002' undefined on input line 657.
+
+[26]
+Overfull \hbox (3.06328pt too wide) in paragraph at lines 678--678
+[]\OT1/cmr/bx/n/14.4 The breadth-first al-go-rithm for adding com-ple-ment clas
+ses 
+ []
+
+[27]
+
+LaTeX Warning: Reference `fig:closure' on page 28 undefined on input line 683.
+
+[28] [29] (./Featurization.bbl [30]) [31] [32 <./biggun.png>]
+(./Featurization.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5243 strings out of 494855
- 70335 string characters out of 6179188
- 133674 words of memory out of 5000000
- 8456 multiletter control sequences out of 15000+600000
- 16858 words of font info for 63 fonts, out of 8000000 for 9000
+ 13548 strings out of 494855
+ 243750 string characters out of 6179188
+ 284933 words of memory out of 5000000
+ 16726 multiletter control sequences out of 15000+600000
+ 545849 words of font info for 77 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,10n,26p,1504b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,10n,31p,10483b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/shar
-e/texmf/fonts/type1/fkr/tipa/tipa10.pfb>
-Output written on Featurization.pdf (23 pages, 493759 bytes).
+ist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/fkr/tipa/ti
+pa10.pfb>
+Output written on Featurization.pdf (32 pages, 520089 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
+ 204 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

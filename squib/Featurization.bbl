@@ -50,6 +50,54 @@ Blevins, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Calderone%
+}{%
+Calderone%
+}{%
+{\protect \APACyear {2009}}%
+}]{%
+Calderone2009}
+\APACinsertmetastar {%
+Calderone2009}%
+\begin{APACrefauthors}%
+Calderone, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Learning phonological categories by independent
+  component analysis} {Learning phonological categories by independent
+  component analysis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Quantitative Linguistics}{16}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Carlton%
+}{%
+Carlton%
+}{%
+{\protect \APACyear {1991}}%
+}]{%
+Carlton1991}
+\APACinsertmetastar {%
+Carlton1991}%
+\begin{APACrefauthors}%
+Carlton, T\BPBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1991}.
+\newblock
+\APACrefbtitle {Introduction to the phonological history of the {S}lavic
+  languages} {Introduction to the phonological history of the {S}lavic
+  languages}.
+\newblock
+\APACaddressPublisher{Bloomington, Indiana}{Slavica Publishers}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Chomsky%
 \ \BBA {} Halle%
 }{%
@@ -76,25 +124,125 @@ Chomsky, N.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-de Saussure%
+Clements%
 }{%
-de Saussure%
+Clements%
 }{%
-{\protect \APACyear {1959}}%
+{\protect \APACyear {1985}}%
 }]{%
-Saussure1959}
+Clements1985}
 \APACinsertmetastar {%
-Saussure1959}%
+Clements1985}%
 \begin{APACrefauthors}%
-de Saussure, F.%
+Clements, G\BPBI N.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYear{1959}.
+\APACrefYearMonthDay{1985}{}{}.
 \newblock
-\APACrefbtitle {Course in general linguistics} {Course in general linguistics}.
+{\BBOQ}\APACrefatitle {The geometry of phonological features} {The geometry of
+  phonological features}.{\BBCQ}
 \newblock
-\APACaddressPublisher{New York}{Philosophical Library}.
+\APACjournalVolNumPages{Phonology Yearbook}{2}{}{225-252}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Clements%
+}{%
+Clements%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+Clements2003}
+\APACinsertmetastar {%
+Clements2003}%
+\begin{APACrefauthors}%
+Clements, G\BPBI N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Feature economy in sound systems} {Feature economy in
+  sound systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Phonology}{20}{}{287-333}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dijkstra%
+}{%
+Dijkstra%
+}{%
+{\protect \APACyear {1959}}%
+}]{%
+Dijkstra1959}
+\APACinsertmetastar {%
+Dijkstra1959}%
+\begin{APACrefauthors}%
+Dijkstra, E\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1959}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A note on two problems in connexion with graphs} {A note
+  on two problems in connexion with graphs}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Numerische Mathematik}{1}{}{269-271}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Goldsmith%
+\ \BBA {} Xanthos%
+}{%
+Goldsmith%
+\ \BBA {} Xanthos%
+}{%
+{\protect \APACyear {2009}}%
+}]{%
+GoldsmithXanthos2009}
+\APACinsertmetastar {%
+GoldsmithXanthos2009}%
+\begin{APACrefauthors}%
+Goldsmith, J.%
+\BCBT {}\ \BBA {} Xanthos, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Learning phonological categories} {Learning phonological
+  categories}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Language}{85}{}{4-38}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hayes%
+\ \BBA {} Wilson%
+}{%
+Hayes%
+\ \BBA {} Wilson%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+HayesWilson2008}
+\APACinsertmetastar {%
+HayesWilson2008}%
+\begin{APACrefauthors}%
+Hayes, B.%
+\BCBT {}\ \BBA {} Wilson, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A maximum entropy model of phonotactics and phonotactic
+  learning} {A maximum entropy model of phonotactics and phonotactic
+  learning}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Linguistic Inquiry}{39}{3}{379 - 440}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -128,6 +276,75 @@ Jakobson, R.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Kaisse%
+}{%
+Kaisse%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Kaisse2002}
+\APACinsertmetastar {%
+Kaisse2002}%
+\begin{APACrefauthors}%
+Kaisse, E\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+\APACrefbtitle {Laterals are [-continuant].} {Laterals are [-continuant].}
+\newblock
+\APAChowpublished {MS, University of Washington}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kiparsky%
+}{%
+Kiparsky%
+}{%
+{\protect \APACyear {1973}}%
+}]{%
+Kiparsky1973}
+\APACinsertmetastar {%
+Kiparsky1973}%
+\begin{APACrefauthors}%
+Kiparsky, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1973}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Phonological representations} {Phonological
+  representations}.{\BBCQ}
+\newblock
+\BIn{} O.~Fujimura\ (\BED), \APACrefbtitle {Three dimensions of linguistic
+  theory} {Three dimensions of linguistic theory}\ (\BPG~1-136).
+\newblock
+\APACaddressPublisher{Tokyo}{TEC Co}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Longerich%
+}{%
+Longerich%
+}{%
+{\protect \APACyear {1998}}%
+}]{%
+Longerich1998}
+\APACinsertmetastar {%
+Longerich1998}%
+\begin{APACrefauthors}%
+Longerich, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{}{}.
+\newblock
+\APACrefbtitle {Acoustic conditioning for the {RUKI} rule.} {Acoustic
+  conditioning for the {RUKI} rule.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 MacWhinney%
 \ \BBA {} O'Grady%
 }{%
@@ -155,6 +372,56 @@ MacWhinney, B.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Mayer%
+}{%
+Mayer%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+Mayer2018}
+\APACinsertmetastar {%
+Mayer2018}%
+\begin{APACrefauthors}%
+Mayer, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2018}.
+\unskip\
+\newblock
+\APACrefbtitle {An algorithm for learning phonological classes from
+  distributional similarity} {An algorithm for learning phonological classes
+  from distributional similarity}\ \APACtypeAddressSchool {\BUMTh}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{University of California, Los Angeles}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mayer%
+}{%
+Mayer%
+}{%
+{\protect \APACyear {in progress}}%
+}]{%
+MayerInProgress}
+\APACinsertmetastar {%
+MayerInProgress}%
+\begin{APACrefauthors}%
+Mayer, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{in progress}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Learning phonological features from distributional
+  information} {Learning phonological features from distributional
+  information}.{\BBCQ}
+\newblock
+
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Mielke%
 }{%
 Mielke%
@@ -175,6 +442,108 @@ Mielke, J.%
   distinctive features}.
 \newblock
 \APACaddressPublisher{Oxford}{Oxford University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mielke%
+}{%
+Mielke%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+Mielke2012}
+\APACinsertmetastar {%
+Mielke2012}%
+\begin{APACrefauthors}%
+Mielke, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A phonetically-based metric of sound similarity} {A
+  phonetically-based metric of sound similarity}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Lingua}{1222}{}{145-163}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Peperkamp%
+, Calvez%
+, Nadal%
+\BCBL {}\ \BBA {} Dupoux%
+}{%
+Peperkamp%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+PeperkampEtAl2006}
+\APACinsertmetastar {%
+PeperkampEtAl2006}%
+\begin{APACrefauthors}%
+Peperkamp, S.%
+, Calvez, R\BPBI L.%
+, Nadal, J.%
+\BCBL {}\ \BBA {} Dupoux, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The acquisition of allophonic rules: Statistical
+  learning with linguistic constraints} {The acquisition of allophonic rules:
+  Statistical learning with linguistic constraints}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognition}{101}{}{B31-B41}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Trigo%
+}{%
+Trigo%
+}{%
+{\protect \APACyear {1993}}%
+}]{%
+Trigo1993}
+\APACinsertmetastar {%
+Trigo1993}%
+\begin{APACrefauthors}%
+Trigo, R\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1993}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The inherent structure of nasal segments} {The inherent
+  structure of nasal segments}.{\BBCQ}
+\newblock
+\BIn{} M.~Huffman\ \BBA {} R.~Krakow\ (\BEDS), \APACrefbtitle {Nasality.}
+  {Nasality.}
+\newblock
+\APACaddressPublisher{San Diego}{Academic Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Vennemann%
+}{%
+Vennemann%
+}{%
+{\protect \APACyear {1974}}%
+}]{%
+Vennemann1974}
+\APACinsertmetastar {%
+Vennemann1974}%
+\begin{APACrefauthors}%
+Vennemann, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1974}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Sanskrit \textit{ruki} and the concept of a natural
+  class} {Sanskrit \textit{ruki} and the concept of a natural class}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Linguistics}{130}{}{91-97}.
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}
