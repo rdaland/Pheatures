@@ -7,7 +7,6 @@ from itertools import compress
 # See the comment in the SimpleBoolArray class
 USE_NUMPY = False
 
-# See the comment in SimpleBoolArray above
 if USE_NUMPY:
     import numpy as np
     ARRAY = np
@@ -68,19 +67,10 @@ class Poset():
                 new_classes=[new_class]
             )
         else:
-            # Just add class and update matrices
-            n = self.subset_matrix.shape[0]
-            new_matrix = ARRAY.zeros((n + 1, n + 1), dtype='bool')
-            new_matrix[0:n, 0:n] = self.subset_matrix
-
-            for i, c in enumerate(self.classes):
-                if c.issubset(new_class):
-                    new_matrix[n, i] = True
-                if new_class.issubset(c):
-                    new_matrix[i, n] = True
-
-            self.subset_matrix = new_matrix
+            # Just add the class to the poset without recalculating the
+            # intersectional closure.
             self.classes.append(new_class)
+            self.calculate_subset_matrix()
             self.calculate_daughter_matrix()
 
         return True

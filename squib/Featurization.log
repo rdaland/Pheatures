@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.16)  1 JUL 2018 15:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.21)  16 SEP 2018 14:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Featurization.tex
 (./Featurization.tex
 LaTeX2e <2017-04-15>
-Babel <3.12> and hyphenation patterns for 7 language(s) loaded.
+Babel <3.18> and hyphenation patterns for 7 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
@@ -68,13 +68,13 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2017/06/24 v1.0g Graphics/color driver for pdftex
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen111
 \Gin@req@width=\dimen112
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/11/05 v2.16a AMS math features
+Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
@@ -132,7 +132,7 @@ LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
-Package: mathtools 2017/05/24 v1.19 mathematical typesetting tools
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
@@ -220,10 +220,10 @@ Package: apacite 2013/07/21 v6.03 APA citation
 )
 (/usr/share/texlive/texmf-dist/tex/latex/regexpatch/regexpatch.sty
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2017/07/19 L3 programming layer (loader) 
+Package: expl3 2018/02/21 L3 programming layer (loader) 
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
-Package: expl3 2017/07/19 L3 programming layer (code)
+Package: expl3 2018/02/21 L3 programming layer (code)
 \c_max_int=\count111
 \l_tmpa_int=\count112
 \l_tmpb_int=\count113
@@ -324,7 +324,7 @@ Package: expl3 2017/07/19 L3 programming layer (code)
 \l__regex_min_submatch_int=\count190
 \l__regex_submatch_int=\count191
 \l__regex_zeroth_submatch_int=\count192
-\g__debug_trace_regex_int=\count193
+\g__regex_trace_regex_int=\count193
 \c_empty_box=\box28
 \l_tmpa_box=\box29
 \l_tmpb_box=\box30
@@ -374,7 +374,7 @@ File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
 Package: regexpatch 2016/05/15 v0.2b Extending etoolbox patching commands
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2017/07/19 L3 Experimental document command parser
+Package: xparse 2018/02/21 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count195
 \g__xparse_grabber_int=\count196
 \l__xparse_m_args_int=\count197
@@ -766,7 +766,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -814,10 +814,8 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 <manner_poset_privative.png, id=26, 351.3125pt x 326.21875pt>
 File: manner_poset_privative.png Graphic file (type png)
 <use manner_poset_privative.png>
-Package pdftex.def Info: manner_poset_privative.png  used on input line 96. on 
-input line 96.
-Package pdftex.def Info: Requested size: 215.0023pt x 199.65019pt on input line
- 96.
+Package pdftex.def Info: manner_poset_privative.png  used on input line 97.
+(pdftex.def)             Requested size: 215.0023pt x 199.65019pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -830,70 +828,75 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <vowel_inventory_base.png, id=52, 660.4675pt x 288.07625pt>
 File: vowel_inventory_base.png Graphic file (type png)
 <use vowel_inventory_base.png>
-Package pdftex.def Info: vowel_inventory_base.png  used on input line 260. on i
-nput line 260.
-Package pdftex.def Info: Requested size: 344.005pt x 150.05106pt on input line 
-260.
+Package pdftex.def Info: vowel_inventory_base.png  used on input line 261.
+(pdftex.def)             Requested size: 344.005pt x 150.05106pt.
 <vowel_inventory_closure.png, id=54, 658.46pt x 391.4625pt>
 File: vowel_inventory_closure.png Graphic file (type png)
 <use vowel_inventory_closure.png>
-Package pdftex.def Info: vowel_inventory_closure.png  used on input line 267. o
-n input line 267.
-Package pdftex.def Info: Requested size: 344.005pt x 204.51738pt on input line 
-267.
- [10 <./vowel_inventory_base.png> <./vowel_inventory_closure.png>]
-[11] [12] [13] [14]
-<vowel_inventory_privative.png, id=74, 650.43pt x 419.31656pt>
+Package pdftex.def Info: vowel_inventory_closure.png  used on input line 268.
+(pdftex.def)             Requested size: 344.005pt x 204.51738pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10 <./vowel_inventory_base.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 <./vowel_inventory_closure.png>] [12] [13] [14]
+<vowel_inventory_privative.png, id=74, 671.50874pt x 607.26875pt>
 File: vowel_inventory_privative.png Graphic file (type png)
 <use vowel_inventory_privative.png>
-Package pdftex.def Info: vowel_inventory_privative.png  used on input line 429.
- on input line 429.
-Package pdftex.def Info: Requested size: 387.00153pt x 249.49324pt on input lin
-e 429.
+Package pdftex.def Info: vowel_inventory_privative.png  used on input line 430.
+
+(pdftex.def)             Requested size: 387.00153pt x 349.97371pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [15] [16 <./vowel_inventory_privative.png>] [17] [18] [19]
-<vowel_inventory_contrastive.png, id=92, 658.46pt x 713.66624pt>
+<vowel_inventory_contrastive.png, id=91, 658.46pt x 713.66624pt>
 File: vowel_inventory_contrastive.png Graphic file (type png)
 <use vowel_inventory_contrastive.png>
 Package pdftex.def Info: vowel_inventory_contrastive.png  used on input line 55
-0. on input line 550.
-Package pdftex.def Info: Requested size: 430.00462pt x 466.06638pt on input lin
-e 550.
+1.
+(pdftex.def)             Requested size: 430.00462pt x 466.06638pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[20] [21 <./vowel_inventory_contrastive.png>] [22] [23] [24]
-<biggun.png, id=109, 547.04375pt x 668.4975pt>
+[20]
+Overfull \vbox (0.36252pt too high) has occurred while \output is active []
+
+
+[21 <./vowel_inventory_contrastive.png>] [22] [23] [24]
+<biggun.png, id=108, 1092.08pt x 1233.60875pt>
 File: biggun.png Graphic file (type png)
 <use biggun.png>
-Package pdftex.def Info: biggun.png  used on input line 640. on input line 640.
-
-Package pdftex.def Info: Requested size: 430.00462pt x 525.47552pt on input lin
-e 640.
+Package pdftex.def Info: biggun.png  used on input line 643.
+(pdftex.def)             Requested size: 430.00462pt x 485.73602pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [25]
 
-LaTeX Warning: Citation `TODO' undefined on input line 653.
+LaTeX Warning: Citation `TODO' undefined on input line 656.
 
 
-LaTeX Warning: Citation `Paker2002' undefined on input line 657.
+LaTeX Warning: Citation `MayerInProgress' undefined on input line 656.
 
-[26]
-Overfull \hbox (3.06328pt too wide) in paragraph at lines 678--678
+
+LaTeX Warning: Citation `Paker2002' undefined on input line 660.
+
+[26] [27]
+Overfull \hbox (3.06328pt too wide) in paragraph at lines 681--681
 []\OT1/cmr/bx/n/14.4 The breadth-first al-go-rithm for adding com-ple-ment clas
 ses 
  []
 
-[27]
 
-LaTeX Warning: Reference `fig:closure' on page 28 undefined on input line 683.
+LaTeX Warning: Reference `fig:closure' on page 28 undefined on input line 686.
 
 [28] [29] (./Featurization.bbl [30]) [31] [32 <./biggun.png>]
 (./Featurization.aux)
@@ -902,10 +905,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13548 strings out of 494855
- 243750 string characters out of 6179188
- 284933 words of memory out of 5000000
- 16726 multiletter control sequences out of 15000+600000
+ 13789 strings out of 494847
+ 248834 string characters out of 6179080
+ 289565 words of memory out of 5000000
+ 16975 multiletter control sequences out of 15000+600000
  545849 words of font info for 77 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  41i,10n,31p,10483b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -929,9 +932,9 @@ nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/fkr/tipa/ti
 pa10.pfb>
-Output written on Featurization.pdf (32 pages, 520089 bytes).
+Output written on Featurization.pdf (32 pages, 547862 bytes).
 PDF statistics:
- 204 PDF objects out of 1000 (max. 8388607)
+ 202 PDF objects out of 1000 (max. 8388607)
  136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)

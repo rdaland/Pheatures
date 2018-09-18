@@ -398,30 +398,6 @@ Mayer, C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Mayer%
-}{%
-Mayer%
-}{%
-{\protect \APACyear {in progress}}%
-}]{%
-MayerInProgress}
-\APACinsertmetastar {%
-MayerInProgress}%
-\begin{APACrefauthors}%
-Mayer, C.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{in progress}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Learning phonological features from distributional
-  information} {Learning phonological features from distributional
-  information}.{\BBCQ}
-\newblock
-
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
 Mielke%
 }{%
 Mielke%

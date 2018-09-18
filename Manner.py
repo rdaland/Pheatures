@@ -37,7 +37,7 @@ feats = Featurizer(input_classes = classes,
                    specification = Specification.CONTRASTIVE_UNDER)
 feats.get_features_from_classes()
 feats.print_featurization()
-feats.poset.graph_poset2('manner_underspec.gv')
+feats.graph_poset('manner_underspec')
 
 
 
