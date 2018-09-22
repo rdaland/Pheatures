@@ -20,18 +20,11 @@ DEFAULT_CSV_FILE = "csv_output/features.csv"
 DEFAULT_POSET_FILENAME = "poset_output/poset_graph.gv"
 DEFAULT_FEATS_FILENAME = "feats_output/feats_graph.gv"
 
-DEFAULT_COMPLEMENT_METHOD = 'bfs'
-
 class Specification(Enum):
     PRIVATIVE = 0
     CONTRASTIVE_UNDER = 1
     CONTRASTIVE = 2
     FULL = 3
-
-class ComplementMethod(Enum):
-    NO_BFS = 0
-    BFS = 1
-    BATCH = 2
 
 FEATURIZATION_MAP = {
     'privative': Specification.PRIVATIVE,
@@ -40,17 +33,9 @@ FEATURIZATION_MAP = {
     'full': Specification.FULL
 }
 
-COMPLEMENT_METHOD_MAP = {
-    'no_bfs': ComplementMethod.NO_BFS,
-    'bfs': ComplementMethod.BFS,
-    'batch': ComplementMethod.BATCH
-}
-
 class Featurizer():
     def __init__(self, input_classes, alphabet,
-                 specification=Specification.CONTRASTIVE_UNDER, verbose=False,
-                 sort_children=True, complement_method=ComplementMethod.BFS,
-                 sort_ascending=False):
+                 specification=Specification.CONTRASTIVE_UNDER, verbose=False):
         '''
             Default class constructor that must be given an alphabet and a set
             of input classes.
@@ -70,15 +55,11 @@ class Featurizer():
         self.alphabet = alphabet
         self.specification = specification
         self.verbose = verbose
-        self.sort_children = sort_children
-        self.complement_method = complement_method
-        self.sort_ascending = sort_ascending
         self.reset()
 
     @classmethod
     def from_file(cls, filename, specification=Specification.CONTRASTIVE_UNDER,
-                  use_numpy=False, verbose=False, sort_children=True,
-                  complement_method=ComplementMethod.BFS, sort_ascending=False):
+                  use_numpy=False, verbose=False):
         '''
             An alternative constructor that creates a Featurizer object based on
             the contents of a file. The file should have the following format
@@ -102,11 +83,7 @@ class Featurizer():
                 c = set(line.rstrip().split(' '))
                 if c:
                     classes.append(c)
-        return Featurizer(
-            classes, alphabet, specification, verbose=verbose,
-            sort_children=sort_children, complement_method=complement_method,
-            sort_ascending=sort_ascending
-        )
+        return Featurizer(classes, alphabet, specification, verbose=verbose)
 
     def reset(self):
         '''
@@ -124,7 +101,9 @@ class Featurizer():
 
         # Build an intersectionally closed poset from the input classes
         self.poset = Poset(self.alphabet, self.input_classes)
+        self.poset.graph_poset("original.gv")
         self.poset.get_intersectional_closure()
+        self.poset.graph_poset("closure.gv")
 
     def set_segment_features(self, c, feature):
         '''
@@ -361,144 +340,28 @@ class Featurizer():
             print("{}:\t{}".format(key, sorted(value)))
         print() 
 
-    def add_complement_classes_no_bfs(self):
-        '''
-            For the contrastive and full specifications, pre-calculate the full
-            set of complement classes that will be added before doing the
-            featurization. This version does this without using breadth-first
-            search. It is included here only to illustrate the BFS is necessary.
-        '''
-        incomplete_classes = self.poset.classes.copy()
-        processed_classes = []
-
-        while incomplete_classes:
-            current_node = incomplete_classes.pop(0)
-            parents = self.poset.get_parents(current_node)
-            if (len(parents) == 1
-                    and current_node not in processed_classes):
-                # If we haven't already processed a child and it only has
-                # a single parent, define a complement class wrt the
-                # current class (contrastive) or the alphabet (full)
-                if self.specification == Specification.FULL:
-                    complement = self.alphabet - current_node
-                elif self.specification == Specification.CONTRASTIVE:
-                    complement = parents[0] - current_node
-                else:
-                    raise(
-                        "Complement classes cannot be calculated for "
-                        "specification type {}".format(self.specification)
-                    )
-                self.poset.add_class(complement, True)
-                processed_classes.extend([current_node, complement])
-
-        self.poset.get_intersectional_closure()
-
-    def add_complement_classes_batch(self):
-        '''
-            For the contrastive and full specifications, pre-calculate the full
-            set of complement classes that will be added before doing the
-            featurization. This is done using a breadth-first search of the poset
-            
-        '''
-        bfs_deque = deque([self.alphabet])
-        processed_classes = []
-
-        while bfs_deque:
-            current_node = bfs_deque.popleft()
-            # TODO: Do we actually need to sort?
-            if self.sort_children:
-                children = sorted(
-                    self.poset.get_children(current_node), key=len,
-                    reverse=not self.sort_ascending
-                )
-            else:
-                children = self.poset.get_children(current_node)
-            to_deque = []
-
-            # Go through the children of the current node to decide what to 
-            # append to the queue
-            child_complements = []
-            current_children = []
-            while children:
-                child = children.pop(0)
-                current_children.append(child)
-                if (len(self.poset.get_parents(child)) == 1
-                        and child not in processed_classes):
-                    # If we haven't already processed a child and it only has
-                    # a single parent, define a complement class wrt the
-                    # current class (contrastive) or the alphabet (full)
-                    if self.specification == Specification.FULL:
-                        complement = self.alphabet - child
-                    elif self.specification == Specification.CONTRASTIVE:
-                        complement = current_node - child
-                    else:
-                        raise(
-                            "Complement classes cannot be calculated for "
-                            "specification type {}".format(self.specification)
-                        )
-
-                    # Add this new class to the poset
-                    child_complements.append(complement)
-                    to_deque.append(complement)
-
-                to_deque.append(child)
-
-            for c in child_complements:
-                self.poset.add_class(c, True)
-            for c in current_children:
-                if current_node in self.poset.get_parents(c):
-                    processed_classes.append(c)
-            for c in child_complements:
-                if current_node in self.poset.get_parents(c):
-                    processed_classes.append(c)
-                    # If this new class intervenes between the current node
-                    # and any of its children, we want to add the new class
-                    # to the queue insted of the children to maintain BFS
-                    removed_indexes = []
-                    for i, other_child in enumerate(children):
-                        if (self.poset.is_subset(other_child, complement)
-                                or other_child == complement):
-                            removed_indexes.append(i)
-                    children = [
-                        x for i, x in enumerate(children)
-                        if i not in removed_indexes
-                    ]
-
-
-            bfs_deque.extend(to_deque)
-
-        self.poset.get_intersectional_closure()
-
     def add_complement_classes(self):
         '''
             For the contrastive and full specifications, pre-calculate the full
             set of complement classes that will be added before doing the
             featurization. This is done using a breadth-first search of the poset
-            Start with the alphabet
+            and adding the complements to the child classes simultaneously.
         '''
         bfs_deque = deque([self.alphabet])
-        processed_classes = []
 
         while bfs_deque:
             current_node = bfs_deque.popleft()
-            if self.sort_children:
-                children = sorted(
-                    self.poset.get_children(current_node), key=len,
-                    reverse=not self.sort_ascending
-                )
-            else:
-                children = self.poset.get_children(current_node)
-            updated_children = []
+            children = self.poset.get_children(current_node)
 
             # Go through the children of the current node to decide what to 
             # append to the queue
+            child_complements = []
             while children:
                 child = children.pop(0)
-                if (len(self.poset.get_parents(child)) == 1
-                        and child not in processed_classes):
-                    # If we haven't already processed a child and it only has
-                    # a single parent, define a complement class wrt the
-                    # current class (contrastive) or the alphabet (full)
+                if (len(self.poset.get_parents(child)) == 1):
+                    # If a child only has a single parent, define a complement
+                    # class wrt the current class (contrastive) or the
+                    # alphabet (full)
                     if self.specification == Specification.FULL:
                         complement = self.alphabet - child
                     elif self.specification == Specification.CONTRASTIVE:
@@ -508,30 +371,15 @@ class Featurizer():
                             "Complement classes cannot be calculated for "
                             "specification type {}".format(self.specification)
                         )
+                    child_complements.append(complement)
 
-                    # Add this new class to the poset
-                    self.poset.add_class(complement, update_closure=True)
+            # Add new classes to the poset simultaneously
+            self.poset.add_classes(child_complements, update_closure=True)
 
-                    # If this new class intervenes between the current node
-                    # and any of its children, we want to add the new class
-                    # to the queue insted of the children to maintain BFS
-                    removed_indexes = []
-                    for i, other_child in enumerate(children):
-                        if (self.poset.is_subset(other_child, complement)
-                                or other_child == complement):
-                            removed_indexes.append(i)
-                    children = [
-                        x for i, x in enumerate(children)
-                        if i not in removed_indexes
-                    ]
-
-                    updated_children.append(complement)
-                    processed_classes.append(complement)
-
-                updated_children.append(child)
-                processed_classes.append(child)
-
-            bfs_deque.extend(updated_children)
+            # Get the new children of the current parent node and add them to
+            # the queue to be processed.
+            new_children = self.poset.get_children(current_node)
+            bfs_deque.extend(new_children)
 
     def featurize_classes(self):
         if self.verbose:
@@ -588,14 +436,7 @@ class Featurizer():
             featurize the poset
         '''
         if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
-            if self.complement_method == ComplementMethod.NO_BFS:
-                self.add_complement_classes_no_bfs()
-            elif self.complement_method == ComplementMethod.BFS:
-                self.add_complement_classes()
-            elif self.complement_method == ComplementMethod.BATCH:
-                self.add_complement_classes_batch()
-            else:
-                raise Exception("Unknown complement class method {}".format(self.complement_method))
+            self.add_complement_classes()
         self.featurize_classes()
 
 if __name__ == "__main__":
@@ -631,32 +472,11 @@ if __name__ == "__main__":
         '--verbose', action='store_true',
         help='Prints additional information throughout the course of the featurization.'
     )
-    parser.add_argument(
-        '--no_child_sort', action='store_false',
-        help='In contrastive and full specification, removes the restriction '
-             'that the children of a node must be traversed in descending '
-             'order of size when doing BFS.'
-    )
-    parser.add_argument(
-        '--sort_ascending', action='store_true',
-        help='In contrastive and full specification, sorts children of a node '
-             'in ascending order by size when traversing the poset in BFS.'
-    )
-    parser.add_argument(
-        '--complement_method', type=str, default=DEFAULT_COMPLEMENT_METHOD,
-        help="The method to use when adding complements during contrastive "
-             "and full specification. The options are 'no_bfs', which does "
-             "not use BFS but rather chooses classes in an arbitrary order, "
-             "'bfs', which is the scheme discussed in the paper, and 'batch', "
-             "which does BFS but processes all child classes at the same time."
-    )
     args = parser.parse_args()
     specification = FEATURIZATION_MAP.get(args.featurization)
-    complement_method = COMPLEMENT_METHOD_MAP.get(args.complement_method)
     featurizer = Featurizer.from_file(
         args.input_file, specification, use_numpy=args.use_numpy,
-        verbose=args.verbose, sort_children=args.no_child_sort,
-        complement_method=complement_method, sort_ascending=args.sort_ascending
+        verbose=args.verbose
     )
     featurizer.get_features_from_classes()
     featurizer.print_featurization()

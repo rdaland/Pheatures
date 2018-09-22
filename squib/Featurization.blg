@@ -15,48 +15,46 @@ Database file #1: mybib.bib.bib
 Warning--entry type for "Longerich1998" isn't style-file defined
 --line 111 of file mybib.bib.bib
 Warning--I didn't find a database entry for "TODO"
-Warning--I didn't find a database entry for "MayerInProgress"
-Warning--I didn't find a database entry for "Paker2002"
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
-You've used 21 entries,
+You've used 24 entries,
             6951 wiz_defined-function locations,
-            1424 strings with 13425 characters,
-and the built_in function-call counts, 34607 in all, are:
-= -- 4423
-> -- 266
-< -- 1434
-+ -- 1393
-- -- 42
-* -- 2023
-:= -- 5950
-add.period$ -- 90
-call.type$ -- 21
-change.case$ -- 359
+            1439 strings with 13723 characters,
+and the built_in function-call counts, 39889 in all, are:
+= -- 5214
+> -- 290
+< -- 1607
++ -- 1537
+- -- 48
+* -- 2260
+:= -- 6699
+add.period$ -- 108
+call.type$ -- 24
+change.case$ -- 412
 chr.to.int$ -- 0
-cite$ -- 42
-duplicate$ -- 875
-empty$ -- 1525
-format.name$ -- 407
-if$ -- 6924
+cite$ -- 48
+duplicate$ -- 965
+empty$ -- 1758
+format.name$ -- 418
+if$ -- 8079
 int.to.chr$ -- 0
-int.to.str$ -- 63
+int.to.str$ -- 72
 missing$ -- 0
-newline$ -- 497
-num.names$ -- 173
-pop$ -- 668
+newline$ -- 562
+num.names$ -- 201
+pop$ -- 754
 preamble$ -- 1
-purify$ -- 84
+purify$ -- 96
 quote$ -- 0
-skip$ -- 2578
+skip$ -- 3148
 stack$ -- 0
-substring$ -- 1543
-swap$ -- 518
-text.length$ -- 47
+substring$ -- 1724
+swap$ -- 580
+text.length$ -- 60
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 1944
+type$ -- 2440
 warning$ -- 0
-while$ -- 140
+while$ -- 149
 width$ -- 0
-write$ -- 576
-(There were 4 warnings)
+write$ -- 634
+(There were 2 warnings)

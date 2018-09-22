@@ -2,6 +2,29 @@
 
 \bibitem [\protect \citeauthoryear {%
 Archangeli%
+}{%
+Archangeli%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+Archangeli1988}
+\APACinsertmetastar {%
+Archangeli1988}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Aspects of Underspecification Theory} {Aspects of
+  underspecification theory}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Phonology}{5}{}{183-207}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
 \ \BBA {} Pulleyblank%
 }{%
 Archangeli%
@@ -47,6 +70,32 @@ Blevins, J.%
   {Evolutionary phonology: {T}he emergence of sound patterns}.
 \newblock
 \APACaddressPublisher{Cambridge}{Cambridge University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Broe%
+}{%
+Broe%
+}{%
+{\protect \APACyear {1993}}%
+}]{%
+Broe1993}
+\APACinsertmetastar {%
+Broe1993}%
+\begin{APACrefauthors}%
+Broe, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1993}.
+\unskip\
+\newblock
+\APACrefbtitle {Specification Theory: The Treatment of Redundancy in Generative
+  Phonology} {Specification theory: The treatment of redundancy in generative
+  phonology}\ \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{University of Edinburgh}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -193,6 +242,33 @@ Dijkstra, E\BPBI W.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Dresher%
+}{%
+Dresher%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+Dresher2003}
+\APACinsertmetastar {%
+Dresher2003}%
+\begin{APACrefauthors}%
+Dresher, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The contrastive hierarchy in phonology} {The contrastive
+  hierarchy in phonology}.{\BBCQ}
+\newblock
+\BIn{} D\BPBI C.~Hall\ (\BED), \APACrefbtitle {Toronto Working Papers in
+  Linguistics 20: Special issue on contrast in phonology.} {Toronto working
+  papers in linguistics 20: Special issue on contrast in phonology.}
+\newblock
+\APACaddressPublisher{}{University of Toronto}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Goldsmith%
 \ \BBA {} Xanthos%
 }{%
@@ -216,33 +292,6 @@ Goldsmith, J.%
   categories}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Language}{85}{}{4-38}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Hayes%
-\ \BBA {} Wilson%
-}{%
-Hayes%
-\ \BBA {} Wilson%
-}{%
-{\protect \APACyear {2008}}%
-}]{%
-HayesWilson2008}
-\APACinsertmetastar {%
-HayesWilson2008}%
-\begin{APACrefauthors}%
-Hayes, B.%
-\BCBT {}\ \BBA {} Wilson, C.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2008}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {A maximum entropy model of phonotactics and phonotactic
-  learning} {A maximum entropy model of phonotactics and phonotactic
-  learning}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Linguistic Inquiry}{39}{3}{379 - 440}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -321,6 +370,33 @@ Kiparsky, P.%
   theory} {Three dimensions of linguistic theory}\ (\BPG~1-136).
 \newblock
 \APACaddressPublisher{Tokyo}{TEC Co}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lin%
+}{%
+Lin%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+Lin2005}
+\APACinsertmetastar {%
+Lin2005}%
+\begin{APACrefauthors}%
+Lin, Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\unskip\
+\newblock
+\APACrefbtitle {Learning Features and Segments from Waveforms: A Statistical
+  Model of Early Phonological Acquisiton} {Learning features and segments from
+  waveforms: A statistical model of early phonological acquisiton}\
+  \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{UCLA}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -444,33 +520,29 @@ Mielke, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Peperkamp%
-, Calvez%
-, Nadal%
-\BCBL {}\ \BBA {} Dupoux%
+Steriade%
 }{%
-Peperkamp%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2006}}%
+Steriade%
+}{%
+{\protect \APACyear {1995}}%
 }]{%
-PeperkampEtAl2006}
+Steriade1995}
 \APACinsertmetastar {%
-PeperkampEtAl2006}%
+Steriade1995}%
 \begin{APACrefauthors}%
-Peperkamp, S.%
-, Calvez, R\BPBI L.%
-, Nadal, J.%
-\BCBL {}\ \BBA {} Dupoux, E.%
+Steriade, D.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYearMonthDay{2006}{}{}.
+\APACrefYearMonthDay{1995}{}{}.
 \newblock
-{\BBOQ}\APACrefatitle {The acquisition of allophonic rules: Statistical
-  learning with linguistic constraints} {The acquisition of allophonic rules:
-  Statistical learning with linguistic constraints}.{\BBCQ}
+{\BBOQ}\APACrefatitle {Markedness and Underspecification} {Markedness and
+  underspecification}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Cognition}{101}{}{B31-B41}.
+\BIn{} J.~Goldsmith\ (\BED), \APACrefbtitle {The Handbook of Phonological
+  Theory} {The handbook of phonological theory}\ (\BPG~114-175).
+\newblock
+\APACaddressPublisher{Oxford/Cambridge, MA}{Blackwell}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%

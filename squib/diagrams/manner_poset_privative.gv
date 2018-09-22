@@ -1,0 +1,22 @@
+// None
+digraph {
+	graph [ dpi = 300 ];
+	0 [label="V, G, L, N",shape=box]
+	1 [label="N, T",shape=box]
+	2 [label="V, G, L",shape=box]
+	3 [label="N",shape=box]
+	4 [label="T",shape=box]
+	5 [label="V",shape=box]
+	6 [label="G",shape=box]
+	7 [label="L",shape=box]
+	8 [label="V, G, L, N, T"]
+	0 -> 2 []
+	0 -> 3 [style=dotted]
+	1 -> 3 [style=dotted]
+	1 -> 4 []
+	2 -> 5 []
+	2 -> 6 []
+	2 -> 7 []
+	8 -> 0 []
+	8 -> 1 []
+}

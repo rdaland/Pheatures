@@ -1,0 +1,16 @@
+// None
+digraph {
+	graph [ dpi = 300 ];
+	0 [label="{<segs> a, b, c, d, e, f |<feats>  }",shape=record]
+	1 [label="{<segs> c, e, f |<feats> +F1\n-F2\n-F3 }",shape=record]
+	2 [label="{<segs> a, c, e, f |<feats> +F1 }",shape=record]
+	3 [label="{<segs> a, b |<feats> +F2\n+F3 }",shape=record]
+	4 [label="{<segs> a |<feats> +F1\n+F2\n+F3 }",shape=record]
+	5 [label="{<segs> a, b, d |<feats> +F3 }",shape=record]
+	6 [label="{<segs> b, d |<feats> -F1\n+F3 }",shape=record]
+	7 [label="{<segs> b |<feats> -F1\n+F2\n+F3 }",shape=record]
+	8 [label="{<segs> c, d, e, f |<feats> -F2 }",shape=record]
+	9 [label="{<segs> d |<feats> -F1\n-F2\n+F3 }",shape=record]
+	0 -> 2	0 -> 5	0 -> 8	2 -> 1	2 -> 4	3 -> 4	3 -> 7	5 -> 3	5 -> 6	6 -> 7	6 -> 9	8 -> 1	8 -> 9
+{rank=same; 4 7 9}
+}

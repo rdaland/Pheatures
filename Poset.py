@@ -48,32 +48,27 @@ class Poset():
         self.calculate_subset_matrix()
         self.calculate_daughter_matrix()
 
-    def add_class(self, new_class, update_closure=False):
+    def add_classes(self, new_classes, update_closure=False):
         """
         Adds a new class to the poset and recalculates the subset and 
         daughter matrices.
 
         Returns False if class was already in the poset, True otherwise
         """
-        new_class = set(new_class)
-
-        if new_class in self.classes:
-            return False
+        new_classes = [x for x in new_classes if x not in self.classes]
 
         if update_closure:
             # Update intersectional closure
             self.get_intersectional_closure(
                 existing_closure=self.classes,
-                new_classes=[new_class]
+                new_classes=new_classes
             )
         else:
             # Just add the class to the poset without recalculating the
             # intersectional closure.
-            self.classes.append(new_class)
+            self.classes.extend(new_classes)
             self.calculate_subset_matrix()
             self.calculate_daughter_matrix()
-
-        return True
 
     def calculate_subset_matrix(self):
         """

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.21)  16 SEP 2018 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.21)  22 SEP 2018 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -217,6 +217,9 @@ Package: apacite 2013/07/21 v6.03 APA citation
 \bibparsep=\skip54
 \bibitemsep=\skip55
 \biblabelsep=\skip56
+)
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
 )
 (/usr/share/texlive/texmf-dist/tex/latex/regexpatch/regexpatch.sty
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
@@ -666,24 +669,24 @@ put line 42.
  (./Featurization.aux)
 \openout1 = `Featurization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 38.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 40.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 40.
  (/usr/share/texmf/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    ... okay on input line 40.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -791,12 +794,12 @@ File: english.apc 2013/07/21 v6.03 apacite language file
 LaTeX Info: Redefining \BPBI on input line 129.
 LaTeX Info: Redefining \BHBI on input line 130.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+LaTeX Font Info:    Try loading font information for U+msa on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -811,107 +814,136 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<manner_poset_privative.png, id=26, 351.3125pt x 326.21875pt>
-File: manner_poset_privative.png Graphic file (type png)
-<use manner_poset_privative.png>
-Package pdftex.def Info: manner_poset_privative.png  used on input line 97.
-(pdftex.def)             Requested size: 215.0023pt x 199.65019pt.
+<diagrams/manner_poset_privative.png, id=23, 1175.39125pt x 1087.06125pt>
+File: diagrams/manner_poset_privative.png Graphic file (type png)
+<use diagrams/manner_poset_privative.png>
+Package pdftex.def Info: diagrams/manner_poset_privative.png  used on input lin
+e 102.
+(pdftex.def)             Requested size: 215.0023pt x 198.83073pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] [5 <./manner_poset_privative.png>] [6]
+[4] [5 <./diagrams/manner_poset_privative.png>] [6] [7] [8]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7] [8] [9]
-<vowel_inventory_base.png, id=52, 660.4675pt x 288.07625pt>
-File: vowel_inventory_base.png Graphic file (type png)
-<use vowel_inventory_base.png>
-Package pdftex.def Info: vowel_inventory_base.png  used on input line 261.
-(pdftex.def)             Requested size: 344.005pt x 150.05106pt.
-<vowel_inventory_closure.png, id=54, 658.46pt x 391.4625pt>
-File: vowel_inventory_closure.png Graphic file (type png)
-<use vowel_inventory_closure.png>
-Package pdftex.def Info: vowel_inventory_closure.png  used on input line 268.
-(pdftex.def)             Requested size: 344.005pt x 204.51738pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[10 <./vowel_inventory_base.png>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11 <./vowel_inventory_closure.png>] [12] [13] [14]
-<vowel_inventory_privative.png, id=74, 671.50874pt x 607.26875pt>
-File: vowel_inventory_privative.png Graphic file (type png)
-<use vowel_inventory_privative.png>
-Package pdftex.def Info: vowel_inventory_privative.png  used on input line 430.
-
-(pdftex.def)             Requested size: 387.00153pt x 349.97371pt.
+[9]
+<diagrams/vowel_inventory_base.png, id=54, 1764.5925pt x 1087.06125pt>
+File: diagrams/vowel_inventory_base.png Graphic file (type png)
+<use diagrams/vowel_inventory_base.png>
+Package pdftex.def Info: diagrams/vowel_inventory_base.png  used on input line 
+269.
+(pdftex.def)             Requested size: 344.005pt x 211.91803pt.
+<diagrams/vowel_inventory_closure.png, id=55, 1463.4675pt x 1388.18625pt>
+File: diagrams/vowel_inventory_closure.png Graphic file (type png)
+<use diagrams/vowel_inventory_closure.png>
+Package pdftex.def Info: diagrams/vowel_inventory_closure.png  used on input li
+ne 276.
+(pdftex.def)             Requested size: 301.00192pt x 285.51202pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15] [16 <./vowel_inventory_privative.png>] [17] [18] [19]
-<vowel_inventory_contrastive.png, id=91, 658.46pt x 713.66624pt>
-File: vowel_inventory_contrastive.png Graphic file (type png)
-<use vowel_inventory_contrastive.png>
-Package pdftex.def Info: vowel_inventory_contrastive.png  used on input line 55
-1.
+[10 <./diagrams/vowel_inventory_base.png>] [11 <./diagrams/vowel_inventory_clos
+ure.png>] [12] [13] [14] [15]
+<diagrams/vowel_inventory_privative.png, id=76, 2065.7175pt x 1994.45125pt>
+File: diagrams/vowel_inventory_privative.png Graphic file (type png)
+<use diagrams/vowel_inventory_privative.png>
+Package pdftex.def Info: diagrams/vowel_inventory_privative.png  used on input 
+line 438.
+(pdftex.def)             Requested size: 387.00153pt x 373.65436pt.
+ [16] [17 <./diagrams/vowel_inventory_privative.png>] [18]
+<diagrams/vowel_inventory_contrastive_under.png, id=86, 661.47125pt x 698.61pt>
+
+File: diagrams/vowel_inventory_contrastive_under.png Graphic file (type png)
+<use diagrams/vowel_inventory_contrastive_under.png>
+Package pdftex.def Info: diagrams/vowel_inventory_contrastive_under.png  used o
+n input line 510.
+(pdftex.def)             Requested size: 387.00153pt x 408.72252pt.
+ [19] [20 <./diagrams/vowel_inventory_contrastive_under.png>] [21]
+<diagrams/vowel_inventory_contrastive.png, id=98, 658.46pt x 713.66624pt>
+File: diagrams/vowel_inventory_contrastive.png Graphic file (type png)
+<use diagrams/vowel_inventory_contrastive.png>
+Package pdftex.def Info: diagrams/vowel_inventory_contrastive.png  used on inpu
+t line 557.
 (pdftex.def)             Requested size: 430.00462pt x 466.06638pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[20]
+[22]
 Overfull \vbox (0.36252pt too high) has occurred while \output is active []
 
 
-[21 <./vowel_inventory_contrastive.png>] [22] [23] [24]
-<biggun.png, id=108, 1092.08pt x 1233.60875pt>
-File: biggun.png Graphic file (type png)
-<use biggun.png>
-Package pdftex.def Info: biggun.png  used on input line 643.
+[23 <./diagrams/vowel_inventory_contrastive.png>]
+<diagrams/vowel_inventory_full.png, id=106, 2667.9675pt x 1994.45125pt>
+File: diagrams/vowel_inventory_full.png Graphic file (type png)
+<use diagrams/vowel_inventory_full.png>
+Package pdftex.def Info: diagrams/vowel_inventory_full.png  used on input line 
+600.
+(pdftex.def)             Requested size: 430.00462pt x 321.43161pt.
+ [24] [25 <./diagrams/vowel_inventory_full.png>] [26] [27]
+<diagrams/biggun.png, id=120, 1092.08pt x 1233.60875pt>
+File: diagrams/biggun.png Graphic file (type png)
+<use diagrams/biggun.png>
+Package pdftex.def Info: diagrams/biggun.png  used on input line 661.
 (pdftex.def)             Requested size: 430.00462pt x 485.73602pt.
+ [28] [29 <./diagrams/biggun.png>]
 
+LaTeX Warning: Citation `TODO' undefined on input line 675.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[25]
-
-LaTeX Warning: Citation `TODO' undefined on input line 656.
-
-
-LaTeX Warning: Citation `MayerInProgress' undefined on input line 656.
-
-
-LaTeX Warning: Citation `Paker2002' undefined on input line 660.
-
-[26] [27]
-Overfull \hbox (3.06328pt too wide) in paragraph at lines 681--681
+[30]
+Overfull \hbox (3.06328pt too wide) in paragraph at lines 701--701
 []\OT1/cmr/bx/n/14.4 The breadth-first al-go-rithm for adding com-ple-ment clas
 ses 
  []
 
-
-LaTeX Warning: Reference `fig:closure' on page 28 undefined on input line 686.
-
-[28] [29] (./Featurization.bbl [30]) [31] [32 <./biggun.png>]
+[31] [32]
+<diagrams/bfs1.png, id=137, 594.22pt x 785.93625pt>
+File: diagrams/bfs1.png Graphic file (type png)
+<use diagrams/bfs1.png>
+Package pdftex.def Info: diagrams/bfs1.png  used on input line 747.
+(pdftex.def)             Requested size: 85.9996pt x 113.73598pt.
+<diagrams/bfs1_feats.png, id=138, 1187.43625pt x 1522.68875pt>
+File: diagrams/bfs1_feats.png Graphic file (type png)
+<use diagrams/bfs1_feats.png>
+Package pdftex.def Info: diagrams/bfs1_feats.png  used on input line 756.
+(pdftex.def)             Requested size: 171.99922pt x 220.54025pt.
+ [33 <./diagrams/bfs1.png>]
+<diagrams/bfs2_feats.png, id=143, 1229.59375pt x 986.68625pt>
+File: diagrams/bfs2_feats.png Graphic file (type png)
+<use diagrams/bfs2_feats.png>
+Package pdftex.def Info: diagrams/bfs2_feats.png  used on input line 767.
+(pdftex.def)             Requested size: 171.99922pt x 138.01468pt.
+ [34 <./diagrams/bfs1_feats.png> <./diagrams/bfs2_feats.png>]
+<diagrams/sibling_input.png, id=148, 861.2175pt x 484.81125pt>
+File: diagrams/sibling_input.png Graphic file (type png)
+<use diagrams/sibling_input.png>
+Package pdftex.def Info: diagrams/sibling_input.png  used on input line 783.
+(pdftex.def)             Requested size: 129.00269pt x 72.61497pt.
+<diagrams/sibling_output1.png, id=149, 861.2175pt x 986.68625pt>
+File: diagrams/sibling_output1.png Graphic file (type png)
+<use diagrams/sibling_output1.png>
+Package pdftex.def Info: diagrams/sibling_output1.png  used on input line 792.
+(pdftex.def)             Requested size: 129.00269pt x 147.78577pt.
+ [35 <./diagrams/sibling_input.png> <./diagrams/sibling_output1.png>]
+<diagrams/sibling_output2.png, id=153, 861.2175pt x 1049.9225pt>
+File: diagrams/sibling_output2.png Graphic file (type png)
+<use diagrams/sibling_output2.png>
+Package pdftex.def Info: diagrams/sibling_output2.png  used on input line 803.
+(pdftex.def)             Requested size: 129.00269pt x 157.2573pt.
+ (./Featurization.bbl [36 <./diagrams/sibling_output2.png>]) [37]
 (./Featurization.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13789 strings out of 494847
- 248834 string characters out of 6179080
- 289565 words of memory out of 5000000
- 16975 multiletter control sequences out of 15000+600000
+ 13872 strings out of 494847
+ 250987 string characters out of 6179080
+ 291027 words of memory out of 5000000
+ 17045 multiletter control sequences out of 15000+600000
  545849 words of font info for 77 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,10n,31p,10483b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,10n,31p,10483b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
@@ -932,10 +964,10 @@ nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/fkr/tipa/ti
 pa10.pfb>
-Output written on Featurization.pdf (32 pages, 547862 bytes).
+Output written on Featurization.pdf (37 pages, 1335089 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
+ 231 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
