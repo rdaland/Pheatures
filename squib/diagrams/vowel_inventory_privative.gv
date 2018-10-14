@@ -16,17 +16,20 @@ digraph {
 	13 [label="{<segs> i, y |<feats> +nonlow\n+front\n+high }",shape=record,color=red]
 	14 [label="{<segs> u, y |<feats> +nonlow\n+high\n+round }",shape=record,color=red]
 
-	0 -> {1 11}
-	1 -> {2 3 4}
+	0 -> 1 [xlabel="+nonlow",fontcolor=red]
+	0 -> 11 [label="+low",fontcolor=red]
+	1 -> 2 [xlabel="+front",fontcolor=red]
+	1 -> 3 [label="+round",fontcolor=red]
+	1 -> 4 [xlabel="+high",fontcolor=red]
 	{2 3} -> 12 [style=dashed]
 	{3 4} -> 14 [style=dashed]
 	{2 4} -> 13 [style=dashed]
-	2 -> 8
-	3 -> 10
+	2 -> 8 [xlabel="+ɛ",fontcolor=red]
+	3 -> 10[label="+o",fontcolor=red]
 	{12 13 14} -> 6 [style=dashed]
-	12 -> 9
-	13 -> 5
-	14 -> 7
+	12 -> 9 [label="+œ",fontcolor=red]
+	13 -> 5 [xlabel="+i",fontcolor=red]
+	14 -> 7 [label="+u",fontcolor=red]
 {rank=same; 5 6 7 8 9 10}
 {rank=same; 1 11}
 }
