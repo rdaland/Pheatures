@@ -103,6 +103,10 @@ A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ 
   \caption{A manner hierarchy class system.}
   \label{fig:manner_input}
 \end{figure}
+% ROBERT SEZ: 
+%	I changed Fig. 1 to have rectangular box for every class.
+%    Note that on my machine I have not been able to figure out how to get dot to map directly to PNG.
+%    The [dpi = ...] argument produces invalid SVG. So for now I will leave that part out.
 
 \vspace{\baselineskip} \noindent The parent/child relationship is of central importance to this work, so we formalize it carefully here.
 
@@ -112,9 +116,9 @@ A \textit{class system} $(\mathcal C, \Sigma)$ consists of an alphabet $\Sigma$ 
     \end{itemize}
 In other words, $X$ is a parent of $Y$ if a subset/superset relation holds, and there is no `intervening' class between them. 
 
-In Fig.~\ref{fig:manner_input}, there is a `path' from the alphabet through the sonorants to the continuants. This means the sonorants are a child of the alphabet, and the continuants are a child of the sonorants. The existence of this path implies the continuants are a subset of the alphabet,\footnote{Formally, the subset/superset relation is the \textit{transitive closure} of the parent/child relation, and the parent/child relation is the \textit{transitive reduction} of the subset/superset relation.} but crucially, the continuants are not a child of the alphabet because the sonorants intervene. It is convenient to depict parent/child relationships (rather than subset/superset) to avoid crowding the graph. But this relation is also important for the featurization algorithms we describe later. We additionally define $\textsc{parents}(Y)$ as the set of classes which are parents of a class $Y$, and $\textsc{children}(Y)$ as the set of classes which are children of a class $Y$.
+In Fig.~\ref{fig:manner_input}, there is a `path' from the alphabet through the sonorants to the continuants. This means the sonorants are a child of the alphabet, and the continuants are a child of the sonorants. The existence of this path implies the continuants are a subset of the alphabet,\footnote{Formally, the subset/superset relation is the \textit{transitive closure} of the parent/child relation, and the parent/child relation is the \textit{transitive reduction} of the subset/superset relation.} but crucially, the continuants are not a child of the alphabet because the sonorants intervene. One reason that we depict  parent/child relationships (rather than subset/superset) is to avoid crowding the graph. But there is an additional, theoretical reason -- this relation is also important for the featurization algorithms we describe later. We additionally define $\textsc{parents}(Y)$ as the set of classes which are parents of a class $Y$, and $\textsc{children}(Y)$ as the set of classes which are children of a class $Y$.
 
-There are some additional aspects of Fig.~\ref{fig:manner_input} which merit comment. First, the empty set is technically a daughter of the singletons (since it is a subset of everything) but it does not appear in the graph. This is because the empty set is a phonologically irrelevant class: it cannot partition the alphabet into segments which undergo a process and those which do not; and to say that it is equivalent to the source or target of a process is equivalent to saying that the process does not happen at all.\footnote{Some confusion may arise with regard to SPE-style rules. In SPE, the null set symbol is used to indicate the source/target of epenthesis/deletion rules. Thus, in SPE the null set symbol is used to denote an \underline{empty string}. In the present work, the null set symbol is used to denote the null set.} Second, the class \{N\} has two dotted arrows which extend to it, rather than a single solid line like the other classes. The dotted lines signify that \{N\} is the intersection of its parents: \{V, G, L, N\} $\cap$ \{N, T\} = \{N\}. As we will prove later, this entails that \{N\} can be expressed as the union of features which express \{V, G, L, N\} and \{N, T\} individually. Therefore, it does not need a new feature to distinguish it from other classes. We will also prove that the converse is true as well: a class needs a new feature just in case it cannot be expressed as the union of the features of its parents. This turns out to mean that a class needs a new feature if and only if it has a single parent. However, this is not guaranteed to be true for the input class system $\mathcal C$; instead, it holds for a derived class system $\mathcal C_\cap$ we call the intersectional closure. Some careful formalization is necessary to express these insights.
+There are some additional aspects of Fig.~\ref{fig:manner_input} which merit comment. First, the empty set is technically a daughter of the singletons (since it is a subset of everything) but it does not appear in the graph. This is because the empty set is a phonologically irrelevant class: it cannot partition the alphabet into segments which undergo a process and those which do not. To say that it is equivalent to the source or target of a process is equivalent to saying that the process does not happen at all.\footnote{Some confusion may arise with regard to SPE-style rules. In SPE, the null set symbol is used to indicate the source/target of epenthesis/deletion rules. Thus, in SPE the null set symbol is used to denote an \underline{empty string}. In the present work, the null set symbol is used to denote the null set.} For this reason, we generally omit the empty set throughout this paper. Second, the class \{N\} has two dotted arrows which extend to it, rather than a single solid line like the other classes. The dotted lines signify that \{N\} is the intersection of its parents: \{V, G, L, N\} $\cap$ \{N, T\} = \{N\}. As we will prove later, this entails that \{N\} can be expressed as the union of features which express \{V, G, L, N\} and \{N, T\} individually. Therefore, it does not need a new feature to distinguish it from other classes. In the next section, we develop the formal machinery to express this insights.
 
 \subsection{Feature systems and featurizations}
 
@@ -264,6 +268,8 @@ To illustrate this concept, we introduce the vowel inventory in Table~\ref{table
 
 \vspace{\baselineskip} \noindent $\mathcal C$ is depicted in Fig.~\ref{fig:vowel_inventory}; the intersectional closure $\mathcal C_\cap$ is depicted in Fig.~\ref{fig:vowel_inventory_closure}. The difference between the two is highlighted by using red circles for the `extra' classes.
 
+% FIGURE 2
+% ROBERT SEZ: looks good
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{vowel_inventory_base.png}
@@ -271,6 +277,8 @@ To illustrate this concept, we introduce the vowel inventory in Table~\ref{table
   \label{fig:vowel_inventory}
 \end{figure}
 
+% FIGURE 3
+% ROBERT SEZ: looks good except vowels are not all aligned on bottom
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{vowel_inventory_closure.png}
@@ -432,7 +440,12 @@ A featurization algorithm is \textit{sound} if for every class system $(\mathcal
 
 \vspace{\baselineskip} In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative specification algorithm to (the intersectional closure of) the vowel class inventory shown in Fig.~\ref{fig:vowel_inventory_closure}. We employ several conventions to jointly optimize readability and informativity. First, classes which have a single parent are visually highlighted using a thick, red border. These represent the classes that cannot be featurized simply by the union of their parents' features. Second, the arrow which leads to each such class is annotated with the feature/value pair that is used to distinguish it. This represents the `point' at which each feature is assigned. This could give the misleading impression that features are assigned to classes; so it is worth reinforcing here that features are maps from \textit{segments} to values. As a consequence, when the algorithm assigns a feature/value pairs to every segment in a class, the feature/value pair is automatically inherited by every descendant of the class. The set of features that is shared by all members of a class is represented under the node. The complete featurization assigned to each segment is thus represented by inspecting the singleton sets in the bottom row. For readability, we use feature names that are familiar from phonological theory when the feature picks out more than segment in isolation (but note that the algorithm knows nothing of phonetic substance -- as far as it is concerned, they are just arbitrary symbols). When the feature only picks out one segment, we name the feature after the segment.
 
+% FIGURE 4
 % ROBERT: This needs to be redone to include the [-low] class. I included the basic feature diagram here as a placeholder/starting point. The .gv file is in the diagrams folder if it's a useful. If you decide to start from your original file instead, make sure you convert it to 300 dpi.
+% ROBERT SEZ: ok. need
+%        to rename the features in diagram into human-ish things
+%        possibly make a footnote indicating the relation between the software output and the graphs
+%        double-check that the figure corresponds to the text -- it has the same input as in Fig. 3
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=0.9\textwidth]{vowel_inventory_privative.png}
@@ -505,6 +518,7 @@ The central insight developed in this paper is that a new feature needs to be as
 \vspace{\baselineskip} \noindent The soundness of this algorithm follows from the soundness of the privative specification algorithm. This is because the contrastive underspecification algorithm yields a feature system which generates the same class system as privative specification does. The difference between the two is that if the input contains complement sets, then contrastive underspecification will use a single feature with `$+$' and `$-$' values, where privative specification will have two features with just `$+$' values.
 
 % ROBERT: This is a new figure, and needs to be prettied up similar to the one above.
+% ROBERT SEZ: noted!
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{vowel_inventory_contrastive_under.png}
