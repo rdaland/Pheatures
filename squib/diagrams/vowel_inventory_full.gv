@@ -1,6 +1,5 @@
 // None
 digraph {
-	graph [ dpi = 300 ];
 	0 [label="{<segs> i, œ, a, y, u, o, ɛ |<feats>  }",shape=record]
 	1 [label="{<segs> i, œ, u, y, o, ɛ |<feats> +F1 }",shape=record]
 	2 [label="{<segs> y, i, ɛ, œ |<feats> +F1\n+F2 }",shape=record]
