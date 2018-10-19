@@ -27,23 +27,26 @@ digraph {
 	24 [label="{<segs> a, ɛ |<feats> -round\n-high }",shape=record]
 
 	0 -> 1 [label="+nonlow",fontcolor=red]
-	0 -> {15 17 19}
-	1 -> {2 3 4 20}
+	0 -> 15 [label="-front",fontcolor=blue]
+	0 -> 17 [label="-round",fontcolor=blue]
+	0 -> 19 [label="-high",fontcolor=blue]
+	1 -> {2 3 4}
+	{1 19} -> 20 [style=dotted]
 	2 -> {12 13 18 21}
 	3 -> {12 14 16 22}
 	4 -> {13 14}
-	12 -> {6 9}
-	13 -> {5 6}
-	14 -> {6 7}
+
+	{13 18} -> 5 [style=dotted]
+	{12 13 14} -> 6 [style=dotted]
+	{14 16} -> 7 [style=dotted]
+	{18 21 24} -> 8 [style=dotted]
+	{21 22 12} -> 9 [style=dotted]
+	{16 22 23} -> 10 [style=dotted]
+	{23 24} -> 11 [style=dotted]
+
 	15 -> {16 23}
-	16 -> {7 10}
 	17 -> {18 24}
-	18 -> {5 8}
-	19 -> {20 23 24}
+	19 -> {23 24}
 	20 -> {21 22}
-	21 -> {8 9}
-	22 -> {9 10}
-	23 -> {10 11}
-	24 -> {8 11}
 {rank=same; 5 6 7 8 9 10 11}
 }
