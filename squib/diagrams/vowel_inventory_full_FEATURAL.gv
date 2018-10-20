@@ -1,0 +1,61 @@
+// None
+digraph {
+	SIGMA [label="{<segs> i, œ, a, y, u, o, ɛ |<feats>  }",shape=record]
+
+	LOW [label="{<segs> a |<feats> -nonlow\n-front\n-round\n-high }",shape=record]
+	NONLOW[label="{<segs> i, œ, u, y, o, ɛ |<feats> +nonlow }",shape=record]
+	FRONT[label="{<segs> y, i, ɛ, œ |<feats> +nonlow\n+front }",shape=record]
+	ROUND[label="{<segs> y, u, o, œ |<feats> +nonlow\n+round }",shape=record]
+	HIGH[label="{<segs> y, u, i |<feats> +nonlow\n+high }",shape=record]
+	NONFRONT [label="{<segs> a, u, o |<feats> -front }",shape=record]
+	NONROUND [label="{<segs> a, i, ɛ |<feats> -round }",shape=record]
+	NONHIGH [label="{<segs> a, o, ɛ, œ |<feats> -high }",shape=record]
+
+	SIGMA -> NONLOW [label="+nonlow",fontcolor=red]
+	SIGMA -> LOW [label="-nonlow",fontcolor=blue]
+	SIGMA -> NONFRONT [label="-front",fontcolor=blue]
+	SIGMA -> NONROUND [xlabel="-round",fontcolor=blue]
+	SIGMA -> NONHIGH [label="-high",fontcolor=blue]
+	SIGMA -> FRONT [xlabel="+front",fontcolor=red]
+	SIGMA -> ROUND [label="+round",fontcolor=red]
+	SIGMA -> HIGH [xlabel="+high",fontcolor=red]
+
+	FRONTROUND [label="{<segs> y, œ |<feats> +nonlow\n+front\n+round }",shape=record]
+	HIGHFRONT [label="{<segs> y, i |<feats> +nonlow\n+front\n+high }",shape=record]
+	HIGHROUND [label="{<segs> y, u |<feats> +nonlow\n+round\n+high }",shape=record]
+	NONFRONTROUND [label="{<segs> u, o |<feats> +nonlow\n-front\n+round }",shape=record]
+	FRONTNONROUND [label="{<segs> i, ɛ |<feats> +nonlow\n-round\n+front }",shape=record]
+	NONFRONTNONHIGH [label="{<segs> a, o |<feats> -front\n-high }",shape=record]
+	NONROUNDNONHIGH [label="{<segs> a, ɛ |<feats> -round\n-high }",shape=record]
+	MID [label="{<segs> œ, ɛ, o |<feats> +nonlow\n-high }",shape=record]
+
+	{NONLOW FRONT ROUND} -> FRONTROUND [style=dashed]
+	{NONLOW HIGH FRONT} -> HIGHFRONT [style=dashed]
+	{NONLOW HIGH ROUND} -> HIGHROUND [style=dashed]
+	{NONLOW NONFRONT ROUND} -> NONFRONTROUND [style=dashed]
+	{NONLOW FRONT NONROUND} -> FRONTNONROUND [style=dashed]
+	{NONFRONT NONHIGH} -> NONFRONTNONHIGH [style=dashed]
+	{NONROUND NONHIGH} -> NONROUNDNONHIGH [style=dashed]
+	{NONLOW NONHIGH} -> MID [style=dashed]
+
+	MIDFRONT [label="{<segs> œ, ɛ |<feats> +nonlow\n-high\n+front }",shape=record]
+	MIDROUND [label="{<segs> œ, o |<feats> +nonlow\n-high\n+round }",shape=record]
+	{MID FRONT} -> MIDFRONT [style=dashed]
+	{MID ROUND} -> MIDROUND [style=dashed]
+
+	II [label="{<segs> i |<feats> +nonlow\n-round\n+front\n+high }",shape=record]
+	YY [label="{<segs> y |<feats> +nonlow\n+front\n+round\n+high }",shape=record]
+	UU [label="{<segs> u |<feats> +nonlow\n-front\n+round\n+high }",shape=record]
+	EH [label="{<segs> ɛ |<feats> +nonlow\n-round\n-high\n+front }",shape=record]
+	OE [label="{<segs> œ |<feats> +nonlow\n-high\n+front\n+round }",shape=record]
+	OO [label="{<segs> o |<feats> +nonlow\n-front\n-high\n+round }",shape=record]
+
+	{HIGHFRONT FRONTNONROUND} -> II [style=dashed]
+	{HIGHFRONT FRONTROUND HIGHROUND} -> YY [style=dashed]
+	{HIGHROUND NONFRONTROUND} -> UU [style=dashed]
+	{MIDFRONT MIDROUND} -> OE [style=dashed]
+	{FRONTNONROUND MIDFRONT NONROUNDNONHIGH} -> EH [style=dashed]
+	{MIDROUND NONFRONTNONHIGH NONFRONTROUND} -> OO [style=dashed]
+
+	{rank=same; II YY UU EH OE OO}
+}
