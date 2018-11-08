@@ -1,5 +1,6 @@
 // None
 digraph {
+	graph [ dpi = 300 ];
 	0 [label="{<segs> u, a, i, ɛ, y, œ, o |<feats>  }",shape=record]
 	1 [label="{<segs> u, ɛ, i, y, œ, o |<feats> +nonlow }",shape=record]
 	2 [label="{<segs> i, ɛ, œ, y |<feats> +nonlow\n+front }",shape=record]
@@ -12,9 +13,9 @@ digraph {
 	9 [label="{<segs> œ |<feats> +nonlow\n+front\n+round\n+œ }",shape=record]
 	10 [label="{<segs> o |<feats> +nonlow\n+round\n+o }",shape=record]
 	11 [label="{<segs> a |<feats> +low }",shape=record]
-	12 [label="{<segs> œ, y |<feats> +nonlow\n+front\n+round }",shape=record,color=red]
-	13 [label="{<segs> i, y |<feats> +nonlow\n+front\n+high }",shape=record,color=red]
-	14 [label="{<segs> u, y |<feats> +nonlow\n+high\n+round }",shape=record,color=red]
+	12 [label="{<segs> œ, y |<feats> +nonlow\n+front\n+round }",shape=record]
+	13 [label="{<segs> i, y |<feats> +nonlow\n+front\n+high }",shape=record]
+	14 [label="{<segs> u, y |<feats> +nonlow\n+high\n+round }",shape=record]
 
 	0 -> 1 [xlabel="+nonlow",fontcolor=red]
 	0 -> 11 [label="+low",fontcolor=red]

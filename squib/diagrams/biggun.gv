@@ -1,5 +1,6 @@
 // None
 digraph {
+	graph [ dpi = 300 ];
 	SIGMA [label="{<segs> i a u\nl r\nm n ŋ\nb d g\np t k|<feats> }",shape=record,style=bold]
 	CONS [label="{<segs> l r\nm n ŋ\nb d g\np t k|<feats> +cons}",shape=record,style=bold]
 	SON [label="{<segs> i a u\nl r\nm n ŋ|<feats> +son}",shape=record,style=bold]

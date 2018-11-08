@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.21)  22 SEP 2018 15:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.13)  8 NOV 2018 12:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -804,13 +804,13 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 41.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 59.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 68.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 68.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
@@ -818,156 +818,168 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 File: diagrams/manner_poset_privative.png Graphic file (type png)
 <use diagrams/manner_poset_privative.png>
 Package pdftex.def Info: diagrams/manner_poset_privative.png  used on input lin
-e 102.
+e 110.
 (pdftex.def)             Requested size: 215.0023pt x 198.83073pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] [5 <./diagrams/manner_poset_privative.png>] [6] [7] [8]
+[4] [5 <./diagrams/manner_poset_privative.png>] [6]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9]
+[7] [8] [9]
 <diagrams/vowel_inventory_base.png, id=54, 1764.5925pt x 1087.06125pt>
 File: diagrams/vowel_inventory_base.png Graphic file (type png)
 <use diagrams/vowel_inventory_base.png>
 Package pdftex.def Info: diagrams/vowel_inventory_base.png  used on input line 
-269.
+282.
 (pdftex.def)             Requested size: 344.005pt x 211.91803pt.
-<diagrams/vowel_inventory_closure.png, id=55, 1463.4675pt x 1388.18625pt>
+<diagrams/vowel_inventory_closure.png, id=55, 1764.5925pt x 1388.18625pt>
 File: diagrams/vowel_inventory_closure.png Graphic file (type png)
 <use diagrams/vowel_inventory_closure.png>
 Package pdftex.def Info: diagrams/vowel_inventory_closure.png  used on input li
-ne 276.
-(pdftex.def)             Requested size: 301.00192pt x 285.51202pt.
+ne 290.
+(pdftex.def)             Requested size: 301.00192pt x 236.79346pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 <./diagrams/vowel_inventory_base.png>] [11 <./diagrams/vowel_inventory_clos
-ure.png>] [12] [13] [14] [15]
-<diagrams/vowel_inventory_privative.png, id=76, 2065.7175pt x 1994.45125pt>
+[10 <./diagrams/vowel_inventory_base.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 <./diagrams/vowel_inventory_closure.png>] [12] [13] [14] [15]
+<diagrams/vowel_inventory_privative.png, id=76, 2040.62375pt x 2187.17125pt>
 File: diagrams/vowel_inventory_privative.png Graphic file (type png)
 <use diagrams/vowel_inventory_privative.png>
 Package pdftex.def Info: diagrams/vowel_inventory_privative.png  used on input 
-line 438.
-(pdftex.def)             Requested size: 387.00153pt x 373.65436pt.
- [16] [17 <./diagrams/vowel_inventory_privative.png>] [18]
-<diagrams/vowel_inventory_contrastive_under.png, id=86, 661.47125pt x 698.61pt>
-
+line 452.
+(pdftex.def)             Requested size: 387.00153pt x 414.7659pt.
+ [16 <./diagrams/vowel_inventory_privative.png>] [17] [18]
+<diagrams/vowel_inventory_contrastive_under.png, id=86, 2040.62375pt x 2375.876
+25pt>
 File: diagrams/vowel_inventory_contrastive_under.png Graphic file (type png)
 <use diagrams/vowel_inventory_contrastive_under.png>
 Package pdftex.def Info: diagrams/vowel_inventory_contrastive_under.png  used o
-n input line 510.
-(pdftex.def)             Requested size: 387.00153pt x 408.72252pt.
+n input line 524.
+(pdftex.def)             Requested size: 387.00153pt x 450.55112pt.
  [19] [20 <./diagrams/vowel_inventory_contrastive_under.png>] [21]
 <diagrams/vowel_inventory_contrastive.png, id=98, 658.46pt x 713.66624pt>
 File: diagrams/vowel_inventory_contrastive.png Graphic file (type png)
 <use diagrams/vowel_inventory_contrastive.png>
 Package pdftex.def Info: diagrams/vowel_inventory_contrastive.png  used on inpu
-t line 557.
+t line 574.
 (pdftex.def)             Requested size: 430.00462pt x 466.06638pt.
-
-[22]
+ [22]
 Overfull \vbox (0.36252pt too high) has occurred while \output is active []
 
 
-[23 <./diagrams/vowel_inventory_contrastive.png>]
-<diagrams/vowel_inventory_full.png, id=106, 2667.9675pt x 1994.45125pt>
-File: diagrams/vowel_inventory_full.png Graphic file (type png)
-<use diagrams/vowel_inventory_full.png>
-Package pdftex.def Info: diagrams/vowel_inventory_full.png  used on input line 
-600.
-(pdftex.def)             Requested size: 430.00462pt x 321.43161pt.
- [24] [25 <./diagrams/vowel_inventory_full.png>] [26] [27]
-<diagrams/biggun.png, id=120, 1092.08pt x 1233.60875pt>
+[23 <./diagrams/vowel_inventory_contrastive.png>] [24]
+<diagrams/vowel_inventory_full_FEATURAL.png, id=109, 3266.2025pt x 2258.4375pt>
+
+File: diagrams/vowel_inventory_full_FEATURAL.png Graphic file (type png)
+<use diagrams/vowel_inventory_full_FEATURAL.png>
+Package pdftex.def Info: diagrams/vowel_inventory_full_FEATURAL.png  used on in
+put line 621.
+(pdftex.def)             Requested size: 430.00462pt x 297.32896pt.
+ [25 <./diagrams/vowel_inventory_full_FEATURAL.png>] [26] [27] [28]
+<diagrams/biggun.png, id=123, 3412.75pt x 3856.4075pt>
 File: diagrams/biggun.png Graphic file (type png)
 <use diagrams/biggun.png>
-Package pdftex.def Info: diagrams/biggun.png  used on input line 661.
-(pdftex.def)             Requested size: 430.00462pt x 485.73602pt.
- [28] [29 <./diagrams/biggun.png>]
+Package pdftex.def Info: diagrams/biggun.png  used on input line 684.
+(pdftex.def)             Requested size: 430.00462pt x 485.87462pt.
+ [29]
+Overfull \vbox (16.3991pt too high) has occurred while \output is active []
 
-LaTeX Warning: Citation `TODO' undefined on input line 675.
 
-[30]
-Overfull \hbox (3.06328pt too wide) in paragraph at lines 701--701
+[30 <./diagrams/biggun.png>]
+Overfull \hbox (5.90942pt too wide) in paragraph at lines 701--702
+[]\OT1/cmr/m/n/10.95 Conversely, while dis-tri-bu-tional ap-proaches []e.g. Gol
+d-smith & Xan-thos, 2009; Calderone,
+ []
+
+[31]
+Overfull \hbox (3.06328pt too wide) in paragraph at lines 725--725
 []\OT1/cmr/bx/n/14.4 The breadth-first al-go-rithm for adding com-ple-ment clas
 ses 
  []
 
-[31] [32]
-<diagrams/bfs1.png, id=137, 594.22pt x 785.93625pt>
+[32] [33]
+<diagrams/bfs1.png, id=141, 594.22pt x 785.93625pt>
 File: diagrams/bfs1.png Graphic file (type png)
 <use diagrams/bfs1.png>
-Package pdftex.def Info: diagrams/bfs1.png  used on input line 747.
+Package pdftex.def Info: diagrams/bfs1.png  used on input line 771.
 (pdftex.def)             Requested size: 85.9996pt x 113.73598pt.
-<diagrams/bfs1_feats.png, id=138, 1187.43625pt x 1522.68875pt>
+<diagrams/bfs1_feats.png, id=142, 1187.43625pt x 1522.68875pt>
 File: diagrams/bfs1_feats.png Graphic file (type png)
 <use diagrams/bfs1_feats.png>
-Package pdftex.def Info: diagrams/bfs1_feats.png  used on input line 756.
+Package pdftex.def Info: diagrams/bfs1_feats.png  used on input line 780.
 (pdftex.def)             Requested size: 171.99922pt x 220.54025pt.
- [33 <./diagrams/bfs1.png>]
 <diagrams/bfs2_feats.png, id=143, 1229.59375pt x 986.68625pt>
 File: diagrams/bfs2_feats.png Graphic file (type png)
 <use diagrams/bfs2_feats.png>
-Package pdftex.def Info: diagrams/bfs2_feats.png  used on input line 767.
+Package pdftex.def Info: diagrams/bfs2_feats.png  used on input line 791.
 (pdftex.def)             Requested size: 171.99922pt x 138.01468pt.
- [34 <./diagrams/bfs1_feats.png> <./diagrams/bfs2_feats.png>]
+ [34 <./diagrams/bfs1.png>]
 <diagrams/sibling_input.png, id=148, 861.2175pt x 484.81125pt>
 File: diagrams/sibling_input.png Graphic file (type png)
 <use diagrams/sibling_input.png>
-Package pdftex.def Info: diagrams/sibling_input.png  used on input line 783.
+Package pdftex.def Info: diagrams/sibling_input.png  used on input line 807.
 (pdftex.def)             Requested size: 129.00269pt x 72.61497pt.
-<diagrams/sibling_output1.png, id=149, 861.2175pt x 986.68625pt>
+ [35 <./diagrams/bfs1_feats.png> <./diagrams/bfs2_feats.png>]
+<diagrams/sibling_output1.png, id=153, 861.2175pt x 986.68625pt>
 File: diagrams/sibling_output1.png Graphic file (type png)
 <use diagrams/sibling_output1.png>
-Package pdftex.def Info: diagrams/sibling_output1.png  used on input line 792.
+Package pdftex.def Info: diagrams/sibling_output1.png  used on input line 816.
 (pdftex.def)             Requested size: 129.00269pt x 147.78577pt.
- [35 <./diagrams/sibling_input.png> <./diagrams/sibling_output1.png>]
-<diagrams/sibling_output2.png, id=153, 861.2175pt x 1049.9225pt>
+<diagrams/sibling_output2.png, id=154, 861.2175pt x 1049.9225pt>
 File: diagrams/sibling_output2.png Graphic file (type png)
 <use diagrams/sibling_output2.png>
-Package pdftex.def Info: diagrams/sibling_output2.png  used on input line 803.
+Package pdftex.def Info: diagrams/sibling_output2.png  used on input line 825.
 (pdftex.def)             Requested size: 129.00269pt x 157.2573pt.
- (./Featurization.bbl [36 <./diagrams/sibling_output2.png>]) [37]
-(./Featurization.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+<diagrams/vowel_inventory_full_TOPOLOGICAL.png, id=155, 2992.17876pt x 2128.953
+75pt>
+File: diagrams/vowel_inventory_full_TOPOLOGICAL.png Graphic file (type png)
+<use diagrams/vowel_inventory_full_TOPOLOGICAL.png>
+Package pdftex.def Info: diagrams/vowel_inventory_full_TOPOLOGICAL.png  used on
+ input line 841.
+(pdftex.def)             Requested size: 430.00462pt x 305.94539pt.
+ [36 <./diagrams/sibling_input.png> <./diagrams/sibling_output1.png>] (./Featur
+ization.bbl [37 <./diagrams/sibling_output2.png>] [38 <./diagrams/vowel_invento
+ry_full_TOPOLOGICAL.png>]) [39] (./Featurization.aux) ) 
 Here is how much of TeX's memory you used:
- 13872 strings out of 494847
- 250987 string characters out of 6179080
- 291027 words of memory out of 5000000
- 17045 multiletter control sequences out of 15000+600000
- 545849 words of font info for 77 fonts, out of 8000000 for 9000
+ 13875 strings out of 494847
+ 251274 string characters out of 6179079
+ 291047 words of memory out of 5000000
+ 17047 multiletter control sequences out of 15000+600000
+ 545503 words of font info for 76 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,10n,31p,10483b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/fkr/tipa/ti
-pa10.pfb>
-Output written on Featurization.pdf (37 pages, 1335089 bytes).
+ 41i,10n,31p,10483b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
+/msbm10.pfb></usr/share/texmf/fonts/type1/fkr/tipa/tipa10.pfb>
+Output written on Featurization.pdf (39 pages, 2307308 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
+ 240 PDF objects out of 1000 (max. 8388607)
+ 153 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,6 @@
 // None
 digraph {
+	graph [ dpi = 300 ];
 	SIGMA [label="{<segs> i, œ, a, y, u, o, ɛ |<feats>  }",shape=record]
 
 	LOW [label="{<segs> a |<feats> -nonlow\n-front\n-round\n-high }",shape=record]

@@ -1,5 +1,6 @@
 // None
 digraph {
+	graph [ dpi = 300 ];
 	0 [label="V, G, L, N",shape=box]
 	1 [label="N, T",shape=box]
 	2 [label="V, G, L",shape=box]
