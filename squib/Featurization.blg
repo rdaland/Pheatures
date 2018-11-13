@@ -14,11 +14,10 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: mybib.bib.bib
 Warning--entry type for "Longerich1998" isn't style-file defined
 --line 111 of file mybib.bib.bib
-Warning--I didn't find a database entry for "TODO"
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
 You've used 24 entries,
             6951 wiz_defined-function locations,
-            1439 strings with 13723 characters,
+            1437 strings with 13715 characters,
 and the built_in function-call counts, 39889 in all, are:
 = -- 5214
 > -- 290
@@ -57,4 +56,4 @@ warning$ -- 0
 while$ -- 149
 width$ -- 0
 write$ -- 634
-(There were 2 warnings)
+(There was 1 warning)
