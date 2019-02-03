@@ -11,49 +11,46 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Database file #1: mybib.bib.bib
-Warning--entry type for "Longerich1998" isn't style-file defined
---line 111 of file mybib.bib.bib
+Database file #1: mybib.bib
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
-You've used 24 entries,
+You've used 44 entries,
             6951 wiz_defined-function locations,
-            1437 strings with 13715 characters,
-and the built_in function-call counts, 39889 in all, are:
-= -- 5214
-> -- 290
-< -- 1607
-+ -- 1537
-- -- 48
-* -- 2260
-:= -- 6699
-add.period$ -- 108
-call.type$ -- 24
-change.case$ -- 412
+            1565 strings with 16548 characters,
+and the built_in function-call counts, 76786 in all, are:
+= -- 10099
+> -- 605
+< -- 3024
++ -- 2945
+- -- 88
+* -- 4340
+:= -- 12610
+add.period$ -- 205
+call.type$ -- 44
+change.case$ -- 758
 chr.to.int$ -- 0
-cite$ -- 48
-duplicate$ -- 965
-empty$ -- 1758
-format.name$ -- 418
-if$ -- 8079
+cite$ -- 88
+duplicate$ -- 1954
+empty$ -- 3335
+format.name$ -- 878
+if$ -- 15635
 int.to.chr$ -- 0
-int.to.str$ -- 72
+int.to.str$ -- 132
 missing$ -- 0
-newline$ -- 562
-num.names$ -- 201
-pop$ -- 754
+newline$ -- 1065
+num.names$ -- 371
+pop$ -- 1312
 preamble$ -- 1
-purify$ -- 96
+purify$ -- 176
 quote$ -- 0
-skip$ -- 3148
+skip$ -- 6157
 stack$ -- 0
-substring$ -- 1724
-swap$ -- 580
-text.length$ -- 60
+substring$ -- 3408
+swap$ -- 1190
+text.length$ -- 144
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 2440
+type$ -- 4672
 warning$ -- 0
-while$ -- 149
+while$ -- 318
 width$ -- 0
-write$ -- 634
-(There was 1 warning)
+write$ -- 1231

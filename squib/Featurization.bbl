@@ -1,6 +1,58 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
+Anderson%
+\ \BBA {} Ewen%
+}{%
+Anderson%
+\ \BBA {} Ewen%
+}{%
+{\protect \APACyear {1987}}%
+}]{%
+AndersonEwen1987}
+\APACinsertmetastar {%
+AndersonEwen1987}%
+\begin{APACrefauthors}%
+Anderson, J\BPBI M.%
+\BCBT {}\ \BBA {} Ewen, C\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1987}.
+\newblock
+\APACrefbtitle {Principles of dependency phonology} {Principles of dependency
+  phonology}.
+\newblock
+\APACaddressPublisher{Cambridge}{Cambridge University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+}{%
+Archangeli%
+}{%
+{\protect \APACyear {1984}}%
+}]{%
+Archangeli1984}
+\APACinsertmetastar {%
+Archangeli1984}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1984}.
+\unskip\
+\newblock
+\APACrefbtitle {Underspecification in Yawelmani phonology and morphology}
+  {Underspecification in yawelmani phonology and morphology}\
+  \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{MIT}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Archangeli%
 }{%
 Archangeli%
@@ -21,6 +73,83 @@ Archangeli, D.%
   underspecification theory}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Phonology}{5}{}{183-207}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+}{%
+Archangeli%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+Archangeli2011}
+\APACinsertmetastar {%
+Archangeli2011}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Feature specification and underspecification} {Feature
+  specification and underspecification}.{\BBCQ}
+\newblock
+\BIn{} M.~van Oostendorp, C\BPBI J.~Ewen, E.~Hume\BCBL {}\ \BBA {} K.~Rice\
+  (\BEDS), \APACrefbtitle {The {B}lackwell Companion to Phonology} {The
+  {B}lackwell companion to phonology}\ (\BPG~148-170).
+\newblock
+\APACaddressPublisher{Oxford}{Wiley-Blackwell}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+{\protect \APACyear {1989}}%
+}]{%
+ArchangeliPulleyblank1989}
+\APACinsertmetastar {%
+ArchangeliPulleyblank1989}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\BCBT {}\ \BBA {} Pulleyblank, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1989}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Yoruba vowel harmony} {Yoruba vowel harmony}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Linguistic Inquiry}{20}{}{173-217}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+{\protect \APACyear {1994}}%
+}]{%
+ArchangeliPulleyblank1994}
+\APACinsertmetastar {%
+ArchangeliPulleyblank1994}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\BCBT {}\ \BBA {} Pulleyblank, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1994}.
+\newblock
+\APACrefbtitle {Grounded phonology} {Grounded phonology}.
+\newblock
+\APACaddressPublisher{Cambridge, MA}{MIT Press}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -47,6 +176,62 @@ Archangeli, D.%
   universal grammar}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Frontiers in Psychology}{6}{}{1229}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+Archangeli%
+\ \BBA {} Pulleyblank%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+ArchangeliPulleyblank2018}
+\APACinsertmetastar {%
+ArchangeliPulleyblank2018}%
+\begin{APACrefauthors}%
+Archangeli, D.%
+\BCBT {}\ \BBA {} Pulleyblank, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Phonology as an emergent system} {Phonology as an
+  emergent system}.{\BBCQ}
+\newblock
+\BIn{} S.~Hannahs\ \BBA {} A.~Bosch\ (\BEDS), \APACrefbtitle {The {R}outledge
+  Handbook of Phonological Theory} {The {R}outledge handbook of phonological
+  theory}\ (\BPG~476-503).
+\newblock
+\APACaddressPublisher{London}{Routledge}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Avery%
+\ \BBA {} Rice%
+}{%
+Avery%
+\ \BBA {} Rice%
+}{%
+{\protect \APACyear {1989}}%
+}]{%
+AveryRice1989}
+\APACinsertmetastar {%
+AveryRice1989}%
+\begin{APACrefauthors}%
+Avery, P.%
+\BCBT {}\ \BBA {} Rice, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1989}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Segment structure and coronal underspecification}
+  {Segment structure and coronal underspecification}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Phonology}{6}{}{179-200}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -269,6 +454,61 @@ Dresher, E.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Feldman%
+, Griffiths%
+, Goldwater%
+\BCBL {}\ \BBA {} Morgan%
+}{%
+Feldman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+FeldmanEtAl2013}
+\APACinsertmetastar {%
+FeldmanEtAl2013}%
+\begin{APACrefauthors}%
+Feldman, N.%
+, Griffiths, T.%
+, Goldwater, S.%
+\BCBL {}\ \BBA {} Morgan, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A role for the developing lexicon in phonetic category
+  acquisition} {A role for the developing lexicon in phonetic category
+  acquisition}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychological Review}{120}{}{751-778}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Frisch%
+}{%
+Frisch%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+Frisch1996}
+\APACinsertmetastar {%
+Frisch1996}%
+\begin{APACrefauthors}%
+Frisch, S\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1996}.
+\unskip\
+\newblock
+\APACrefbtitle {Similarity and frequency in phonology} {Similarity and
+  frequency in phonology}\ \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{Northwestern University}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Goldsmith%
 \ \BBA {} Xanthos%
 }{%
@@ -373,6 +613,59 @@ Kiparsky, P.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Ladefoged%
+\ \BBA {} Maddieson%
+}{%
+Ladefoged%
+\ \BBA {} Maddieson%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+LadefogedMaddieson1996}
+\APACinsertmetastar {%
+LadefogedMaddieson1996}%
+\begin{APACrefauthors}%
+Ladefoged, P.%
+\BCBT {}\ \BBA {} Maddieson, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1996}.
+\newblock
+\APACrefbtitle {The sounds of the world's languages} {The sounds of the world's
+  languages}.
+\newblock
+\APACaddressPublisher{Oxford \& Malden, MA}{Blackwell}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lahiri%
+\ \BBA {} Marslen-Wilson%
+}{%
+Lahiri%
+\ \BBA {} Marslen-Wilson%
+}{%
+{\protect \APACyear {1991}}%
+}]{%
+LahiriMarslenWilson1991}
+\APACinsertmetastar {%
+LahiriMarslenWilson1991}%
+\begin{APACrefauthors}%
+Lahiri, A.%
+\BCBT {}\ \BBA {} Marslen-Wilson, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1991}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The mental representation of lexical form: a
+  phonological approach to the recognition lexicon} {The mental representation
+  of lexical form: a phonological approach to the recognition lexicon}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognition}{38}{}{245-294}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Lin%
 }{%
 Lin%
@@ -400,6 +693,32 @@ Lin, Y.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Lindau%
+}{%
+Lindau%
+}{%
+{\protect \APACyear {1985}}%
+}]{%
+Lindau1985}
+\APACinsertmetastar {%
+Lindau1985}%
+\begin{APACrefauthors}%
+Lindau, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1985}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The story of /r/} {The story of /r/}.{\BBCQ}
+\newblock
+\BIn{} V\BPBI A.~Fromkin\ (\BED), \APACrefbtitle {Phonetic linguistics: Essays
+  in honor of {P}eter {L}adefoged} {Phonetic linguistics: Essays in honor of
+  {P}eter {L}adefoged}\ (\BPG~157-168).
+\newblock
+\APACaddressPublisher{Orlando}{Academic Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Longerich%
 }{%
 Longerich%
@@ -414,10 +733,14 @@ Longerich, L.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYearMonthDay{1998}{}{}.
+\APACrefYear{1998}.
+\unskip\
 \newblock
-\APACrefbtitle {Acoustic conditioning for the {RUKI} rule.} {Acoustic
-  conditioning for the {RUKI} rule.}
+\APACrefbtitle {Acoustic conditioning for the {RUKI} rule} {Acoustic
+  conditioning for the {RUKI} rule}\ \APACtypeAddressSchool {\BUMTh}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{Memorial University of Newfoundland}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -445,6 +768,28 @@ MacWhinney, B.%
   emergence}.
 \newblock
 \APACaddressPublisher{Chichester}{John Wiley \& Sons}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Maddieson%
+}{%
+Maddieson%
+}{%
+{\protect \APACyear {1985}}%
+}]{%
+Maddieson1985}
+\APACinsertmetastar {%
+Maddieson1985}%
+\begin{APACrefauthors}%
+Maddieson, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1985}.
+\newblock
+\APACrefbtitle {Patterns of Sounds} {Patterns of sounds}.
+\newblock
+\APACaddressPublisher{Cambridge}{Cambridge University Press}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -520,6 +865,147 @@ Mielke, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Moreton%
+\ \BBA {} Pater%
+}{%
+Moreton%
+\ \BBA {} Pater%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+MoretonPater2012}
+\APACinsertmetastar {%
+MoretonPater2012}%
+\begin{APACrefauthors}%
+Moreton, E.%
+\BCBT {}\ \BBA {} Pater, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Structure and substance in artificial phonology
+  learning. Part I: Structure, Part II: Substance} {Structure and substance in
+  artificial phonology learning. part i: Structure, part ii: Substance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Language and Linguistics Compass}{6}{}{686-701 and
+  702-718}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ohala%
+}{%
+Ohala%
+}{%
+{\protect \APACyear {1980}}%
+}]{%
+Ohala1980}
+\APACinsertmetastar {%
+Ohala1980}%
+\begin{APACrefauthors}%
+Ohala, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1980}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Moderator's introduction to the symposium on phonetic
+  universals in phonological systems and their explanation} {Moderator's
+  introduction to the symposium on phonetic universals in phonological systems
+  and their explanation}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the ninth international congress of
+  phonetic sciences} {Proceedings of the ninth international congress of
+  phonetic sciences}\ (\BVOL~3, \BPG~181-185).
+\newblock
+\APACaddressPublisher{Institute of Phonetics}{University of Copenhagen}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Proctor%
+\ \BBA {} Walker%
+}{%
+Proctor%
+\ \BBA {} Walker%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+ProctorWalker2012}
+\APACinsertmetastar {%
+ProctorWalker2012}%
+\begin{APACrefauthors}%
+Proctor, M.%
+\BCBT {}\ \BBA {} Walker, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Articulatory bases of sonority in English liquids}
+  {Articulatory bases of sonority in english liquids}.{\BBCQ}
+\newblock
+\BIn{} S.~Parker\ (\BED), \APACrefbtitle {The sonority controversy} {The
+  sonority controversy}\ (\BPG~289-316).
+\newblock
+\APACaddressPublisher{Berlin}{De Gruyter}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Sagey%
+}{%
+Sagey%
+}{%
+{\protect \APACyear {1986}}%
+}]{%
+Sagey1986}
+\APACinsertmetastar {%
+Sagey1986}%
+\begin{APACrefauthors}%
+Sagey, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1986}.
+\unskip\
+\newblock
+\APACrefbtitle {The representation of features and relations in non-linear
+  phonology} {The representation of features and relations in non-linear
+  phonology}\ \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{MIT}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schwartz%
+, Bo\"{e}%
+, Vall\'{e}e%
+\BCBL {}\ \BBA {} Abry%
+}{%
+Schwartz%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1997}}%
+}]{%
+SchwartzEtAl1997}
+\APACinsertmetastar {%
+SchwartzEtAl1997}%
+\begin{APACrefauthors}%
+Schwartz, J\BHBI L.%
+, Bo\"{e}, L\BHBI J.%
+, Vall\'{e}e, N.%
+\BCBL {}\ \BBA {} Abry, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Dispersion-Focalization Theory of vowel systems}
+  {The dispersion-focalization theory of vowel systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Phonetics}{25}{}{255-286}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Steriade%
 }{%
 Steriade%
@@ -592,6 +1078,58 @@ Vennemann, T.%
   class} {Sanskrit \textit{ruki} and the concept of a natural class}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Linguistics}{130}{}{91-97}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Walsh-Dickey%
+}{%
+Walsh-Dickey%
+}{%
+{\protect \APACyear {1997}}%
+}]{%
+WalshDickey1997}
+\APACinsertmetastar {%
+WalshDickey1997}%
+\begin{APACrefauthors}%
+Walsh-Dickey, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1997}.
+\unskip\
+\newblock
+\APACrefbtitle {The phonology of liquids} {The phonology of liquids}\
+  \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{University of Massachusetts, Amherst}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wiese%
+}{%
+Wiese%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+Wiese2011}
+\APACinsertmetastar {%
+Wiese2011}%
+\begin{APACrefauthors}%
+Wiese, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The representation of rhotics} {The representation of
+  rhotics}.{\BBCQ}
+\newblock
+\BIn{} M.~van Oostendorp, C\BPBI J.~Ewen, E.~Hume\BCBL {}\ \BBA {} K.~Rice\
+  (\BEDS), \APACrefbtitle {The {B}lackwell Companion to Phonology} {The
+  {B}lackwell companion to phonology}\ (\BPG~711-729).
+\newblock
+\APACaddressPublisher{Malden, MA}{Wiley-Blackwell}.
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}
