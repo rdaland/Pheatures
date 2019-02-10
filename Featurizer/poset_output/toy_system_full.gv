@@ -1,0 +1,15 @@
+// None
+digraph {
+	0 [label="a, c, b"]
+	1 [label="a",shape=box]
+	2 [label="c, b",shape=box]
+	3 [label="b",shape=box]
+	4 [label="a, c"]
+	5 [label="c"]
+	0 -> 2 []
+	0 -> 4 []
+	2 -> 3 []
+	2 -> 5 [style=dotted]
+	4 -> 1 []
+	4 -> 5 [style=dotted]
+}

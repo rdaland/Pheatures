@@ -1,0 +1,10 @@
+// None
+digraph {
+	0 [label="a, c, b"]
+	1 [label="a",shape=box]
+	2 [label="c, b",shape=box]
+	3 [label="b",shape=box]
+	0 -> 1 []
+	0 -> 2 []
+	2 -> 3 []
+}

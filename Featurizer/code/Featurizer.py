@@ -20,20 +20,20 @@ DEFAULT_ROOTNAME = "feature_output"
 
 class Specification(Enum):
     PRIVATIVE = 0
-    CONTRASTIVE_UNDER = 1
-    CONTRASTIVE = 2
+    COMPLEMENTARY = 1
+    INFERENTIAL_COMPLEMENTARY = 2
     FULL = 3
 
 FEATURIZATION_MAP = {
     'privative': Specification.PRIVATIVE,
-    'contrastive_underspecification': Specification.CONTRASTIVE_UNDER,
-    'contrastive': Specification.CONTRASTIVE,
+    'complementary': Specification.COMPLEMENTARY,
+    'inferential_complementary': Specification.INFERENTIAL_COMPLEMENTARY,
     'full': Specification.FULL
 }
 
 class Featurizer():
     def __init__(self, input_classes, alphabet,
-                 specification=Specification.CONTRASTIVE_UNDER, verbose=False,
+                 specification=Specification.COMPLEMENTARY, verbose=False,
                  rootname=DEFAULT_ROOTNAME):
         '''
             Default class constructor that must be given an alphabet and a set
@@ -58,7 +58,7 @@ class Featurizer():
         self.reset()
 
     @classmethod
-    def from_file(cls, filename, specification=Specification.CONTRASTIVE_UNDER,
+    def from_file(cls, filename, specification=Specification.COMPLEMENTARY,
                   use_numpy=False, verbose=False):
         '''
             An alternative constructor that creates a Featurizer object based on
@@ -360,10 +360,11 @@ class Featurizer():
 
     def add_complement_classes(self):
         '''
-            For the contrastive and full specifications, pre-calculate the full
-            set of complement classes that will be added before doing the
-            featurization. This is done using a breadth-first search of the poset
-            and adding the complements to the child classes simultaneously.
+            For the inferential complementary and full specifications, 
+            pre-calculate the full set of complement classes that will be added
+            before doing the featurization. This is done using a breadth-first
+            search of the poset and adding the complements to the child classes
+            simultaneously.
         '''
         bfs_deque = deque([self.alphabet])
 
@@ -378,11 +379,11 @@ class Featurizer():
                 child = children.pop(0)
                 if (len(self.poset.get_parents(child)) == 1):
                     # If a child only has a single parent, define a complement
-                    # class wrt the current class (contrastive) or the
-                    # alphabet (full)
+                    # class wrt the current class (inferential complementary)
+                    #or the alphabet (full)
                     if self.specification == Specification.FULL:
                         complement = self.alphabet - child
-                    elif self.specification == Specification.CONTRASTIVE:
+                    elif self.specification == Specification.INFERENTIAL_COMPLEMENTARY:
                         complement = current_node - child
                     else:
                         raise(
@@ -426,9 +427,9 @@ class Featurizer():
                         parent = self.poset.get_parents(c)[0]
                         c1 = parent - c
 
-                    # We only want to consider the complement for contrastive
-                    # underspecification if it's in the input set.
-                    if (self.specification != Specification.CONTRASTIVE_UNDER
+                    # We only want to consider the complement for inferential 
+                    # complementary underspecification if it's in the input set.
+                    if (self.specification != Specification.COMPLEMENTARY
                             or c1 in self.input_classes):
                         # Assign the negative value of the new feature to the 
                         # new class
@@ -453,7 +454,7 @@ class Featurizer():
             Calculate the complements added by the featurization if any, and then
             featurize the poset
         '''
-        if self.specification in (Specification.CONTRASTIVE, Specification.FULL):
+        if self.specification in (Specification.INFERENTIAL_COMPLEMENTARY, Specification.FULL):
             self.add_complement_classes()
         self.featurize_classes()
 
@@ -469,9 +470,9 @@ if __name__ == "__main__":
         help='Path to csv file to save featurization description in.',
     )
     parser.add_argument(
-        '--featurization', type=str, default='contrastive_underspecification',
+        '--featurization', type=str, default='complementary',
         help="The featurization type to use. Must be one of 'privative', "
-             "'contrastive_underspecification', 'contrastive', or 'full'."
+             "'complementary', 'inferential_complementary', or 'full'."
     )
     parser.add_argument(
         '--use_numpy', action="store_true",
@@ -491,7 +492,7 @@ if __name__ == "__main__":
         help='Prints additional information throughout the course of the featurization.'
     )
     args = parser.parse_args()
-    specification = FEATURIZATION_MAP.get(args.featurization)
+    specification = FEATURIZATION_MAP.get(args.featurization, args.featurization)
     featurizer = Featurizer.from_file(
         args.input_file, specification, use_numpy=args.use_numpy,
         verbose=args.verbose

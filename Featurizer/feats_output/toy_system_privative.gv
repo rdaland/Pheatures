@@ -1,0 +1,9 @@
+// None
+digraph {
+	0 [label="{<segs> a, c, b |<feats>  }",shape=record]
+	1 [label="{<segs> a |<feats> +F1 }",shape=record]
+	2 [label="{<segs> c, b |<feats> +F2 }",shape=record]
+	3 [label="{<segs> b |<feats> +F2\n+F3 }",shape=record]
+	0 -> 1	0 -> 2	2 -> 3
+{rank=same; 1 3}
+}

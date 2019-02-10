@@ -1,0 +1,20 @@
+// None
+digraph {
+	0 [label="{<segs> e, y, i, u, a, o, ø |<feats>  }",shape=record]
+	1 [label="{<segs> y, i, u, e, o, ø |<feats> +F1 }",shape=record]
+	2 [label="{<segs> ø, y, i, e |<feats> +F2\n+F1 }",shape=record]
+	3 [label="{<segs> ø, o, y, u |<feats> +F3\n+F1 }",shape=record]
+	4 [label="{<segs> i, y, u |<feats> +F1\n+F4 }",shape=record]
+	5 [label="{<segs> i |<feats> +F2\n+F1\n+F5\n+F4 }",shape=record]
+	6 [label="{<segs> y |<feats> +F2\n-F5\n-F6\n+F3\n+F1\n-F8\n+F4 }",shape=record]
+	7 [label="{<segs> u |<feats> +F3\n+F1\n+F6\n+F4 }",shape=record]
+	8 [label="{<segs> e |<feats> +F2\n+F1\n+F7 }",shape=record]
+	9 [label="{<segs> ø |<feats> +F3\n+F2\n+F1\n+F8 }",shape=record]
+	10 [label="{<segs> o |<feats> +F3\n+F1\n+F9 }",shape=record]
+	11 [label="{<segs> a |<feats> -F1 }",shape=record]
+	12 [label="{<segs> ø, y |<feats> +F3\n+F2\n+F1 }",shape=record]
+	13 [label="{<segs> y, i |<feats> +F2\n+F1\n+F4 }",shape=record]
+	14 [label="{<segs> y, u |<feats> +F3\n+F1\n+F4 }",shape=record]
+	0 -> 1	0 -> 11	1 -> 2	1 -> 3	1 -> 4	2 -> 8	2 -> 12	2 -> 13	3 -> 10	3 -> 12	3 -> 14	4 -> 13	4 -> 14	12 -> 6	12 -> 9	13 -> 5	13 -> 6	14 -> 6	14 -> 7
+{rank=same; 5 6 7 8 9 10 11}
+}

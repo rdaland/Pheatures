@@ -1,0 +1,10 @@
+// None
+digraph {
+	0 [label="{<segs> b, c, a |<feats>  }",shape=record]
+	1 [label="{<segs> a |<feats> +F1 }",shape=record]
+	2 [label="{<segs> b, c |<feats> -F1 }",shape=record]
+	3 [label="{<segs> b |<feats> +F2\n-F1 }",shape=record]
+	4 [label="{<segs> c |<feats> -F1\n-F2 }",shape=record]
+	0 -> 1	0 -> 2	2 -> 3	2 -> 4
+{rank=same; 1 3 4}
+}

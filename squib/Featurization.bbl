@@ -535,6 +535,59 @@ Goldsmith, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Hall%
+}{%
+Hall%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+Hall2007}
+\APACinsertmetastar {%
+Hall2007}%
+\begin{APACrefauthors}%
+Hall, D\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2007}.
+\unskip\
+\newblock
+\APACrefbtitle {{The Role and Representation of Contrast in Phonological
+  Theory}} {{The Role and Representation of Contrast in Phonological Theory}}\
+  \APACtypeAddressSchool {\BUPhD}{}{}.
+\unskip\
+\newblock
+\APACaddressSchool {}{University of Toronto}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hayes%
+\ \BBA {} Wilson%
+}{%
+Hayes%
+\ \BBA {} Wilson%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+HayesWilson2008}
+\APACinsertmetastar {%
+HayesWilson2008}%
+\begin{APACrefauthors}%
+Hayes, B.%
+\BCBT {}\ \BBA {} Wilson, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A maximum entropy model of phonotactics and phonotactic
+  learning} {A maximum entropy model of phonotactics and phonotactic
+  learning}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Linguistic Inquiry}{39}{3}{379 - 440}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Jakobson%
 , Gunnar%
 , Fant%
@@ -922,6 +975,58 @@ Ohala, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Padgett%
+}{%
+Padgett%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Padgett2002}
+\APACinsertmetastar {%
+Padgett2002}%
+\begin{APACrefauthors}%
+Padgett, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+\APACrefbtitle {{Russian Voicing Assimilation, Final Devoicing, and the Problem
+  of [v] (or, the Mouse that Squeaked)}} {{Russian Voicing Assimilation, Final
+  Devoicing, and the Problem of [v] (or, the Mouse that Squeaked)}}\
+  \APACbVolEdTR {}{Ms.}
+\newblock
+\APACaddressInstitution{University of California, Santa Cruz}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Prince%
+\ \BBA {} Smolensky%
+}{%
+Prince%
+\ \BBA {} Smolensky%
+}{%
+{\protect \APACyear {1993}}%
+}]{%
+PrinceSmolensky1993}
+\APACinsertmetastar {%
+PrinceSmolensky1993}%
+\begin{APACrefauthors}%
+Prince, A.%
+\BCBT {}\ \BBA {} Smolensky, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1993}{}{}.
+\newblock
+\APACrefbtitle {{Optimality Theory: Constraint Interaction in Generative
+  Grammar}} {{Optimality Theory: Constraint Interaction in Generative
+  Grammar}}\ \APACbVolEdTR {}{Technical {R}eport 2}.
+\newblock
+\APACaddressInstitution{Rutgers Center for Cognitive Science}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Proctor%
 \ \BBA {} Walker%
 }{%
@@ -1029,6 +1134,36 @@ Steriade, D.%
   Theory} {The handbook of phonological theory}\ (\BPG~114-175).
 \newblock
 \APACaddressPublisher{Oxford/Cambridge, MA}{Blackwell}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Thompson%
+\ \BBA {} Thompson%
+}{%
+Thompson%
+\ \BBA {} Thompson%
+}{%
+{\protect \APACyear {1972}}%
+}]{%
+ThompsonThompson1972}
+\APACinsertmetastar {%
+ThompsonThompson1972}%
+\begin{APACrefauthors}%
+Thompson, L\BPBI C.%
+\BCBT {}\ \BBA {} Thompson, M\BPBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1972}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Language universals, nasals, and the {N}orthwest
+  {C}oast} {Language universals, nasals, and the {N}orthwest {C}oast}.{\BBCQ}
+\newblock
+\BIn{} M\BPBI E.~Smith\ (\BED), \APACrefbtitle {Studies in {L}inguistics in
+  {H}onor of {G}eorge {L.} {T}rager} {Studies in {L}inguistics in {H}onor of
+  {G}eorge {L.} {T}rager}\ (\BPG~441-456).
+\newblock
+\APACaddressPublisher{The Hague}{Mouton, Janua Linguarum}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%

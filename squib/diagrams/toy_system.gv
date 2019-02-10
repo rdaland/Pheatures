@@ -1,0 +1,11 @@
+// None
+digraph {
+	graph [ dpi = 300 ];
+	0 [label="a, b, c"]
+	1 [label="a",shape=box]
+	2 [label="b, c",shape=box]
+	3 [label="b",shape=box]
+	0 -> 1 []
+	0 -> 2 []
+	2 -> 3 []
+}
