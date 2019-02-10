@@ -27,7 +27,7 @@ Command line arguments:
 
 * Required positional argument: The path to the input class file.
 * `--output_file`: The path where the output `.csv` file will be saved. Optional, default `../csv_output/features.csv`.
-* `--featurization`: The type of featurization to use. Must be one of `privative`, `contrastive_underspecification`, `contrastive`, or `full`. Optional, default `contrastive_underspecification`.
+* `--featurization`: The type of featurization to use. Must be one of `privative`, `complementary`, `inferential_complementary`, or `full`. Optional, default `complementary`.
 * `--use_numpy`: If this flag is provided, the `numpy` package will be used for matrix operations. This requires `numpy` to be installed. Otherwise, a bespoke, less efficient matrix implementation will be used.
 * `--poset_file`: The path where the output class system graph will be saved. Optional, default `../poset_output/poset_graph.gv`.
 * `--feats_file`: The path where the output feature graph will be saved. Optional, default `../feats_output/feats_graph.gv`.
