@@ -20,8 +20,8 @@ Anderson, J\BPBI M.%
 \newblock
 \APACrefYear{1987}.
 \newblock
-\APACrefbtitle {Principles of dependency phonology} {Principles of dependency
-  phonology}.
+\APACrefbtitle {{Principles of Dependency Phonology}} {{Principles of
+  Dependency Phonology}}.
 \newblock
 \APACaddressPublisher{Cambridge}{Cambridge University Press}.
 \PrintBackRefs{\CurrentBib}
@@ -44,8 +44,8 @@ Archangeli, D.%
 \APACrefYear{1984}.
 \unskip\
 \newblock
-\APACrefbtitle {Underspecification in Yawelmani phonology and morphology}
-  {Underspecification in yawelmani phonology and morphology}\
+\APACrefbtitle {Underspecification in {Y}awelmani phonology and morphology}
+  {Underspecification in {Y}awelmani phonology and morphology}\
   \APACtypeAddressSchool {\BUPhD}{}{}.
 \unskip\
 \newblock
@@ -72,7 +72,7 @@ Archangeli, D.%
 {\BBOQ}\APACrefatitle {Aspects of Underspecification Theory} {Aspects of
   underspecification theory}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Phonology}{5}{}{183-207}.
+\APACjournalVolNumPages{Phonology}{5}{2}{183-207}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -96,8 +96,8 @@ Archangeli, D.%
   specification and underspecification}.{\BBCQ}
 \newblock
 \BIn{} M.~van Oostendorp, C\BPBI J.~Ewen, E.~Hume\BCBL {}\ \BBA {} K.~Rice\
-  (\BEDS), \APACrefbtitle {The {B}lackwell Companion to Phonology} {The
-  {B}lackwell companion to phonology}\ (\BPG~148-170).
+  (\BEDS), \APACrefbtitle {{The Blackwell Companion to Phonology}} {{The
+  Blackwell Companion to Phonology}}\ (\BPG~148-170).
 \newblock
 \APACaddressPublisher{Oxford}{Wiley-Blackwell}.
 \PrintBackRefs{\CurrentBib}
@@ -201,9 +201,9 @@ Archangeli, D.%
 {\BBOQ}\APACrefatitle {Phonology as an emergent system} {Phonology as an
   emergent system}.{\BBCQ}
 \newblock
-\BIn{} S.~Hannahs\ \BBA {} A.~Bosch\ (\BEDS), \APACrefbtitle {The {R}outledge
-  Handbook of Phonological Theory} {The {R}outledge handbook of phonological
-  theory}\ (\BPG~476-503).
+\BIn{} S.~Hannahs\ \BBA {} A.~Bosch\ (\BEDS), \APACrefbtitle {{The Routledge
+  Handbook of Phonological Theory}} {{The Routledge Handbook of Phonological
+  Theory}}\ (\BPG~476-503).
 \newblock
 \APACaddressPublisher{London}{Routledge}.
 \PrintBackRefs{\CurrentBib}
@@ -304,7 +304,7 @@ Calderone, B.%
   component analysis} {Learning phonological categories by independent
   component analysis}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Journal of Quantitative Linguistics}{16}{}{}.
+\APACjournalVolNumPages{Journal of Quantitative Linguistics}{16}{2}{132-156}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -446,9 +446,9 @@ Dresher, E.%
 {\BBOQ}\APACrefatitle {The contrastive hierarchy in phonology} {The contrastive
   hierarchy in phonology}.{\BBCQ}
 \newblock
-\BIn{} D\BPBI C.~Hall\ (\BED), \APACrefbtitle {Toronto Working Papers in
-  Linguistics 20: Special issue on contrast in phonology.} {Toronto working
-  papers in linguistics 20: Special issue on contrast in phonology.}
+\BIn{} D\BPBI C.~Hall\ (\BED), \APACrefbtitle {{Toronto Working Papers in
+  Linguistics 20: Special issue on contrast in phonology}.} {{Toronto Working
+  Papers in Linguistics 20: Special issue on contrast in phonology}.}
 \newblock
 \APACaddressPublisher{}{University of Toronto}.
 \PrintBackRefs{\CurrentBib}
@@ -480,7 +480,7 @@ Feldman, N.%
   acquisition} {A role for the developing lexicon in phonetic category
   acquisition}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Psychological Review}{120}{}{751-778}.
+\APACjournalVolNumPages{Psychological Review}{120}{4}{751-778}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -531,7 +531,7 @@ Goldsmith, J.%
 {\BBOQ}\APACrefatitle {Learning phonological categories} {Learning phonological
   categories}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Language}{85}{}{4-38}.
+\APACjournalVolNumPages{Language}{85}{1}{4-38}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -659,8 +659,8 @@ Kiparsky, P.%
 {\BBOQ}\APACrefatitle {Phonological representations} {Phonological
   representations}.{\BBCQ}
 \newblock
-\BIn{} O.~Fujimura\ (\BED), \APACrefbtitle {Three dimensions of linguistic
-  theory} {Three dimensions of linguistic theory}\ (\BPG~1-136).
+\BIn{} O.~Fujimura\ (\BED), \APACrefbtitle {{Three Dimensions of Linguistic
+  Theory}} {{Three Dimensions of Linguistic Theory}}\ (\BPG~1-136).
 \newblock
 \APACaddressPublisher{Tokyo}{TEC Co}.
 \PrintBackRefs{\CurrentBib}
@@ -715,7 +715,7 @@ Lahiri, A.%
   phonological approach to the recognition lexicon} {The mental representation
   of lexical form: a phonological approach to the recognition lexicon}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Cognition}{38}{}{245-294}.
+\APACjournalVolNumPages{Cognition}{38}{3}{245-294}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -817,8 +817,8 @@ MacWhinney, B.%
 \newblock
 \APACrefYear{2015}.
 \newblock
-\APACrefbtitle {The handbook of language emergence} {The handbook of language
-  emergence}.
+\APACrefbtitle {{The Handbook of Language Emergence}} {{The Handbook of
+  Language Emergence}}.
 \newblock
 \APACaddressPublisher{Chichester}{John Wiley \& Sons}.
 \PrintBackRefs{\CurrentBib}
@@ -843,32 +843,6 @@ Maddieson, I.%
 \APACrefbtitle {Patterns of Sounds} {Patterns of sounds}.
 \newblock
 \APACaddressPublisher{Cambridge}{Cambridge University Press}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Mayer%
-}{%
-Mayer%
-}{%
-{\protect \APACyear {2018}}%
-}]{%
-Mayer2018}
-\APACinsertmetastar {%
-Mayer2018}%
-\begin{APACrefauthors}%
-Mayer, C.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2018}.
-\unskip\
-\newblock
-\APACrefbtitle {An algorithm for learning phonological classes from
-  distributional similarity} {An algorithm for learning phonological classes
-  from distributional similarity}\ \APACtypeAddressSchool {\BUMTh}{}{}.
-\unskip\
-\newblock
-\APACaddressSchool {}{University of California, Los Angeles}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -941,7 +915,7 @@ Moreton, E.%
   learning. Part I: Structure, Part II: Substance} {Structure and substance in
   artificial phonology learning. part i: Structure, part ii: Substance}.{\BBCQ}
 \newblock
-\APACjournalVolNumPages{Language and Linguistics Compass}{6}{}{686-701 and
+\APACjournalVolNumPages{Language and Linguistics Compass}{6}{11}{686-701 and
   702-718}.
 \PrintBackRefs{\CurrentBib}
 
@@ -1056,6 +1030,28 @@ Proctor, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+REDACTED%
+}{%
+REDACTED%
+}{%
+{\protect \APACyear {submitted}}%
+}]{%
+MayerSubmitted}
+\APACinsertmetastar {%
+MayerSubmitted}%
+\begin{APACrefauthors}%
+REDACTED.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{submitted}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {REDACTED} {Redacted}.{\BBCQ}
+\newblock
+
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Sagey%
 }{%
 Sagey%
@@ -1130,8 +1126,8 @@ Steriade, D.%
 {\BBOQ}\APACrefatitle {Markedness and Underspecification} {Markedness and
   underspecification}.{\BBCQ}
 \newblock
-\BIn{} J.~Goldsmith\ (\BED), \APACrefbtitle {The Handbook of Phonological
-  Theory} {The handbook of phonological theory}\ (\BPG~114-175).
+\BIn{} J.~Goldsmith\ (\BED), \APACrefbtitle {{The Handbook of Phonological
+  Theory}} {{The Handbook of Phonological Theory}}\ (\BPG~114-175).
 \newblock
 \APACaddressPublisher{Oxford/Cambridge, MA}{Blackwell}.
 \PrintBackRefs{\CurrentBib}

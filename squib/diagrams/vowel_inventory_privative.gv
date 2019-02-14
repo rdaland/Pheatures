@@ -1,11 +1,11 @@
 // None
 digraph {
 	graph [ dpi = 300 ];
-	0 [label="{<segs> u, a, i, e, y, ø, o |<feats>  }",shape=record]
-	1 [label="{<segs> u, e, i, y, ø, o |<feats> +nonlow }",shape=record]
-	2 [label="{<segs> i, e, ø, y |<feats> +nonlow\n+front }",shape=record]
-	3 [label="{<segs> u, ø, y, o |<feats> +nonlow\n+round }",shape=record]
-	4 [label="{<segs> u, i, y |<feats> +nonlow\n+high }",shape=record]
+	0 [label="{<segs> a, i, u, e, o, y, ø |<feats>  }",shape=record]
+	1 [label="{<segs> i, u, e, o, y, ø |<feats> +nonlow }",shape=record]
+	2 [label="{<segs> i, e, y, ø |<feats> +nonlow\n+front }",shape=record]
+	3 [label="{<segs> u, o, y, ø |<feats> +nonlow\n+round }",shape=record]
+	4 [label="{<segs> i, u, y |<feats> +nonlow\n+high }",shape=record]
 	5 [label="{<segs> i |<feats> +nonlow\n+front\n+high\n+i }",shape=record]
 	6 [label="{<segs> y |<feats> +nonlow\n+front\n+high\n+round }",shape=record]
 	7 [label="{<segs> u |<feats> +nonlow\n+high\n+round\n+u }",shape=record]
@@ -13,7 +13,7 @@ digraph {
 	9 [label="{<segs> ø |<feats> +nonlow\n+front\n+round\n+ø }",shape=record]
 	10 [label="{<segs> o |<feats> +nonlow\n+round\n+o }",shape=record]
 	11 [label="{<segs> a |<feats> +low }",shape=record]
-	12 [label="{<segs> ø, y |<feats> +nonlow\n+front\n+round }",shape=record]
+	12 [label="{<segs> y, ø |<feats> +nonlow\n+front\n+round }",shape=record]
 	13 [label="{<segs> i, y |<feats> +nonlow\n+front\n+high }",shape=record]
 	14 [label="{<segs> u, y |<feats> +nonlow\n+high\n+round }",shape=record]
 

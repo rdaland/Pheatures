@@ -15,45 +15,46 @@ Database file #1: mybib.bib
 apacite.bst [2013/07/21 v6.03 APA bibliography style]
 Warning--No institution in Padgett2002
 Warning--No institution in PrinceSmolensky1993
+Warning--No journal in MayerSubmitted
 You've used 49 entries,
             6951 wiz_defined-function locations,
-            1597 strings with 17381 characters,
-and the built_in function-call counts, 86530 in all, are:
-= -- 11370
+            1599 strings with 17341 characters,
+and the built_in function-call counts, 85677 in all, are:
+= -- 11237
 > -- 676
-< -- 3467
-+ -- 3390
-- -- 98
-* -- 4933
-:= -- 14337
-add.period$ -- 230
+< -- 3405
++ -- 3323
+- -- 100
+* -- 4888
+:= -- 14156
+add.period$ -- 229
 call.type$ -- 49
 change.case$ -- 844
 chr.to.int$ -- 0
-cite$ -- 100
-duplicate$ -- 2183
-empty$ -- 3720
+cite$ -- 101
+duplicate$ -- 2179
+empty$ -- 3708
 format.name$ -- 981
-if$ -- 17549
+if$ -- 17400
 int.to.chr$ -- 0
 int.to.str$ -- 147
 missing$ -- 0
-newline$ -- 1188
+newline$ -- 1186
 num.names$ -- 413
-pop$ -- 1475
+pop$ -- 1465
 preamble$ -- 1
 purify$ -- 196
 quote$ -- 0
-skip$ -- 6855
+skip$ -- 6786
 stack$ -- 0
-substring$ -- 3913
-swap$ -- 1323
-text.length$ -- 161
+substring$ -- 3845
+swap$ -- 1334
+text.length$ -- 162
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 5200
-warning$ -- 2
+type$ -- 5136
+warning$ -- 3
 while$ -- 352
 width$ -- 0
-write$ -- 1376
-(There were 2 warnings)
+write$ -- 1374
+(There were 3 warnings)

@@ -1,10 +1,10 @@
 // None
 digraph {
 	graph [ dpi = 300 ];
-	0 [label="ø, i, o, e, y, u",shape=box]
-	1 [label="ø, i, y, e",shape=box]
-	2 [label="ø, o, y, u",shape=box]
-	3 [label="i, y, u",shape=box]
+	0 [label="i, u, e, o, y, ø",shape=box]
+	1 [label="i, e, y, ø",shape=box]
+	2 [label="u, o, y, ø",shape=box]
+	3 [label="i, u, y",shape=box]
 	4 [label="i",shape=box]
 	5 [label="y",shape=box]
 	6 [label="u",shape=box]
@@ -12,7 +12,7 @@ digraph {
 	8 [label="ø",shape=box]
 	9 [label="o",shape=box]
 	10 [label="a",shape=box]
-	11 [label="ø, i, o, e, a, y, u"]
+	11 [label="a, i, u, e, o, y, ø"]
 	0 -> 1 []
 	0 -> 2 []
 	0 -> 3 []
