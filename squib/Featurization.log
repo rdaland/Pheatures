@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.12)  14 FEB 2019 11:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.26)  23 MAY 2019 00:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -295,14 +295,447 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 )
 \c@ContinuedFloat=\count110
 )
-(/usr/share/texlive/texmf-dist/tex/latex/cite/cite.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks22
+\pgfutil@tempdima=\dimen143
+\pgfutil@tempdimb=\dimen144
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box29
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+Package: pgfrcs 2015/08/07 v3.0.1a (rcs-revision 1.31)
+))
+Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks23
+\pgfkeys@temptoks=\toks24
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
+\pgfkeys@tmptoks=\toks25
+))
+\pgf@x=\dimen145
+\pgf@y=\dimen146
+\pgf@xa=\dimen147
+\pgf@ya=\dimen148
+\pgf@xb=\dimen149
+\pgf@yb=\dimen150
+\pgf@xc=\dimen151
+\pgf@yc=\dimen152
+\w@pgf@writea=\write3
+\r@pgf@reada=\read1
+\c@pgf@counta=\count111
+\c@pgf@countb=\count112
+\c@pgf@countc=\count113
+\c@pgf@countd=\count114
+\t@pgf@toka=\toks26
+\t@pgf@tokb=\toks27
+\t@pgf@tokc=\toks28
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2014/10/11  (rcs-revision 1.35)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
+File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
+File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
+\pgfsyssoftpath@smallbuffer@items=\count115
+\pgfsyssoftpath@bigbuffer@items=\count116
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen153
+\pgfmath@count=\count117
+\pgfmath@box=\box30
+\pgfmath@toks=\toks29
+\pgfmath@stack@operand=\toks30
+\pgfmath@stack@operation=\toks31
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count118
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
+File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
+\pgf@picminx=\dimen154
+\pgf@picmaxx=\dimen155
+\pgf@picminy=\dimen156
+\pgf@picmaxy=\dimen157
+\pgf@pathminx=\dimen158
+\pgf@pathmaxx=\dimen159
+\pgf@pathminy=\dimen160
+\pgf@pathmaxy=\dimen161
+\pgf@xx=\dimen162
+\pgf@xy=\dimen163
+\pgf@yx=\dimen164
+\pgf@yy=\dimen165
+\pgf@zx=\dimen166
+\pgf@zy=\dimen167
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
+File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
+\pgf@path@lastx=\dimen168
+\pgf@path@lasty=\dimen169
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
+File: pgfcorepathusage.code.tex 2014/11/02  (rcs-revision 1.24)
+\pgf@shorten@end@additional=\dimen170
+\pgf@shorten@start@additional=\dimen171
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
+File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
+\pgfpic=\box31
+\pgf@hbox=\box32
+\pgf@layerbox@main=\box33
+\pgf@picture@serial@count=\count119
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
+File: pgfcoregraphicstate.code.tex 2014/11/02  (rcs-revision 1.12)
+\pgflinewidth=\dimen172
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
+File: pgfcoretransformations.code.tex 2015/08/07  (rcs-revision 1.20)
+\pgf@pt@x=\dimen173
+\pgf@pt@y=\dimen174
+\pgf@pt@temp=\dimen175
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
+File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
+File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
+\pgfarrowsep=\dimen176
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
+\pgf@max=\dimen177
+\pgf@sys@shading@range@num=\count120
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
+File: pgfcoreexternal.code.tex 2014/07/09  (rcs-revision 1.21)
+\pgfexternal@startupbox=\box34
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
+File: pgfcorelayers.code.tex 2013/07/18  (rcs-revision 1.7)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
+File: pgfcoretransparency.code.tex 2013/09/30  (rcs-revision 1.5)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
+File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
+\pgfnodeparttextbox=\box35
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty
+Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen178
+\pgf@nodesepend=\dimen179
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty
+Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
+)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen180
+\pgffor@skip=\dimen181
+\pgffor@stack=\toks32
+\pgffor@toks=\toks33
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex
+File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
+\pgf@plot@mark@count=\count121
+\pgfplotmarksize=\dimen182
+)
+\tikz@lastx=\dimen183
+\tikz@lasty=\dimen184
+\tikz@lastxsaved=\dimen185
+\tikz@lastysaved=\dimen186
+\tikzleveldistance=\dimen187
+\tikzsiblingdistance=\dimen188
+\tikz@figbox=\box36
+\tikz@figbox@bg=\box37
+\tikz@tempbox=\box38
+\tikz@tempbox@bg=\box39
+\tikztreelevel=\count122
+\tikznumberofchildren=\count123
+\tikznumberofcurrentchild=\count124
+\tikz@fig@count=\count125
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
+\pgfmatrixcurrentrow=\count126
+\pgfmatrixcurrentcolumn=\count127
+\pgf@matrix@numberofcolumns=\count128
+)
+\tikz@expandcount=\count129
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.1a (rcs-revision 1.2)
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/pgftree.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.tex
+\pgf@subpicminx=\dimen189
+\pgf@subpicminy=\dimen190
+\pgf@subpicmaxx=\dimen191
+\pgf@subpicmaxy=\dimen192
+))
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/pgftree.tex
+\levelsep=\dimen193
+\subtreesep=\dimen194
+\smuggle@levelsep=\dimen195
+\smuggle@subtreesep=\dimen196
+\this@levelsep=\dimen197
+\this@subtreesep=\dimen198
+\pgftree@childx=\dimen199
+\pgftree@savechildx=\dimen256
+\pgftree@childy=\dimen257
+\pgftree@savechildy=\dimen258
+\pgftree@childi=\count130
+\pgftree@savechildi=\count131
+\pgftree@level=\count132
+\pgftree@depth=\dimen259
+\pgf@subpic@hbox@children=\box40
+\pgf@subpic@minx@children=\dimen260
+\pgf@subpic@miny@children=\dimen261
+\pgf@subpic@maxx@children=\dimen262
+\pgf@subpic@maxy@children=\dimen263
+\pgftree@lastchildx=\dimen264
+\pgftree@lastchildy=\dimen265
+))
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.tex
+\@result=\toks34
+\child@list=\toks35
+\root@node=\toks36
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
+
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.5)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2013/09/11 v3.0.1a (rcs-revision 1.6)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.callouts.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.callouts.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2010/01/07 v3.0.1a (rcs-revision 1.2)
+
+\pgfnodepartlowerbox=\box41
+\pgfnodeparttwobox=\box42
+\pgfnodepartthreebox=\box43
+\pgfnodepartfourbox=\box44
+\pgfnodeparttwentybox=\box45
+\pgfnodepartnineteenbox=\box46
+\pgfnodeparteighteenbox=\box47
+\pgfnodepartseventeenbox=\box48
+\pgfnodepartsixteenbox=\box49
+\pgfnodepartfifteenbox=\box50
+\pgfnodepartfourteenbox=\box51
+\pgfnodepartthirteenbox=\box52
+\pgfnodeparttwelvebox=\box53
+\pgfnodepartelevenbox=\box54
+\pgfnodeparttenbox=\box55
+\pgfnodepartninebox=\box56
+\pgfnodeparteightbox=\box57
+\pgfnodepartsevenbox=\box58
+\pgfnodepartsixbox=\box59
+\pgfnodepartfivebox=\box60
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarysnakes.code.tex
+File: tikzlibrarysnakes.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.7)
+
+
+Package pgf Warning: Snakes have been superseded by decorations. Please use the
+ decoration libraries instead of the snakes library on input line 14.
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.pathmorphing.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
+e.tex
+\pgfdecoratedcompleteddistance=\dimen266
+\pgfdecoratedremainingdistance=\dimen267
+\pgfdecoratedinputsegmentcompleteddistance=\dimen268
+\pgfdecoratedinputsegmentremainingdistance=\dimen269
+\pgf@decorate@distancetomove=\dimen270
+\pgf@decorate@repeatstate=\count133
+\pgfdecorationsegmentamplitude=\dimen271
+\pgfdecorationsegmentlength=\dimen272
+)
+\tikz@lib@dec@box=\box61
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.pathmorphing.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.pathreplacing.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.pathreplacing.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.shapes.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.shapes.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryautomata.code.tex
+File: tikzlibraryautomata.code.tex 2008/07/14 v3.0.1a (rcs-revision 1.3)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.1a (rcs-revision 1.7)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
+) (/usr/share/texlive/texmf-dist/tex/latex/cite/cite.sty
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 )
 (/usr/share/texlive/texmf-dist/tex/latex/apacite/apacite.sty
 Package: apacite 2013/07/21 v6.03 APA citation
-\c@BibCnt=\count111
+\c@BibCnt=\count134
 \bibleftmargin=\skip71
 \bibindent=\skip72
 \bibparsep=\skip73
@@ -314,17 +747,17 @@ Package: placeins 2005/04/18  v 2.2
 )
 (/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
-\c@KVtest=\count112
+\c@KVtest=\count135
 \sf@farskip=\skip76
-\sf@captopadj=\dimen143
+\sf@captopadj=\dimen273
 \sf@capskip=\skip77
 \sf@nearskip=\skip78
-\c@subfigure=\count113
-\c@subfigure@save=\count114
-\c@lofdepth=\count115
-\c@subtable=\count116
-\c@subtable@save=\count117
-\c@lotdepth=\count118
+\c@subfigure=\count136
+\c@subfigure@save=\count137
+\c@lofdepth=\count138
+\c@subtable=\count139
+\c@subtable@save=\count140
+\c@lotdepth=\count141
 \sf@top=\skip79
 \sf@bottom=\skip80
 )
@@ -337,24 +770,24 @@ Package: expl3 2018/02/21 L3 programming layer (loader)
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
 Package: expl3 2018/02/21 L3 programming layer (code)
-\c_max_int=\count119
-\l_tmpa_int=\count120
-\l_tmpb_int=\count121
-\g_tmpa_int=\count122
-\g_tmpb_int=\count123
-\g__intarray_font_int=\count124
-\g__prg_map_int=\count125
-\c_log_iow=\count126
-\l_iow_line_count_int=\count127
-\l__iow_line_target_int=\count128
-\l__iow_one_indent_int=\count129
-\l__iow_indent_int=\count130
-\c_zero_dim=\dimen144
-\c_max_dim=\dimen145
-\l_tmpa_dim=\dimen146
-\l_tmpb_dim=\dimen147
-\g_tmpa_dim=\dimen148
-\g_tmpb_dim=\dimen149
+\c_max_int=\count142
+\l_tmpa_int=\count143
+\l_tmpb_int=\count144
+\g_tmpa_int=\count145
+\g_tmpb_int=\count146
+\g__intarray_font_int=\count147
+\g__prg_map_int=\count148
+\c_log_iow=\count149
+\l_iow_line_count_int=\count150
+\l__iow_line_target_int=\count151
+\l__iow_one_indent_int=\count152
+\l__iow_indent_int=\count153
+\c_zero_dim=\dimen274
+\c_max_dim=\dimen275
+\l_tmpa_dim=\dimen276
+\l_tmpb_dim=\dimen277
+\g_tmpa_dim=\dimen278
+\g_tmpb_dim=\dimen279
 \c_zero_skip=\skip81
 \c_max_skip=\skip82
 \l_tmpa_skip=\skip83
@@ -367,132 +800,132 @@ Package: expl3 2018/02/21 L3 programming layer (code)
 \l_tmpb_muskip=\muskip14
 \g_tmpa_muskip=\muskip15
 \g_tmpb_muskip=\muskip16
-\l_keys_choice_int=\count131
-\c__fp_leading_shift_int=\count132
-\c__fp_middle_shift_int=\count133
-\c__fp_trailing_shift_int=\count134
-\c__fp_big_leading_shift_int=\count135
-\c__fp_big_middle_shift_int=\count136
-\c__fp_big_trailing_shift_int=\count137
-\c__fp_Bigg_leading_shift_int=\count138
-\c__fp_Bigg_middle_shift_int=\count139
-\c__fp_Bigg_trailing_shift_int=\count140
-\c__fp_rand_size_int=\count141
-\c__fp_rand_four_int=\count142
-\c__fp_rand_eight_int=\count143
-\l__sort_length_int=\count144
-\l__sort_min_int=\count145
-\l__sort_top_int=\count146
-\l__sort_max_int=\count147
-\l__sort_true_max_int=\count148
-\l__sort_block_int=\count149
-\l__sort_begin_int=\count150
-\l__sort_end_int=\count151
-\l__sort_A_int=\count152
-\l__sort_B_int=\count153
-\l__sort_C_int=\count154
-\l__tl_build_start_index_int=\count155
-\l__tl_build_index_int=\count156
-\l__tl_analysis_normal_int=\count157
-\l__tl_analysis_index_int=\count158
-\l__tl_analysis_nesting_int=\count159
-\l__tl_analysis_type_int=\count160
-\l__regex_internal_a_int=\count161
-\l__regex_internal_b_int=\count162
-\l__regex_internal_c_int=\count163
-\l__regex_balance_int=\count164
-\l__regex_group_level_int=\count165
-\l__regex_mode_int=\count166
-\c__regex_cs_in_class_mode_int=\count167
-\c__regex_cs_mode_int=\count168
-\l__regex_catcodes_int=\count169
-\l__regex_default_catcodes_int=\count170
-\c__regex_catcode_D_int=\count171
-\c__regex_catcode_S_int=\count172
-\c__regex_catcode_L_int=\count173
-\c__regex_catcode_O_int=\count174
-\c__regex_catcode_A_int=\count175
-\c__regex_all_catcodes_int=\count176
-\l__regex_show_lines_int=\count177
-\l__regex_min_state_int=\count178
-\l__regex_max_state_int=\count179
-\l__regex_left_state_int=\count180
-\l__regex_right_state_int=\count181
-\l__regex_capturing_group_int=\count182
-\l__regex_min_pos_int=\count183
-\l__regex_max_pos_int=\count184
-\l__regex_curr_pos_int=\count185
-\l__regex_start_pos_int=\count186
-\l__regex_success_pos_int=\count187
-\l__regex_curr_char_int=\count188
-\l__regex_curr_catcode_int=\count189
-\l__regex_last_char_int=\count190
-\l__regex_case_changed_char_int=\count191
-\l__regex_curr_state_int=\count192
-\l__regex_step_int=\count193
-\l__regex_min_active_int=\count194
-\l__regex_max_active_int=\count195
-\l__regex_replacement_csnames_int=\count196
-\l__regex_match_count_int=\count197
-\l__regex_min_submatch_int=\count198
-\l__regex_submatch_int=\count199
-\l__regex_zeroth_submatch_int=\count266
-\g__regex_trace_regex_int=\count267
-\c_empty_box=\box29
-\l_tmpa_box=\box30
-\l_tmpb_box=\box31
-\g_tmpa_box=\box32
-\g_tmpb_box=\box33
-\l__box_top_dim=\dimen150
-\l__box_bottom_dim=\dimen151
-\l__box_left_dim=\dimen152
-\l__box_right_dim=\dimen153
-\l__box_top_new_dim=\dimen154
-\l__box_bottom_new_dim=\dimen155
-\l__box_left_new_dim=\dimen156
-\l__box_right_new_dim=\dimen157
-\l__box_internal_box=\box34
-\l__coffin_internal_box=\box35
-\l__coffin_internal_dim=\dimen158
-\l__coffin_offset_x_dim=\dimen159
-\l__coffin_offset_y_dim=\dimen160
-\l__coffin_x_dim=\dimen161
-\l__coffin_y_dim=\dimen162
-\l__coffin_x_prime_dim=\dimen163
-\l__coffin_y_prime_dim=\dimen164
-\c_empty_coffin=\box36
-\l__coffin_aligned_coffin=\box37
-\l__coffin_aligned_internal_coffin=\box38
-\l_tmpa_coffin=\box39
-\l_tmpb_coffin=\box40
-\l__coffin_display_coffin=\box41
-\l__coffin_display_coord_coffin=\box42
-\l__coffin_display_pole_coffin=\box43
-\l__coffin_display_offset_dim=\dimen165
-\l__coffin_display_x_dim=\dimen166
-\l__coffin_display_y_dim=\dimen167
-\l__coffin_bounding_shift_dim=\dimen168
-\l__coffin_left_corner_dim=\dimen169
-\l__coffin_right_corner_dim=\dimen170
-\l__coffin_bottom_corner_dim=\dimen171
-\l__coffin_top_corner_dim=\dimen172
-\l__coffin_scaled_total_height_dim=\dimen173
-\l__coffin_scaled_width_dim=\dimen174
+\l_keys_choice_int=\count154
+\c__fp_leading_shift_int=\count155
+\c__fp_middle_shift_int=\count156
+\c__fp_trailing_shift_int=\count157
+\c__fp_big_leading_shift_int=\count158
+\c__fp_big_middle_shift_int=\count159
+\c__fp_big_trailing_shift_int=\count160
+\c__fp_Bigg_leading_shift_int=\count161
+\c__fp_Bigg_middle_shift_int=\count162
+\c__fp_Bigg_trailing_shift_int=\count163
+\c__fp_rand_size_int=\count164
+\c__fp_rand_four_int=\count165
+\c__fp_rand_eight_int=\count166
+\l__sort_length_int=\count167
+\l__sort_min_int=\count168
+\l__sort_top_int=\count169
+\l__sort_max_int=\count170
+\l__sort_true_max_int=\count171
+\l__sort_block_int=\count172
+\l__sort_begin_int=\count173
+\l__sort_end_int=\count174
+\l__sort_A_int=\count175
+\l__sort_B_int=\count176
+\l__sort_C_int=\count177
+\l__tl_build_start_index_int=\count178
+\l__tl_build_index_int=\count179
+\l__tl_analysis_normal_int=\count180
+\l__tl_analysis_index_int=\count181
+\l__tl_analysis_nesting_int=\count182
+\l__tl_analysis_type_int=\count183
+\l__regex_internal_a_int=\count184
+\l__regex_internal_b_int=\count185
+\l__regex_internal_c_int=\count186
+\l__regex_balance_int=\count187
+\l__regex_group_level_int=\count188
+\l__regex_mode_int=\count189
+\c__regex_cs_in_class_mode_int=\count190
+\c__regex_cs_mode_int=\count191
+\l__regex_catcodes_int=\count192
+\l__regex_default_catcodes_int=\count193
+\c__regex_catcode_D_int=\count194
+\c__regex_catcode_S_int=\count195
+\c__regex_catcode_L_int=\count196
+\c__regex_catcode_O_int=\count197
+\c__regex_catcode_A_int=\count198
+\c__regex_all_catcodes_int=\count199
+\l__regex_show_lines_int=\count266
+\l__regex_min_state_int=\count267
+\l__regex_max_state_int=\count268
+\l__regex_left_state_int=\count269
+\l__regex_right_state_int=\count270
+\l__regex_capturing_group_int=\count271
+\l__regex_min_pos_int=\count272
+\l__regex_max_pos_int=\count273
+\l__regex_curr_pos_int=\count274
+\l__regex_start_pos_int=\count275
+\l__regex_success_pos_int=\count276
+\l__regex_curr_char_int=\count277
+\l__regex_curr_catcode_int=\count278
+\l__regex_last_char_int=\count279
+\l__regex_case_changed_char_int=\count280
+\l__regex_curr_state_int=\count281
+\l__regex_step_int=\count282
+\l__regex_min_active_int=\count283
+\l__regex_max_active_int=\count284
+\l__regex_replacement_csnames_int=\count285
+\l__regex_match_count_int=\count286
+\l__regex_min_submatch_int=\count287
+\l__regex_submatch_int=\count288
+\l__regex_zeroth_submatch_int=\count289
+\g__regex_trace_regex_int=\count290
+\c_empty_box=\box62
+\l_tmpa_box=\box63
+\l_tmpb_box=\box64
+\g_tmpa_box=\box65
+\g_tmpb_box=\box66
+\l__box_top_dim=\dimen280
+\l__box_bottom_dim=\dimen281
+\l__box_left_dim=\dimen282
+\l__box_right_dim=\dimen283
+\l__box_top_new_dim=\dimen284
+\l__box_bottom_new_dim=\dimen285
+\l__box_left_new_dim=\dimen286
+\l__box_right_new_dim=\dimen287
+\l__box_internal_box=\box67
+\l__coffin_internal_box=\box68
+\l__coffin_internal_dim=\dimen288
+\l__coffin_offset_x_dim=\dimen289
+\l__coffin_offset_y_dim=\dimen290
+\l__coffin_x_dim=\dimen291
+\l__coffin_y_dim=\dimen292
+\l__coffin_x_prime_dim=\dimen293
+\l__coffin_y_prime_dim=\dimen294
+\c_empty_coffin=\box69
+\l__coffin_aligned_coffin=\box70
+\l__coffin_aligned_internal_coffin=\box71
+\l_tmpa_coffin=\box72
+\l_tmpb_coffin=\box73
+\l__coffin_display_coffin=\box74
+\l__coffin_display_coord_coffin=\box75
+\l__coffin_display_pole_coffin=\box76
+\l__coffin_display_offset_dim=\dimen295
+\l__coffin_display_x_dim=\dimen296
+\l__coffin_display_y_dim=\dimen297
+\l__coffin_bounding_shift_dim=\dimen298
+\l__coffin_left_corner_dim=\dimen299
+\l__coffin_right_corner_dim=\dimen300
+\l__coffin_bottom_corner_dim=\dimen301
+\l__coffin_top_corner_dim=\dimen302
+\l__coffin_scaled_total_height_dim=\dimen303
+\l__coffin_scaled_width_dim=\dimen304
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count268
-\l__driver_tmp_box=\box44
+\l__driver_color_stack_int=\count291
+\l__driver_tmp_box=\box77
 ))
 Package: regexpatch 2016/05/15 v0.2b Extending etoolbox patching commands
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2018/02/21 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count269
-\g__xparse_grabber_int=\count270
-\l__xparse_m_args_int=\count271
-\l__xparse_mandatory_args_int=\count272
-\l__xparse_v_nesting_int=\count273
+\l__xparse_current_arg_int=\count292
+\g__xparse_grabber_int=\count293
+\l__xparse_m_args_int=\count294
+\l__xparse_mandatory_args_int=\count295
+\l__xparse_v_nesting_int=\count296
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3regex.sty
 Package: l3regex 2017/03/18 Obsolete L3 package 
@@ -775,29 +1208,29 @@ put line 42.
 . Defining command \xpatchparametertext with sig. '+m+m+m+m+m' on line 892.
 .................................................
 )
-\c@definition=\count274
+\c@definition=\count297
  (./Featurization.aux)
 \openout1 = `Featurization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 79.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 96.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 96.
  (/usr/share/texmf/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 79.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 96.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -838,17 +1271,17 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count275
-\scratchdimen=\dimen175
-\scratchbox=\box45
-\nofMPsegments=\count276
-\nofMParguments=\count277
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count278
-\MPscratchDim=\dimen176
-\MPnumerator=\count279
-\makeMPintoPDFobject=\count280
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count298
+\scratchdimen=\dimen305
+\scratchbox=\box78
+\nofMPsegments=\count299
+\nofMParguments=\count300
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count301
+\MPscratchDim=\dimen306
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
+\everyMPtoPDFconversion=\toks38
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -902,11 +1335,12 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 79.
+LaTeX Info: Redefining \selectfont on input line 96.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@maskedRefs=\count281
+ ABD: EveryShipout initializing macros
+\c@maskedRefs=\count304
 
 (/usr/share/texlive/texmf-dist/tex/latex/apacite/english.apc
 File: english.apc 2013/07/21 v6.03 apacite language file
@@ -914,55 +1348,78 @@ LaTeX Info: Redefining \BPBI on input line 129.
 LaTeX Info: Redefining \BHBI on input line 130.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 98.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 83.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 100.
 
-Overfull \hbox (0.339pt too wide) in paragraph at lines 84--84
+Overfull \hbox (0.339pt too wide) in paragraph at lines 101--101
 []\OT1/ptm/b/n/10.95 Abstract: \OT1/ptm/m/n/10.95 Given a set of phono-log-i-ca
 l fea-tures, we can enu-mer-ate a set of phono- 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 108.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 108.
-LaTeX Font Info:    Try loading font information for T3+ptm on input line 108.
-
-(/usr/share/texmf/tex/latex/tipa/t3ptm.fd
-File: t3ptm.fd 2001/12/31 TIPA font definitions
-)
 LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 10
-8.
-
+4.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 10
-8.
+4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 10
-8.
+4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 10
-8.
+4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 104.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 104.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 104.
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--104
+[][]\OT1/ptm/m/n/10 * This re-search was sup-ported by the So-cial Sci-ences an
+d Hu-man-i-ties Re-search Coun-cil of Canada
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--104
+\OT1/ptm/m/n/10 Doc-toral Award to the first au-thor. Thanks to Bruce Hayes, Ti
+m Hunter, Kie Zu-raw, and the mem-bers of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 104--104
+\OT1/ptm/m/n/10 the UCLA phonol-ogy sem-i-nar for their feed-back and guid-ance
+. All mis-takes are our own. Sup-ple-men-
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 128.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 128.
+LaTeX Font Info:    Try loading font information for T3+ptm on input line 128.
+
+(/usr/share/texmf/tex/latex/tipa/t3ptm.fd
+File: t3ptm.fd 2001/12/31 TIPA font definitions
+)
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 128.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
@@ -972,96 +1429,111 @@ Missing character: There is no ˜ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
- [3] [4] [5]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 149.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 149.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 149.
- [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 205--205
+
+Overfull \hbox (3.73856pt too wide) in paragraph at lines 146--147
+\OT1/ptm/m/n/12 grounds for the-o-ret-i-cal con-cern, it has been pro-posed tha
+t pho-net-i-cally dis-parate classes 
+ []
+
+[3] [4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 187--187
+[]\OT1/ptm/m/n/12 Figure 1: |A schematic rep-re-sen-ta-tion of the model of fea
+-ture learn-ing as-sumed here.
+ []
+
+[7] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 257--257
 []\OT1/ptm/m/n/12 Table 2: |Ex-am-ple of a fea-ture sys-tem. Rows rep-re-sent s
 eg-ments, columns rep-re-sent
  []
 
-[8]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9] [10]
-<diagrams/manner_poset_privative.png, id=44, 1175.39125pt x 1087.06125pt>
+[10] [11]
+Overfull \hbox (45.95845pt too wide) in paragraph at lines 291--317
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 317--317
+[]\OT1/ptm/m/n/12 Table 3: |Sono-rants and ob-stru-ents with pri-va-tive (left)
+, full (mid-dle), and con-trastive
+ []
+
+[12] [13]
+<diagrams/manner_poset_privative.png, id=57, 1175.39125pt x 1087.06125pt>
 File: diagrams/manner_poset_privative.png Graphic file (type png)
 <use diagrams/manner_poset_privative.png>
 Package pdftex.def Info: diagrams/manner_poset_privative.png  used on input lin
-e 280.
+e 338.
 (pdftex.def)             Requested size: 125.05113pt x 115.64594pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--285
+Underfull \hbox (badness 10000) in paragraph at lines 343--343
 [][]\OT1/ptm/m/n/10 Formally, the sub-set/superset re-la-tion is the \OT1/ptm/m
 /it/10 tran-si-tive clo-sure \OT1/ptm/m/n/10 of the par-ent/child re-la-tion, a
 nd the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--287
+Underfull \hbox (badness 10000) in paragraph at lines 345--345
 [][]\OT1/ptm/m/n/10 Some con-fu-sion may arise with re-gard to SPE-style rules.
  In SPE, the null set sym-bol is used to in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 287--287
+Underfull \hbox (badness 10000) in paragraph at lines 345--345
 \OT1/ptm/m/n/10 di-cate the source/target of epenthe-sis/deletion rules. Thus, 
 in SPE the null set sym-bol is used to de-note
  []
 
-[11 <./diagrams/manner_poset_privative.png>] [12]
-Overfull \hbox (2.32306pt too wide) in paragraph at lines 343--344
+[14 <./diagrams/manner_poset_privative.png>] [15]
+Overfull \hbox (2.32306pt too wide) in paragraph at lines 401--402
 \OT1/ptm/m/n/12 The dif-fer-ence be-tween the two is high-lighted by us-ing red
  ovals for the `ex-tra' classes.  
  []
 
-<diagrams/vowel_inventory_base.png, id=53, 1764.5925pt x 1087.06125pt>
+<diagrams/vowel_inventory_base.png, id=66, 1764.5925pt x 1087.06125pt>
 File: diagrams/vowel_inventory_base.png Graphic file (type png)
 <use diagrams/vowel_inventory_base.png>
 Package pdftex.def Info: diagrams/vowel_inventory_base.png  used on input line 
-348.
+406.
 (pdftex.def)             Requested size: 187.57352pt x 115.54642pt.
-<diagrams/vowel_inventory_closure.png, id=54, 1764.5925pt x 1388.18625pt>
+<diagrams/vowel_inventory_closure.png, id=67, 1764.5925pt x 1388.18625pt>
 File: diagrams/vowel_inventory_closure.png Graphic file (type png)
 <use diagrams/vowel_inventory_closure.png>
 Package pdftex.def Info: diagrams/vowel_inventory_closure.png  used on input li
-ne 350.
+ne 408.
 (pdftex.def)             Requested size: 187.57352pt x 147.55373pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--351
-[]\OT1/ptm/m/n/12 Figure 2: |The orig-i-nal vowel sys-tem (left) and its in-ter
+Underfull \hbox (badness 10000) in paragraph at lines 409--409
+[]\OT1/ptm/m/n/12 Figure 3: |The orig-i-nal vowel sys-tem (left) and its in-ter
 -sec-tional clo-sure (right).
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--351
+Underfull \hbox (badness 10000) in paragraph at lines 409--409
 \OT1/ptm/m/n/12 Classes added in the clo-sure are in-di-cated with red ovals. D
 ot-ted lines in the in-ter-
- []
-
-[13 <./diagrams/vowel_inventory_base.png> <./diagrams/vowel_inventory_closure.p
-ng>]
-Underfull \hbox (badness 10000) in paragraph at lines 380--385
- 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 413--413
-[]\OT1/ptm/m/n/12 Table 7: |A fea-tur-iza-tion of the vowel in-ven-tory. The lo
-w vowel is un-spec-i-fied for
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14]
-Overfull \hbox (24.74283pt too wide) in paragraph at lines 435--436
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 438--443
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 471--471
+[]\OT1/ptm/m/n/12 Table 6: |A fea-tur-iza-tion of the vowel in-ven-tory. The lo
+w vowel is un-spec-i-fied for
+ []
+
+[17 <./diagrams/vowel_inventory_base.png> <./diagrams/vowel_inventory_closure.p
+ng>]
+Overfull \hbox (24.74283pt too wide) in paragraph at lines 493--494
 \OT1/ptm/m/n/12 Let $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 C; \OT1/ztmcm/m/n/12
  ^^F)$ \OT1/ptm/m/n/12 be a class sys-tem and $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/
 it/12 F; \OT1/ztmcm/m/n/12 ^^F\OML/ztmcm/m/it/12 ; V\OT1/ztmcm/m/n/12 )$ \OT1/p
@@ -1072,373 +1544,360 @@ ptm/m/n/12 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
+Underfull \hbox (badness 10000) in paragraph at lines 493--494
 
  []
 
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 462--467
+[18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 520--525
  
  []
 
-[16] [17]
-<diagrams/toy_system.png, id=72, 560.0925pt x 785.93625pt>
+[20]
+<diagrams/toy_system.png, id=85, 560.0925pt x 785.93625pt>
 File: diagrams/toy_system.png Graphic file (type png)
 <use diagrams/toy_system.png>
-Package pdftex.def Info: diagrams/toy_system.png  used on input line 492.
+Package pdftex.def Info: diagrams/toy_system.png  used on input line 550.
 (pdftex.def)             Requested size: 83.3653pt x 116.97392pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--512
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 []$\OML/ztmcm/m/it/12 Q$ \OT1/ptm/m/n/12 is a queue, which is a set of or-dered
  val-ues.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--512
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 \OT1/ptm/m/n/12 Queues are ``first in, first out'', which means val-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--512
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 \OT1/ptm/m/n/12 ues are re-moved from the queue us-ing \OT1/ptm/m/sc/12 de-queu
 e \OT1/ptm/m/n/12 in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--512
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 \OT1/ptm/m/n/12 the same or-der they were added to the queue us-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 513--514
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
 []\OT1/ptm/m/n/12 Returns the in-ter-sec-tional clo-sure of the in-put class
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 513--514
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
 \OT1/ptm/m/n/12 sys-tem. $\OML/ztmcm/m/it/12 Q[]$ \OT1/ptm/m/n/12 in-di-cates t
 he start-ing state of the queue
  []
 
 
-Overfull \hbox (3.08765pt too wide) in paragraph at lines 501--516
+Overfull \hbox (3.08765pt too wide) in paragraph at lines 559--574
  [][] 
  []
 
 
-Overfull \hbox (1.14572pt too wide) in paragraph at lines 522--524
+Overfull \hbox (1.14572pt too wide) in paragraph at lines 580--581
 \OT1/ptm/m/n/12 The first al-go-rithm yields a \OT1/ptm/m/it/12 pri-va-tive \OT
 1/ptm/m/n/12 fea-tur-iza-tion of a set of classes: that is, one where 
  []
 
-
-Overfull \hbox (125.16801pt too wide) in paragraph at lines 522--524
-\OT1/ptm/m/n/12 ture/value pair, $[][]$, to the seg-ments in each class with a 
-sin-gle par-ent.                                                       
- []
-
-[18 <./diagrams/toy_system.png>] [19]
-<diagrams/toy_system_privative.png, id=81, 560.0925pt x 1112.155pt>
+[21] [22 <./diagrams/toy_system.png>]
+<diagrams/toy_system_privative.png, id=93, 560.0925pt x 1112.155pt>
 File: diagrams/toy_system_privative.png Graphic file (type png)
 <use diagrams/toy_system_privative.png>
 Package pdftex.def Info: diagrams/toy_system_privative.png  used on input line 
-552.
+611.
 (pdftex.def)             Requested size: 84.4075pt x 167.59668pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 553--553
-[]\OT1/ptm/m/n/12 Figure 4: |Yield of the pri-va-tive spec-i-fi-
+Underfull \hbox (badness 10000) in paragraph at lines 612--612
+[]\OT1/ptm/m/n/12 Figure 5: |Yield of the pri-va-tive spec-i-fi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 566--566
-[]\OT1/ptm/m/n/12 Table 9: |Fea-t-u-ral spec-i-fi-ca-tion of the
+Underfull \hbox (badness 10000) in paragraph at lines 625--625
+[]\OT1/ptm/m/n/12 Table 8: |Fea-t-u-ral spec-i-fi-ca-tion of the
  []
 
 
-Overfull \hbox (1.17966pt too wide) in paragraph at lines 590--591
+Overfull \hbox (1.17966pt too wide) in paragraph at lines 649--650
 []\OT1/ptm/m/n/12 The out-put of this al-go-rithm on the sim-ple class sys-tem 
-in Fig. 3[] is shown in Fig. 4[]. 
+in Fig. 4[] is shown in Fig. 5[]. 
  []
 
-[20 <./diagrams/toy_system_privative.png>] [21]
-<diagrams/toy_system_complementary.png, id=88, 560.0925pt x 1112.155pt>
+[23 <./diagrams/toy_system_privative.png>] [24]
+<diagrams/toy_system_complementary.png, id=100, 560.0925pt x 1112.155pt>
 File: diagrams/toy_system_complementary.png Graphic file (type png)
 <use diagrams/toy_system_complementary.png>
 Package pdftex.def Info: diagrams/toy_system_complementary.png  used on input l
-ine 635.
+ine 694.
 (pdftex.def)             Requested size: 84.4075pt x 167.59668pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 636--636
-[]\OT1/ptm/m/n/12 Figure 5: |Yield of the com-ple-men-tary
+Underfull \hbox (badness 10000) in paragraph at lines 695--695
+[]\OT1/ptm/m/n/12 Figure 6: |Yield of the com-ple-men-tary
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 650--650
-[]\OT1/ptm/m/n/12 Table 10: |Fea-t-u-ral spec-i-fi-ca-tion of
+Underfull \hbox (badness 10000) in paragraph at lines 709--709
+[]\OT1/ptm/m/n/12 Table 9: |Fea-t-u-ral spec-i-fi-ca-tion of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 650--650
+Underfull \hbox (badness 10000) in paragraph at lines 709--709
 \OT1/ptm/m/n/12 the toy sys-tem with com-ple-men-tary
  []
 
 
-Overfull \hbox (1.17966pt too wide) in paragraph at lines 676--677
+Overfull \hbox (1.17966pt too wide) in paragraph at lines 735--736
 []\OT1/ptm/m/n/12 The out-put of this al-go-rithm on the sim-ple class sys-tem 
-in Fig. 3[] is shown in Fig. 5[], 
+in Fig. 4[] is shown in Fig. 6[], 
  []
 
-[22 <./diagrams/toy_system_complementary.png>]
-Overfull \hbox (0.27235pt too wide) in paragraph at lines 688--690
+[25 <./diagrams/toy_system_complementary.png>]
+Overfull \hbox (0.27235pt too wide) in paragraph at lines 747--749
 \OT1/ptm/m/n/12 the points above can be found in Ap-pendix B[].                
                                        
  []
 
-[23]
-Overfull \hbox (1.17966pt too wide) in paragraph at lines 716--717
+[26]
+Overfull \hbox (1.17966pt too wide) in paragraph at lines 775--776
 []\OT1/ptm/m/n/12 The out-put of this al-go-rithm on the sim-ple class sys-tem 
-in Fig. 3[] is shown in Fig. 6[], 
+in Fig. 4[] is shown in Fig. 7[], 
  []
 
-<diagrams/toy_system_ic.png, id=95, 710.655pt x 1112.155pt>
+<diagrams/toy_system_ic.png, id=108, 710.655pt x 1112.155pt>
 File: diagrams/toy_system_ic.png Graphic file (type png)
 <use diagrams/toy_system_ic.png>
-Package pdftex.def Info: diagrams/toy_system_ic.png  used on input line 720.
+Package pdftex.def Info: diagrams/toy_system_ic.png  used on input line 779.
 (pdftex.def)             Requested size: 83.3653pt x 130.44913pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 721--721
-[]\OT1/ptm/m/n/12 Figure 6: |Yield of the IC spec-i-fi-ca-tion al-go-rithm. Cla
+Underfull \hbox (badness 10000) in paragraph at lines 780--780
+[]\OT1/ptm/m/n/12 Figure 7: |Yield of the IC spec-i-fi-ca-tion al-go-rithm. Cla
 sses added by the al-go-rithm are
  []
 
-[24 <./diagrams/toy_system_ic.png>]
-Overfull \hbox (117.96538pt too wide) in paragraph at lines 747--749
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[27 <./diagrams/toy_system_ic.png>]
+Overfull \hbox (117.96538pt too wide) in paragraph at lines 806--808
 \OT1/ptm/m/sc/12 Ad-d-Com-ple-ments-Full\OT1/ptm/m/n/12 : see Ap-pendix B[] for
  a de-tailed dis-cus-sion.                                                     
   
  []
 
-<diagrams/toy_system_full_features_FEATURAL.png, id=99, 1162.3425pt x 1116.17pt
->
+[28]
+<diagrams/toy_system_full_features_FEATURAL.png, id=115, 1162.3425pt x 1116.17p
+t>
 File: diagrams/toy_system_full_features_FEATURAL.png Graphic file (type png)
 <use diagrams/toy_system_full_features_FEATURAL.png>
 Package pdftex.def Info: diagrams/toy_system_full_features_FEATURAL.png  used o
-n input line 777.
+n input line 836.
 (pdftex.def)             Requested size: 125.05113pt x 120.07109pt.
-<diagrams/toy_system_full_features_TOPOLOGICAL.png, id=100, 861.2175pt x 1112.1
+<diagrams/toy_system_full_features_TOPOLOGICAL.png, id=116, 861.2175pt x 1112.1
 55pt>
 File: diagrams/toy_system_full_features_TOPOLOGICAL.png Graphic file (type png)
 
 <use diagrams/toy_system_full_features_TOPOLOGICAL.png>
 Package pdftex.def Info: diagrams/toy_system_full_features_TOPOLOGICAL.png  use
-d on input line 779.
+d on input line 838.
 (pdftex.def)             Requested size: 93.78993pt x 121.11557pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 780--780
-[]\OT1/ptm/m/n/12 Figure 7: |Fea-t-u-ral (left) and topo-log-i-cal (right) plot
+Underfull \hbox (badness 10000) in paragraph at lines 839--839
+[]\OT1/ptm/m/n/12 Figure 8: |Fea-t-u-ral (left) and topo-log-i-cal (right) plot
 s of the out-put of the full spec-i-fi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 780--780
+Underfull \hbox (badness 10000) in paragraph at lines 839--839
 \OT1/ptm/m/n/12 ca-tion al-go-rithm. Classes added by the al-go-rithm are in da
 shed boxes. Classes added
  []
 
-[25] [26 <./diagrams/toy_system_full_features_FEATURAL.png> <./diagrams/toy_sys
-tem_full_features_TOPOLOGICAL.png>] [27]
-<diagrams/vowel_inventory_privative.png, id=111, 2040.62375pt x 2187.17125pt>
+[29 <./diagrams/toy_system_full_features_FEATURAL.png> <./diagrams/toy_system_f
+ull_features_TOPOLOGICAL.png>] [30]
+<diagrams/vowel_inventory_privative.png, id=123, 2040.62375pt x 2187.17125pt>
 File: diagrams/vowel_inventory_privative.png Graphic file (type png)
 <use diagrams/vowel_inventory_privative.png>
 Package pdftex.def Info: diagrams/vowel_inventory_privative.png  used on input 
-line 838.
+line 899.
 (pdftex.def)             Requested size: 250.10226pt x 268.05597pt.
- [28 <./diagrams/vowel_inventory_privative.png>]
-Overfull \hbox (0.94284pt too wide) in paragraph at lines 869--870
+ [31] [32 <./diagrams/vowel_inventory_privative.png>]
+Overfull \hbox (0.94284pt too wide) in paragraph at lines 930--931
 \OT1/ptm/m/n/12 Consider the plot of the same vowel sys-tem un-der com-ple-men-
 tary spec-i-fi-ca-tion, shown 
  []
 
-<diagrams/vowel_inventory_complementary.png, id=115, 1798.72pt x 2375.87625pt>
+<diagrams/vowel_inventory_complementary.png, id=131, 1798.72pt x 2375.87625pt>
 File: diagrams/vowel_inventory_complementary.png Graphic file (type png)
 <use diagrams/vowel_inventory_complementary.png>
 Package pdftex.def Info: diagrams/vowel_inventory_complementary.png  used on in
-put line 874.
+put line 935.
 (pdftex.def)             Requested size: 250.10226pt x 330.33647pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 893--893
-[]\OT1/ptm/m/n/12 Table 14: |Fea-t-u-ral spec-i-fi-ca-tion of the vowel sys-tem
+Underfull \hbox (badness 10000) in paragraph at lines 954--954
+[]\OT1/ptm/m/n/12 Table 13: |Fea-t-u-ral spec-i-fi-ca-tion of the vowel sys-tem
  with com-ple-men-tary spec-i-fi-ca-
  []
 
-[29] [30 <./diagrams/vowel_inventory_complementary.png>]
-Overfull \hbox (12.28026pt too wide) in paragraph at lines 905--906
+[33 <./diagrams/vowel_inventory_complementary.png>]
+Overfull \hbox (12.28026pt too wide) in paragraph at lines 966--967
 []\OT1/ptm/m/n/12 Consistent with much work on un-der-spec-i-fi-ca-tion []e.g.,
  Archangeli, 1984; Archangeli 
  []
 
-[31]
-Underfull \hbox (badness 10000) in paragraph at lines 911--911
-[][]\OT1/ptm/m/n/10 We will not il-lus-trate this here, but you might en-joy do
--ing this your-self us-ing the def-i-ni-tions given
- []
-
+[34] [35]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 923.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 986.
+
 
 LaTeX Font Warning: Font shape `OMS/ptm/bx/n' undefined
 (Font)              using `OMS/ptm/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 923.
+(Font)              for symbol `textbraceleft' on input line 986.
 
 LaTeX Font Info:    Font shape `OMS/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 923.
-[32]
-<diagrams/vowel_inventory_ic_FEATURAL.png, id=131, 2341.74875pt x 2069.7325pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 986.
+[36]
+<diagrams/vowel_inventory_ic_FEATURAL.png, id=146, 2341.74875pt x 2069.7325pt>
 File: diagrams/vowel_inventory_ic_FEATURAL.png Graphic file (type png)
 <use diagrams/vowel_inventory_ic_FEATURAL.png>
 Package pdftex.def Info: diagrams/vowel_inventory_ic_FEATURAL.png  used on inpu
-t line 951.
+t line 1014.
 (pdftex.def)             Requested size: 312.62466pt x 276.30684pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 952--952
-[]\OT1/ptm/m/n/12 Figure 10: |Class sys-tem and fea-tur-iza-tion yielded by IC 
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1015
+[]\OT1/ptm/m/n/12 Figure 11: |Class sys-tem and fea-tur-iza-tion yielded by IC 
 spec-i-fi-ca-tion. Classes ex-plic-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 952--952
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1015
 \OT1/ptm/m/n/12 itly added by the al-go-rithm are in-di-cated with dashed boxes
 . Classes added due to the
  []
 
-[33] [34 <./diagrams/vowel_inventory_ic_FEATURAL.png>]
-<diagrams/vowel_inventory_full_FEATURAL.png, id=138, 3065.4525pt x 2258.4375pt>
+[37] [38 <./diagrams/vowel_inventory_ic_FEATURAL.png>]
+<diagrams/vowel_inventory_full_FEATURAL.png, id=154, 3065.4525pt x 2258.4375pt>
 
 File: diagrams/vowel_inventory_full_FEATURAL.png Graphic file (type png)
 <use diagrams/vowel_inventory_full_FEATURAL.png>
 Package pdftex.def Info: diagrams/vowel_inventory_full_FEATURAL.png  used on in
-put line 984.
+put line 1049.
 (pdftex.def)             Requested size: 375.14705pt x 276.37671pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 985--985
-[]\OT1/ptm/m/n/12 Figure 11: |Class sys-tem and fea-tur-iza-tion yielded by ful
+Underfull \hbox (badness 10000) in paragraph at lines 1050--1050
+[]\OT1/ptm/m/n/12 Figure 12: |Class sys-tem and fea-tur-iza-tion yielded by ful
 l spec-i-fi-ca-tion. Classes ex-plic-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 985--985
+Underfull \hbox (badness 10000) in paragraph at lines 1050--1050
 \OT1/ptm/m/n/12 itly added by the al-go-rithm are in-di-cated with dashed boxes
 . Classes added due to the
  []
 
-[35 <./diagrams/vowel_inventory_full_FEATURAL.png>] [36] [37] [38] [39]
-<diagrams/biggun.png, id=155, 3412.75pt x 3856.4075pt>
-File: diagrams/biggun.png Graphic file (type png)
-<use diagrams/biggun.png>
-Package pdftex.def Info: diagrams/biggun.png  used on input line 1081.
-(pdftex.def)             Requested size: 416.83289pt x 470.98709pt.
+[39 <./diagrams/vowel_inventory_full_FEATURAL.png>] [40] [41] [42]
 
-[40]
-Overfull \hbox (6.81769pt too wide) in paragraph at lines 1090--1091
-\OT1/ptm/m/n/12 coro-nal ob-stru-ent as ei-ther $[][]$ or $[][]$, and all non-c
-oronals as $[][]$. 
- []
-
-[41 <./diagrams/biggun.png>] [42]
-Overfull \hbox (6.04286pt too wide) in paragraph at lines 1104--1105
-\OT1/ptm/m/n/12 de-rived from their re-la-tion. We see the ques-tion of how pho
-no-log-i-cal classes are learned 
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [43]
-Overfull \hbox (70.00327pt too wide) in paragraph at lines 1116--1118
-\OT1/ptm/m/n/12 Names used in the pseu-docode be-low are de-fined in Ta-ble 8[]
+<diagrams/biggun.png, id=171, 3412.75pt x 3856.4075pt>
+File: diagrams/biggun.png Graphic file (type png)
+<use diagrams/biggun.png>
+Package pdftex.def Info: diagrams/biggun.png  used on input line 1149.
+(pdftex.def)             Requested size: 416.83289pt x 470.98709pt.
+ [44] [45 <./diagrams/biggun.png>] [46]
+Overfull \hbox (70.00327pt too wide) in paragraph at lines 1172--1174
+\OT1/ptm/m/n/12 Names used in the pseu-docode be-low are de-fined in Ta-ble 7[]
 .                                                       
  []
 
-[44] [45]
-Overfull \hbox (34.5513pt too wide) in paragraph at lines 1152--1154
+[47] [48]
+Overfull \hbox (34.5513pt too wide) in paragraph at lines 1208--1210
 []\OT1/ptm/m/n/12 Below is the al-go-rithm for \OT1/ptm/m/sc/12 Ad-d-Com-ple-me
 nts\OT1/ptm/m/n/12 :                                                       
  []
 
-[46]
-<diagrams/bfs1.png, id=179, 594.22pt x 785.93625pt>
+[49]
+<diagrams/bfs1.png, id=192, 594.22pt x 785.93625pt>
 File: diagrams/bfs1.png Graphic file (type png)
 <use diagrams/bfs1.png>
-Package pdftex.def Info: diagrams/bfs1.png  used on input line 1186.
+Package pdftex.def Info: diagrams/bfs1.png  used on input line 1242.
 (pdftex.def)             Requested size: 83.3653pt x 110.25818pt.
-<diagrams/bfs1_feats.png, id=180, 1187.43625pt x 1522.68875pt>
+<diagrams/bfs1_feats.png, id=193, 1187.43625pt x 1522.68875pt>
 File: diagrams/bfs1_feats.png Graphic file (type png)
 <use diagrams/bfs1_feats.png>
-Package pdftex.def Info: diagrams/bfs1_feats.png  used on input line 1195.
+Package pdftex.def Info: diagrams/bfs1_feats.png  used on input line 1251.
 (pdftex.def)             Requested size: 125.05113pt x 160.3401pt.
-<diagrams/bfs2_feats.png, id=181, 1229.59375pt x 986.68625pt>
+<diagrams/bfs2_feats.png, id=194, 1229.59375pt x 986.68625pt>
 File: diagrams/bfs2_feats.png Graphic file (type png)
 <use diagrams/bfs2_feats.png>
-Package pdftex.def Info: diagrams/bfs2_feats.png  used on input line 1197.
+Package pdftex.def Info: diagrams/bfs2_feats.png  used on input line 1253.
 (pdftex.def)             Requested size: 125.05113pt x 100.34557pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1198--1198
-[]\OT1/ptm/m/n/12 Figure 14: |The classes gen-er-ated af-ter run-ning \OT1/ptm/
+Underfull \hbox (badness 10000) in paragraph at lines 1254--1254
+[]\OT1/ptm/m/n/12 Figure 15: |The classes gen-er-ated af-ter run-ning \OT1/ptm/
 m/sc/12 Ad-d-Com-ple-ments-Full \OT1/ptm/m/n/12 if classes
  []
 
-[47 <./diagrams/bfs1.png>]
-<diagrams/sibling_input.png, id=186, 861.2175pt x 484.81125pt>
+[50 <./diagrams/bfs1.png>]
+<diagrams/sibling_input.png, id=200, 861.2175pt x 484.81125pt>
 File: diagrams/sibling_input.png Graphic file (type png)
 <use diagrams/sibling_input.png>
-Package pdftex.def Info: diagrams/sibling_input.png  used on input line 1229.
+Package pdftex.def Info: diagrams/sibling_input.png  used on input line 1285.
 (pdftex.def)             Requested size: 104.20822pt x 58.65567pt.
- [48 <./diagrams/bfs1_feats.png> <./diagrams/bfs2_feats.png> <./diagrams/siblin
+ [51 <./diagrams/bfs1_feats.png> <./diagrams/bfs2_feats.png> <./diagrams/siblin
 g_input.png>]
-<diagrams/sibling_output1.png, id=191, 861.2175pt x 986.68625pt>
+<diagrams/sibling_output1.png, id=205, 861.2175pt x 986.68625pt>
 File: diagrams/sibling_output1.png Graphic file (type png)
 <use diagrams/sibling_output1.png>
-Package pdftex.def Info: diagrams/sibling_output1.png  used on input line 1238.
+Package pdftex.def Info: diagrams/sibling_output1.png  used on input line 1294.
 
 (pdftex.def)             Requested size: 104.20822pt x 119.37585pt.
-<diagrams/sibling_output2.png, id=192, 861.2175pt x 1049.9225pt>
+<diagrams/sibling_output2.png, id=206, 861.2175pt x 1049.9225pt>
 File: diagrams/sibling_output2.png Graphic file (type png)
 <use diagrams/sibling_output2.png>
-Package pdftex.def Info: diagrams/sibling_output2.png  used on input line 1240.
+Package pdftex.def Info: diagrams/sibling_output2.png  used on input line 1296.
 
 (pdftex.def)             Requested size: 104.20822pt x 127.0266pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1241--1241
-[]\OT1/ptm/m/n/12 Figure 16: |The re-sult-ing fea-ture sys-tems when sib-lings 
+Underfull \hbox (badness 10000) in paragraph at lines 1297--1297
+[]\OT1/ptm/m/n/12 Figure 17: |The re-sult-ing fea-ture sys-tems when sib-lings 
 are pro-cessed se-quen-tially
  []
 
-<diagrams/vowel_inventory_ic_TOPOLOGICAL.png, id=193, 2337.73375pt x 2128.95375
+<diagrams/vowel_inventory_ic_TOPOLOGICAL.png, id=207, 2337.73375pt x 2128.95375
 pt>
 File: diagrams/vowel_inventory_ic_TOPOLOGICAL.png Graphic file (type png)
 <use diagrams/vowel_inventory_ic_TOPOLOGICAL.png>
 Package pdftex.def Info: diagrams/vowel_inventory_ic_TOPOLOGICAL.png  used on i
-nput line 1274.
+nput line 1330.
 (pdftex.def)             Requested size: 270.93883pt x 246.72491pt.
-<diagrams/vowel_inventory_full_TOPOLOGICAL.png, id=194, 2702.095pt x 2128.95375
+[52 <./diagrams/sibling_output1.png> <./diagrams/sibling_output2.png>]
+<diagrams/vowel_inventory_full_TOPOLOGICAL.png, id=212, 2702.095pt x 2128.95375
 pt>
 File: diagrams/vowel_inventory_full_TOPOLOGICAL.png Graphic file (type png)
 <use diagrams/vowel_inventory_full_TOPOLOGICAL.png>
 Package pdftex.def Info: diagrams/vowel_inventory_full_TOPOLOGICAL.png  used on
- input line 1281.
+ input line 1337.
 (pdftex.def)             Requested size: 291.78174pt x 229.86511pt.
-(./Featurization.bbl [49 <./diagrams/sibling_output1.png> <./diagrams/sibling_o
-utput2.png>] [50 <./diagrams/vowel_inventory_ic_TOPOLOGICAL.png> <./diagrams/vo
-wel_inventory_full_TOPOLOGICAL.png>] [51] [52] [53]) [54] (./Featurization.aux)
+
+(./Featurization.bbl [53 <./diagrams/vowel_inventory_ic_TOPOLOGICAL.png> <./dia
+grams/vowel_inventory_full_TOPOLOGICAL.png>] [54] [55] [56]) [57]
+(./Featurization.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 15814 strings out of 494847
- 285249 string characters out of 6179080
- 331942 words of memory out of 5000000
- 18924 multiletter control sequences out of 15000+600000
- 576616 words of font info for 119 fonts, out of 8000000 for 9000
+ 28657 strings out of 494847
+ 585398 string characters out of 6179080
+ 617519 words of memory out of 5000000
+ 31467 multiletter control sequences out of 15000+600000
+ 576109 words of font info for 118 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,14n,39p,10483b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,17n,76p,10483b,1008s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1451,10 +1910,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/times/utmri8a.pfb></usr/share/texmf/fonts/type1/fkr/tipa/xipa10.pfb>
-Output written on Featurization.pdf (54 pages, 2650066 bytes).
+Output written on Featurization.pdf (57 pages, 2656434 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
+ 276 PDF objects out of 1000 (max. 8388607)
+ 172 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 123 words of extra memory for PDF output out of 10000 (max. 10000000)
 

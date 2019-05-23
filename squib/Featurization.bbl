@@ -509,6 +509,31 @@ Frisch, S\BPBI A.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Gallagher%
+}{%
+Gallagher%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+Gallagher2019}
+\APACinsertmetastar {%
+Gallagher2019}%
+\begin{APACrefauthors}%
+Gallagher, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Phonotactic knowledge and phonetically unnatural
+  classes: the plain uvular in {C}ochabamba {Q}uechua} {Phonotactic knowledge
+  and phonetically unnatural classes: the plain uvular in {C}ochabamba
+  {Q}uechua}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Phonology}{36}{}{37-60}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Goldsmith%
 \ \BBA {} Xanthos%
 }{%
@@ -666,29 +691,26 @@ Kiparsky, P.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Ladefoged%
-\ \BBA {} Maddieson%
+Kiparsky%
 }{%
-Ladefoged%
-\ \BBA {} Maddieson%
+Kiparsky%
 }{%
-{\protect \APACyear {1996}}%
+{\protect \APACyear {1985}}%
 }]{%
-LadefogedMaddieson1996}
+Kiparsky1985}
 \APACinsertmetastar {%
-LadefogedMaddieson1996}%
+Kiparsky1985}%
 \begin{APACrefauthors}%
-Ladefoged, P.%
-\BCBT {}\ \BBA {} Maddieson, I.%
+Kiparsky, P.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYear{1996}.
+\APACrefYearMonthDay{1985}{}{}.
 \newblock
-\APACrefbtitle {The sounds of the world's languages} {The sounds of the world's
-  languages}.
+{\BBOQ}\APACrefatitle {Some consequences of lexical phonology} {Some
+  consequences of lexical phonology}.{\BBCQ}
 \newblock
-\APACaddressPublisher{Oxford \& Malden, MA}{Blackwell}.
+\APACjournalVolNumPages{Phonology Yearbook}{2}{}{85-138}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -743,32 +765,6 @@ Lin, Y.%
 \unskip\
 \newblock
 \APACaddressSchool {}{UCLA}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Lindau%
-}{%
-Lindau%
-}{%
-{\protect \APACyear {1985}}%
-}]{%
-Lindau1985}
-\APACinsertmetastar {%
-Lindau1985}%
-\begin{APACrefauthors}%
-Lindau, M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{1985}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {The story of /r/} {The story of /r/}.{\BBCQ}
-\newblock
-\BIn{} V\BPBI A.~Fromkin\ (\BED), \APACrefbtitle {Phonetic linguistics: Essays
-  in honor of {P}eter {L}adefoged} {Phonetic linguistics: Essays in honor of
-  {P}eter {L}adefoged}\ (\BPG~157-168).
-\newblock
-\APACaddressPublisher{Orlando}{Academic Press}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -843,6 +839,30 @@ Maddieson, I.%
 \APACrefbtitle {Patterns of Sounds} {Patterns of sounds}.
 \newblock
 \APACaddressPublisher{Cambridge}{Cambridge University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mayer%
+}{%
+Mayer%
+}{%
+{\protect \APACyear {submitted}}%
+}]{%
+MayerSubmitted}
+\APACinsertmetastar {%
+MayerSubmitted}%
+\begin{APACrefauthors}%
+Mayer, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{submitted}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {An algorithm for learning phonological classes from
+  distributional similarity} {An algorithm for learning phonological classes
+  from distributional similarity}.{\BBCQ}
+\newblock
+
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -998,57 +1018,6 @@ Prince, A.%
   Grammar}}\ \APACbVolEdTR {}{Technical {R}eport 2}.
 \newblock
 \APACaddressInstitution{Rutgers Center for Cognitive Science}{}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Proctor%
-\ \BBA {} Walker%
-}{%
-Proctor%
-\ \BBA {} Walker%
-}{%
-{\protect \APACyear {2012}}%
-}]{%
-ProctorWalker2012}
-\APACinsertmetastar {%
-ProctorWalker2012}%
-\begin{APACrefauthors}%
-Proctor, M.%
-\BCBT {}\ \BBA {} Walker, R.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2012}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Articulatory bases of sonority in English liquids}
-  {Articulatory bases of sonority in english liquids}.{\BBCQ}
-\newblock
-\BIn{} S.~Parker\ (\BED), \APACrefbtitle {The sonority controversy} {The
-  sonority controversy}\ (\BPG~289-316).
-\newblock
-\APACaddressPublisher{Berlin}{De Gruyter}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-REDACTED%
-}{%
-REDACTED%
-}{%
-{\protect \APACyear {submitted}}%
-}]{%
-MayerSubmitted}
-\APACinsertmetastar {%
-MayerSubmitted}%
-\begin{APACrefauthors}%
-REDACTED.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{submitted}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {REDACTED} {Redacted}.{\BBCQ}
-\newblock
-
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -1209,58 +1178,6 @@ Vennemann, T.%
   class} {Sanskrit \textit{ruki} and the concept of a natural class}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Linguistics}{130}{}{91-97}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Walsh-Dickey%
-}{%
-Walsh-Dickey%
-}{%
-{\protect \APACyear {1997}}%
-}]{%
-WalshDickey1997}
-\APACinsertmetastar {%
-WalshDickey1997}%
-\begin{APACrefauthors}%
-Walsh-Dickey, L.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{1997}.
-\unskip\
-\newblock
-\APACrefbtitle {The phonology of liquids} {The phonology of liquids}\
-  \APACtypeAddressSchool {\BUPhD}{}{}.
-\unskip\
-\newblock
-\APACaddressSchool {}{University of Massachusetts, Amherst}.
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wiese%
-}{%
-Wiese%
-}{%
-{\protect \APACyear {2011}}%
-}]{%
-Wiese2011}
-\APACinsertmetastar {%
-Wiese2011}%
-\begin{APACrefauthors}%
-Wiese, R.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2011}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {The representation of rhotics} {The representation of
-  rhotics}.{\BBCQ}
-\newblock
-\BIn{} M.~van Oostendorp, C\BPBI J.~Ewen, E.~Hume\BCBL {}\ \BBA {} K.~Rice\
-  (\BEDS), \APACrefbtitle {The {B}lackwell Companion to Phonology} {The
-  {B}lackwell companion to phonology}\ (\BPG~711-729).
-\newblock
-\APACaddressPublisher{Malden, MA}{Wiley-Blackwell}.
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}

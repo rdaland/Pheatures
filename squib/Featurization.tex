@@ -19,6 +19,18 @@
 \usepackage[compact]{titlesec}
 \usepackage{titling}
 \usepackage{caption}
+\usepackage{tikz-qtree}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{automata,positioning,calc}
+
+\tikzset{
+	double arrow/.style args={#1 colored by #2 and #3}{
+		-stealth,line width=#1,#2, % first arrow
+		postaction={draw,-stealth,#3,line width=(#1)/3,
+			shorten <=(#1)/3,shorten >=2*(#1)/3}, % second arrow
+	}
+}
 
 %% Make footnotes endnotes
 %\usepackage{endnotes}
@@ -51,7 +63,8 @@
 	\end{minipage}
 }
 \newcommand{\featmat}[1]
-{$\begin{bsmallmatrix*}[l]\text{\normalsize #1}\end{bsmallmatrix*}$}
+{$[$#1$]$}
+%{$\begin{bsmallmatrix*}[l]\text{\normalsize #1}\end{bsmallmatrix*}$}
 \newcommand{\featmattwo}[2]{$\begin{bsmallmatrix*}[l]\text{\normalsize #1}\\\text{\normalsize #2}\end{bsmallmatrix*}$}
 
 
@@ -67,14 +80,18 @@
 \predate{}
 \postdate{\vspace*{-0.15\baselineskip}}
 
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
 \doublespacing
 
 \title{A method for projecting features from observed sets of phonological classes}
 
 \author{
-  %Connor Mayer \hspace{20pt} Robert Daland
+  Connor Mayer \hspace{20pt} Robert Daland
 }
-\date{\vspace{-10ex}}							% Activate to display a given date or no date
+\date{\vspace{-4ex}}							% Activate to display a given date or no date
 
 \begin{document}
 \RaggedRight
@@ -83,6 +100,8 @@
 \begin{abstract}
 \noindent \textbf{Abstract:} Given a set of phonological features, we can enumerate a set of phonological classes. Here we consider the inverse of this problem: given a set of phonological classes, can we derive a feature system? We show that this is indeed possible, using a collection of algorithms that assign features to a set of input classes and differ in terms of what types of features are permissible. This work bears on theories of both language-specific and universal features, provides testable predictions of the featurizations available to learners, and serves as a useful component in computational models of feature learning.\\
 \noindent \textbf{Keywords}: Phonological features, feature learning, underspecification, computational phonology
+
+\blfootnote{* This research was supported by the Social Sciences and Humanities Research Council of Canada Doctoral Award to the first author. Thanks to Bruce Hayes, Tim Hunter, Kie Zuraw, and the members of the UCLA phonology seminar for their feedback and guidance. All mistakes are our own. Supplemental material can be found at https://github.com/connormayer/featurizer.}
 \end{abstract}
 
 % LIST OF FIGURES
@@ -102,6 +121,7 @@
 %	Fig. 13 (done) -- Topological plot of the full specification vowel inventory output.
 
 \section{Introduction}
+\label{sec:intro}
 
 Features are the substantive building blocks of phonological theory. They represent phonetic qualities of speech sounds, and can be used in isolation or combination to describe individual sounds or classes of sounds \cite<e.g.,>{JakobsonEtAl1952, ChomskyHalle1968, Clements1985}.
 
@@ -115,15 +135,15 @@ Finally, feature theory reflects featural economy in the segmental inventory: if
 
 Classic texts \cite<e.g.,>{ChomskyHalle1968} have assumed phonological features are \textit{universal}: all the sounds in the world's languages can be described by the same finite set of features, which reflect properties of the human vocal tract and perceptual system. According to this view, speakers inherently produce and perceive speech in terms of these features because they are the substantive `atoms' of which segments and higher prosodic constituents are composed. Children represent speech in terms of these atoms, which is why phonological processes operate on the classes they define. Feature theory is manifestly successful in explaining why many common phonological processes involve segments that share relevant phonetic properties.
 
-However, there is evidence that many phonological processes target sets of segments that cannot be singled out by a set of phonetic properties. A canonical example is the \textit{ruki} rule of Sanskrit, in which an underlying /s/ becomes retroflexed when it occurs later in a word than any of \{r, u, k, i\} \cite<e.g.,>{Kiparsky1973, Vennemann1974}. It has been proposed that the \textit{ruki} process originated from the acoustic effects of these segments on neighboring sounds, e.g., a lowering of the noise frequency of a following /s/ \cite{Longerich1998}. However, no conventional feature system can pick out all four of these segments to the exclusion of others. 
+However, there is evidence that many phonological processes target sets of segments that cannot be singled out by a set of phonetic properties. A canonical example is the \textit{ruki} rule of Sanskrit, in which an underlying /s/ becomes retroflexed when it occurs later in a word than any of \{r, u, k, i\} \cite<e.g.,>{Kiparsky1973, Vennemann1974}. It has been proposed that the \textit{ruki} process originated from the acoustic effects of these segments on neighboring sounds, e.g., a lowering of the noise frequency of a following /s/ \cite{Longerich1998}. However, no conventional feature system can pick out all four of these segments to the exclusion of others. A more recent example is given by \citeA{Gallagher2019}, who provides compelling corpus and experimental evidence that the voiced uvular fricative /\textinvscr/ patterns as a voiceless stop in Cochabamba Quechua.
 
-%The existence o`	f a single, idiosyncratic rule like this is not grounds for theoretical concern. However, it has been proposed that \textit{phonetically disparate classes} like \{r, u, k, i\} are much more common than would be expected under a universal feature system. \citeA{Mielke2008} conducted a survey of phonological processes in almost 600 languages. Of the classes which underwent or conditioned a phonological process, 71\% could be expressed as a combination of simple features by the `best' feature system he considered. To express the remaining 29\%, additional theoretical mechanisms --  such as building classes through an \textsc{OR} operation -- would be needed. These seriously compromise the explanatory power that made feature theory appealing in the first place. 
+%The existence of a single, idiosyncratic rule like this is not grounds for theoretical concern. However, it has been proposed that \textit{phonetically disparate classes} like \{r, u, k, i\} are much more common than would be expected under a universal feature system. \citeA{Mielke2008} conducted a survey of phonological processes in almost 600 languages. Of the classes which underwent or conditioned a phonological process, 71\% could be expressed as a combination of simple features by the `best' feature system he considered. To express the remaining 29\%, additional theoretical mechanisms --  such as building classes through an \textsc{OR} operation -- would be needed. These seriously compromise the explanatory power that made feature theory appealing in the first place. 
 
 %The purported ubiquity of phonetically disparate classes has generated proposals that features are \textit{learned} and \textit{language-specific} \cite<e.g.,>{Blevins2004, Mielke2008, MacWhinneyOGrady2015, ArchangeliPulleyblank2015}: learners are able to group sounds in their languages into classes, even if they have no phonetic commonality. The striking regularities that exist across languages are explained as by-products of general human cognitive capabilities, such as categorization, sensitivity to frequency, and the ability to generalize, as well as the properties of the human vocal tract and auditory system that shape language change.
 
 %It is still unclear whether the problematic classes identified by Mielke and others can be captured by other means. It is possible that classes which superficially appear to be phonetically disparate result from interactions between phonological processes that target phonetically coherent classes. Alternatively, these classes may share phonetic similarities that have not yet been formalized in any feature system. Even if these issues are put aside, well established problems like the variable patterning of /l/ as \phonfeat{$+$continuant} or \phonfeat{$-$continuant} across languages \cite<e.g.,>{Kaisse2002, Mielke2008} suggest that features may be learned to some degree, or, at the very least, it is not a simple matter to enumerate the available features in advance.
 
-While the existence of a single, idiosyncratic rule like this is not grounds for theoretical concern, it has been proposed that phonetically disparate classes like \{r, u, k, i\} are fairly common. \citeA{Mielke2008} conducted a survey of phonological processes in almost 600 languages. Of the classes that underwent or conditioned a phonological process, 71\% could be expressed as a combination of simple features by the ‘best’ feature system he considered. It is unclear whether the remaining 29\% can be captured by other means. A formal mechanism which generates new classes with an \textsc{OR} operation suffices for most (but not all) of these classes. However, this would seriously compromise the explanatory power that makes feature theory attractive. 
+While the existence of a small number of idiosyncratic cases such as these is not grounds for theoretical concern, it has been proposed that phonetically disparate classes are fairly common. \citeA{Mielke2008} conducted a survey of phonological processes in almost 600 languages. Of the classes that underwent or conditioned a phonological process, 71\% could be expressed as a combination of simple features by the ‘best’ feature system he considered. It is unclear whether the remaining 29\% can be captured by other means. A formal mechanism which generates new classes with an \textsc{OR} operation suffices for most (but not all) of these classes. However, this would seriously compromise the explanatory power that makes feature theory attractive. 
 
 It may be the case that classes which superficially appear to be phonetically disparate result from interactions between phonological processes that target phonetically coherent classes. Only a better understanding of the data will clarify this point. 
 
@@ -131,22 +151,54 @@ Alternatively, these classes may share phonetic similarities that have not yet b
 
 Although it may be possible in this way to exhaustively enumerate all phonetic dimensions that languages use to characterize classes or phonemic contrasts, this is probably not a straightforward task. How many additional features would we require to completely account for the classes that current feature systems cannot characterize?  Furthermore, it is unclear whether this kind of featural cartography is useful for models of individual speakers' linguistic acquisition and competence. That is, although there may be many phonetic dimensions along which sounds can be grouped, not all of these are salient in every language. Thus the learner must not only identify phonetic commonalities between sounds, but also discover which of these dimensions are phonologically active in their language when constructing their phonological grammar. Simply enumerating features does not provide insight into this process.
 
-In addition, if phonetically disparate classes do indeed exist, expanding our featural inventory will only take us so far. Indeed, even if we set aside the classes identified in \citeA{Mielke2008}, robust phonetic correlates have proved difficult to define even for commonly attested classes such as rhotics \cite{Lindau1985, LadefogedMaddieson1996, Wiese2011} and liquids \cite{WalshDickey1997, ProctorWalker2012}.
-
 Considerations such as these have resulted in proposals that distinctive features are \textit{learned} and \textit{language-specific} \cite<e.g.,>{Blevins2004, Mielke2008, MacWhinneyOGrady2015, ArchangeliPulleyblank2015, ArchangeliPulleyblank2018}. These proposals generally maintain that learners organize their phonological grammars using symbolic feature systems. Instead of starting with a universal feature system and mapping sounds they encounter onto it, however, learners derive their feature system from perceived similarities between sounds in their language. 
 
 Crucially, this means that features may be defined across modalities. In general, phonological classes tend to converge in their acoustic, articulatory, and distributional properties, providing robust evidence to the learner. For example, high vowels may be associated with a high tongue position, a low F1, and distributional properties such as phonotactic restrictions, the conditioning of processes such as affrication, and so on. Theories of learned features do not assign primacy to any one of these dimensions, but suggest that the learner makes use of a range of available information to identify classes. This entails that phonological classes need not be defined in terms of their phonetic properties, nor must a phonetic distinction necessarily give rise to a phonological class. Thus the primary role of features becomes to identify and distinguish classes of sounds \cite<cf., e.g.,>[who adopt this conception of features for a universal set]{Dresher2003, Hall2007}. The striking commonalities in feature systems across languages may be explained as by-products of general human cognitive capabilities, such as categorization, sensitivity to frequency, and the ability to generalize, as well as the properties of the human vocal tract and auditory system.
 
-The primary goals of this paper are to address one part of the question of what a phonological feature learning system would look like under this theory, and to provide a computational implementation of such a system. We assume that the learner has converged on a segmental representation of their language \cite<e.g.,>{Lin2005, FeldmanEtAl2013}, and that some mechanism has identified particular sets of segments as `candidate' classes (e.g., based on acoustic, articulatory, or distributional similarity, etc.). These classes serve as the input from which a phonological feature system is learned. We adopt this approach because it is unclear how features could be learned without being somehow motivated by the classes they characterize. Past attempts at unsupervised learning of phonological categories are similar, making no a priori assumptions about features, but rather deriving classes from the phonetic or distributional properties of segments \cite<e.g.,>{Lin2005, GoldsmithXanthos2009, Calderone2009, MayerSubmitted}. Proceeding beyond classes to a feature system is motivated by the generalizations given at the beginning of this section.
+The primary goals of this paper are to address one part of the question of what a phonological feature learning system would look like under this theory, and to provide a computational implementation of such a system. We assume that the learner has converged on a segmental representation of their language \cite<e.g.,>{Lin2005, FeldmanEtAl2013}, and that some mechanism has identified particular sets of segments as `candidate' classes (e.g., based on acoustic, articulatory, or distributional similarity, etc.). These classes serve as the input from which a phonological feature system is learned. We adopt this approach because it is unclear how features could be learned without being somehow motivated by the classes they characterize. Past attempts at unsupervised learning of phonological categories are similar, making no a priori assumptions about features, but rather deriving classes from the phonetic or distributional properties of segments \cite<e.g.,>{Lin2005, GoldsmithXanthos2009, Calderone2009, MayerSubmitted}. More will be said about this in Section~\ref{sec:assumptions}. Proceeding beyond classes to a feature system is motivated by the generalizations given at the beginning of this section.
 
-We will illustrate how a feature system can be learned from an arbitrary input, i.e., without any reference to the phonetic properties of the segments contained in the input classes. We begin in Section \ref{sec:definitions} by formalizing our notation for feature systems. This notation and the lattice-like structures it motivates are similar to past work such as \citeA{Broe1993}, although we provide a more detailed formalism, which aids in proofs of some interesting properties. In particular, the notion of \textit{parenthood} in these structures is crucially important for deriving feature systems. Section \ref{sec:intersectional} describes the \textit{intersectional closure} of a set of classes, which is necessarily generated by any featurization sufficient to characterize that set. Relying on  key properties of the intersectional closure, Section \ref{sec:algorithm_intro} describes a suite of algorithms for learning various types of featurizations for a set of input classes and demonstrates their operation on a simple class system. Section \ref{sec:theoretical_implications} then illustrates these featurizations on a more realistic vowel system, and discusses the theoretical predictions of each. Finally, in Section \ref{sec:discussion} we analyze some tradeoffs between the featurization algorithms, and discuss implications for feature theory and feature learning.
+We will illustrate how a feature system can be learned from an arbitrary input, i.e., without any reference to the phonetic properties of the segments contained in the input classes. Section \ref{sec:assumptions} briefly expands on some of the basic assumptions outlined above about how these input classes are determined, and exactly which aspects of phonological learning we will address. In Section \ref{sec:definitions}, we formalize our notation for feature systems. This notation and the lattice-like structures it motivates are similar to past work such as \citeA{Broe1993}, although we provide a more detailed formalism, which aids in proofs of some interesting properties. In particular, the notion of \textit{parenthood} in these structures is crucially important for deriving feature systems. Section \ref{sec:intersectional} describes the \textit{intersectional closure} of a set of classes, which is necessarily generated by any featurization sufficient to characterize that set. Relying on key properties of the intersectional closure, Section \ref{sec:algorithm_intro} describes a suite of algorithms for learning various types of featurizations for a set of input classes and demonstrates their operation on a simple class system. Section \ref{sec:theoretical_implications} then illustrates these featurizations on a more realistic vowel system, and discusses the theoretical predictions of each. Finally, in Section \ref{sec:discussion} we analyze some tradeoffs between the featurization algorithms, and discuss implications for feature theory and feature learning.
 
 This paper makes several contributions. First, it demonstrates a method for working backwards to feature systems that underpin learned classes of sounds. Second, it provides a detailed formalization of feature systems in general. This allows careful reasoning about the expressiveness of such featurizations.
 
 Third, by comparing multiple types of featurizations, this work makes explicit predictions about what classes should be describable under each. This is of interest even for theories of universal features, as it generates precise empirical predictions about the properties of the featurizations used by humans. In particular, it provides a deterministic method for identifying phonological underspecification. For example, the full specification algorithm predicts that the class of all non-nasal sounds should be available to speakers as a byproduct of the nasal class, which suggests that participants in an artificial grammar learning experiment \cite<AGL; e.g.,>{MoretonPater2012} should be able to effectively learn patterns involving this class. The other featurization methods to be discussed do not make this prediction. Comparison of the predictions made by the models in this paper, past phonological analyses, and the results of AGL studies has the potential to settle some of the longstanding controversies associated with underspecification \cite{Steriade1995}.
 
-%\footnote{https://github.com/connormayer/featurizer}
-Finally, it provides the code\footnote{REDACTED} for use and extension in future research and models. In principle, a system that learns features from classes allows for the construction of a computational model that takes (minimally) a segmental corpus or some phonetic properties of segments as input and outputs a featurization of the inventory. This paper describes the final stage of such a model, and may be effectively combined with past approaches that derive phonological classes from distributional or phonetic similarity \cite<e.g.,>{Lin2005, GoldsmithXanthos2009, Calderone2009, MayerSubmitted}.
+Finally, it provides the code\footnote{https://github.com/connormayer/featurizer} for use and extension in future research and models. In principle, a system that learns features from classes allows for the construction of a computational model that takes (minimally) a segmental corpus or some phonetic properties of segments as input and outputs a featurization of the inventory. This paper describes the final stage of such a model, and may be effectively combined with past approaches that derive phonological classes from distributional or phonetic similarity \cite<e.g.,>{Lin2005, GoldsmithXanthos2009, Calderone2009, MayerSubmitted}.
+
+\FloatBarrier
+\section{On the assumptions and scope of this paper}
+\label{sec:assumptions}
+
+Some readers might find problematic the assumption that a symbolic feature system is derived from classes of sounds that have been identified by the learner based on phonetic or distributional properties. A schematic representation of this learning model is shown in Fig.~\ref{fig:learning_model}. This model is a departure from the standard assumption that a universal set of features determines all possible phonological classes, and accordingly it shifts much of the work of phonological learning onto identification of these input classes. 
+
+\begin{figure}[htb!]
+	\centering
+	\begin{tikzpicture}[node distance=2cm, ->, >=stealth]
+	\tikzstyle{input} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black]
+	\tikzstyle{output} = [ellipse, minimum width=3cm, minimum height=1cm,text centered, draw=black]
+	\node (phonetics)[input] at (0, 0) {Phonetics};
+	\node (distribution)[input] at (0, 2) {Distribution};
+	\node (classes)[output] at (4, 1) {Classes};
+	\node (features)[output] at (8, 1) {Features};
+	\draw [->, out=0, in=-150, line width = 1] (phonetics) edge (classes);
+	\draw [->, out=0, in=150, line width = 1] (distribution) edge (classes);
+	\draw [double arrow = 4pt colored by black and red] (classes) -- (features);
+	\end{tikzpicture}
+	\caption{A schematic representation of the model of feature learning assumed here. This paper focuses on the red arrow between `classes' and `features'.}
+	\label{fig:learning_model}
+\end{figure} 
+
+We believe that this shift is motivated. Rather than constructing models that generate the typology and subsequently concerning ourselves with the exceptions, we think that deeper insights into speech may be gained by focusing on the mechanisms by which learners identify common properties between sounds in their language, and how these mechanisms contribute to the typological patterns we see. 
+
+Models of phonological class learning have been presented for various modalities. We are not aware of any proposals to date which have been fleshed out enough to be carefully tested, and which have proven empirically adequate. For example, \citeA{Lin2005} showed that unsupervised clustering on acoustic data was able to distinguish manner of articulation well, but not place. Conversely, unsupervised clustering on articulatory data is better able to distinguish place features, but poor at manner \cite{Mielke2012}. Such phonetically-based methods are able (in principle) to identify features corresponding to acoustic, articulatory, or perceptual properties, but these provide limited insights into the phonetically disparate classes described in the introduction, and into which classes are phonologically active in a particular language. 
+
+Conversely, while distributional approaches \cite<e.g.,>{GoldsmithXanthos2009,Calderone2009,MayerSubmitted} have the potential (in principle) to identify both phonetically coherent and phonetically disparate classes to the extent that they are reflected in their distribution, they are blind to the phonetic properties that inform speakers' intuitions about similarities between sounds, and suffer from the presence of distributional noise. 
+
+It seems likely to us that progress towards understanding how classes are learned will come from integrating multiple sources of information, with phonetic information providing an outline of possible classes, and distributional information shedding additional light on whether and how these classes (and possibly others) are used in a language. We see potential in methods like those described in a related paper by \citeA{MayerSubmitted}, which uses a combination of vector embedding (representing sounds numerically as points in space based on their distributional properties), Principal Component Analysis, and clustering algorithms to explicitly extract classes from a corpus. Incorporating phonetic information with distributional information may improve the performance of such models. Alternatively, a Bayesian approach, where phonetic similarity serves as an initial prior on segmental classes and considerations of their distribution inform the likelihood function, may also hold promise. A challenge for the extraction of classes from phonetic data is that classes of sounds are almost always similar only on a subset of phonetic dimensions (e.g., sonorants are articulatorily heterogeneous, but have similar acoustic properties), and the use of dimensionality reduction techniques such as Principal Component Analysis is likely to be useful in teasing apart these sources of coherence.
+
+In any case, what must be initially identified under models that assume learned and language-specific features are \textit{classes}, with features subsequently derived from their relation. Although we see the question of how phonological classes are learned as one of great interest, the focus of this paper is on how a symbolic feature system can be derived once these classes are learned (the bold, red arrow in Fig.~\ref{fig:learning_model}). In the examples presented below, we assume that the set of input classes has been generated by mechanisms such as those just described, and focus instead on how a feature system can be derived from that set. For expositional purposes, we generally use simple, fabricated class systems, though we try to make these linguistically plausible.
+
+Because of the relatively narrow focus of this paper, it is in many ways a stepping stone towards larger research goals. The algorithms described below make concrete predictions about questions such as where underspecification should occur, to what extent generalization occurs in feature learning, and what the feature systems of languages with phonetically disparate classes might look like. These predictions can be tested using standard phonological methods, such as AGL experiments, wug tests, corpus work, etc., as well as by revisiting the existing literature. This work, while interesting and important, is well beyond the scope of the current paper. We instead limit ourselves to carefully describing the formal properties and predictions of this approach to feature learning, while pointing out possible applications to future research. Though we hope the formal results presented here are interesting in their own right, we are equally hopefully that they may serve as useful tools in more general phonological research.
 
 \FloatBarrier
 \section{Definitions and notation}
@@ -231,11 +283,12 @@ In the next subsection, we work an example to illustrate the importance of the c
 
 \subsection{Example: Sonorants and obstruent voicing}
 
-In this section we introduce a simple, three-segment class system to illustrate the notation, as well as the difference between the privative and full specification value sets.
+In this section we introduce a simple, three-segment class system to illustrate the notation, as well as the difference between the privative, full, and contrastive specification value sets.
 
-% table with featurization of sonorants, voiced obstruents, and voiceless obstruents
+% tables with featurization of sonorants, voiced obstruents, and voiceless obstruents
 \begin{table}[h]
 	\centering
+	\begin{tabular}{p{5cm}p{5cm}p{5cm}}
 	\begin{tabular} {|c||c|c|}
 		\hline
 		$\sigma$ & son & voice \\ \hline
@@ -243,16 +296,7 @@ In this section we introduce a simple, three-segment class system to illustrate 
 		D & 0 & + \\
 		T & 0 & 0 \\
 		\hline
-	\end{tabular}
-	\caption{Sonorants and obstruents with privative specification.}
-	\label{table:privative}
-\end{table}
-
-Let $\Sigma =$ \{R, D, T\}, where $R$ is meant to evoke a sonorant, $D$ a voiced obstruent, and $T$ a voiceless obstruent. We begin with the featurization using the private value set, shown in Table~\ref{table:privative}. This defines three unique classes, including the alphabet. Using the simplest featural descriptors for each class, $\langle$\featmat{}$\rangle = $\{R, D, T\},  $\langle$\featmat{+son}$\rangle = $\{R\}, and $\langle$\featmat{+voice}$\rangle =$\{R, D\}. Note that this featurization provides (i) no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, (ii) no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, (iii) no way to pick out the voiced obstruent \{D\} without \{R\}, and (iv) no way to pick out the empty set.
-
-% table with featurization of sonorants, voiced obstruents, and voiceless obstruents
-\begin{table}[h]
-	\centering
+	\end{tabular} &
 	\begin{tabular} {|c||c|c|}
 		\hline
 		$\sigma$ & son & voice \\ \hline
@@ -260,11 +304,25 @@ Let $\Sigma =$ \{R, D, T\}, where $R$ is meant to evoke a sonorant, $D$ a voiced
 		D & -- & + \\
 		T & -- & -- \\
 		\hline
+	\end{tabular} &
+	\begin{tabular} {|c||c|c|}
+		\hline
+		$\sigma$ & son & voice \\ \hline
+		R & + & 0 \\
+		D & -- & + \\
+		T & -- & -- \\
+		\hline
 	\end{tabular}
-	\caption{Sonorants and obstruents with full specification.}
-	\label{table:full}
+	\end{tabular}
+	\caption{Sonorants and obstruents with privative (left), full (middle), and contrastive (right) specification.}
+	\label{table:son_obs_features}
 \end{table}
-Next, consider the featurization in which the `$0$'s from Table~\ref{table:privative} are replaced with `$-$'s (the full specification value set; Table~\ref{table:full}).  While the privative featurization just covers three classes, the full specification featurization covers six (not counting the empty set). Referring to `--' values provides a greater number of ways to `slice and dice' the alphabet. It follows that featurizations which assign more `$0$' values generally (though not always) require more distinct feature functions to cover the same class system. Note however that the full featurization is still restrictive, in the sense that it does not allow any arbitrary subset of segments to be identified: for example, we cannot specify \{R, T\} to the exclusion of \{D\}.
+
+Let $\Sigma =$ \{R, D, T\}, where R is meant to evoke a sonorant, D a voiced obstruent, and T a voiceless obstruent. We begin with the featurization using the privative value set, shown on the left in Table~\ref{table:son_obs_features}. This defines three unique classes, including the alphabet. Using the simplest featural descriptors for each class, $\langle$\featmat{}$\rangle = $\{R, D, T\},  $\langle$\featmat{+son}$\rangle = $\{R\}, and $\langle$\featmat{+voice}$\rangle =$\{R, D\}. Note that this featurization provides (i) no featural descriptor that uniquely picks out the voiceless obstruent \{T\}, (ii) no way to pick out the obstruents \{T\} and \{D\} to the exclusion of \{R\}, (iii) no way to pick out the voiced obstruent \{D\} without \{R\}, and (iv) no way to pick out the empty set.
+
+Next, consider the featurization in which the `$0$'s from the privative set are replaced with `$-$'s. This is the full specification value set. A featurization of $\Sigma$ using this set is shown in the middle in Table~\ref{table:son_obs_features}.  While the privative featurization just covers three classes, the full specification featurization covers six (not counting the empty set). Referring to `--' values provides a greater number of ways to `slice and dice' the alphabet. It follows that featurizations which assign more `$0$' values generally (though not always) require more distinct feature functions to cover the same class system. Note however that the full featurization is still restrictive, in the sense that it does not allow any arbitrary subset of segments to be identified: for example, we cannot specify \{R, T\} to the exclusion of \{D\}.
+
+Finally, we can strike a balance in expressivity between the privative and full value sets by allowing features to take `$+$', `$-$', and `$0$' values. This is the contrastive value set. A possible contrastive featurization of $\Sigma$ is shown on the right in Table~\ref{table:son_obs_features}. Under this featurization, \featmat{voice} is now ternary, contrasting only for obstruents \cite<e.g.,>{Kiparsky1985}. This featurization picks out the same classes as the full featurization, minus the class \{R, D\}.
 
 \subsection{Parent/child relationships in class systems}
 
@@ -292,7 +350,7 @@ One reason that we depict parent/child relationships (rather than subset/superse
 \section{Intersectional closure}
 \label{sec:intersectional}
 
-The intersectional closure of a class system $C$ is the set of classes that can be generated by intersecting an arbitrary subset of classes in $C$. We relate the intersectional closure to features by showing that if a feature system is expressive enough to generate all the classes in $C$, it necessarily generates the intersectional closure of $C$. We then show that when generating a feature system from an input class system, a new feature/value pair must be added for all and only the classes that have a single parent in the intersectional closure of the input. This is because a class with more than one parent can be expressed as the union of its parents' featural descriptors.
+The intersectional closure of a class system $C$ is the set of classes that can be generated by intersecting an arbitrary subset of classes in $C$. We relate the intersectional closure to features by showing that if a feature system is expressive enough to generate all the classes in $C$, it necessarily generates the intersectional closure of $C$. This is a consequence of the familiar process of combining featural descriptors (also called feature bundles), where the union a set of featural descriptors defines the class that is the intersection of the classes they pick out individually. We formalize this carefully in order to prove a less obvious result: when generating a feature system from an input class system, a new feature/value pair must be added for all and only the classes that have a single parent in the intersectional closure of the input. This is because a class with more than one parent can be expressed as the union of its parents' featural descriptors.
 
 \subsection{Definitions}
 
@@ -304,7 +362,7 @@ The intersectional closure of a class system $C$ is the set of classes that can 
 
 \vspace{0.5\baselineskip} \noindent where $P$ ranges over every subset of the classes in $C$ and $\bigcap P$ indicates the intersection of all classes in $P$. In other words, the intersectional closure contains every class which can be generated by finite intersections of classes from $C$ (and $\Sigma$), and no other classes besides these.
 
-To illustrate this concept, we introduce the vowel inventory in Table~\ref{table:vowel_inventory}. This class system will serve as a running example throughout the rest of the paper.
+To illustrate this concept, we introduce the vowel inventory in Table~\ref{table:vowel_inventory} and a possible class system over this inventory in Table~\ref{table:vowels1}. This class system will serve as a running example throughout the rest of the paper. It is intended to strike a balance between linguistic plausibility and simplicity for expositional purposes.
 
 \begin{table}[h]
     \centering
@@ -520,6 +578,7 @@ The notation used to define the algorithms may be unfamiliar to some readers. Ta
 \subsection{Privative specification}
 
 The first algorithm yields a \textit{privative} featurization of a set of classes: that is, one where the set of legal feature values $V = \{+, 0\}$. It does so by assigning a different feature/value pair, \featmat{$+f$}, to the segments in each class with a single parent.
+
 \noindent \begin{algorithmic}
 	\singlespacing
     \REQUIRE $C_\cap$ is the intersectional closure of a class system $(C, \Sigma)$
@@ -545,7 +604,7 @@ The first algorithm yields a \textit{privative} featurization of a set of classe
 
 A featurization algorithm is \textit{sound} if for every class system $(C, \Sigma)$, it returns a feature system which covers $C$. To see that the privative specification algorithm is sound, note that every class in $C_\cap$ enters the queue $Q$. For an arbitrary class $X$ in the queue, there are three cases. If $X$ has 0 parents, then it is $\Sigma$, and is covered by the empty featural descriptor. If $X$ has exactly 1 parent, then the segments in $X$ will have the features of that parent (which uniquely pick out the parent class), plus a new feature $f$ which distinguishes the segments in $X$ from $X$'s parent. If $X$ has more than 1 parent, then Multiple Parenthood Theorem shows, via the Featural Intersection Lemma, that the union of features of $X$'s parents uniquely pick out all and only the segments in $X$. Thus, each class which exits the queue has a set of features assigned to its segments which pick out that class uniquely. This completes the proof. $\square$
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering
 	\begin{minipage}{0.45\textwidth}
 		\centering
@@ -628,7 +687,7 @@ The central insight developed in this paper is that a new feature needs to be as
 
 \noindent The soundness of this algorithm follows from the soundness of the privative specification algorithm. This is because the complementary specification algorithm yields a feature system which generates the same class system as privative specification does. The difference between the two is that if the input contains complement sets, then complementary specification will use a single feature with `$+$' and `$-$' values, where privative specification will have two features with just `$+$' values.
 
-\begin{figure}
+\begin{figure}[htb!]
 	\centering
 	\begin{minipage}{0.45\textwidth}
 		\centering
@@ -736,7 +795,7 @@ The output of this algorithm on the simple class system in Fig.~\ref{fig:toy_sys
 	\label{table:toy_system_ic}
 \end{table}
 
-Note that, as with complementary specification, only two features are needed to cover the input. However, the leaner has inferred the existence of a class \{c\}, because its complement \{b\} with respect to its parent \{b,c\} was present in the input. As a result, c is no longer unspecified for F2.
+Note that, as with complementary specification, only two features are needed to cover the input. However, the learner has inferred the existence of a class \{c\}, because its complement \{b\} with respect to its parent \{b,c\} was present in the input. As a result, c is no longer unspecified for F2.
 
 The feature system yielded by IC specification is more expressive than the ones yielded by privative or complementary specification, but it is not maximally expressive, since there are still `$0$' values. When a new feature is added, non-zero values are assigned only to classes that are descendants of the parent of the class that generates the feature. If we want to eliminate all `$0$' values, we can do complementation with respect to $\Sigma$ rather than the parent. That is the final variant -- full specification.
 
@@ -827,7 +886,9 @@ We now illustrate the performance of these algorithms on a more plausible input 
 \section{Theoretical implications of different featurizations}
 \label{sec:theoretical_implications}
 
-The examples in this section will use the vowel class inventory shown in Fig.~\ref{fig:vowel_inventory} as input. For readability we use familiar feature names when the feature picks out more than one segment, and the segment's name when the feature only picks out a single segment. However, this is a convenience for the reader, and does not reflect the featurization algorithm. In the code we provide, learned features are generated with numeric labels like F1, F2, etc. We will also occasionally swap the `+' and `--' values of a learned feature for readability.
+The examples in this section will use the vowel class inventory shown in Fig.~\ref{fig:vowel_inventory} as input. For readability we generally use familiar feature names when the feature picks out more than one segment, and the segment's name (e.g., \featmat{+i}) when the feature only picks out a single segment. These single segment features are a consequence of the singleton sets being included in the input. Because the feature systems generated by this model must be able to pick out every class in the input, these features are generated when a singleton set cannot be described as the intersection of the larger sets in the intersectional closure. This is consistent with the suggestion in Section~\ref{sec:intro} that the primary role of features is to distinguish classes of sounds.
+
+The feature names used below are a convenience for the reader, and do not reflect the featurization algorithm. In the code we provide, learned features are generated with numeric labels like F1, F2, etc. We will also occasionally swap the `+' and `--' values of a learned feature for readability.
 
 \subsection{Privative specification}
 
@@ -844,14 +905,14 @@ In Fig.~\ref{fig:privative}, we illustrate the outcome of applying the privative
 	\centering
 	\begin{tabular} {|c||c|c|c|c|c|c|c|c|c|c|}
 		\hline
-		$\sigma$ & nonlow & low & front & high & round & i & u & e & o & \o \\ \hline
-		a & 0 & + & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-		i & + & 0 & + & + & 0 & + & 0 & 0 & 0 & 0 \\
-		u & + & 0 & 0 & + & + & 0 & + & 0 & 0 & 0 \\
-		e & + & 0 & + & 0 & 0 & 0 & 0 & + & 0 & 0 \\
-		o & + & 0 & 0 & 0 & + & 0 & 0 & 0 & + & 0 \\
-		y & + & 0 & + & + & + & 0 & 0 & 0 & 0 & 0 \\
-		\o & + & 0 & + & 0 & + & 0 & 0 & 0 & 0 & + \\
+		$\sigma$ & nonlow & front & high & round & a & i & u & e & o & \o \\ \hline
+		a & 0 & 0 & 0 & 0 & + & 0 & 0 & 0 & 0 & 0 \\
+		i & + & + & + & 0 & 0 & + & 0 & 0 & 0 & 0 \\
+		u & + & 0 & + & + & 0 & 0 & + & 0 & 0 & 0 \\
+		e & + & + & 0 & 0 & 0 & 0 & 0 & + & 0 & 0 \\
+		o & + & 0 & 0 & + & 0 & 0 & 0 & 0 & + & 0 \\
+		y & + & + & + & + & 0 & 0 & 0 & 0 & 0 & 0 \\
+		\o & + & + & 0 & + & 0 & 0 & 0 & 0 & 0 & + \\
 		\hline
 	\end{tabular}
 	\caption{Featural specification of the vowel system with privative specification.}
@@ -898,17 +959,19 @@ Now only nine features are required. The segment /a/, which was \featmat{+nonlow
 
 An additional point of note is that /y/ is assigned the feature/value pairs \featmat{--\textipa{i}}, \featmat{--u}, and \featmat{--\textipa{\o}}, and hence these features are now ternary. This occurs because /y/ is a complement to the classes with single parents that motivate the addition of these features.
 
-In general, the requirements for receiving a \featmat{$-f$} value are not as strict as receiving a \featmat{$+f$} value: \featmat{$-f$} classes may have more than one parent (as \{y\} does here). In addition, they do not necessarily need to be siblings of the class motivating the addition of the new feature, although in Fig.~\ref{fig:vowel_inventory_complementary} they happen to be. Restricting the assignment of \featmat{$-f$} values in the same way as \featmat{$+f$} values introduces complications for other types of featurization presented here, such as the full specification algorithm. Note that the remaining features (\featmat{front}, \featmat{high}, \featmat{round}, \featmat{\textipa{e}}, \featmat{o}) are still privative, because their respective complements are not present in the input.
+In general, the requirements for receiving a \featmat{$-f$} value are not as strict as receiving a \featmat{$+f$} value: \featmat{$-f$} classes may have more than one parent (as \{y\} does here). In addition, they do not necessarily need to be siblings of the class motivating the addition of the new feature, although in Fig.~\ref{fig:vowel_inventory_complementary} they happen to be. Restricting the assignment of \featmat{$-f$} values in the same way as \featmat{$+f$} values introduces complications for other types of featurization presented here, such as the full specification algorithm. Note that the remaining features (\featmat{front}, \featmat{high}, \featmat{round}, \featmat{\textipa{e}}, \featmat{o}) are still privative, because their respective complements are not present in the input. 
 
 The type of featurization generated by the complementary specification algorithm is consistent with many contemporary feature systems, where some features are privative (e.g., \featmat{LABIAL}), some are binary (e.g., \featmat{son}), and some are ternary (e.g., \featmat{back}. This most closely resembles systems that assume what \citeA{Archangeli1988} calls \textit{contrastive specification}: feature/value pairs are assigned only to the subset of segments where the feature is distinctive. 
 
-Consistent with much work on underspecification \cite<e.g.,>{Archangeli1984, ArchangeliPulleyblank1989, ArchangeliPulleyblank1994}, this model predicts that underspecification may vary across languages. The typological regularities that have led researchers to propose certain features as being inherently underspecified, such as the place features \featmat{LABIAL}, \featmat{CORONAL}, and \featmat{DORSAL} \cite<e.g.,>{Sagey1986} are considered to be consequences of the system that identifies classes in a language, rather than a restriction on the kinds of contrasts feature systems can encode. It is also incompatible with theories where markedness plays some role in determining featural specification \cite<see section 2.1.3 in >[ and references therein]{Archangeli1988}, since there is no notion  of markedness encoded in the model.
+Consistent with much work on underspecification \cite<e.g.,>{Archangeli1984, ArchangeliPulleyblank1989, ArchangeliPulleyblank1994}, this model predicts that underspecification may vary across languages. The typological regularities that have led researchers to propose certain features as being inherently underspecified, such as the place features \featmat{LABIAL}, \featmat{CORONAL}, and \featmat{DORSAL} \cite<e.g.,>{Sagey1986} are considered to be consequences of the system that identifies classes in a language, rather than a restriction on the kinds of contrasts feature systems can encode. This model is also incompatible with theories where markedness plays some role in determining featural specification \cite<see section 2.1.3 in >[ and references therein]{Archangeli1988}, since there is no notion  of markedness encoded in the model.
+
+The particular featurization derived here using contrastive specification does not seem linguistically plausible, but as the next section will show, this is largely a consequence of the particular input classes chosen. See Section~\ref{sec:feature_theory} for an example of a more realistic featurization derived using contrastive specification.
 
 \subsection{Conservational properties of featurizations}
 
 One point to observe is that the privative specification and complementary specification algorithms are \textit{maximally conservative}. What we mean by this is that the resulting feature system generates the smallest class system that covers $C$. As the Intersectional Closure Covering Theorem showed, any featurization which covers $C$ will cover $C_\cap$. This means that any classes which are the intersection of input classes, but which were not themselves in the input, will be accessible to the output feature system. But the privative and complementary specification algorithms will not make it possible to refer to any other classes outside the intersectional closure. For example, the vowel system here contains a \featmat{+front} class and a \featmat{+round} class, and it necessarily generates a \featmattwo{+front}{+round} class. However, it does not infer the existence of a \featmat{--round} class based on the existence of the \featmat{+round} class.
 
-It is easy to show that one can sometimes achieve a more efficient feature system by adding classes to the system. For example, the privative featurization of the vowel system contains ten features, and the complementary specification featurization contains nine. If we change the input to consist of the classes shown in Table~\ref{table:vowels2}, however, the privative specification algorithm returns a featurization with eight features, and complementary specification returns one with only four features.\footnote{We will not illustrate this here, but you might enjoy doing this yourself using the definitions given above of the intersectional closure and the algorithms.} Crucially, this featurization covers the original class system shown in Fig.~\ref{fig:vowel_inventory}. Thus, it uses fewer features while generating a richer class system.
+It is easy to show that one can sometimes achieve a more efficient feature system by adding classes to the system. For example, the privative featurization of the vowel system contains ten features, and the complementary specification featurization contains nine. If we change the input to consist of the classes shown in Table~\ref{table:vowels2}, however, the privative specification algorithm returns a featurization with eight features, and complementary specification returns one with only four features. The privative system requires two fewer features because the addition of the mid, back, and unround classes requires an additional three features (\featmat{back}, \featmat{unround}, and \featmat{mid}), but allows us to remove five singleton features (all except \featmat{a}), since the corresponding singleton classes can now be generated by the intersection of larger classes. This is also true for the contrastive system, which in addition can remove the \featmat{mid}, \featmat{back}, \featmat{unround}, and \featmat{a} features, since they fall into a complementary relationship with the \featmat{+high}, \featmat{+front}, \featmat{+round}, and \featmat{+nonlow} classes respectively, and can be assigned `$-$' values for those features. Crucially, these featurizations cover the original class system shown in Fig.~\ref{fig:vowel_inventory}. Thus, they use fewer features while generating a richer class system.
 
 \begin{table}[h]
 	\centering
@@ -943,7 +1006,7 @@ In the meantime, we turn to the second point this example makes -- adding the `r
 
 \subsection{Inferential complementary specification}
 
-Fig.~\ref{fig:vowel_inventory_ic} illustrates the featural plot of the IC specification algorithm on the vowel system, with the corresponding feature chart shown in Table~\ref{table:vowel_inventory_ic} (the topological plot is shown in Appendix~\ref{app:topological}). Now the complement classes with respect to their parent of the round, high, and front classes have been added, resulting in a more efficient and expressive featurization containing only binary or ternary features. In fact, this algorithm infers the same classes that we added in the vowel system in Table~\ref{table:vowels2} above. Only /a/ has any unspecified values, since it is a child only of $\Sigma$.
+Fig.~\ref{fig:vowel_inventory_ic} illustrates the featural plot of the IC specification algorithm on the vowel system, with the corresponding feature chart shown in Table~\ref{table:vowel_inventory_ic} (the topological plot is shown in Appendix~\ref{app:topological}). Now the complement classes with respect to their parent of the round, high, and front classes have been added, resulting in a more efficient and expressive featurization containing only binary or ternary features. Only /a/ has any unspecified values, since it is a child only of $\Sigma$. In fact, this algorithm infers the same classes that we added in the vowel system in Table~\ref{table:vowels2} above.
 
 % FIGURE 6
 \begin{figure}[htb!]
@@ -970,6 +1033,8 @@ Fig.~\ref{fig:vowel_inventory_ic} illustrates the featural plot of the IC specif
 	\caption{Featural specification of the vowel system with IC specification.}
 	\label{table:vowel_inventory_ic}
 \end{table}
+
+Note that while the class systems for the privative and contrastive specifications shown in Figs.~\ref{fig:privative} and~\ref{fig:vowel_inventory_complementary} are identical to the input and to each other, the derived class system in Fig.~\ref{fig:vowel_inventory_ic} is substantially larger. In particular, despite only three classes being explicitly added by the algorithm (the \featmat{--round}, \featmat{--high}, and \featmat{--front} classes), the resulting class system contains a total of 20 classes, while the input contained only 15. The additional two classes are the result of intersectional closure generating \featmattwo{--high}{+round} and \featmattwo{--high}{+front} classes.
 
 The addition of these classes produces a more efficient featurization that covers the same classes as the complementary algorithm, at the cost of altering the original class system. Thus this featurization reflects a model of feature learning that differs in an important way from the previous two algorithms.
 
@@ -1006,15 +1071,17 @@ The featural plot of the full specification algorithm on the vowel system is sho
 
 The number of features in the full featurization is the same as the IC featurization, but now /a/ is fully specified for all features, and several new classes have been introduced as a consequence, significantly altering the overall structure of the class system.
 
+As in the IC algorithm, only three new classes are explicitly added to the class system: the \featmat{--round}, \featmat{--high}, and \featmat{--front} classes. However, the resulting class system now contains 25 classes rather than 20. This is a consequence of these new classes containing the segment /a/, which greatly increases the number of classes accessible in the intersectional closure. Because /a/ is now specified for all features, the classes specified by the featural descriptors  \featmat{--front}, \featmat{--high}, \featmat{--round}, \featmattwo{--front}{--high} and \featmattwo{--round}{--high} now contain /a/. The same classes that were characterized by these featural descriptors under the IC featurization can only be picked out by adding \featmat{--low} to each of these descriptors, resulting in the additional five classes we see.
+
 A key way in which full specification differs from IC specification is that no underspecification can occur whatsoever. This is due to the domain over which new classes are created: IC specification creates new classes with respect to the parent of the class motivating the new features, while full specification creates them with respect to the entire alphabet.
 
-For example, if a single feature \featmat{+nasal} is used to pick out nasal segments, then the feature system will also generate the class \featmat{--nasal} consisting of all non-nasal segments. According to our understanding of nasal typology, this is probably not the desired behavior for the nasal feature \cite<e.g.,>{Trigo1993}.\footnote{Though see, e.g., \citeA{Padgett2002} for an analysis that relies on \featmat{--nasal} specification.} However, it is possible to avoid generating a \featmat{--nasal} class by ensuring that the nasals are generated as the union of pre-existing features, rather than needing their own feature. For example, if \featmat{--continuant} picks out the nasals and oral stops, while \featmat{+sonorant} picks out vowels, glides, liquids, and nasals, then the nasal class is picked out by \featmattwo{--continuant}{+sonorant}. Therefore, the set of all non-nasals will not generated as a complement class because the \featmat{+nasal} feature is not generated at all. A desirable property of this solution is that the following classes fall out: continuant non-sonorants (fricatives), continuant sonorants (approximants), and non-continuant non-sonorants (stops and affricates). Less desirably, this solution fails to transparently represent nasal spreading processes; for example, vowel nasalization cannot be described as continuancy or sonorancy assimilation. Thus, the cross-linguistic behavior and learnability of classes like \featmat{--nasal} has the potential to inform feature theory. We take up this and other issues in Section \ref{sec:discussion}.
+For example, if a single feature \featmat{+nasal} is used to pick out nasal segments, then the feature system will also generate the class \featmat{--nasal} consisting of all non-nasal segments. According to our understanding of nasal typology, this is probably not the desired behavior for the nasal feature \cite<e.g.,>{Trigo1993}.\footnote{Though see, e.g., \citeA{Padgett2002} for an analysis that relies on \featmat{--nasal} specification.} However, it is possible to avoid generating a \featmat{--nasal} class by ensuring that the nasals are generated as the union of pre-existing features, rather than needing their own feature. For example, if \featmat{--continuant} picks out the nasals and oral stops, while \featmat{+sonorant} picks out vowels, glides, liquids, and nasals, then the nasal class is picked out by \featmattwo{--continuant}{+sonorant}. Therefore, the set of all non-nasals will not be generated as a complement class because the \featmat{+nasal} feature is not generated at all. A desirable property of this solution is that the following classes fall out: continuant non-sonorants (fricatives), continuant sonorants (approximants), and non-continuant non-sonorants (stops and affricates). Less desirably, this solution fails to transparently represent nasal spreading processes; for example, vowel nasalization cannot be described as continuancy or sonorancy assimilation. Thus, the cross-linguistic behavior and learnability of classes like \featmat{--nasal} has the potential to inform feature theory. We take up this and other issues in Section \ref{sec:discussion}.
 
 \FloatBarrier
 \section{Discussion}
 \label{sec:discussion}
 
-In this paper, we have described a number of algorithms which assign a featurization to a set of classes, such that every class in the input can be picked out by a featural descriptor. We gave several variants of the algorithm, differing in the types of features they assign and how conservative they are with respect to the input. The most conservative algorithm assigns a privative specification, i.e., feature functions which only pick out positively specified elements. Complementary specification is achieved with the same algorithm, except that a negative specification is assigned just in case the complement of a class with respect to its parent class is in the input. Inferential complementary specification is similar, except that a negative specification is assigned even if the complement with respect to the parent was not in the input. Full specification is similar to IC specification, except the complement is taken with respect to the entire segmental alphabet. In this section, we discuss some outstanding issues, such as feature economy, how the current work bears on feature theory, and applications toward a richer theory of feature learning.
+In this paper, we have described a number of algorithms which assign a featurization to a set of classes, such that every class in the input can be picked out by a featural descriptor. We gave several variants of the algorithm, differing in the types of features they assign and how conservative they are with respect to the input. The most conservative algorithm assigns a privative specification, i.e., feature functions which only pick out positively specified elements. Complementary specification is achieved with the same algorithm, except that a negative specification is assigned just in case the complement of a class with respect to its parent class is in the input. Inferential complementary specification is similar, except that a negative specification is assigned even if the complement with respect to the parent was not in the input. Full specification is similar to IC specification, except the complement is taken with respect to the entire segmental alphabet. In this section, we discuss some outstanding issues, such as feature efficiency and expressiveness, and how the current work bears on feature theory.
 
 \subsection{Feature efficiency and expressiveness}
 
@@ -1027,6 +1094,7 @@ The opposite extreme is obtained by the \textit{singleton complement} input -- w
 The powerset of $\Sigma$ is also generated by running the full specification algorithm on the singleton input. Thus, there are cases where a more conservative algorithm yields the same class system as a less conservative algorithm (albeit with a different number of features). In fact, it is generally true that the more conservative algorithms can achieve the same level of expressiveness as any less conservative algorithm, by virtue of including the relevant complement classes in the input. For example, if all complement classes with respect to $\Sigma$ are included, the privative specification algorithm yields the same class system as the full specification one does, although with twice the number of features (the singleton complement input discussed above is a special case of this). Moreover, complementary specification, IC specification, and full specification all yield the same featurization (as well as the same class system) if every relevant complement class is included. In short, the algorithms can yield radically different class systems depending on their input -- but all can be made highly expressive by tailoring the input appropriately.
 
 \subsection{Relation to feature theory}
+\label{sec:feature_theory}
 
 As the examples in the preceding section illustrate, the most conservative algorithms (privative and complementary specification) are able to yield class systems that are as expressive as the less conservative algorithms. However, the converse is not true. For example, full specification cannot yield a class system as unexpressive as the singleton input does under privative specification. So which algorithm best reflects our knowledge of feature systems? One principle is that a feature system is good to the extent that learned features render the grammar simpler and/or more insightful. For example, the use of `$+$' and `$-$' values yields insight if both values behave in the same way with respect to a harmony or assimilation process.
 
@@ -1042,13 +1110,13 @@ For reasons of space, we do not prove that those are the correct conditions. Ins
 	\centering
 	\begin{tabular} {|l|l|}
 		\hline
-		\textit{alphabet } & \{a, i, u, l, r, m, n, \textipa{N}, p, t, k, b, d, g\} \\
+		\textit{alphabet } & \{a, i, u, l, r, m, n, \textipa{N}, p, t, k, b, d, \textipa{g}\} \\
 		\hline
-		\textit{consonants} & \{l, r, m, n, \textipa{N}, p, t, k, b, d, g\} \\
+		\textit{consonants} & \{l, r, m, n, \textipa{N}, p, t, k, b, d, \textipa{g}\} \\
 		\hline
 		\textit{sonorants} & \{a, i, u, l, r, m, n, \textipa{N}\} \\
 		\hline
-		\textit{obstruents} & \{p, t, k, b, d, g\} \\
+		\textit{obstruents} & \{p, t, k, b, d, \textipa{g}\} \\
 		\hline
 		\textit{coronal} & \{n, l, r, t, d\} \\
 		\hline
@@ -1058,11 +1126,11 @@ For reasons of space, we do not prove that those are the correct conditions. Ins
 		\hline
 		\textit{voiceless} & \{p, t, k\} \\
 		\hline
-		\textit{voiced} & \{b, d, g\} \\
+		\textit{voiced} & \{b, d, \textipa{g}\} \\
 		\hline
 		\textit{labial} & \{m, p, b\} \\
 		\hline
-		\textit{dorsal} & \{\textipa{N}, k, g\} \\
+		\textit{dorsal} & \{\textipa{N}, k, \textipa{g}\} \\
 		\hline
 		\textit{liquids} & \{l, r\} \\
 		\hline
@@ -1071,7 +1139,7 @@ For reasons of space, we do not prove that those are the correct conditions. Ins
 		\textit{rhotic} & \{r\} \\
 		\hline
 	\end{tabular}
-	\caption{Vowel inventory with extra classes (bolded)}
+	\caption{A large class system}
 	\label{table:big_features}
 \end{table}
 We omit most of the singleton sets for reasons of exposition, although many are derived by intersectional closure. The class system that results from running the complementary algorithm on this input is shown in Fig.~\ref{fig:big_alphabet}. The features \featmat{cons} and \featmat{son} are binary because each one partitions $\Sigma$. The features \featmat{LAB}, \featmat{COR}, \featmat{DOR}, \featmat{nas} and \featmat{liquid} are privative, because their complement (with respect to every ancestor) is not included in the input. The remaining features \featmat{voice} and \featmat{lat} are ternary, because their complements (with respect to the parent, which is not $\Sigma$) are included in the input. We invite the reader to determine what happens to the \featmat{voice} feature if the input includes the class of all phonetically voiced segments (i.e., $\Sigma \setminus \text{\{p, t, k\}}$).
@@ -1087,21 +1155,9 @@ It is our hope that the algorithms described in this paper might be used in gene
 
 Because these algorithms generate underspecification as a function of the relationship between the input classes, it may be expected to vary cross-linguistically. In addition, the model of feature learning requires that notions of markedness not be a determining factor in underspecification. The appropriate application of underspecification has been somewhat controversial in the past \cite<e.g.,>{Steriade1995}. A contribution of this paper is that it provides a completely deterministic method for generating underspecification, depending only on the input classes and the featurization method used. This is perhaps similar to hierarchical decision-tree systems \cite<e.g.,>{Dresher2003, Hall2007}, except that in such models, the hierarchical ordering of features must be specified by the analyst, while here it falls out naturally from the relations between the input classes. An unambiguous method for determining underspecification is doubtless of value to the field, and we leave as a question for future research how closely the methods described here line up with past analyses, and whether the predictions they make are borne out empirically.
 
-We have not discussed the possibility of applying `$-$' feature values to complements with respect to an ancestor other than the parent or $\Sigma$. This bears directly on where underspecification should occur. For example, we may want to specify every coronal obstruent as either \featmat{+strident} or \featmat{--strident}, and all non-coronals as \featmat{0strident}. It is less clear, though, how we should specify coronal sonorants for \featmat{strident}. We do not put forth a concrete proposal for whether and how this should be done, but leave it as a possible area for future research informed by empirical phonological evidence.
+We have not discussed the possibility of applying `$-$' feature values to complements with respect to an ancestor other than the parent or $\Sigma$. This bears directly on where underspecification should occur. For example, we may want to specify every coronal obstruent as either \featmat{+strident} or \featmat{--strident}, and all non-coronals as \featmat{0strident}. It is less clear, though, whether coronal sonorants should be specified as \featmat{--strident} or \featmat{0strident}. Defining the \featmat{--strident} class as the complement of the \featmat{+strident} class with respect to just the set of coronal obstruents will result in coronal sonorants being unspecified for \featmat{strident}, while defining it as the complement with respect to the full class of coronals will result in coronal sonorants being \featmat{--strident}. We do not put forth a concrete proposal for how one might choose which ancestor to use for complementation, but a possible strategy would be to consider the complement with respect to every ancestor of the target class, and choose the one that results in the most efficient feature system (by some criterion), or that avoids implausible features (perhaps based on phonetic criteria). We leave this as a possible area for future research informed by empirical phonological evidence.
 
 Finally, it is worth touching briefly upon the challenges for underspecification theory posed by Richness of the Base \cite{PrinceSmolensky1993}. This stipulates that there are no constraints on the input, and so a grammar must be able to deal sensibly with both fully specified and underspecified forms. This rules out analyses that rely on certain segments being underspecified in the input, but underspecification is still permitted, and important for other reasons. For example, if phonological constraints are learned from positive input data \cite<e.g.,>{HayesWilson2008}, underspecified features serve an important role in constraining the generalizations the learner may make by limiting what the phonological grammar can reference. We also note that language-specific features complicate the handling of non-native input forms. We follow \citeA{Hall2007} in suggesting that the answer for this lies in a better understanding of how speakers map acoustic input onto the phonological representations of their language.
-
-\subsection{Class learning}
-
-A potential objection to this work is that it shifts too much responsibility onto the identification of the input classes. We believe that this shift is motivated. Generally speaking, we think that deeper insights into speech may be gained by focusing on the mechanisms by which classes are identified, and how these contribute to the typological patterns we see, rather than constructing models that generate the typology and subsequently concerning ourselves with the exceptions. 
-
-Models of class learning have been presented for various modalities. We are not aware of any proposals to date which have been fleshed out enough to be carefully tested, and which have proven empirically adequate. For example, \citeA{Lin2005} showed that unsupervised clustering on acoustic data was able to distinguish manner of articulation well, but not place. Conversely, unsupervised clustering on articulatory data is better able to distinguish place features, but poor at manner \cite{Mielke2012}. Such phonetically-based methods are able (in principle) to identify features corresponding to acoustic, articulatory, or perceptual properties, but these provide limited insights into the phonetically disparate classes described in the introduction, and into which classes are phonologically active in a particular language. 
-
-Conversely, while distributional approaches \cite<e.g.,>{GoldsmithXanthos2009,Calderone2009,MayerSubmitted} have the potential (in principle) to identify both phonetically coherent and phonetically disparate classes to the extent that they are reflected in their distribution, they are blind to the phonetic properties that inform speakers' intuitions about similarities between sounds, and suffer from the presence of distributional noise. 
-
-It seems likely to us that progress will come from integrating multiple sources of information, with phonetic information providing an outline of possible classes, and distributional information shedding additional light on how and whether these classes (and possibly others) are used in a language. We see potential in methods like those described in a related paper by \citeA{MayerSubmitted}, which uses a combination of vector embedding (representing sounds numerically as points in space based on their distributional properties), Principal Component Analysis, and clustering algorithms to explicitly extract classes from a corpus. Incorporating phonetic information with distributional information may improve the performance of such models. Alternatively, a Bayesian approach, where phonetic similarity serves as an initial prior on segmental classes and considerations of their distribution inform the likelihood function, may also hold promise. A challenge for the extraction of classes from phonetic data is that classes of sounds are almost always similar only on a subset of phonetic dimensions (e.g., sonorants are articulatorily heterogeneous, but have similar acoustic properties), and the use of dimensionality reduction techniques such as Principal Component Analysis is likely to be useful in teasing apart these sources of coherence.
-
-In any case, what must be learned under models of feature learning, even those that do not incorporate distributional learning, are \textit{classes}, with features subsequently derived from their relation. We see the question of how phonological classes are learned as one of great interest, and we hope that the work here serves as a useful component in learning models and a tool in future empirical investigations.
 
 \FloatBarrier
 \section{Conclusion}
