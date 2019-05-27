@@ -1,0 +1,16 @@
+// None
+digraph {
+    graph [ dpi = 300 ];
+    0 [label="{<segs> Coronals |<feats> +coronal }",shape=record]
+    1 [label="{<segs> Coronal obstruents |<feats> +coronal\n-sonorant }",shape=record]
+    2 [label="{<segs> Coronal sonorants |<feats> +coronal\n+sonorant\n-sonorant }",shape=record]
+    3 [label="{<segs> Stridents |<feats> +coronal\n-sonorant\n+strident }",shape=record]
+    4 [label="{<segs> Non-stridents |<feats> +coronal\n-strident }",shape=record]
+    5 [label="{<segs> Non-strident obstruents |<feats>  +coronal\n-sonorant\n-strident}", shape=record]
+    0 -> 1  [xlabel="-sonorant",fontcolor=blue,color=blue]
+    0 -> 4  [label="-strident",fontcolor=blue,color=blue]
+    4 -> 2  [label="+sonorant",fontcolor=red, color=red]
+    1 -> 3  [xlabel="+strident", fontcolor=red, color=red]
+    4 -> 5  [style=dashed]
+    1 -> 5  [style=dashed]
+}

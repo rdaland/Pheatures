@@ -5,7 +5,7 @@ digraph {
 	1 [label="{<segs> a |<feats> +F1 }",shape=record]
 	2 [label="{<segs> b, c |<feats> -F1 }",shape=record]
 	3 [label="{<segs> b |<feats> -F1\n+F2 }",shape=record]
-	4 [label="{<segs> c |<feats> -F1\n-F2 }",shape=record,style=dashed]
+	4 [label="{<segs> c |<feats> -F1\n-F2 }",shape=record,style=filled]
 	0 -> 1	[xlabel="+F1",fontcolor=red,color=red]
 	0 -> 2	[label="-F1",fontcolor=blue,color=blue]
 	2 -> 3	[xlabel="+F2",fontcolor=red,color=red]
